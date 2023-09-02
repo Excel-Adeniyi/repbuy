@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
+import 'package:shapmanpaypoint/Screens/signup/signup.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -27,7 +28,14 @@ class LoginScreen extends StatelessWidget {
                   height: 40,
                 ),
                 const Text(
-                  'Welcome to Sharpman Paypoint',
+                  'Welcome to Sharpman',
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+                const Text(
+                  'Paypoint',
                   style: TextStyle(
                       fontSize: 24,
                       color: Colors.black,
@@ -66,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                                 MaterialStateProperty.all(Colors.white),
                             fixedSize: MaterialStateProperty.all(
                                 const Size(200.0, 10.0))),
-                        onPressed: () => {Get.to(SignIn())},
+                        onPressed: () => {Get.toNamed('/signin')},
                         child: const Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +118,9 @@ class LoginScreen extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           ),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed('/signup');
+                              },
                               child: const Text(
                                 'Register Now',
                                 style: TextStyle(color: Colors.white),
