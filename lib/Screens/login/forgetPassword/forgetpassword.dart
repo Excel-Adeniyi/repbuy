@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/Screens/login/otpScreen/otp.dart';
-import 'package:shapmanpaypoint/components/colors/coloors.dart';
+import 'package:shapmanpaypoint/components/otpScreen/otp.dart';
+import 'package:shapmanpaypoint/helpers/colors/coloors.dart';
 
 class ForgetPassword extends StatelessWidget {
   // const ForgetPassword({super.key});
@@ -73,7 +73,7 @@ class ForgetPassword extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16)),
                   child: TextButton(
                     onPressed: () {
-                      Get.to(OtpScreen());
+                      Get.toNamed('/otp');
                     },
                     child: const Text(
                       'Submit',
