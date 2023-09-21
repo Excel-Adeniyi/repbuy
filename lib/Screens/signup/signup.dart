@@ -22,6 +22,15 @@ class SignupScreen extends StatelessWidget {
   List<String> options = country_list;
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double containerHeight;
+    if (screenHeight < 480) {
+      containerHeight = 300;
+    } else if (screenHeight < 900) {
+      containerHeight = 700;
+    } else {
+      containerHeight = 1300;
+    }
     double containerWidth = ScreenWidth.calculateContainerWidth(context);
     return GestureDetector(
       onTap: () {
@@ -35,326 +44,350 @@ class SignupScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Center(
-          child: SingleChildScrollView(
-            child: Obx(
-              () {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const Text('Sign Up'),
-                    TextButton(
-                      style: ButtonStyle(
-                          shadowColor:
-                              MaterialStateProperty.all(Colors.black54),
-                          elevation: MaterialStateProperty.all(8),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          fixedSize: MaterialStateProperty.all(
-                              const Size(200.0, 10.0))),
-                      onPressed: () => {},
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'lib/assets/googlelogo.png',
-                            width: 40,
-                          ),
-                          const Text(
-                            'Sign in with Google',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                    const Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(child: Divider()),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text('or'),
-                        ),
-                        Expanded(child: Divider())
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: containerWidth,
-                      height: 50,
-                      child: TextField(
-                        focusNode: _firstnamefocus,
-                        style: const TextStyle(
-                            color: Colors.black54, fontSize: 14),
-                        keyboardType: TextInputType.name,
-                        decoration: const InputDecoration(
-                            label: Text(
-                              'First name',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 14),
-                            ),
-                            hintText: 'enter your last first name',
-                            border: OutlineInputBorder()),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                      width: containerWidth,
-                      height: 50,
-                      child: TextField(
-                        focusNode: _secondnamefocus,
-                        keyboardType: TextInputType.name,
-                        style: const TextStyle(
-                            color: Colors.black54, fontSize: 14),
-                        decoration: const InputDecoration(
-                            label: Text(
-                              'Last name',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 14),
-                            ),
-                            hintText: 'enter your last name',
-                            border: OutlineInputBorder()),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                      width: containerWidth,
-                      height: 50,
-                      child: TextField(
-                        focusNode: _emailfocus,
-                        style: const TextStyle(
-                            color: Colors.black54, fontSize: 14),
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
-                            label: Text(
-                              'Email',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 14),
-                            ),
-                            hintText: 'enter your email address',
-                            border: OutlineInputBorder()),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                      width: containerWidth,
-                      height: 50,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey, width: 0.9),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(3))),
-                        child: DropdownButton(
-                          underline: Container(),
-                          value: controller.selectedOption.value,
-                          items: options.map((String option) {
-                            return DropdownMenuItem<String>(
-                              value: option,
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                                child: Text(option),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            controller.selectedOption.value = newValue!;
-                          },
+          child: SizedBox(
+            height: containerHeight,
+            child: SingleChildScrollView(
+              child: Obx(
+                () {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return const LinearGradient(
+                                  colors: [
+                                Color(0xFF5423bb),
+                                Color(0xFF8629b1),
+                                Color(0xFFa12cab),
+                              ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter)
+                              .createShader(bounds);
+                        },
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                      width: containerWidth,
-                      height: 50,
-                      child: TextField(
-                        focusNode: _phonefocus,
-                        keyboardType: TextInputType.phone,
-                        style: const TextStyle(
-                            color: Colors.black54, fontSize: 14),
-                        decoration: const InputDecoration(
-                            label: Text(
-                              'Phone number',
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 14),
+                      TextButton(
+                        style: ButtonStyle(
+                            shadowColor:
+                                MaterialStateProperty.all(Colors.black54),
+                            elevation: MaterialStateProperty.all(8),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            fixedSize: MaterialStateProperty.all(
+                                const Size(200.0, 10.0))),
+                        onPressed: () => {},
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'lib/assets/googlelogo.png',
+                              width: 40,
                             ),
-                            hintText: 'enter your mobile number',
-                            border: OutlineInputBorder()),
+                            const Text(
+                              'Sign in with Google',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                      width: containerWidth,
-                      height: 50,
-                      child: TextField(
-                        obscureText: _obscurer.isVisible.value,
-                        focusNode: _passwordfocus,
-                        style: const TextStyle(fontSize: 13),
-                        decoration: InputDecoration(
-                            border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4.0)),
-                            ),
-                            labelText: 'Enter Password',
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  _obscurer.passwordObscureToggle();
-                                },
-                                icon: Icon(
-                                  _obscurer.isVisible.value
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                  size: 16,
-                                ))),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                      width: containerWidth,
-                      height: 50,
-                      child: TextField(
-                        obscureText: _obscurer.isCVisible.value,
-                        focusNode: _confirmpasswordfocus,
-                        style: const TextStyle(fontSize: 13),
-                        decoration: InputDecoration(
-                            border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4.0)),
-                            ),
-                            labelText: 'Confirm password Password',
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  _obscurer.confirmPasswordObscureToggle();
-                                },
-                                icon: Icon(
-                                  _obscurer.isCVisible.value
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                  size: 16,
-                                ))),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                      width: containerWidth,
-                      child: Row(
+                      const Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Checkbox(
-                            value: _obscurer.checked.value,
-                            onChanged: _obscurer.confirmChecked,
+                          Expanded(child: Divider()),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text('or'),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 230,
-                                child: RichText(
-                                    textAlign: TextAlign.center,
-                                    text: const TextSpan(
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            color: Colors.black54),
-                                        children: [
-                                          TextSpan(
-                                              text:
-                                                  'By submitting this form you accept'),
-                                          TextSpan(
-                                              text: ' Sharpman paypoint',
-                                              style: TextStyle(
-                                                  color: Color(0xFF5423BB))),
-                                          TextSpan(
-                                              text: ' Terms & Conditions ',
-                                              style: TextStyle(
-                                                  color: Color(0xFF5423BB))),
-                                          TextSpan(
-                                            text: ' And Allow',
-                                          ),
-                                          TextSpan(
-                                              text: ' Sharpman paypoint',
-                                              style: TextStyle(
-                                                  color: Color(0xFF5423BB))),
-                                          TextSpan(
-                                            text: ' to',
-                                          ),
-                                          TextSpan(
-                                            text: ' Contact you',
-                                          )
-                                        ])),
-                              ),
-                            ],
-                          )
+                          Expanded(child: Divider())
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
+                      const SizedBox(height: 20),
+                      SizedBox(
                         width: containerWidth,
-                        height: 35,
-                        decoration: const BoxDecoration(
-                            boxShadow: [BoxShadow(color: Colors.black45)],
-                            gradient: LinearGradient(
-                                colors: buttongradient,
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12))),
-                        child: TextButton(
-                          onPressed: () => {Get.to(CompletionScreen())},
-                          child: const Text(
-                            'Create my account',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 15),
+                        height: 50,
+                        child: TextField(
+                          focusNode: _firstnamefocus,
+                          style: const TextStyle(
+                              color: Colors.black54, fontSize: 14),
+                          keyboardType: TextInputType.name,
+                          decoration: const InputDecoration(
+                              label: Text(
+                                'First name',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 14),
+                              ),
+                              hintText: 'enter your last first name',
+                              border: OutlineInputBorder()),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                        width: containerWidth,
+                        height: 50,
+                        child: TextField(
+                          focusNode: _secondnamefocus,
+                          keyboardType: TextInputType.name,
+                          style: const TextStyle(
+                              color: Colors.black54, fontSize: 14),
+                          decoration: const InputDecoration(
+                              label: Text(
+                                'Last name',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 14),
+                              ),
+                              hintText: 'enter your last name',
+                              border: OutlineInputBorder()),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                        width: containerWidth,
+                        height: 50,
+                        child: TextField(
+                          focusNode: _emailfocus,
+                          style: const TextStyle(
+                              color: Colors.black54, fontSize: 14),
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                              label: Text(
+                                'Email',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 14),
+                              ),
+                              hintText: 'enter your email address',
+                              border: OutlineInputBorder()),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                        width: containerWidth,
+                        height: 50,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.grey, width: 0.9),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(3))),
+                          child: DropdownButton(
+                            underline: Container(),
+                            value: controller.selectedOption.value,
+                            items: options.map((String option) {
+                              return DropdownMenuItem<String>(
+                                value: option,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                  child: Text(option),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              controller.selectedOption.value = newValue!;
+                            },
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Already have an acoount?',
-                          style:
-                              TextStyle(fontSize: 12, color: Color(0xFF5423BB)),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                        width: containerWidth,
+                        height: 50,
+                        child: TextField(
+                          focusNode: _phonefocus,
+                          keyboardType: TextInputType.phone,
+                          style: const TextStyle(
+                              color: Colors.black54, fontSize: 14),
+                          decoration: const InputDecoration(
+                              label: Text(
+                                'Phone number',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 14),
+                              ),
+                              hintText: 'enter your mobile number',
+                              border: OutlineInputBorder()),
                         ),
-                        TextButton(
-                            onPressed: () {
-                              Get.to(SignIn());
-                            },
-                            child: Text('Sign In'))
-                      ],
-                    )
-                  ],
-                );
-              },
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                        width: containerWidth,
+                        height: 50,
+                        child: TextField(
+                          obscureText: _obscurer.isVisible.value,
+                          focusNode: _passwordfocus,
+                          style: const TextStyle(fontSize: 13),
+                          decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4.0)),
+                              ),
+                              labelText: 'Enter Password',
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    _obscurer.passwordObscureToggle();
+                                  },
+                                  icon: Icon(
+                                    _obscurer.isVisible.value
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    size: 16,
+                                  ))),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                        width: containerWidth,
+                        height: 50,
+                        child: TextField(
+                          obscureText: _obscurer.isCVisible.value,
+                          focusNode: _confirmpasswordfocus,
+                          style: const TextStyle(fontSize: 13),
+                          decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4.0)),
+                              ),
+                              labelText: 'Confirm password Password',
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    _obscurer.confirmPasswordObscureToggle();
+                                  },
+                                  icon: Icon(
+                                    _obscurer.isCVisible.value
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    size: 16,
+                                  ))),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                        width: containerWidth,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Checkbox(
+                              value: _obscurer.checked.value,
+                              onChanged: _obscurer.confirmChecked,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 230,
+                                  child: RichText(
+                                      textAlign: TextAlign.center,
+                                      text: const TextSpan(
+                                          style: TextStyle(
+                                              fontSize: 11,
+                                              color: Colors.black54),
+                                          children: [
+                                            TextSpan(
+                                                text:
+                                                    'By submitting this form you accept'),
+                                            TextSpan(
+                                                text: ' Sharpman paypoint',
+                                                style: TextStyle(
+                                                    color: Color(0xFF5423BB))),
+                                            TextSpan(
+                                                text: ' Terms & Conditions ',
+                                                style: TextStyle(
+                                                    color: Color(0xFF5423BB))),
+                                            TextSpan(
+                                              text: ' And Allow',
+                                            ),
+                                            TextSpan(
+                                                text: ' Sharpman paypoint',
+                                                style: TextStyle(
+                                                    color: Color(0xFF5423BB))),
+                                            TextSpan(
+                                              text: ' to',
+                                            ),
+                                            TextSpan(
+                                              text: ' Contact you',
+                                            )
+                                          ])),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          width: containerWidth,
+                          height: 35,
+                          decoration: const BoxDecoration(
+                              boxShadow: [BoxShadow(color: Colors.black45)],
+                              gradient: LinearGradient(
+                                  colors: buttongradient,
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12))),
+                          child: TextButton(
+                            onPressed: () => {Get.toNamed('/completeScreen')},
+                            child: const Text(
+                              'Create my account',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Already have an acoount?',
+                            style: TextStyle(
+                                fontSize: 12, color: Color(0xFF5423BB)),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Get.to(SignIn());
+                              },
+                              child: Text('Sign In'))
+                        ],
+                      )
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),

@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/dashboard/Dashboard.dart';
 import 'package:shapmanpaypoint/Screens/login/forgetPassword/forgetpassword.dart';
 import 'package:shapmanpaypoint/Screens/login/login.dart';
+import 'package:shapmanpaypoint/Screens/signup/pinInsertion/pin2.dart';
+import 'package:shapmanpaypoint/Screens/signup/selectAvatar/selectavatar.dart';
 import 'package:shapmanpaypoint/components/otpScreen/otp.dart';
 import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
 import 'package:shapmanpaypoint/Screens/onboardingslider/onboadingslider.dart';
@@ -18,4 +21,7 @@ final pages = [
   GetPage(name: '/completeScreen', page: () => CompletionScreen()),
   GetPage(name: '/signup', page: () => SignupScreen()),
   GetPage(name: '/insertpin', page: () => PinScreen()),
+  GetPage(name: '/Confirmpin', page: () => ConfirmPinScreen()),
+  GetPage(name: '/selectavatar', page: () => SelectAvatar()),
+  GetPage(name: '/dashboard', page: () => Dashboard()),
 ];

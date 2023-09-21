@@ -30,3 +30,12 @@ class ObscureController extends GetxController {
     isVisible.refresh();
   }
 }
+
+class BalanceObscure extends GetxController {
+  RxBool hideText = false.obs;
+
+  void hideToggle() {
+    hideText.toggle();
+    hideText.refresh();
+  }
+}
