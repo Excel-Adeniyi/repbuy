@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:local_auth/local_auth.dart';
 import '../../../components/dailbutton/customdailpad.dart';
 import '../../../helpers/colors/coloors.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-class PinScreen extends StatelessWidget {
+class ConfirmPinScreen extends StatelessWidget {
   var pagecondition = (Get.previousRoute == '/otp');
   final TextEditingController pinController = TextEditingController();
   @override
@@ -57,15 +55,18 @@ class PinScreen extends StatelessWidget {
                     height: 10,
                   ),
                   const Text(
-                    "Please use a pin that you can remember.",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  const Text(
-                    'This pin will be needed to process your transactions',
+                    "Re-type security our pin",
                     style: TextStyle(fontSize: 12),
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 20,
+                  ),
+                  const Text(
+                    'Confirm ypur security Pin',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   SizedBox(
                     width: containerWidth,
@@ -136,7 +137,7 @@ class PinScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16)),
                     child: TextButton(
                       onPressed: () {
-                        Get.toNamed('/Confirmpin');
+                        Get.toNamed('/selectavatar');
                       },
                       child: Text(
                         'Continue',
