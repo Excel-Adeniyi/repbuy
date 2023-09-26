@@ -2,152 +2,74 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/profile/profile.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/serviceScreen.dart';
+import 'package:shapmanpaypoint/Screens/walletscreen/walletscreen.dart';
 
+import '../../Screens/Dashboard/Header/header.dart';
 import '../../controller/passwordtoggle.dart';
+import '../../controller/tabcontroller.dart';
 import '../../helpers/colors/coloors.dart';
+import '../bottomNav/buildTab.dart';
+import '../tabbar/tabbar.dart';
 
-class MainPage extends StatelessWidget {
-  // const MainPage({super.key});
-  final BalanceObscure _controller = Get.put(BalanceObscure());
+class LayoutScreen extends StatelessWidget {
+  // const Dashboard({super.key});
+  final TabbController control = Get.put(TabbController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Container(
-          padding: const EdgeInsets.all(18.0),
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(50),
-                  bottomLeft: Radius.circular(50)),
-              gradient: LinearGradient(
-                  colors: buttongradient,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomLeft)),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Image.asset(
-                    'lib/assets/man.png',
-                    width: 60,
-                    height: 60,
-                  ),
-                  const Text(
-                    'Welcome, Jon Doe',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Image.asset(
-                    'lib/assets/logo.png',
-                    width: 60,
-                    height: 60,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                width: 300,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
-                              child: Obx(() => Text(
-                                    _controller.hideText == false
-                                        ? "******"
-                                        : '10,000',
-                                    style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  )),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              _controller.hideToggle();
-                            },
-                            child: Obx(
-                              () => Icon(_controller.hideText == false
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
-                          ),
-                        ]),
-                    const Text('Wallet Balance'),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 150,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black45, // Shadow color
-                                blurRadius: 5.0, // Blur radius
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            gradient: const LinearGradient(
-                                colors: buttongradient,
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: TextButton(
-                            onPressed: () {},
-                            child: const Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Fund Wallet',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                )
-                              ],
-                            )),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ]),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: Column(
-          // ignore: prefer_const_literals_to_create_immutables
-          children: [],
-        ),
+      body: SingleChildScrollView(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          Obx(() {
+            switch (control.selectedTab.value) {
+              case 0:
+                return Dashboard();
+              case 1:
+                return ServiceScreen();
+              case 2:
+                return WalletScreen();
+
+              default:
+                return Dashboard();
+            }
+          }),
+        ]),
       ),
+      bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          child: Padding(
+            padding: EdgeInsets.all(0.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                BuildTab(
+                    index: 0,
+                    imageAsset: 'lib/assets/delete.png',
+                    title: 'Dashboard',
+                    focuss: control.focus1,
+                    onClick: () => control.toggleFocus(0)),
+                BuildTab(
+                    index: 1,
+                    imageAsset: 'lib/assets/gift-box.png',
+                    title: 'Services',
+                    focuss: control.focus2,
+                    onClick: () => control.toggleFocus(1)),
+                BuildTab(
+                    index: 2,
+                    imageAsset: 'lib/assets/wallet1.png',
+                    title: 'Services',
+                    focuss: control.focus3,
+                    onClick: () => control.toggleFocus(2)),
+                BuildTab(
+                    index: 3,
+                    imageAsset: 'lib/assets/edit.png',
+                    title: 'Services',
+                    focuss: control.focus4,
+                    onClick: () => Get.toNamed('profile')),
+              ],
+            ),
+          )),
     );
   }
 }
