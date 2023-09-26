@@ -15,15 +15,20 @@ class DashboardHeader extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 50,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Image.asset(
-                  'lib/assets/man.png',
-                  width: 60,
-                  height: 60,
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed('profile');
+                  },
+                  child: Image.asset(
+                    'lib/assets/man.png',
+                    width: 60,
+                    height: 60,
+                  ),
                 ),
                 const Text(
                   'Welcome, Jon Doe',
@@ -37,15 +42,16 @@ class DashboardHeader extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             Container(
-              width: 300,
               decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: buttongradient,
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomLeft)),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                gradient: LinearGradient(
+                    colors: buttongradient,
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -63,9 +69,10 @@ class DashboardHeader extends StatelessWidget {
                             child: Obx(() => Text(
                                   _controller.hideText == false
                                       ? "******"
-                                      : '10,000',
+                                      : 'NGN 10,000',
                                   style: TextStyle(
                                       fontSize: 24,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.center,
                                 )),
@@ -76,13 +83,21 @@ class DashboardHeader extends StatelessWidget {
                             _controller.hideToggle();
                           },
                           child: Obx(
-                            () => Icon(_controller.hideText == false
-                                ? Icons.visibility_off
-                                : Icons.visibility),
+                            () => Icon(
+                                color: Colors.white,
+                                _controller.hideText == false
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
                           ),
                         ),
                       ]),
-                  const Text('Wallet Balance'),
+                  const Text(
+                    'Wallet Balance',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -96,10 +111,7 @@ class DashboardHeader extends StatelessWidget {
                               offset: Offset(0, 2),
                             )
                           ],
-                          gradient: const LinearGradient(
-                              colors: buttongradient,
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter),
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(16)),
                       child: TextButton(
                           onPressed: () {},
@@ -109,11 +121,11 @@ class DashboardHeader extends StatelessWidget {
                             children: [
                               Text(
                                 'Fund Wallet',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(color: Colors.black),
                               ),
                               Icon(
                                 Icons.add,
-                                color: Colors.white,
+                                color: Colors.black,
                               )
                             ],
                           )),

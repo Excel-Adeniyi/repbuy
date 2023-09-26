@@ -7,7 +7,7 @@ import 'package:shapmanpaypoint/Screens/dashboard/Tabs/Dashboardtab/Dashboardtab
 
 import '../../controller/tabcontroller.dart';
 
-class Tabbar extends StatelessWidget {
+class Dashboard extends StatelessWidget {
   // final TabIndexController _controller = Get.put(TabIndexController());
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class Tabbar extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double containerHeight;
     if (screenHeight < 480) {
-      containerHeight = 500;
+      containerHeight = 700;
     } else if (screenHeight < 900) {
-      containerHeight = 470;
+      containerHeight = 700;
     } else {
       containerHeight = 1300;
     }
@@ -29,14 +29,7 @@ class Tabbar extends StatelessWidget {
     } else {
       containerWidth = 500.0;
     }
-    return SizedBox(
-      height: containerHeight,
-      child: Scaffold(
-        body: SizedBox(
-          width: containerWidth,
-          child: DashboardTab(containerWidth: containerWidth),
-        ),
-      ),
-    );
+    return SingleChildScrollView(
+        child: DashboardTab(containerWidth: containerWidth));
   }
 }
