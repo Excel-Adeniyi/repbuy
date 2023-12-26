@@ -20,4 +20,4 @@ class GetSavedIOSController {
   }
 }
 
-export default GetSavedIOSController;
+export default GetSavedIOSController
