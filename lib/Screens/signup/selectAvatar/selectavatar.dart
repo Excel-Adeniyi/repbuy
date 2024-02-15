@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/helpers/width.dart';
+import 'package:shapmanpaypoint/utils/width.dart';
 
-import '../../../helpers/colors/coloors.dart';
+import '../../../utils/colors/coloors.dart';
 
 class SelectAvatar extends StatelessWidget {
   const SelectAvatar({super.key});

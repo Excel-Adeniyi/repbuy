@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
       body: Container(
         color: Colors.white,
         padding: EdgeInsets.all(24.0),
-        width: 500,
+        // width: 500,
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
                   height: 40,
                 ),
                 const Text(
-                  'Welcome to Sharpman',
+                  'Welcome to Next',
                   style: TextStyle(
                       fontSize: 24,
                       color: Colors.black,

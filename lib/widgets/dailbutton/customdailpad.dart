@@ -4,7 +4,7 @@ import 'package:local_auth/local_auth.dart';
 class CustomDialPad extends StatelessWidget {
   final TextEditingController pinController;
 
-  CustomDialPad({required this.pinController});
+  const CustomDialPad({required this.pinController});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class DialButton extends StatelessWidget {
   final dynamic text;
   final TextEditingController pinController;
 
-  DialButton(this.text, {required this.pinController});
+  const DialButton(this.text, {required this.pinController});
 
   @override
   Widget build(BuildContext context) {

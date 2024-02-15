@@ -4,10 +4,10 @@ import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
 import 'package:shapmanpaypoint/Screens/signup/completionScreen/completionScreen.dart';
 import 'package:shapmanpaypoint/controller/dropdownController.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
-import 'package:shapmanpaypoint/helpers/countries/countries.dart';
-import 'package:shapmanpaypoint/helpers/responsiveness/responsiveness.dart';
+import 'package:shapmanpaypoint/utils/countries/countries.dart';
+import 'package:shapmanpaypoint/utils/responsiveness/responsiveness.dart';
 
-import '../../helpers/colors/coloors.dart';
+import '../../utils/colors/coloors.dart';
 
 class SignupScreen extends StatelessWidget {
   final _obscurer = Get.find<PasswordController>();
@@ -310,7 +310,7 @@ class SignupScreen extends StatelessWidget {
                                                 text:
                                                     'By submitting this form you accept'),
                                             TextSpan(
-                                                text: ' Sharpman paypoint',
+                                                text: ' Next paypoint',
                                                 style: TextStyle(
                                                     color: Color(0xFF5423BB))),
                                             TextSpan(
@@ -321,7 +321,7 @@ class SignupScreen extends StatelessWidget {
                                               text: ' And Allow',
                                             ),
                                             TextSpan(
-                                                text: ' Sharpman paypoint',
+                                                text: ' Next paypoint',
                                                 style: TextStyle(
                                                     color: Color(0xFF5423BB))),
                                             TextSpan(
@@ -354,7 +354,21 @@ class SignupScreen extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12))),
                           child: TextButton(
-                            onPressed: () => {Get.toNamed('/completeScreen')},
+                            onPressed: () => {
+                              Get.snackbar(
+                                'Error',
+                                'Unable to access the Server',
+                                backgroundColor: Colors.red,
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: Duration(seconds: 3),
+                                margin: EdgeInsets.all(20.0),
+                                borderRadius: 10.0,
+                                // dismissDirection: SnackDismissDirection.HORIZONTAL,
+                                forwardAnimationCurve: Curves.easeOutBack,
+                                reverseAnimationCurve: Curves.easeInBack,
+                              )
+                              // Get.toNamed('/completeScreen')
+                            },
                             child: const Text(
                               'Create my account',
                               style: TextStyle(

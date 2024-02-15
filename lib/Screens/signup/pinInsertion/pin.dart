@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:local_auth/local_auth.dart';
-import '../../../components/dailbutton/customdailpad.dart';
-import '../../../helpers/colors/coloors.dart';
+import '../../../widgets/dailbutton/customdailpad.dart';
+import '../../../utils/colors/coloors.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PinScreen extends StatelessWidget {

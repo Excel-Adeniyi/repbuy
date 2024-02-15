@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shapmanpaypoint/helpers/colors/coloors.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 import '../Dashboard/Header/header.dart';
 

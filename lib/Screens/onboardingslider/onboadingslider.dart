@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/login/login.dart';
-import 'package:shapmanpaypoint/components/slider/slide1.dart';
+import 'package:shapmanpaypoint/widgets/slider/slide1.dart';
 
 import '../../controller/onboardingcontroller.dart';
 
@@ -17,7 +17,6 @@ class OnboardingScreen extends StatelessWidget {
       const Slide3()
     ];
     final int totalSlides = slides.length;
-    print(totalSlides);
     OnboardingController onboardingController = Get.put(OnboardingController());
 
     return Scaffold(
@@ -33,9 +32,6 @@ class OnboardingScreen extends StatelessWidget {
             loop: false,
             pagination: const SwiperPagination(),
             onIndexChanged: (index) {
-              // if (index == totalSlides) {
-              //   GetStorage().write('onboardingcomplete', false);
-              // }
               onboardingController.updateButtonVisibility(index);
             },
           ),
