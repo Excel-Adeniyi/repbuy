@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controller/onboardingcontroller.dart';
 
 class Slide1 extends StatelessWidget {
   const Slide1({super.key});
@@ -23,6 +26,7 @@ class Slide2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final GradientController _controller = Get.put(GradientController());
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -40,32 +44,35 @@ class Slide2 extends StatelessWidget {
         transform: GradientRotation(0.0),
       )),
       child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Image.asset(
-              'lib/assets/onboard_hand.png',
-              width: 250,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Image.asset(
+                'lib/assets/onboard_hand.png',
+                width: 250,
+              ),
             ),
-          ),
-          const Text(
-            "Payment Made Easy",
-            style: TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const Text(
-            'Pay all your bills at once, without leaving your home with Sharpman PayPoint comprehensive range of services',
-            style: TextStyle(
-              color: Colors.white,
+            const Text(
+              "Payment Made Easy",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
             ),
-            softWrap: true,
-            textAlign: TextAlign.center,
-          )
-        ],
-      )),
+            const Text(
+              'Pay all your bills at once, without leaving your home with Next PayPoint comprehensive range of services',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+              softWrap: true,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -95,18 +102,18 @@ class Slide3 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Image.asset(
               'lib/assets/onboarding3.png',
               width: 250,
             ),
           ),
-          Text(
+          const Text(
             "Freedom to do it your way",
             style: TextStyle(
                 color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          Text(
+          const Text(
             'Fully | Secured | Reliable | Fast',
             style: TextStyle(
               color: Colors.white,

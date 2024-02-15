@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../helpers/colors/coloors.dart';
+import '../../utils/colors/coloors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Text('Sharpman Paypoint profile gives you the freedom to'),
+              const Text('Next Paypoint profile gives you the freedom to'),
               const Text('manage your account information.'),
               const SizedBox(
                 height: 10,
@@ -218,7 +218,7 @@ class ProfileScreen extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
-                        Text('Help or contact Sharpman Paypoint')
+                        Text('Help or contact Next Paypoint')
                       ],
                     ),
                   )

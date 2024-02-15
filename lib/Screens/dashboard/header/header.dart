@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
 
-import 'package:shapmanpaypoint/helpers/colors/coloors.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 class DashboardHeader extends StatelessWidget {
   // const DashboardHeader({super.key});
@@ -45,7 +45,7 @@ class DashboardHeader extends StatelessWidget {
               height: 20,
             ),
             Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 gradient: LinearGradient(
                     colors: buttongradient,
@@ -114,7 +114,9 @@ class DashboardHeader extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16)),
                       child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed('funding');
+                          },
                           child: const Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,

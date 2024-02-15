@@ -1,6 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/cable/cableScreen.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/electricityScreen.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/rechargeScreen.dart';
 
 import '../../Header/header.dart';
 
@@ -35,7 +39,10 @@ class DashboardTab extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed('recharge',
+                                  arguments: 'Airtime Top up');
+                            },
                             child: const Text(
                               'Airtime',
                               style:
@@ -59,7 +66,9 @@ class DashboardTab extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed('recharge', arguments: 'Data Top up');
+                          },
                           child: const Text(
                             'Data Plan',
                             style: TextStyle(fontSize: 12, color: Colors.black),
@@ -95,7 +104,9 @@ class DashboardTab extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(Electric());
+                            },
                             child: const Text(
                               'Electricity',
                               style:
@@ -119,7 +130,9 @@ class DashboardTab extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(CableScreen());
+                          },
                           child: const Text(
                             'Cable Tv',
                             style: TextStyle(fontSize: 12, color: Colors.black),

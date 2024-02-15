@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/login/forgetPassword/forgetpassword.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
-import 'package:shapmanpaypoint/helpers/colors/coloors.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 class SignIn extends StatelessWidget {
   // const SignIn({super.key});
@@ -124,7 +124,7 @@ class SignIn extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "New to Sharpman Paypoint?",
+                          "New to Next Paypoint?",
                           style: TextStyle(color: Color(0xFF5423bb)),
                         ),
                         TextButton(
@@ -155,7 +155,20 @@ class SignIn extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(12))),
                         child: TextButton(
-                          onPressed: () => {},
+                          onPressed: () => {
+                            Get.snackbar(
+                              'Error',
+                              'Unable to access Server',
+                              backgroundColor: Colors.red,
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: Duration(seconds: 3),
+                              margin: EdgeInsets.all(20.0),
+                              borderRadius: 10.0,
+                              // dismissDirection: SnackDismissDirection.HORIZONTAL,
+                              forwardAnimationCurve: Curves.easeOutBack,
+                              reverseAnimationCurve: Curves.easeInBack,
+                            )
+                          },
                           child: const Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.center,

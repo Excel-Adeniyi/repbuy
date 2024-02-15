@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/components/otpScreen/otp.dart';
-import 'package:shapmanpaypoint/helpers/colors/coloors.dart';
+import 'package:shapmanpaypoint/widgets/otpScreen/otp.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 class ForgetPassword extends StatelessWidget {
   // const ForgetPassword({super.key});

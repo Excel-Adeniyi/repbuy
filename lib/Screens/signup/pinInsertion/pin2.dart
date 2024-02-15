@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../../components/dailbutton/customdailpad.dart';
-import '../../../helpers/colors/coloors.dart';
+import '../../../widgets/dailbutton/customdailpad.dart';
+import '../../../utils/colors/coloors.dart';
 
 class ConfirmPinScreen extends StatelessWidget {
   var pagecondition = (Get.previousRoute == '/otp');
@@ -62,7 +62,7 @@ class ConfirmPinScreen extends StatelessWidget {
                     height: 20,
                   ),
                   const Text(
-                    'Confirm ypur security Pin',
+                    'Confirm your security Pin',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(

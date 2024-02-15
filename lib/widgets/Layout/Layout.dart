@@ -9,7 +9,7 @@ import 'package:shapmanpaypoint/Screens/walletscreen/walletscreen.dart';
 import '../../Screens/Dashboard/Header/header.dart';
 import '../../controller/passwordtoggle.dart';
 import '../../controller/tabcontroller.dart';
-import '../../helpers/colors/coloors.dart';
+import '../../utils/colors/coloors.dart';
 import '../bottomNav/buildTab.dart';
 import '../tabbar/tabbar.dart';
 
@@ -58,13 +58,13 @@ class LayoutScreen extends StatelessWidget {
                 BuildTab(
                     index: 2,
                     imageAsset: 'lib/assets/wallet1.png',
-                    title: 'Services',
+                    title: 'Wallet',
                     focuss: control.focus3,
                     onClick: () => control.toggleFocus(2)),
                 BuildTab(
                     index: 3,
                     imageAsset: 'lib/assets/edit.png',
-                    title: 'Services',
+                    title: 'Profile',
                     focuss: control.focus4,
                     onClick: () => Get.toNamed('profile')),
               ],

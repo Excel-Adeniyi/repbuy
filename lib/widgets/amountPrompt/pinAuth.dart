@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:shapmanpaypoint/Screens/signup/pinInsertion/pin.dart';
-import '../../controller/timerController.dart';
-import '../../helpers/colors/coloors.dart';
 
-class OtpScreen extends StatelessWidget {
-  var pagecondition = (Get.previousRoute == '/forgetpassword');
-  final TimerController _timerController = Get.put(TimerController());
+import 'package:shapmanpaypoint/widgets/amountPrompt/completedPayment.dart';
+// import '../../../components/dailbutton/customdailpad.dart';
+import '../../utils/colors/coloors.dart';
+
+class PinAuth extends StatelessWidget {
+  final TextEditingController pinController = TextEditingController();
+  final String title;
+  PinAuth({Key? key, required this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final title = pagecondition ? 'Enter OTP' : 'OTP Verification';
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -26,14 +27,6 @@ class OtpScreen extends StatelessWidget {
         FocusNode().unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-        ),
         body: GestureDetector(
           child: Center(
             child: SingleChildScrollView(
@@ -52,9 +45,9 @@ class OtpScreen extends StatelessWidget {
                               end: Alignment.bottomCenter)
                           .createShader(bounds);
                     },
-                    child: Text(
-                      pagecondition ? 'Enter OTP' : 'OTP Verification',
-                      style: const TextStyle(
+                    child: const Text(
+                      'Enter Transaction Pin',
+                      style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 24),
@@ -63,18 +56,7 @@ class OtpScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(pagecondition
-                      ? "A four (4) digit code has been sent to this"
-                      : " Enter the (4) digit code sent to your email address"),
-                  pagecondition
-                      ? const Text('email address')
-                      : const SizedBox(),
-                  pagecondition
-                      ? const Text(
-                          'johndoe@gmail.com',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      : const SizedBox.shrink(),
+                  Image.asset('lib/assets/padlock.png'),
                   const SizedBox(
                     height: 50,
                   ),
@@ -92,7 +74,7 @@ class OtpScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           PinCodeTextField(
-                            focusNode: FocusNode(),
+                            controller: pinController,
                             appContext: context,
                             obscuringCharacter: '*',
                             obscureText: true,
@@ -118,34 +100,11 @@ class OtpScreen extends StatelessWidget {
                             ],
                             enableActiveFill: true,
                           ),
-                          Obx(() {
-                            if (_timerController.timerActive.value) {
-                              return Text(
-                                'Resend code in: ${_timerController.minutes.toString().padLeft(2, '0')}:${_timerController.seconds.toString().padLeft(2, '0')}',
-                                style: const TextStyle(
-                                    fontSize: 12, color: Colors.white),
-                              );
-                            } else {
-                              return TextButton(
-                                onPressed: () {
-                                  if (_timerController.timerActive.value) {
-                                    _timerController.resetTimer();
-                                  } else {
-                                    _timerController.startTimer();
-                                  }
-                                },
-                                child: const Text(
-                                  'click to resend code',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.white),
-                                ),
-                              );
-                            }
-                          }),
                         ],
                       ),
                     ),
                   ),
+                  // CustomDialPad(pinController: pinController),
                   const SizedBox(
                     height: 80,
                   ),
@@ -170,13 +129,11 @@ class OtpScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16)),
                     child: TextButton(
                       onPressed: () {
-                        pagecondition
-                            ? Get.toNamed('/home')
-                            : Get.toNamed('/insertpin')!;
+                        Get.to(CompletedAmount(title: title));
                       },
-                      child: Text(
-                        pagecondition ? 'Submit' : 'Continue',
-                        style: const TextStyle(
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 14),
