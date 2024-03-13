@@ -2,6 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
+import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
+import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
+import 'package:shapmanpaypoint/services/otp_service.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/pinAuth.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
@@ -10,9 +14,13 @@ import '../../utils/width.dart';
 class AmountPrompt extends StatelessWidget {
   final String title;
   AmountPrompt({Key? key, required this.title}) : super(key: key);
-
+  final _airtimeCController = Get.find<AirtimeCController>();
+  final _phoneNumberController = Get.find<ContactPickerController>();
+  final otpService = OTPService();
   @override
   Widget build(BuildContext context) {
+    AirtimeModel model = _airtimeCController.toModel();
+    print('HI $model');
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -50,10 +58,10 @@ class AmountPrompt extends StatelessWidget {
                   Color(0xFFa12cab),
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
               ),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(
+                  const Text(
                     'You are about to recharge airtime to',
                     style: TextStyle(
                         color: Colors.white,
@@ -61,20 +69,27 @@ class AmountPrompt extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '"08012345678"',
-                    style: TextStyle(
+                    _airtimeCController.number.value.toString(),
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'NGN 500.00',
-                    style: TextStyle(
+                    _airtimeCController.network.value.toString(),
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
+                    _airtimeCController.amount.value.toString(),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const Text(
                     'Available Balance = NGN 10,000.00',
                     style: TextStyle(
                         color: Colors.white,
@@ -110,6 +125,7 @@ class AmountPrompt extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {
                       Get.to(PinAuth(title: title));
+                      otpService.otpReq();
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

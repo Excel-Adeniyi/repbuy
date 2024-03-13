@@ -7,7 +7,7 @@ import 'package:shapmanpaypoint/Screens/funding/component/bankTransfer.dart';
 import 'package:shapmanpaypoint/Screens/login/forgetPassword/forgetpassword.dart';
 import 'package:shapmanpaypoint/Screens/login/login.dart';
 import 'package:shapmanpaypoint/Screens/profile/profile.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/rechargeScreen.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/recharge_screen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/serviceScreen.dart';
 import 'package:shapmanpaypoint/Screens/signup/pinInsertion/pin2.dart';
 import 'package:shapmanpaypoint/Screens/signup/selectAvatar/selectavatar.dart';
@@ -38,5 +38,5 @@ final pages = [
   GetPage(name: '/recharge', page: () => RechargeCard()),
   GetPage(name: '/funding', page: () => const PaymentMethod()),
   GetPage(name: '/banktransfer', page: () => BankTransfer()),
-  GetPage(name: '/paymentsummary', page: () => PaymentSummary())
+  GetPage(name: '/paymentsummary', page: () => const PaymentSummary())
 ];

@@ -1,18 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
+import 'package:shapmanpaypoint/Model/ISOData/iso_model.dart';
+import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
+import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
+// import 'package:get_storage/get_storage.dart';
+import 'package:shapmanpaypoint/controller/validator/airtime_validator.dart';
+import 'package:shapmanpaypoint/services/operatorsService.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-import 'package:shapmanpaypoint/utils/dialog/dialogShow.dart';
+import '../../../../utils/dialog/dialogShow.dart';
+// import 'package:shapmanpaypoint/utils/dialog/dialogShow.dart';
 
 class RechargeCard extends StatelessWidget {
   final String title = Get.arguments;
   final RechargeController imageSelector = Get.put(RechargeController());
+  final ContactPickerController contactController =
+      Get.put(ContactPickerController());
+  final IsoController isoController = Get.put(IsoController());
+  final PhoneController phoneNumberContoller = Get.put(PhoneController());
+  final AirtimeCController _airtimeController = AirtimeCController();
+  final fetchOperator = FetchOperatorService();
   RechargeCard({Key? key}) : super(key: key);
-
+  var items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
   @override
   Widget build(BuildContext context) {
+    final validatorPhone = phoneNumberContoller
+        .validateAmountField(phoneNumberContoller.amountField.value);
+    final validatorAmount = phoneNumberContoller
+        .validateAmountField(phoneNumberContoller.amountField.value);
+
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -100,7 +126,7 @@ class RechargeCard extends StatelessWidget {
                   ],
                 ),
                 if (imageSelector.images.length > 4)
-                  Container(
+                  SizedBox(
                     height: 70, // Set a fixed height for the list view
                     child: ListView(
                       scrollDirection: Axis.horizontal,
@@ -124,7 +150,7 @@ class RechargeCard extends StatelessWidget {
                                   builder: (controller) {
                                 return SizedBox(
                                   width: 150,
-                                  height: 30,
+                                  height: 50,
                                   child: Container(
                                     decoration: BoxDecoration(
                                         borderRadius: const BorderRadius.all(
@@ -159,6 +185,39 @@ class RechargeCard extends StatelessWidget {
                               }))
                           .toList()),
                 ),
+
+                //######## ISO NAME #################
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                    height: 100,
+                    child: Obx(
+                      () => DropdownButton<String>(
+                        value: isoController.selectedCountry.value,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: [
+                          const DropdownMenuItem<String>(
+                            value: "Select Country",
+                            child: Text("Select Country"),
+                          ),
+                          ...isoController.isoDetails
+                              .map<DropdownMenuItem<String>>((Iso item) {
+                            return DropdownMenuItem<String>(
+                              value: item.isoName ?? "Unknown",
+                              child: Text(item.name ?? "Unknown"),
+                            );
+                          }).toList(),
+                        ],
+                        onChanged: (String? newValue) {
+                          // Handle dropdown value change if needed
+                          isoController.selectedCountry.value =
+                              newValue ?? "Select Country";
+                        },
+                      ),
+                    )),
+                //######END ISONAME #######
+
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
                   alignment: Alignment.centerRight,
@@ -184,30 +243,129 @@ class RechargeCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 50,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        labelText: 'Phone number',
-                        border: OutlineInputBorder(),
-                        suffixIcon: Icon(
-                          Icons.contact_phone_sharp,
-                          color: Colors.purple,
-                        )),
+
+                SizedBox(
+                  height: 100,
+
+                  //############TextField#############
+
+                  child: Obx(
+                    () {
+                      return TextField(
+                        controller:
+                            contactController.phonController.phoneController,
+                        cursorColor: const Color.fromARGB(255, 21, 74, 117),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) => {
+                          {phoneNumberContoller.phoneNumber.value = value}
+                        },
+                        readOnly:
+                            imageSelector.selectedButton.value != 'Buy for Self'
+                                ? false
+                                : true,
+                        maxLength: 16,
+                        decoration: InputDecoration(
+                          focusColor: Colors.black,
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 73, 22, 105))),
+                          labelText: 'Phone number',
+                          labelStyle: const TextStyle(color: Colors.grey),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.blue)),
+                          error: Obx(() {
+                            final validatorError =
+                                phoneNumberContoller.validatePhoneNumber(
+                                    phoneNumberContoller.phoneNumber.value);
+                            return validatorError != null &&
+                                    contactController.phonController
+                                            .phoneController.text !=
+                                        ''
+                                ? contactController.phonController
+                                            .phoneController.text.length <
+                                        10
+                                    ? Text(validatorError,
+                                        style:
+                                            const TextStyle(color: Colors.red))
+                                    : const Text('')
+                                : const Text('');
+                          }),
+                          focusedErrorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 73, 22, 105))),
+                          errorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 73, 22, 105))),
+                          suffixIcon: GestureDetector(
+                            onTap: () async {
+                              if (imageSelector.selectedButton.value !=
+                                  'Buy for Self') {
+                                await contactController.pickContacts();
+                              }
+                            },
+                            child: const Icon(
+                              Icons.contact_phone_sharp,
+                              color: Colors.purple,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
+
+                //########## End Phone Text Field ###########
+
+                //########## Amount Field ###############
                 const SizedBox(
                   height: 15,
                 ),
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: 100,
                   child: TextField(
+                    controller: imageSelector.amountCont,
+                    cursorColor: const Color.fromARGB(255, 21, 74, 117),
+                    onChanged: (value) {
+                      phoneNumberContoller.amountField.value = value;
+                    },
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
+                      error: Obx(() {
+                        final validatorError =
+                            phoneNumberContoller.validateAmountField(
+                                phoneNumberContoller.amountField.value);
+                        return validatorError != null
+                            ? Text(
+                                validatorError,
+                                style: const TextStyle(color: Colors.red),
+                              )
+                            : const Text('');
+                      }),
+                      focusColor: Colors.black,
+                      focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 73, 22, 105))),
                       labelText: 'Enter Amount',
-                      border: OutlineInputBorder(),
+                      labelStyle: const TextStyle(color: Colors.grey),
+                      border: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue)),
+                      focusedErrorBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 73, 22, 105))),
+                      errorBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 73, 22, 105))),
                     ),
                   ),
                 ),
+
+                //############### END Amount ###########
+
+                //############### BEGIN SUBMIT ##############
                 Container(
                   margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                   width: containerWidth,
@@ -230,7 +388,14 @@ class RechargeCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16)),
                   child: TextButton(
                     onPressed: () {
-                      Get.to(Customup(title: title));
+                      if (contactController
+                              .phonController.phoneController.text.isNotEmpty &&
+                          imageSelector.amountCont.text.isNotEmpty &&
+                          validatorAmount == null &&
+                          validatorPhone == null) {
+                        Get.to(Customup(title: title));
+                        fetchOperator.operators();
+                      }
                     },
                     child: const Text(
                       'Continue',
@@ -255,7 +420,7 @@ class RechargeCard extends StatelessWidget {
       return GestureDetector(
         onTap: () {
           imageSelector.selectImage(image.value);
-          print(image.value);
+          // print(image.value);
         },
         child: GetBuilder<RechargeController>(
           builder: (controller) {
