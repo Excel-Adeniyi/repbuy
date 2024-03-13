@@ -31,17 +31,17 @@ class Customup extends StatelessWidget {
                 },
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
                       color: Colors.white),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               Image.asset('lib/assets/loading.png'),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               ShaderMask(
@@ -53,7 +53,7 @@ class Customup extends StatelessWidget {
                   ], begin: Alignment.topCenter, end: Alignment.bottomRight)
                       .createShader(bounds);
                 },
-                child: Text(
+                child: const Text(
                   'Processing',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ class Customup extends StatelessWidget {
                       color: Colors.white),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Container(
@@ -86,6 +86,7 @@ class Customup extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16)),
                 child: TextButton(
                   onPressed: () {
+                    
                     Get.to(AmountPrompt(title: title));
                   },
                   child: const Text(

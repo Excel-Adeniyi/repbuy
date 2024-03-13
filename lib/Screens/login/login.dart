@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
 import 'package:shapmanpaypoint/Screens/signup/signup.dart';
+import 'package:shapmanpaypoint/services/token.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final csrfService = CsrfService();
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -74,7 +76,8 @@ class LoginScreen extends StatelessWidget {
                                 MaterialStateProperty.all(Colors.white),
                             fixedSize: MaterialStateProperty.all(
                                 const Size(200.0, 10.0))),
-                        onPressed: () => {Get.toNamed('/signin')},
+                        onPressed: () =>
+                            {Get.toNamed('/signin'), csrfService.get()},
                         child: const Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.center,

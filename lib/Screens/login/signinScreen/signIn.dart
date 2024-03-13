@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Model/Auth/signinModel.dart';
 import 'package:shapmanpaypoint/Screens/login/forgetPassword/forgetpassword.dart';
+import 'package:shapmanpaypoint/controller/Auth/signInController.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
+import 'package:shapmanpaypoint/services/loginService.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 class SignIn extends StatelessWidget {
@@ -11,6 +14,15 @@ class SignIn extends StatelessWidget {
   // final _obscure = Get.put(ObscureController());
   final RxBool obscureText = true.obs;
   final _obscure = Get.find<ObscureController>();
+  final SignInController signincontroller = Get.put(SignInController());
+
+  final TextEditingController _userData = TextEditingController();
+  // final TextEditingController phone_number = TextEditingController();
+  final TextEditingController _passWord = TextEditingController();
+
+  // signIn service
+  final SigninService signservice = SigninService();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -69,9 +81,10 @@ class SignIn extends StatelessWidget {
                       child: TextField(
                         focusNode: _textfocusnode,
                         style: const TextStyle(fontSize: 13),
+                        controller: _userData,
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Enter Email'),
+                            labelText: 'Enter Email/Phone number'),
                       ),
                     ),
                     const SizedBox(
@@ -82,6 +95,7 @@ class SignIn extends StatelessWidget {
                       height: 50,
                       child: TextField(
                         obscureText: _obscure.isVisible.value,
+                        controller: _passWord,
                         focusNode: _textofocusnode,
                         style: const TextStyle(fontSize: 13),
                         decoration: InputDecoration(
@@ -154,39 +168,39 @@ class SignIn extends StatelessWidget {
                                 end: Alignment.bottomCenter),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(12))),
-                        child: TextButton(
-                          onPressed: () => {
-                            Get.snackbar(
-                              'Error',
-                              'Unable to access Server',
-                              backgroundColor: Colors.red,
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: Duration(seconds: 3),
-                              margin: EdgeInsets.all(20.0),
-                              borderRadius: 10.0,
-                              // dismissDirection: SnackDismissDirection.HORIZONTAL,
-                              forwardAnimationCurve: Curves.easeOutBack,
-                              reverseAnimationCurve: Curves.easeInBack,
-                            )
-                          },
-                          child: const Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Sign in',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                        child: TextButton(onPressed: () {
+                          final user = User(
+                              userdata: _userData.text,
+                              password: _passWord.text);
+                          signservice.userLogin(user);
+                        }, child: Obx(() {
+                          if (signincontroller.isLoading.value == true) {
+                            return const CircularProgressIndicator();
+                          } else {
+                            if (signincontroller.isLoggedIn.value == true) {
+                              // Get.toNamed('/dashboard');
+                              return Container();
+                            } else {
+                              return const Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Sign in',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 15),
+                                  ),
+                                  Icon(
+                                    Icons.login,
                                     color: Colors.white,
-                                    fontSize: 15),
-                              ),
-                              Icon(
-                                Icons.login,
-                                color: Colors.white,
-                              )
-                            ],
-                          ),
-                        ),
+                                  ),
+                                ],
+                              );
+                            }
+                          }
+                        })),
                       ),
                     ),
                   ],

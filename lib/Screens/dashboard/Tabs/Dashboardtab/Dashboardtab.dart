@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/cable/cableScreen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/electricityScreen.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/rechargeScreen.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/recharge_screen.dart';
 
 import '../../Header/header.dart';
 
