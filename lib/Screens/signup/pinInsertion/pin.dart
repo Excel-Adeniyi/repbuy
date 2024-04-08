@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:shapmanpaypoint/controller/Auth/pincode_controller.dart';
 import '../../../widgets/dailbutton/customdailpad.dart';
 import '../../../utils/colors/coloors.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PinScreen extends StatelessWidget {
   var pagecondition = (Get.previousRoute == '/otp');
-  final TextEditingController pinController = TextEditingController();
+  final PinCodeController _pincode = Get.put(PinCodeController());
+  final TextEditingController pincontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final title = 'Security PIN';
+    const title = 'Security PIN';
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -45,9 +47,9 @@ class PinScreen extends StatelessWidget {
                               end: Alignment.bottomCenter)
                           .createShader(bounds);
                     },
-                    child: Text(
+                    child: const Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 24),
@@ -81,7 +83,7 @@ class PinScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           PinCodeTextField(
-                            controller: pinController,
+                            controller: _pincode.pinController,
                             appContext: context,
                             obscuringCharacter: '*',
                             obscureText: true,
@@ -106,12 +108,16 @@ class PinScreen extends StatelessWidget {
                               )
                             ],
                             enableActiveFill: true,
+                            onChanged: (newValue) {
+                              _pincode.updateRegularControll(newValue);
+                             
+                            },
                           ),
                         ],
                       ),
                     ),
                   ),
-                  CustomDialPad(pinController: pinController),
+                  CustomDialPad(pinController: _pincode.pinController),
                   const SizedBox(
                     height: 80,
                   ),
@@ -129,7 +135,7 @@ class PinScreen extends StatelessWidget {
                         border: Border.all(
                             color: const Color.fromARGB(255, 219, 218, 218),
                             width: 2.0),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                             colors: buttongradient,
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
@@ -138,9 +144,9 @@ class PinScreen extends StatelessWidget {
                       onPressed: () {
                         Get.toNamed('/Confirmpin');
                       },
-                      child: Text(
+                      child: const Text(
                         'Continue',
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 14),

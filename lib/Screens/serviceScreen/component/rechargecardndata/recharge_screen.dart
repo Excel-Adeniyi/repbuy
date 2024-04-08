@@ -8,6 +8,7 @@ import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 // import 'package:get_storage/get_storage.dart';
 import 'package:shapmanpaypoint/controller/validator/airtime_validator.dart';
+import 'package:shapmanpaypoint/services/activateAuthenticators.dart';
 import 'package:shapmanpaypoint/services/operatorsService.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
@@ -23,7 +24,7 @@ class RechargeCard extends StatelessWidget {
   final IsoController isoController = Get.put(IsoController());
   final PhoneController phoneNumberContoller = Get.put(PhoneController());
   final AirtimeCController _airtimeController = AirtimeCController();
-  final fetchOperator = FetchOperatorService();
+  final airtimeAuth = AirtimeAuth();
   RechargeCard({Key? key}) : super(key: key);
   var items = [
     'Item 1',
@@ -49,7 +50,15 @@ class RechargeCard extends StatelessWidget {
       containerWidth = 500.0;
     }
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            // Navigate to the specified route
+            Get.toNamed('dashboard');
+          },
+        ),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
@@ -74,67 +83,9 @@ class RechargeCard extends StatelessWidget {
                   ),
                 ),
                 TopBalance(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text("Select Network Provider"),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: 45,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                gradient: const LinearGradient(
-                                    colors: buttongradient,
-                                    begin: Alignment.bottomLeft,
-                                    end: Alignment.bottomRight),
-                              ),
-                              child: const Icon(
-                                Icons.chevron_left,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 45,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                gradient: const LinearGradient(
-                                    colors: buttongradient,
-                                    begin: Alignment.bottomLeft,
-                                    end: Alignment.bottomRight),
-                              ),
-                              child: const Icon(
-                                Icons.chevron_right,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                const SizedBox(
+                  height: 20,
                 ),
-                if (imageSelector.images.length > 4)
-                  SizedBox(
-                    height: 70, // Set a fixed height for the list view
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: getImageWidgets(),
-                    ),
-                  )
-                else
-                  (const Text('GGG')),
                 Container(
                   padding: const EdgeInsets.fromLTRB(2, 7, 2, 7),
                   decoration: const BoxDecoration(
@@ -190,10 +141,17 @@ class RechargeCard extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                SizedBox(
-                    height: 100,
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.0,
+                            color: const Color.fromARGB(255, 73, 22, 105))),
+                    height: 50,
+                    width: double.infinity,
                     child: Obx(
                       () => DropdownButton<String>(
+                        padding: const EdgeInsets.all(8.0),
+                        isExpanded: true,
                         value: isoController.selectedCountry.value,
                         icon: const Icon(Icons.keyboard_arrow_down),
                         items: [
@@ -212,7 +170,7 @@ class RechargeCard extends StatelessWidget {
                         onChanged: (String? newValue) {
                           // Handle dropdown value change if needed
                           isoController.selectedCountry.value =
-                              newValue ?? "Select Country";
+                              newValue as String;
                         },
                       ),
                     )),
@@ -394,7 +352,7 @@ class RechargeCard extends StatelessWidget {
                           validatorAmount == null &&
                           validatorPhone == null) {
                         Get.to(Customup(title: title));
-                        fetchOperator.operators();
+                        airtimeAuth.activator();
                       }
                     },
                     child: const Text(

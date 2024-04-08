@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
 import 'package:shapmanpaypoint/Screens/signup/signup.dart';
+import 'package:shapmanpaypoint/services/GoogleService/google_signin.dart';
 import 'package:shapmanpaypoint/services/token.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,6 +10,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final googleSign = GoogleService();
     final csrfService = CsrfService();
     return Scaffold(
       body: Container(
@@ -99,7 +101,7 @@ class LoginScreen extends StatelessWidget {
                                 MaterialStateProperty.all(Colors.white),
                             fixedSize: MaterialStateProperty.all(
                                 const Size(200.0, 10.0))),
-                        onPressed: () => {},
+                        onPressed: () => {googleSign.googleAuth()},
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.center,

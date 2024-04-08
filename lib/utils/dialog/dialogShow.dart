@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
+import 'package:shapmanpaypoint/services/operatorsService.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/amountPrompt.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
@@ -12,6 +14,8 @@ class Customup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final LoaderController _loaderController = Get.put(LoaderController());
+    final fetchOperator = FetchOperatorService();
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -84,18 +88,25 @@ class Customup extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter),
                     borderRadius: BorderRadius.circular(16)),
-                child: TextButton(
-                  onPressed: () {
-                    
-                    Get.to(AmountPrompt(title: title));
-                  },
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                  ),
+                child: Obx(
+                  () => _loaderController.isLoading.value
+                      ? const SizedBox(
+                          height: 10,
+                          width: 10,
+                          child: CircularProgressIndicator(color: Colors.white))
+                      : TextButton(
+                          onPressed: () {
+                            Get.to(AmountPrompt(title: title));
+                            fetchOperator.operators();
+                          },
+                          child: const Text(
+                            'Continue',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
+                          ),
+                        ),
                 ),
               ),
             ],

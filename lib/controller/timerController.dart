@@ -1,17 +1,33 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/services/SignupService/otp_service.dart';
 
 class TimerController extends GetxController {
   RxInt minutes = 0.obs;
   RxInt seconds = 0.obs;
   RxBool timerActive = false.obs;
-
+  final signupOtp = SignUpOTP();
   Timer? _timer;
   @override
   void onInit() {
     super.onInit();
-    startTimer(); // Start the timer when the controller is initialized
+    startTimer();
+    signupOtp.otpsignup();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Get.defaultDialog(
+        title: "Notification",
+        content: const Text(
+          "Kindly check your mail for OTP",
+          style: TextStyle(color: Colors.black),
+        ),
+        cancel: Icon(Icons.cancel),
+        onCancel: Get.back,
+      );
+    });
+
+// Start the timer when the controller is initialized
   }
 
   void startTimer() {

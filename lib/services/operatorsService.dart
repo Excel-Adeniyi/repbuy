@@ -3,16 +3,18 @@ import 'package:get/instance_manager.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 
 import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
+import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 
 import '../utils/flutter_storage/flutter_storage.dart';
 
 class FetchOperatorService {
   static BaseOptions options = BaseOptions(
-    baseUrl: "http://172.21.67.29:2110",
-    connectTimeout: Duration(seconds: 5),
-    receiveTimeout: Duration(seconds: 3),
+    baseUrl: Constants.base_url,
+    connectTimeout: const Duration(minutes: 3),
+    receiveTimeout: const Duration(minutes: 3),
   );
   final Dio dio = Dio(options);
   final SecureStorage stora = SecureStorage();
@@ -21,6 +23,7 @@ class FetchOperatorService {
       Get.put(ContactPickerController());
   final AirtimeCController _airtimeCController = Get.put(AirtimeCController());
   final RechargeController rechargeText = Get.find<RechargeController>();
+  final LoaderController _loaderController = Get.find<LoaderController>();
   Future<Response<dynamic>> operators() async {
 // Obtain shared preferences.
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -30,6 +33,7 @@ class FetchOperatorService {
         "isoName": isoController.selectedCountry.value
       };
       print(dataReq);
+      _loaderController.isLoading.value = true;
       final response =
           await dio.post('/operator', options: Options(), data: dataReq);
       print(response);
@@ -41,7 +45,7 @@ class FetchOperatorService {
         print(response.data['operatorId']);
         print(response.data['name']);
         print(rechargeText.amountCont.text);
-
+        _loaderController.isLoading.value = false;
         _airtimeCController.operatorId.value =
             response.data['operatorId'].toString();
         _airtimeCController.countryCode.value =
@@ -53,10 +57,14 @@ class FetchOperatorService {
         // await stora.writeSecureData("X-csrf", response.data['message']);
       } else {
         print('NAN');
+        _loaderController.isLoading.value = true;
       }
       return response;
     } catch (error) {
+      _loaderController.isLoading.value = true;
       rethrow;
+    } finally {
+      _loaderController.isLoading.value = false;
     }
   }
 }
