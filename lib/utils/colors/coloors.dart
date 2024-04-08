@@ -6,3 +6,9 @@ const buttongradient = [
   Color(0xFF8629b1),
   Color.fromARGB(255, 255, 4, 180),
 ];
+const buttongradientInactive = [
+  Color.fromARGB(97, 83, 35, 187),
+  Color.fromARGB(131, 83, 35, 187),
+  Color.fromARGB(113, 134, 41, 177),
+  Color.fromARGB(80, 255, 4, 180),
+];

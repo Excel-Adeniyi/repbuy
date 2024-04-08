@@ -1,4 +1,5 @@
 var country_list = [
+  "select country",
   "Afghanistan",
   "Albania",
   "Algeria",

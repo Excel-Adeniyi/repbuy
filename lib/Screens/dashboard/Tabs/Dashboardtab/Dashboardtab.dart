@@ -1,15 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Binding/electric_binding.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/cable/cableScreen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/electricityScreen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/recharge_screen.dart';
+import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 
 import '../../Header/header.dart';
 
 class DashboardTab extends StatelessWidget {
   final double containerWidth;
+
   const DashboardTab({Key? key, required this.containerWidth})
       : super(key: key);
 
@@ -67,7 +72,7 @@ class DashboardTab extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.toNamed('recharge', arguments: 'Data Top up');
+                            Get.toNamed('data');
                           },
                           child: const Text(
                             'Data Plan',
@@ -105,7 +110,7 @@ class DashboardTab extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Get.to(Electric());
+                              Get.to(Electric(), binding: ElectricBinding());
                             },
                             child: const Text(
                               'Electricity',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/services/SignupService/otp_service.dart';
 import 'package:shapmanpaypoint/widgets/otpScreen/otp.dart';
 import 'package:shapmanpaypoint/utils/responsiveness/responsiveness.dart';
 
@@ -62,7 +63,7 @@ class CompletionScreen extends StatelessWidget {
                             end: Alignment.bottomCenter),
                         borderRadius: BorderRadius.all(Radius.circular(12))),
                     child: TextButton(
-                      onPressed: () => {Get.toNamed('/otp')},
+                      onPressed: () => {Get.toNamed("/otp")},
                       child: const Text(
                         'Continue',
                         style: TextStyle(

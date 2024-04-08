@@ -175,10 +175,12 @@ class SignIn extends StatelessWidget {
                           signservice.userLogin(user);
                         }, child: Obx(() {
                           if (signincontroller.isLoading.value == true) {
+                            print("HI");
                             return const CircularProgressIndicator();
                           } else {
                             if (signincontroller.isLoggedIn.value == true) {
-                              // Get.toNamed('/dashboard');
+                              // Get.toNamed('dashboard');
+                              print("HI");
                               return Container();
                             } else {
                               return const Row(

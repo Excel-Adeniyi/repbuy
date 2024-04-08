@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shapmanpaypoint/Screens/signup/pinInsertion/pin.dart';
+import 'package:shapmanpaypoint/controller/Auth/signup_controller.dart';
+import 'package:shapmanpaypoint/services/SignupService/otp_service.dart';
+import 'package:shapmanpaypoint/services/loginauth/otp_login.dart';
 import '../../controller/timerController.dart';
 import '../../utils/colors/coloors.dart';
 
 class OtpScreen extends StatelessWidget {
   var pagecondition = (Get.previousRoute == '/forgetpassword');
+  var lastpage = (Get.previousRoute == "/signin");
   final TimerController _timerController = Get.put(TimerController());
+
+  final editcontroller = Get.find<SignUpController>();
+  final otpService = SignUpOTP();
+
   @override
   Widget build(BuildContext context) {
     final title = pagecondition ? 'Enter OTP' : 'OTP Verification';
@@ -97,6 +105,7 @@ class OtpScreen extends StatelessWidget {
                             obscuringCharacter: '*',
                             obscureText: true,
                             length: 4,
+                            controller: editcontroller.pincontroller,
                             blinkWhenObscuring: true,
                             pinTheme: PinTheme(
                                 activeFillColor: Colors.white,
@@ -132,6 +141,7 @@ class OtpScreen extends StatelessWidget {
                                     _timerController.resetTimer();
                                   } else {
                                     _timerController.startTimer();
+                                    otpService.otpsignup();
                                   }
                                 },
                                 child: const Text(
@@ -172,15 +182,19 @@ class OtpScreen extends StatelessWidget {
                       onPressed: () {
                         pagecondition
                             ? Get.toNamed('/home')
-                            : Get.toNamed('/insertpin')!;
+                            : otpService.verifyOTP();
                       },
-                      child: Text(
-                        pagecondition ? 'Submit' : 'Continue',
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                      ),
+                      child: editcontroller.isLoading.value == true
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              pagecondition ? 'Submit' : 'Continue',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
                     ),
                   ),
                 ],

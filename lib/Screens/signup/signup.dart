@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
-import 'package:shapmanpaypoint/Screens/signup/completionScreen/completionScreen.dart';
+import 'package:shapmanpaypoint/services/SignupService/signup_service.dart';
+import 'package:string_validator/string_validator.dart';
+import 'package:shapmanpaypoint/controller/Auth/signup_controller.dart';
 import 'package:shapmanpaypoint/controller/dropdownController.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
 import 'package:shapmanpaypoint/utils/countries/countries.dart';
@@ -18,7 +21,8 @@ class SignupScreen extends StatelessWidget {
   final _passwordfocus = FocusNode();
   final _confirmpasswordfocus = FocusNode();
   final DropdownController controller = Get.put(DropdownController());
-
+  final SignUpController editController = Get.find<SignUpController>();
+  final signupService = SignUpService();
   List<String> options = country_list;
   @override
   Widget build(BuildContext context) {
@@ -114,20 +118,42 @@ class SignupScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       SizedBox(
                         width: containerWidth,
-                        height: 50,
+                        height: 75,
                         child: TextField(
+                          controller: editController.firstname,
                           focusNode: _firstnamefocus,
                           style: const TextStyle(
                               color: Colors.black54, fontSize: 14),
                           keyboardType: TextInputType.name,
-                          decoration: const InputDecoration(
-                              label: Text(
+                          decoration: InputDecoration(
+                              focusedErrorBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105))),
+                              errorBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105))),
+                              errorText:
+                                  editController.firstnameValidator.value ==
+                                          true
+                                      ? "First name should not be empty"
+                                      : "",
+                              label: const Text(
                                 'First name',
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 14),
                               ),
                               hintText: 'enter your last first name',
-                              border: OutlineInputBorder()),
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105)),
+                                  gapPadding: 40)),
+                          onChanged: (newValue) {
+                            if (newValue.isEmpty) {
+                              editController.firstnameValidator.value = true;
+                            } else {
+                              editController.firstnameValidator.value = false;
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -135,20 +161,42 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 50,
+                        height: 75,
                         child: TextField(
+                          controller: editController.lastname,
                           focusNode: _secondnamefocus,
                           keyboardType: TextInputType.name,
                           style: const TextStyle(
                               color: Colors.black54, fontSize: 14),
-                          decoration: const InputDecoration(
-                              label: Text(
-                                'Last name',
-                                style: TextStyle(
-                                    color: Colors.black54, fontSize: 14),
-                              ),
-                              hintText: 'enter your last name',
-                              border: OutlineInputBorder()),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105)),
+                                gapPadding: 40),
+                            focusedErrorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105))),
+                            errorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105))),
+                            errorText:
+                                editController.lastnameValidator.value == true
+                                    ? "Last name should not be empty"
+                                    : "",
+                            label: const Text(
+                              'Last name',
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 14),
+                            ),
+                            hintText: 'enter your last name',
+                          ),
+                          onChanged: (newValue) {
+                            if (newValue.isEmpty) {
+                              editController.lastnameValidator.value = true;
+                            } else {
+                              editController.lastnameValidator.value = false;
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -156,20 +204,51 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 50,
+                        height: 75,
                         child: TextField(
+                          controller: editController.email,
                           focusNode: _emailfocus,
                           style: const TextStyle(
                               color: Colors.black54, fontSize: 14),
                           keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                              label: Text(
-                                'Email',
-                                style: TextStyle(
-                                    color: Colors.black54, fontSize: 14),
-                              ),
-                              hintText: 'enter your email address',
-                              border: OutlineInputBorder()),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105)),
+                                gapPadding: 40),
+                            focusedErrorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105))),
+                            errorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105))),
+                            errorText:
+                                editController.emailValidator.value == true
+                                    ? "Email must be valid"
+                                    : "",
+                            label: const Text(
+                              'Email',
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 14),
+                            ),
+                            hintText: 'enter your email address',
+                          ),
+                          onChanged: (newValue) {
+                            if (newValue.isNotEmpty) {
+                              final value = isEmail(newValue);
+                              print(value);
+                              if (value == true) {
+                                editController.emailValidator.value = false;
+                                print(newValue);
+                              } else {
+                                editController.emailValidator.value = true;
+                                print("BBB");
+                              }
+                            } else {
+                              editController.emailValidator.value = true;
+                              print("rubbish");
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -180,8 +259,9 @@ class SignupScreen extends StatelessWidget {
                         height: 50,
                         child: Container(
                           decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: Colors.grey, width: 0.9),
+                              border: Border.all(
+                                  color: const Color.fromARGB(255, 73, 22, 105),
+                                  width: 0.9),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(3))),
                           child: DropdownButton(
@@ -199,6 +279,7 @@ class SignupScreen extends StatelessWidget {
                             }).toList(),
                             onChanged: (String? newValue) {
                               controller.selectedOption.value = newValue!;
+                              editController.country.value = newValue;
                             },
                           ),
                         ),
@@ -208,20 +289,51 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 50,
+                        height: 75,
                         child: TextField(
+                          controller: editController.phone,
                           focusNode: _phonefocus,
                           keyboardType: TextInputType.phone,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           style: const TextStyle(
                               color: Colors.black54, fontSize: 14),
-                          decoration: const InputDecoration(
-                              label: Text(
-                                'Phone number',
-                                style: TextStyle(
-                                    color: Colors.black54, fontSize: 14),
-                              ),
-                              hintText: 'enter your mobile number',
-                              border: OutlineInputBorder()),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105)),
+                                gapPadding: 40),
+                            focusedErrorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105))),
+                            errorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 73, 22, 105))),
+                            errorText:
+                                editController.phoneValidator.value == true
+                                    ? "Phone should not be empty"
+                                    : "",
+                            label: const Text(
+                              'Phone number',
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 14),
+                            ),
+                            hintText: 'enter your mobile number',
+                          ),
+                          onChanged: (newValue) {
+                            if (newValue.isNotEmpty) {
+                              final value = isNumeric(newValue);
+                              print(value);
+                              if (value == true) {
+                                editController.phoneValidator.value = false;
+                              } else {
+                                editController.phoneValidator.value = true;
+                              }
+                            } else {
+                              editController.phoneValidator.value = true;
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -229,27 +341,50 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 50,
+                        height: 75,
                         child: TextField(
                           obscureText: _obscurer.isVisible.value,
+                          controller: editController.password,
                           focusNode: _passwordfocus,
                           style: const TextStyle(fontSize: 13),
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4.0)),
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105)),
+                                  gapPadding: 40),
+                              focusedErrorBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105))),
+                              errorBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105))),
+                              errorText:
+                                  editController.passwordValidator.value == true
+                                      ? "Password should not be empty"
+                                      : "",
+                              label: const Text(
+                                'Enter Password',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 14),
                               ),
-                              labelText: 'Enter Password',
                               suffixIcon: IconButton(
                                   onPressed: () {
                                     _obscurer.passwordObscureToggle();
                                   },
                                   icon: Icon(
+                                    color: Colors.black54,
                                     _obscurer.isVisible.value
                                         ? Icons.visibility_off
                                         : Icons.visibility,
                                     size: 16,
                                   ))),
+                          onChanged: (newValue) {
+                            if (newValue.isNotEmpty) {
+                              editController.passwordValidator.value == false;
+                            } else {
+                              editController.passwordValidator.value == true;
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -257,27 +392,53 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 50,
+                        height: 75,
                         child: TextField(
+                          controller: editController.confirmpassword,
                           obscureText: _obscurer.isCVisible.value,
                           focusNode: _confirmpasswordfocus,
                           style: const TextStyle(fontSize: 13),
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4.0)),
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105)),
+                                  gapPadding: 40),
+                              focusedErrorBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105))),
+                              errorBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color.fromARGB(255, 73, 22, 105))),
+                              errorText: editController
+                                          .confirmpasswordValidator.value ==
+                                      true
+                                  ? "Password does not match"
+                                  : "",
+                              label: const Text(
+                                'Confirm password',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 14),
                               ),
-                              labelText: 'Confirm password Password',
                               suffixIcon: IconButton(
                                   onPressed: () {
                                     _obscurer.confirmPasswordObscureToggle();
                                   },
                                   icon: Icon(
+                                    color: Colors.black54,
                                     _obscurer.isCVisible.value
                                         ? Icons.visibility_off
                                         : Icons.visibility,
                                     size: 16,
                                   ))),
+                          onChanged: (newValue) {
+                            if (newValue != editController.password.text) {
+                              editController.confirmpasswordValidator.value =
+                                  true;
+                            } else {
+                              editController.confirmpasswordValidator.value =
+                                  false;
+                            }
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -290,8 +451,14 @@ class SignupScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Checkbox(
+                              checkColor: Colors.white,
                               value: _obscurer.checked.value,
-                              onChanged: _obscurer.confirmChecked,
+                              onChanged: (newValue) {
+                                _obscurer.confirmChecked(newValue);
+
+                                editController.onChangedValue();
+                                editController.terms.value = newValue!;
+                              },
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,41 +509,42 @@ class SignupScreen extends StatelessWidget {
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: containerWidth,
-                          height: 35,
-                          decoration: const BoxDecoration(
-                              boxShadow: [BoxShadow(color: Colors.black45)],
-                              gradient: LinearGradient(
-                                  colors: buttongradient,
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12))),
-                          child: TextButton(
-                            onPressed: () => {
-                              Get.snackbar(
-                                'Error',
-                                'Unable to access the Server',
-                                backgroundColor: Colors.red,
-                                snackPosition: SnackPosition.BOTTOM,
-                                duration: Duration(seconds: 3),
-                                margin: EdgeInsets.all(20.0),
-                                borderRadius: 10.0,
-                                // dismissDirection: SnackDismissDirection.HORIZONTAL,
-                                forwardAnimationCurve: Curves.easeOutBack,
-                                reverseAnimationCurve: Curves.easeInBack,
-                              )
-                              // Get.toNamed('/completeScreen')
-                            },
-                            child: const Text(
-                              'Create my account',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 15),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: containerWidth,
+                              height: 35,
+                              decoration: const BoxDecoration(
+                                  boxShadow: [BoxShadow(color: Colors.black45)],
+                                  gradient: LinearGradient(
+                                      colors: buttongradient,
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12))),
+                              child: TextButton(
+                                  style: ButtonStyle(),
+                                  onPressed: () => {signupService.signinAuth()},
+                                  child: editController.isLoading.value == false
+                                      ? const Text(
+                                          'Create my account',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              fontSize: 15),
+                                        )
+                                      : const CircularProgressIndicator
+                                          .adaptive()),
                             ),
-                          ),
+                            Visibility(
+                                visible: editController.isVisible.value,
+                                child: Container(
+                                  width: containerWidth,
+                                  height: 35,
+                                  color: Colors.white.withOpacity(0.5),
+                                ))
+                          ],
                         ),
                       ),
                       const SizedBox(

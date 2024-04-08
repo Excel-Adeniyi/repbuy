@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shapmanpaypoint/controller/Auth/pincode_controller.dart';
+import 'package:shapmanpaypoint/controller/Auth/signup_controller.dart';
+import 'package:shapmanpaypoint/services/SignupService/pincode_service.dart';
 import '../../../widgets/dailbutton/customdailpad.dart';
 import '../../../utils/colors/coloors.dart';
 
 class ConfirmPinScreen extends StatelessWidget {
   var pagecondition = (Get.previousRoute == '/otp');
-  final TextEditingController pinController = TextEditingController();
+  final PinCodeController _pincode = Get.find<PinCodeController>();
+  final userPin = PincodeService();
+  final SignUpController editcontroller = Get.find<SignUpController>();
+  final TextEditingController confirmpincontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final title = 'Security PIN';
+    const title = 'Security PIN';
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -43,9 +49,9 @@ class ConfirmPinScreen extends StatelessWidget {
                               end: Alignment.bottomCenter)
                           .createShader(bounds);
                     },
-                    child: Text(
+                    child: const Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 24),
@@ -82,11 +88,17 @@ class ConfirmPinScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           PinCodeTextField(
-                            controller: pinController,
+                            controller: _pincode.confirmpinController,
                             appContext: context,
                             obscuringCharacter: '*',
                             obscureText: true,
                             length: 4,
+                            onChanged: (newValue) {
+                              if (newValue != null && newValue.length == 4) {
+                                _pincode.updateControllers(newValue);
+                                print(" ENDC ${confirmpincontroller.text}");
+                              }
+                            },
                             blinkWhenObscuring: true,
                             pinTheme: PinTheme(
                                 activeFillColor: Colors.white,
@@ -112,7 +124,7 @@ class ConfirmPinScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  CustomDialPad(pinController: pinController),
+                  CustomDialPad(pinController: _pincode.confirmpinController),
                   const SizedBox(
                     height: 80,
                   ),
@@ -130,22 +142,26 @@ class ConfirmPinScreen extends StatelessWidget {
                         border: Border.all(
                             color: const Color.fromARGB(255, 219, 218, 218),
                             width: 2.0),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                             colors: buttongradient,
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
                         borderRadius: BorderRadius.circular(16)),
                     child: TextButton(
                       onPressed: () {
-                        Get.toNamed('/selectavatar');
+                        userPin.pincodeService();
                       },
-                      child: Text(
-                        'Continue',
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                      ),
+                      child: editcontroller.isLoading.value == true
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              'Continue',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
                     ),
                   ),
                 ],

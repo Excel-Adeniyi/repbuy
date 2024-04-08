@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/controller/Auth/useravatar_controller.dart';
+import 'package:shapmanpaypoint/services/SignupService/useravatar_service.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
 import '../../../utils/colors/coloors.dart';
@@ -9,6 +11,9 @@ class SelectAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserAvatarController avatarController =
+        Get.put(UserAvatarController());
+    final userAvatarService = UploadAvatarService();
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -26,15 +31,15 @@ class SelectAvatar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Set Avatar',
                 style: TextStyle(fontSize: 30),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text("Select an avatar to personalize your account"),
-              SizedBox(
+              const Text("Select an avatar to personalize your account"),
+              const SizedBox(
                 height: 50,
               ),
               Row(
@@ -49,7 +54,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -58,10 +63,11 @@ class SelectAvatar extends StatelessWidget {
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context)
-                                      .pop(); // Close the dialog
+                                  Navigator.of(context).pop();
+                                  avatarController.avatar.value =
+                                      'lib/assets/man1.png'; // Close the dialog
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -81,7 +87,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -90,10 +96,11 @@ class SelectAvatar extends StatelessWidget {
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context)
-                                      .pop(); // Close the dialog
+                                  Navigator.of(context).pop();
+                                  avatarController.avatar.value =
+                                      'lib/assets/woman.png'; // Close the dialog
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -113,7 +120,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -122,10 +129,11 @@ class SelectAvatar extends StatelessWidget {
                             actions: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context)
-                                      .pop(); // Close the dialog
+                                  Navigator.of(context).pop();
+                                  avatarController.avatar.value =
+                                      'lib/assets/woman1.png'; // Close the dialog
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -140,7 +148,7 @@ class SelectAvatar extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -155,7 +163,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -166,8 +174,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/man2.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -187,7 +197,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -198,8 +208,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/man.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -219,7 +231,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -230,8 +242,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/woman2.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -246,7 +260,7 @@ class SelectAvatar extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -261,7 +275,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -272,8 +286,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/empathy.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -293,7 +309,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -304,8 +320,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/rabbit.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -325,7 +343,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -336,8 +354,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/bear.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -352,7 +372,7 @@ class SelectAvatar extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -367,7 +387,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -378,8 +398,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/woman.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -399,7 +421,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -410,8 +432,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/man.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -431,7 +455,7 @@ class SelectAvatar extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text(
+                            title: const Text(
                               'Avatar Selected',
                               textAlign: TextAlign.center,
                             ),
@@ -442,8 +466,10 @@ class SelectAvatar extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
+                                  avatarController.avatar.value =
+                                      'lib/assets/bear.png';
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -475,18 +501,19 @@ class SelectAvatar extends StatelessWidget {
                     border: Border.all(
                         color: const Color.fromARGB(255, 219, 218, 218),
                         width: 2.0),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         colors: buttongradient,
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter),
                     borderRadius: BorderRadius.circular(16)),
                 child: TextButton(
                   onPressed: () {
-                    Get.toNamed('/dashboard');
+                    // Get.toNamed('/dashboard');
+                    userAvatarService.userAvatar();
                   },
-                  child: Text(
+                  child: const Text(
                     'Continue',
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 14),

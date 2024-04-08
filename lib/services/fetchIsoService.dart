@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 
 import '../utils/flutter_storage/flutter_storage.dart';
 
 class FetchISOService {
   static BaseOptions options = BaseOptions(
-    baseUrl: "http://172.21.67.29:2110",
-    connectTimeout: Duration(seconds: 5),
-    receiveTimeout: Duration(seconds: 3),
+    baseUrl: Constants.base_url,
+    connectTimeout: const Duration(minutes: 3),
+    receiveTimeout: const Duration(minutes: 3),
   );
   final Dio dio = Dio(options);
   final SecureStorage stora = SecureStorage();
