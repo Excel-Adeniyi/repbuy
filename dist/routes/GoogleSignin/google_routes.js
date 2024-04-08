@@ -1,0 +1,11 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const dbConfig_1 = __importDefault(require("../../config/dbConfig"));
+const googleSignIn_1 = __importDefault(require("../../controller/Auth/Login/googleSignIn"));
+const signupModel_1 = __importDefault(require("../../model/Auth/signupModel"));
+const googleSign = new signupModel_1.default(dbConfig_1.default);
+const googleSignInControlller = new googleSignIn_1.default(googleSign);
+exports.default = googleSignInControlller;
