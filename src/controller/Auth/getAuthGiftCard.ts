@@ -37,7 +37,7 @@ async function GetGiftCardAuth(req: Request, res: Response) {
       if (axiosError.response) {
         console.log(`Request failed with status code ${axiosError.response}`);
         res
-          .status(axiosError.response.status)
+          .status(500)
           .json({ axiosError: "Server Error" });
       } else if (axiosError.request) {
         console.log("No response from server");

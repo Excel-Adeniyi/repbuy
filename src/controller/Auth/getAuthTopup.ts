@@ -21,6 +21,7 @@ async function GetAuthTopUP(req: Request, res: Response) {
       grant_type: process.env.GRANTTYPE,
       audience: process.env.AUDIENCET,
     };
+    console.log(reqbody)
     const cacheD: any = CachedData
     if (cacheD !== undefined) {
       res.status(200).json("successfully")
@@ -44,6 +45,7 @@ async function GetAuthTopUP(req: Request, res: Response) {
       if (axiosError.response) {
         console.log(
           "Server responded with non-2xx status:",
+          axiosError.response
         );
         if (res) res
           .status(500)
