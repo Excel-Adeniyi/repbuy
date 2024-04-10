@@ -7,6 +7,7 @@ import axios, { AxiosError } from "axios";
 class PaymentController {
     private model: CurrentPurchaseModel
 
+
     constructor(model: CurrentPurchaseModel) {
         this.model = model
     }
@@ -41,6 +42,12 @@ class PaymentController {
                 console.log(responseData)
                 if (responseData.status == true) {
                     res.status(200).json({ success: true, message: responseData.data.access_code })
+                    const params = {
+                        userId,
+                       accesscode: responseData.data.access_code,
+                       referenceInfo
+                    }
+                    await this.model.InsertPaymentTableModel(params)
                 }else{
                     res.status(200).json({ success: false, message: "Unable to initialize payment" })
                 }

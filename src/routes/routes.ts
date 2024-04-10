@@ -23,6 +23,10 @@ import googleSignInControlller from "./GoogleSignin/google_routes";
 import otpcontroller from "./OTProutes/otp_routes";
 import PaymentController from "../controller/Payments/payments_controller";
 import paymentinit from "./InitializePayment/paymentRoutes";
+import VerifyPaymnents from "../controller/Payments/payments_verify_controller";
+import { verify } from "jsonwebtoken";
+import verifypay from "./verifyPaymentsroutes/verifyPayroutes";
+import operatorsclass from "./Operatorsroutes/operatorsroutes";
 
 
 let router = Router();
@@ -30,7 +34,13 @@ let router = Router();
 router.post("/authtopup", GetAuthTopUp);
 router.post('/authGiftCard', GetGiftCardAuth)
 router.post('/authUtility', GetUntilityAuth)
+
+//verify airtime OTP and Complete Payment
 router.post("/airtime", (req, res) => airtimeController.GetAirtime(req, res));
+
+
+
+
 router.get('/utilitybiller', UtilityBiller)
 
 
@@ -40,18 +50,23 @@ router.post('/userpin', (req, res) => otpcontroller.pincode(req, res))
 
 router.post('/avater', (req, res) => signUPController.updateAvater(req, res))
 
-router.get("/balance", JToken, GetBalance);
+router.get("/balance", GetBalance);
 router.get('/ctoken', CsrfData)
 
 router.post('/create', (req, res) => signUPController.createAccount(req, res));
 router.post('/login', (req, res) => loginController.loginAccount(req, res))
 router.post('/googleSignUp', (req, res) => googleSignInControlller.createAccount(req, res))
 
-router.post('/operator', GetOperators)
+router.post('/operator', (req, res) => operatorsclass.GetOperators(req, res))
 router.get("/ios", JToken, (req, res) => {
   iosController.getAllRecords(req, res);
 });
+
+//Payment gateway:
 router.post('/getreference',(req, res) => paymentinit.initializePayment(req, res))
+router.get('/verifyPayment/:reference', (req, res) => verifypay.verifyPayment(req, res))
+
+
 router.post("/history", (req, res) => historyContoller.CreateHISTORYController(req, res))
 router.get("/getios", (req, res) => {
   getSavedIosroute.getAllDbIosRecords(req, res);
