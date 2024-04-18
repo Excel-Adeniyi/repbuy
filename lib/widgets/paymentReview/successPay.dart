@@ -11,7 +11,7 @@ import '../../utils/width.dart';
 class SuccessPay extends StatelessWidget {
   final String title;
   final PaymentList paymentList;
-  SuccessPay({Key? key, required this.title, required this.paymentList})
+  const SuccessPay({Key? key, required this.title, required this.paymentList})
       : super(key: key);
 
   @override
@@ -35,9 +35,9 @@ class SuccessPay extends StatelessWidget {
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight)
                     .createShader(bounds);
               },
-              child: Text(
+              child: const Text(
                 'Payment Review',
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
@@ -45,8 +45,8 @@ class SuccessPay extends StatelessWidget {
             ),
             Container(
                 alignment: Alignment.bottomLeft,
-                padding: EdgeInsets.fromLTRB(14, 0, 14, 0),
-                child: Text(
+                padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
+                child: const Text(
                   'For',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class SuccessPay extends StatelessWidget {
                   textAlign: TextAlign.left,
                 )),
             Container(
-              padding: EdgeInsets.fromLTRB(14, 0, 14, 0),
+              padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -77,11 +77,11 @@ class SuccessPay extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(14, 0, 14, 0),
+              padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
               alignment: Alignment.bottomLeft,
               child: Text(
                 paymentList.productnumber,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
             ),
             const SizedBox(
@@ -90,7 +90,7 @@ class SuccessPay extends StatelessWidget {
             Container(
               height: 200,
               width: 500,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
                   gradient: LinearGradient(colors: [
                     Color.fromARGB(255, 193, 192, 196),
@@ -246,7 +246,7 @@ class GradientStyle extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShaderMask(
       shaderCallback: (Rect bounds) {
-        return LinearGradient(
+        return const LinearGradient(
                 colors: buttongradient,
                 begin: Alignment.bottomLeft,
                 end: Alignment.bottomRight)
@@ -254,7 +254,7 @@ class GradientStyle extends StatelessWidget {
       },
       child: Text(
         data,
-        style: TextStyle(
+        style: const TextStyle(
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
       ),
     );

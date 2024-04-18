@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
-import 'package:shapmanpaypoint/Screens/signup/signup.dart';
+import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/services/GoogleService/google_signin.dart';
 import 'package:shapmanpaypoint/services/token.dart';
 
@@ -10,12 +9,13 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(MasterController());
     final googleSign = GoogleService();
     final csrfService = CsrfService();
     return Scaffold(
       body: Container(
         color: Colors.white,
-        padding: EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(24.0),
         // width: 500,
         child: Center(
           child: SingleChildScrollView(

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Binding/electric_binding.dart';
 import 'package:shapmanpaypoint/Binding/signup_binding.dart';

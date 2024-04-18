@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/Auth/signup_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
+import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 
@@ -15,11 +15,15 @@ class PaymentService {
     receiveTimeout: const Duration(minutes: 3),
   );
   final dio = Dio(options);
-  final SignUpController editcontroller = Get.find<SignUpController>();
+  final MasterController masterController = Get.find<MasterController>();
   final AirtimeCController airtimeCController = Get.find<AirtimeCController>();
   final SecureStorage stora = SecureStorage();
   final UserInfoController _userInfo = Get.find<UserInfoController>();
   Future<String> paymentInit() async {
+    final SignUpController editcontroller =
+        masterController.signupIsActive.value == true
+            ? Get.find<SignUpController>()
+            : Get.put(SignUpController());
     final decodedToken = await stora.readSecureData('ResBody');
     Map<String, dynamic> userDecode = json.decode(decodedToken);
     try {

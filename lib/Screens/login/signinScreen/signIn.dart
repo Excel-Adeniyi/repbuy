@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/Auth/signinModel.dart';
 import 'package:shapmanpaypoint/Screens/login/forgetPassword/forgetpassword.dart';
-import 'package:shapmanpaypoint/controller/Auth/signInController.dart';
+import 'package:shapmanpaypoint/controller/Auth/signin_controller.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
 import 'package:shapmanpaypoint/services/loginService.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';

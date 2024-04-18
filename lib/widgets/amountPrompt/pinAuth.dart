@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shapmanpaypoint/controller/Animation/payment_animation_controller.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
 import 'package:shapmanpaypoint/controller/timerController.dart';
-import 'package:shapmanpaypoint/services/airtimeTopupService.dart';
+import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
+import 'package:shapmanpaypoint/services/Airtime/airtime_otp_service.dart';
 import 'package:shapmanpaypoint/services/otp_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_checkout.dart';
+import 'package:shapmanpaypoint/widgets/bottomSheet/bottomsheet.dart';
 
-import 'package:shapmanpaypoint/widgets/amountPrompt/completedPayment.dart';
 // import '../../../components/dailbutton/customdailpad.dart';
 import '../../utils/colors/coloors.dart';
 
 class PinAuth extends StatelessWidget {
   final OTPController _otpController = Get.put(OTPController());
   final TimerController _timercontroller = Get.put(TimerController());
+  final TextEditingController pinController = TextEditingController();
+  final animationController = Get.put(PaymentAnimation());
+  
   final initPay = Get.put(PaymentController());
   final String title;
   final payVoid = PaymentCheckout();
   final otpService = OTPService();
-  final airtimeService = AirtimeTopupService();
-  final _loaderController = LoaderController();
+  final verifyOtpService = VerifyAirtime();
+
+  final _loaderController = Get.find<LoaderController>();
   PinAuth({Key? key, required this.title}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -43,8 +51,24 @@ class PinAuth extends StatelessWidget {
         body: GestureDetector(
           child: Center(
             child: SingleChildScrollView(
-              child: Obx(
-                () {
+              child: Obx(() {
+                if (_loaderController.isChecker.value == true) {
+                  return Dialog.fullscreen(
+                    // insetAnimationCurve: Curves.easeInOut,
+                    backgroundColor: Colors.white,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          const PaymentGradientWidget(),
+                          LoadingAnimationWidget.staggeredDotsWave(
+                            color: const Color(0xFF1A1A3F),
+                            size: 100,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
                   if (_loaderController.isLoading.value == false) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -93,9 +117,10 @@ class PinAuth extends StatelessWidget {
                                 PinCodeTextField(
                                   appContext: context,
                                   obscuringCharacter: '*',
+                                  // controller: pinController,
                                   obscureText: true,
                                   length: 4,
-                                  blinkDuration: Duration(seconds: 2),
+                                  blinkDuration: const Duration(seconds: 2),
                                   keyboardType: TextInputType.number,
                                   blinkWhenObscuring: true,
                                   validator: (String? value) {
@@ -133,25 +158,24 @@ class PinAuth extends StatelessWidget {
                           ),
                         ),
                         // CustomDialPad(pinController: pinController),
-                        Obx(
-                          () => (_timercontroller.minutes.value == 0 &&
-                                  _timercontroller.seconds.value == 0)
-                              ? TextButton(
-                                  onPressed: (() {
-                                    _timercontroller.startTimer();
-                                    otpService.otpReq();
-                                  }),
-                                  child: const Text(
-                                    'Resend OTP',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.purple),
-                                  ))
-                              : Text(
-                                  'Resend OTP: ${_timercontroller.minutes.value} : ${_timercontroller.seconds.value}',
-                                  style: const TextStyle(color: Colors.purple),
-                                ),
-                        ),
+                        (_timercontroller.minutes.value == 0 &&
+                                _timercontroller.seconds.value == 0)
+                            ? TextButton(
+                                onPressed: (() {
+                                  _timercontroller.startTimer();
+                                  otpService.otpReq();
+                                }),
+                                child: const Text(
+                                  'Resend OTP',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.purple),
+                                ))
+                            : Text(
+                                'Resend OTP: ${_timercontroller.minutes.value} : ${_timercontroller.seconds.value}',
+                                style: const TextStyle(color: Colors.purple),
+                              ),
+
                         const SizedBox(
                           height: 80,
                         ),
@@ -183,8 +207,33 @@ class PinAuth extends StatelessWidget {
                             onPressed: () {
                               _otpController.isComplete.value == true
                                   ? (
-                                      // Get.to(CompletedAmount(title: title)),
-                                      payVoid.chargeCardPayment(context),
+                                      // // Get.to(CompletedAmount(title: title)),
+                                      // verifyOtpService.verifyOTP(),
+                                      // payVoid.chargeCardPayment(context, title),
+                                       showModalBottomSheet(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            SizedBox(
+                                          height: 200,
+                                          child: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                const Text('Modal BottomSheet'),
+                                                ElevatedButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: const Text(
+                                                      'Close BottomSheet'),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                     
                                     )
                                   : '';
                             },
@@ -220,8 +269,8 @@ class PinAuth extends StatelessWidget {
                       ),
                     );
                   }
-                },
-              ),
+                }
+              }),
             ),
           ),
         ),

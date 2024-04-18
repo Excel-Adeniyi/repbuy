@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Auth/useravatar_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_avatar.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
+import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
 
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
@@ -11,6 +12,7 @@ import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 class DashboardHeader extends StatelessWidget {
   // const DashboardHeader({super.key});
   final BalanceObscure _controller = Get.put(BalanceObscure());
+  final MasterController masterController = Get.put(MasterController());
   final _userDetails = Get.find<UserInfoController>();
   final _useravatar = Get.put(UserImage());
 

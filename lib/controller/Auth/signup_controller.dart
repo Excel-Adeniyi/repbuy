@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 
 class SignUpController extends GetxController {
   final TextEditingController firstname = TextEditingController();
@@ -20,8 +22,9 @@ class SignUpController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxBool isCreated = false.obs;
   final TextEditingController pincontroller = TextEditingController();
-
+  final masterController = Get.find<MasterController>();
   void onChangedValue() {
+    masterController.signupIsActive.value = true;
     print(terms.value);
     print(confirmpasswordValidator.value);
     if (firstname.text.isNotEmpty &&

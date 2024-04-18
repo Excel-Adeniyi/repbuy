@@ -5,11 +5,13 @@ import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
 import 'package:shapmanpaypoint/Model/ISOData/iso_model.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 // import 'package:get_storage/get_storage.dart';
 import 'package:shapmanpaypoint/controller/validator/airtime_validator.dart';
 import 'package:shapmanpaypoint/services/activateAuthenticators.dart';
 import 'package:shapmanpaypoint/services/operatorsService.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/amount_prompt.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
@@ -17,13 +19,14 @@ import '../../../../utils/dialog/dialogShow.dart';
 // import 'package:shapmanpaypoint/utils/dialog/dialogShow.dart';
 
 class RechargeCard extends StatelessWidget {
-  final String title = Get.arguments;
+  final String title = Get.arguments ?? "Airtime";
   final RechargeController imageSelector = Get.put(RechargeController());
   final ContactPickerController contactController =
       Get.put(ContactPickerController());
   final IsoController isoController = Get.put(IsoController());
   final PhoneController phoneNumberContoller = Get.put(PhoneController());
-  final AirtimeCController _airtimeController = AirtimeCController();
+  final AirtimeCController _airtimeController = Get.put(AirtimeCController());
+  final LoaderController _loaderController = Get.put(LoaderController());
   final airtimeAuth = AirtimeAuth();
   RechargeCard({Key? key}) : super(key: key);
   var items = [
@@ -351,7 +354,7 @@ class RechargeCard extends StatelessWidget {
                           imageSelector.amountCont.text.isNotEmpty &&
                           validatorAmount == null &&
                           validatorPhone == null) {
-                        Get.to(Customup(title: title));
+                        Get.to(AmountPrompt(title: title));
                         airtimeAuth.activator();
                       }
                     },

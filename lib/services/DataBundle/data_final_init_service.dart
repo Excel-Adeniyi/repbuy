@@ -33,7 +33,7 @@ class DataTopUpService {
     try {
       print(purchasecontroller.isLoading.value);
       final dataReq = {
-        "otp": otpController.pinController.text,
+        "otp": otpController.pinController.value,
         "userId": userId,
         "operatorId": _dataBundleController.selectedPName.value,
         "amount": _dataBundleController.priceController.text,
@@ -46,7 +46,7 @@ class DataTopUpService {
       final response =
           await dio.post('/airtime', options: Options(), data: dataReq);
       print("HIIH ${response}");
-      otpController.pinController.clear();
+      otpController.pinController.close();
       const value = '';
       otpController.checkOTP(value);
       if (response.data['transactionId'] != null) {
@@ -57,19 +57,19 @@ class DataTopUpService {
         purchasecontroller.dataRx.value = true;
       } else {
         purchasecontroller.dataRx.value = false;
-        otpController.pinController.clear();
+        otpController.pinController.close();
       }
       return response;
     } catch (error) {
       print('RUFUS');
       purchasecontroller.isLoading.value = true;
       purchasecontroller.dataRx.value = false;
-      otpController.pinController.clear();
+      otpController.pinController.close();
 
       rethrow;
     } finally {
       purchasecontroller.isLoading.value = false;
-      otpController.pinController.clear();
+      otpController.pinController.close();
     }
   }
 }

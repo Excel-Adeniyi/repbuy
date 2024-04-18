@@ -12,7 +12,7 @@ import '../../../../../utils/width.dart';
 
 class DataAmountPrompt extends StatelessWidget {
   DataAmountPrompt({Key? key}) : super(key: key);
-  final _dataDetails = Get.put(AirtimeCController());
+  final _dataDetails = Get.find<AirtimeCController>();
   final _databundleController = Get.find<DataBundleController>();
   final _phoneNumberController = Get.find<ContactPickerController>();
   final _loaderController = Get.find<LoaderController>();

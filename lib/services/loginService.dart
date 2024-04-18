@@ -4,7 +4,7 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/Auth/signinModel.dart';
-import 'package:shapmanpaypoint/controller/Auth/signInController.dart';
+import 'package:shapmanpaypoint/controller/Auth/signin_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';

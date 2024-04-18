@@ -67,7 +67,7 @@ class LoginOTP {
       };
       editcontroller.isLoading.value = true;
       final response =
-          await dio.post("/otpverify", options: Options(), data: payload);
+          await dio.post("/otp/request", options: Options(), data: payload);
       final responseData = response.data;
       print(responseData);
       if (responseData['success'] == true) {

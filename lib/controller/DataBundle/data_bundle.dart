@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/DataBundle/data_bundle_model.dart';
+import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 
 class DataBundleController extends GetxController {
   final RxList<Datapackage> selectPackkage = <Datapackage>[].obs;
@@ -16,6 +17,7 @@ class DataBundleController extends GetxController {
   final RxString selectedFixed = "".obs;
   final RxString currencySelector = ''.obs;
   final TextEditingController priceController = TextEditingController();
+  final MasterController masterController = Get.find<MasterController>();
   final RxList<MapEntry<String, dynamic>> dropdownItems =
       <MapEntry<String, dynamic>>[].obs;
   final RxBool valueChanged = false.obs;
@@ -23,6 +25,7 @@ class DataBundleController extends GetxController {
   void onInit() {
     super.onInit();
     loadDatabundle();
+    masterController.databundleController.value = true;
   }
 
   @override
@@ -74,26 +77,18 @@ class DataBundleController extends GetxController {
       (data) => data.operatorId.toString() == provider,
     ); // Handling the case where provider is not found
     print(currentProvider);
-    if (currentProvider != null) {
-      currencySelector.value =
-          currentProvider.destinationCurrencySymbol as String;
-      final selectedValue = currentProvider.fixedAmountsDescriptions.entries
-          .firstWhere((valuess) => valuess.key == bundle, orElse: () {
-        return const MapEntry('', '');
-      }); // Handling the case where bundle is not found
-
-      if (selectedValue != null) {
-        currencySelector.value =
-            selectedCountryIso.value = currentProvider.country["isoName"];
+    currencySelector.value =
         currentProvider.destinationCurrencySymbol as String;
-        selectedFixedValues.value = selectedValue.value;
-      } else {
-        print('Bundle $bundle not found');
-      }
-    } else {
-      print('Provider $provider not found');
-    }
-    update();
+    final selectedValue = currentProvider.fixedAmountsDescriptions.entries
+        .firstWhere((valuess) => valuess.key == bundle, orElse: () {
+      return const MapEntry('', '');
+    }); // Handling the case where bundle is not found
+
+    currencySelector.value =
+        selectedCountryIso.value = currentProvider.country["isoName"];
+    currentProvider.destinationCurrencySymbol as String;
+    selectedFixedValues.value = selectedValue.value;
+        update();
   }
 
   void updateDropdownItems(Map<String, dynamic> newData) {
