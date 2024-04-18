@@ -12,95 +12,48 @@ class GetAirtimeController {
     }
     async GetAirtime(req: Request, res: Response): Promise<void> {
         try {
-
+            console.log("HLLL")
             let airtimeData = req.body
             console.log(airtimeData)
-            const dataOTP = {
-                otp: airtimeData.otp,
-                userId: airtimeData.userId
+            const data = {
+                userId: airtimeData.userId,
             }
-            const modelResult = await this.model.CHECKOTP(dataOTP)
-            console.log(modelResult)
-            if (modelResult !== null && modelResult !== undefined && modelResult.length > 0) {
-                const otpTime = modelResult[0].time
-                // console.log(otpTime)
-                const currentTime = new Date().getTime()
-                const toUpdatedTime = new Date(otpTime.getTime() + (1 * 60 * 60 * 1000))
-                const otpDate = otpTime.toLocaleDateString()
-                const currentDate = new Date().toLocaleDateString()
-                const verifyTime = new Date(toUpdatedTime.getTime() + (15 * 60 * 1000))
-                const correctedTime = verifyTime.getTime()
-                if (otpDate === currentDate) {
-                    console.log("BIG", { currentTime, correctedTime })
-                    if (currentTime < correctedTime) {
-                        console.log("US")
-                        const dataReq = {
-                            operatorId: airtimeData.operatorId,
-                            amount: airtimeData.amount,
-                            recipientPhone: { countryCode: airtimeData.recipientPhone.countryCode, number: airtimeData.recipientPhone.number }
-                        }
-                        const cachedD = myCache.get("AUTH_DATA_KEY");
-
-                        const response: AxiosResponse = await axios.post('https://topups-sandbox.reloadly.com/topups-async ', dataReq,
-                            {
-                                headers: {
-                                    'Authorization': `Bearer ${cachedD}`,
-                                    'Content-Type': 'Application/json'
-                                }
-                            }
-                        )
-                        const responseData = response.data
-                        console.log(responseData)
-                        if (responseData.transactionId != undefined && responseData.transactionId != null) {
-                            const data = {
-                                transactionId: responseData.transactionId,
-                                userId: airtimeData.userId
-                            }
-                            const updatePurchaseTable = await this.model.GetAirtimeModel(data)
-                            // console.log(updatePurchaseTable)
-                            if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
-                                res.json(responseData)
-                            }
-                        }
-                    } else {
-
-                        res.status(500).json("OTP Timed out")
-                    }
-                } else {
-                    console.log("US")
-                    const dataReq = {
-                        operatorId: airtimeData.operatorId,
-                        amount: airtimeData.amount,
-                        recipientPhone: { countryCode: airtimeData.recipientPhone.countryCode, number: airtimeData.recipientPhone.number }
-                    }
-                    const cachedD = myCache.get("AUTH_DATA_KEY");
-
-                    const response: AxiosResponse = await axios.post('https://topups-sandbox.reloadly.com/topups-async ', dataReq,
-                        {
-                            headers: {
-                                'Authorization': `Bearer ${cachedD}`,
-                                'Content-Type': 'Application/json'
-                            }
-                        }
-                    )
-                    const responseData = response.data
-                    console.log(responseData)
-                    if (responseData.transactionId != undefined && responseData.transactionId != null) {
-                        const data = {
-                            transactionId: responseData.transactionId,
-                            userId: airtimeData.userId
-                        }
-                        const updatePurchaseTable = await this.model.GetAirtimeModel(data)
-                        // console.log(updatePurchaseTable)
-                        if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
-                            res.json(responseData)
+            const dataReq = {
+                operatorId: airtimeData.operatorId,
+                amount: airtimeData.amount,
+                recipientPhone: { countryCode: airtimeData.recipientPhone.countryCode, number: airtimeData.recipientPhone.number }
+            }
+            const successdata: any = await this.model.CHECKSuccessful(data)
+            console.log(successdata)
+            if(successdata[0].successful == 1) {
+                const cachedD = myCache.get("AUTH_DATA_KEY");
+                // console.log("CACHE", cachedD);
+                const axiosInstance = axios.create();
+                const response: AxiosResponse = await axiosInstance.post('https://topups-sandbox.reloadly.com/topups-async ', dataReq,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${cachedD}`,
+                            'Content-Type': 'Application/json'
                         }
                     }
-
+                )
+                const responseData = response.data
+                console.log(responseData)
+                if (responseData.transactionId != undefined && responseData.transactionId != null) {
+                    const data = {
+                        transactionId: responseData.transactionId,
+                        userId: airtimeData.userId
+                    }
+                    const updatePurchaseTable = await this.model.GetAirtimeModel(data)
+                    if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
+                        res.status(200).json({ Success: true, message: responseData})
+                    }
                 }
-            } else {
-                res.status(500).json("Invalid OTP")
+            }else {
+                res.status(503).json({Success: false, message: "Unable to verify OTP"})
             }
+            
+
         } catch (error: any) {
             // console.log(error)
             if (axios.isAxiosError(error)) {
@@ -123,6 +76,58 @@ class GetAirtimeController {
                 console.log('Internal server error', (error as Error).message)
                 res.status(500).json({ error: 'Internal server error' })
             }
+        }
+    }
+    async VerifyOTP(req: Request, res: Response): Promise<void> {
+        try {
+
+            let airtimeData = req.body
+            console.log(airtimeData)
+            const dataOTP = {
+                otp: airtimeData.otp,
+                userId: airtimeData.userId
+            }
+            const modelResult = await this.model.CHECKOTP(dataOTP)
+            console.log("VERIFY THE OTP", modelResult)
+            if (modelResult !== null && modelResult !== undefined && modelResult.length > 0) {
+                const otpTime = modelResult[0].time
+                const currentTime = new Date().getTime()
+                const toUpdatedTime = new Date(otpTime.getTime() + (1 * 60 * 60 * 1000))
+                const otpDate = otpTime.toLocaleDateString()
+                const currentDate = new Date().toLocaleDateString()
+                const verifyTime = new Date(toUpdatedTime.getTime() + (15 * 60 * 1000))
+                const correctedTime = verifyTime.getTime()
+                if (otpDate === currentDate) {
+                    if (currentTime < correctedTime) {
+                        const cachedD = myCache.get("AUTH_DATA_KEY");
+                        console.log("CACHE", cachedD);
+                        const data = {
+                            userId: airtimeData.userId
+                        }
+                        const updatePurchaseTable = await this.model.GetAirtimeModel(data)
+                        if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
+                            res.status(200).json({ Success: true, message: "OTP is valid" })
+                        }
+                    }
+                } else {
+                    res.status(500).json("OTP Timed out")
+                }
+            } else {
+                const cachedD = myCache.get("AUTH_DATA_KEY");
+                console.log('CHACHE', cachedD)
+                const data = {
+                    userId: airtimeData.userId
+                }
+                const updatePurchaseTable = await this.model.GetAirtimeModel(data)
+                // console.log(updatePurchaseTable)
+                if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
+                    res.status(200).json({ Success: true, message: "OTP Valid" })
+                }
+            }
+        } catch (error: any) {
+            console.log('Internal server error', (error as Error).message)
+            res.status(500).json({ error: 'Internal server error' })
+
         }
     }
 }

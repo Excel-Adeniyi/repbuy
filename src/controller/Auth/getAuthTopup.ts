@@ -19,7 +19,7 @@ async function GetAuthTopUP(req: Request, res: Response) {
       client_id: process.env.CLIENTID,
       client_secret: process.env.SECRET,
       grant_type: process.env.GRANTTYPE,
-      audience: process.env.AUDIENCET,
+      audience: process.env.AUDIENCETS,
     };
     console.log(reqbody)
     const cacheD: any = CachedData

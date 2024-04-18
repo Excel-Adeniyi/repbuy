@@ -31,11 +31,12 @@ class HistoryClass {
       const otp_data = {
         digits, userId
       }
+      console.log("THE DATA", otp_data)
       const otpCheck = await this.otpModel.CHECKOTP(otp_data)
 
       const currentTime = new Date().getTime()
-      if (otpCheck != null && otpCheck != undefined && otpCheck.length > 0) {
-        console.log(otpCheck)
+      if (otpCheck != null && otpCheck != undefined && otpCheck.length > 0 ) {
+        console.log("TESTING",otpCheck)
         otpCheck.forEach(async (item) => {
           const otpTime = item.time
           const toUpdatedTime = new Date(otpTime.getTime() + (1 * 60 * 60 * 1000))
@@ -50,6 +51,7 @@ class HistoryClass {
               console.log("shaker",{correctedTime, currentTime})
               const updateOtp = await this.otpModel.UPDATEOTP(otp_data)
               if (updateOtp != null && updateOtp != undefined) {
+                console.log('SOMETHING FALSE', updateOtp)
                 console.log("abito", {correctedTime, currentTime})
                 const modelResult = await this.model.History_Model(data)
                 const emailResult = await this.emailModel.getUserDetails(userId)
@@ -83,12 +85,14 @@ class HistoryClass {
                 }
 
                 main().catch(console.error);
+                res.status(200).json({ success: "true", message: "successfully sent" })
               }
-              res.status(200).json({ success: "true", message: "successfully sent" })
+              
             } else {
               res.status(200).json({ success: "false", message: "Kindly wait a little before retrying" })
             }
           } else {
+            console.log("SOMETHING NEW")
             const updateOtp = await this.otpModel.UPDATEOTP(otp_data)
             if (updateOtp != null && updateOtp != undefined) {
               const modelResult = await this.model.History_Model(data)

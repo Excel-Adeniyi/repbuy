@@ -36,7 +36,8 @@ router.post('/authGiftCard', GetGiftCardAuth)
 router.post('/authUtility', GetUntilityAuth)
 
 //verify airtime OTP and Complete Payment
-router.post("/airtime", (req, res) => airtimeController.GetAirtime(req, res));
+router.post('/otp/verify', (req, res) => airtimeController.VerifyOTP(req, res))
+router.post("/airtime/request", (req, res) => airtimeController.GetAirtime(req, res));
 
 
 
@@ -45,7 +46,8 @@ router.get('/utilitybiller', UtilityBiller)
 
 
 router.post("/otp", (req, res) => otpcontroller.CreateHISTORYController(req, res))
-router.post('/otpverify', (req, res) => otpcontroller.recieveOTP(req, res))
+router.post('/otp/request', (req, res) => otpcontroller.recieveOTP(req, res))
+
 router.post('/userpin', (req, res) => otpcontroller.pincode(req, res))
 
 router.post('/avater', (req, res) => signUPController.updateAvater(req, res))
@@ -64,7 +66,7 @@ router.get("/ios", JToken, (req, res) => {
 
 //Payment gateway:
 router.post('/getreference',(req, res) => paymentinit.initializePayment(req, res))
-router.get('/verifyPayment/:reference', (req, res) => verifypay.verifyPayment(req, res))
+router.post('/verifyPayment', (req, res) => verifypay.verifyPayment(req, res))
 
 
 router.post("/history", (req, res) => historyContoller.CreateHISTORYController(req, res))
