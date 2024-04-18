@@ -18,6 +18,4 @@ class AirtimeCController extends GetxController {
       number: number.value,
     );
   }
-  // Return null or handle the case when any value is empty.
-  // return null;
 }

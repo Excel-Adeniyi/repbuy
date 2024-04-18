@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/operatorsService.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/amountPrompt.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/amount_prompt.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
 import '../colors/coloors.dart';
@@ -15,7 +15,7 @@ class Customup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LoaderController _loaderController = Get.put(LoaderController());
-    final fetchOperator = FetchOperatorService();
+
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -95,10 +95,7 @@ class Customup extends StatelessWidget {
                           width: 10,
                           child: CircularProgressIndicator(color: Colors.white))
                       : TextButton(
-                          onPressed: () {
-                            Get.to(AmountPrompt(title: title));
-                            fetchOperator.operators();
-                          },
+                          onPressed: () {},
                           child: const Text(
                             'Continue',
                             style: TextStyle(

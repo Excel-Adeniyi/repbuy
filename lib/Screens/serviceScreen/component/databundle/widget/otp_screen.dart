@@ -6,7 +6,7 @@ import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
 import 'package:shapmanpaypoint/controller/timerController.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_final_init_service.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
-import 'package:shapmanpaypoint/services/airtimeTopupService.dart';
+import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
 import 'package:shapmanpaypoint/services/otp_service.dart';
 
 import 'package:shapmanpaypoint/widgets/amountPrompt/completedPayment.dart';

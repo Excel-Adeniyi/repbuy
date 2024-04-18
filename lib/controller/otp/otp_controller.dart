@@ -1,21 +1,19 @@
-import 'dart:async';
-
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class OTPController extends GetxController {
-  final TextEditingController pinController = TextEditingController();
+  RxString pinController = ''.obs;
 
   RxBool isComplete = false.obs;
 
   void checkOTP(String value) {
     final pinLength = value.length;
-    print(pinLength);
+    // print(pinLength);
     if (pinLength == 4) {
-      pinController.text = value;
+      pinController.value = value;
       isComplete.value = true; // Set isComplete to true when OTP is complete
+      // print(pinController.text);
       update(); // Trigger UI update
-      print(isComplete.value);
+      // print(isComplete.value);
     } else {
       isComplete.value =
           false; // Set isComplete to false when OTP is not complete

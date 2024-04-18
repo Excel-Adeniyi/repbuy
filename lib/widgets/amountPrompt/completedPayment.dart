@@ -5,6 +5,7 @@ import 'package:shapmanpaypoint/controller/Clear/clear_controller.dart';
 import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
+import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/utils/Loader/loader.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/saveBeneficiary.dart';
 
@@ -16,8 +17,9 @@ class CompletedAmount extends StatelessWidget {
   final String purchase;
   final PurchaseResponse purchaseController = Get.find();
   final AirtimeCController airtimeCController = Get.find();
+  final MasterController masterController = Get.find<MasterController>();
   final ClearController clearController = Get.put(ClearController());
-  final _dataBundleController = Get.find<DataBundleController>();
+
   final _contactPickerController = Get.find<ContactPickerController>();
   CompletedAmount({
     Key? key,
@@ -27,6 +29,10 @@ class CompletedAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dataBundleController =
+        masterController.databundleController.value == true
+            ? Get.find<DataBundleController>()
+            : Get.put(DataBundleController());
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -40,7 +46,7 @@ class CompletedAmount extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Obx(() {
-            print("CHECK ${purchaseController.isLoading.value}");
+            // print("CHECK ${purchaseController.isLoading.value}");
             if (purchaseController.isLoading.value == true) {
               return const Center(
                 child: Column(
@@ -48,13 +54,18 @@ class CompletedAmount extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 200, width: 200, child: Loading()),
-                    Text("Processing request"),
+                    Text(
+                      "Processing request",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Roboto",
+                          fontWeight: FontWeight.w600),
+                    ),
                   ],
                 ),
               );
             } else {
-              if (purchaseController.dataRx.value == true &&
-                  purchaseController.isLoading.value == false) {
+              if (purchaseController.dataRx.value == true) {
                 return Container(
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.center,
@@ -93,7 +104,7 @@ class CompletedAmount extends StatelessWidget {
                         title == 'Electricity Bill Payment'
                             ? 'Your Electricity Bill (ID: 909090687895)'
                             : title == "Data Top up"
-                                ? ' Data bundle of ${_dataBundleController.priceController.text} was sent Successfully'
+                                ? ' Data bundle of ${dataBundleController.priceController.text} was sent Successfully'
                                 : ' Airtime of ${airtimeCController.amount.value} was sent Successfully',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

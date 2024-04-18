@@ -30,7 +30,7 @@ class DataOTPService {
       Map<String, dynamic> userDecode = json.decode(decodedToken);
 
       final dataReq = {
-        "otp": otpController.pinController.text,
+        "otp": otpController.pinController.value,
         "userId": userDecode['id'],
         "operatorId": _dataBundleController.selectedPName.value,
         "amount":

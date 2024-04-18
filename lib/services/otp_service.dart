@@ -29,10 +29,12 @@ class OTPService {
       airtimeCController.update();
 
       final dataReq = {
-        "otp": otpController.pinController.text,
+        "otp": otpController.pinController.value,
         "userId": userDecode['id'],
         "operatorId": airtimeCController.toModel().operatorId,
         "amount": airtimeCController.toModel().amount,
+        "order": "${airtimeCController.network.value} Airtime",
+        "provider": airtimeCController.network.value,
         "recipientPhone": {
           "countryCode": airtimeCController.toModel().countryCode,
           "number": airtimeCController.toModel().number

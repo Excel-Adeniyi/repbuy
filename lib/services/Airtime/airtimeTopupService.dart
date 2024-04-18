@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 
-import '../utils/flutter_storage/flutter_storage.dart';
+import '../../utils/flutter_storage/flutter_storage.dart';
 
 class AirtimeTopupService {
   static BaseOptions options = BaseOptions(
@@ -26,10 +25,11 @@ class AirtimeTopupService {
     Map<String, dynamic> userDecode = json.decode(decodedToken);
     final userId = userDecode['id'];
     purchasecontroller.isLoading.value = true;
+    purchasecontroller.dataRx.value = false;
     try {
       print(purchasecontroller.isLoading.value);
       final dataReq = {
-        "otp": otpController.pinController.text,
+        // "otp": otpController.pinController.value,
         "userId": userId,
         "operatorId": airtimeCController.toModel().operatorId,
         "amount": airtimeCController.toModel().amount,
@@ -38,14 +38,14 @@ class AirtimeTopupService {
           "number": airtimeCController.toModel().number
         }
       };
-
+      print(dataReq);
       final response =
-          await dio.post('/airtime', options: Options(), data: dataReq);
+          await dio.post('/airtime/request', options: Options(), data: dataReq);
       print("HIIH ${response}");
-      otpController.pinController.clear();
+      // otpController.pinController.close();
       const value = '';
       otpController.checkOTP(value);
-      if (response.data['transactionId'] != null) {
+      if (response.data['Success'] != false) {
         purchasecontroller.isLoading.value = false;
         print('HELLOWORLD');
         purchasecontroller.rsuccess.value =
@@ -53,19 +53,21 @@ class AirtimeTopupService {
         purchasecontroller.dataRx.value = true;
       } else {
         purchasecontroller.dataRx.value = false;
-        otpController.pinController.clear();
+        // otpController.pinController.close();
+        print('UNABLE TO PRINT HELLOWORLD');
       }
+      print("SUCCESS SIDE");
       return response;
     } catch (error) {
       print('RUFUS');
       purchasecontroller.isLoading.value = true;
       purchasecontroller.dataRx.value = false;
-      otpController.pinController.clear();
+      // otpController.pinController.close();
 
       rethrow;
     } finally {
       purchasecontroller.isLoading.value = false;
-      otpController.pinController.clear();
+      // otpController.pinController.close();
     }
   }
 }

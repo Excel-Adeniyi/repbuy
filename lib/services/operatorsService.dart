@@ -20,13 +20,11 @@ class FetchOperatorService {
   final SecureStorage stora = SecureStorage();
   final IsoController isoController = Get.find<IsoController>();
   final ContactPickerController contactController =
-      Get.put(ContactPickerController());
+      Get.find<ContactPickerController>();
   final AirtimeCController _airtimeCController = Get.put(AirtimeCController());
   final RechargeController rechargeText = Get.find<RechargeController>();
   final LoaderController _loaderController = Get.find<LoaderController>();
   Future<Response<dynamic>> operators() async {
-// Obtain shared preferences.
-    // final SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       final dataReq = {
         "phone": contactController.phonController.phoneController.text,
@@ -61,6 +59,7 @@ class FetchOperatorService {
       }
       return response;
     } catch (error) {
+      print("ANA");
       _loaderController.isLoading.value = true;
       rethrow;
     } finally {

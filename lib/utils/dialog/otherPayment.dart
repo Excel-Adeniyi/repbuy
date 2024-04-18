@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/amountPrompt.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/amount_prompt.dart';
 import 'package:shapmanpaypoint/widgets/paymentReview/successPay.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
