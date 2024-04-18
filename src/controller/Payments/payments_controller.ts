@@ -18,11 +18,13 @@ class PaymentController {
             amount, userId, email
         }
         const amountWhole = amount * 100
-        const config = {
-            headers: {
-                Authorization: `Bearer ${process.env.PAY_SECRET}`
-            }
-        }
+        
+        axios.interceptors.request.use((config) => {
+            config.headers.Authorization= `Bearer ${process.env.PAY_SECRET}`
+            // console.log(config)
+            return config
+
+        })
         try {
             const sqlResponse = await this.model.SelectCurrentPurchase(data)
             const purchase_id = sqlResponse.length > 0 ? sqlResponse[0].id : undefined
@@ -36,10 +38,8 @@ class PaymentController {
                 const response = await axios.post("https://api.paystack.co/transaction/initialize",
 
                     payload,
-                    config
                 )
                 const responseData = response.data
-                console.log(responseData)
                 if (responseData.status == true) {
                     res.status(200).json({ success: true, message: responseData.data.access_code })
                     const params = {

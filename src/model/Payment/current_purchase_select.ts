@@ -34,10 +34,26 @@ class CurrentPurchaseModel {
                 query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                     if(error){
                         reject(error);
-                        console.log("Error Found in GetSavedIOSModel", error.message);
+                        console.log("Error Found in InsertPaymentTableModel", error.message);
                     }else{
                         resolve(results)
                         // console.log(results)
+                    }
+                }
+            )
+        })
+    }
+    async UpdatePaymentTable(data: any): Promise<RowDataPacket []>{
+        const query = "UPDATE payment SET successful=1, reference = ? WHERE user_id = ? and  accesscode = ?";
+        const params = [data.reference, data.userId, data.accessCode];
+        return new Promise((resolve, reject) => {
+            this.pool.query(
+                query, params, (error: QueryError | null, results: RowDataPacket[]) => {
+                    if(error){
+                        reject(error)
+                        console.log("Error FOund in UpdatePaymentTable", error.message)
+                    }else{
+                        resolve(results)
                     }
                 }
             )

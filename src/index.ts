@@ -8,7 +8,7 @@ const PORT = 2110
 const app: Express = express();
 app.use(cors())
 app.use(cookiePaser());
-// app.use(SessionData)
+app.use(SessionData)
 // console.log("HI")
 app.use(express.json())
 

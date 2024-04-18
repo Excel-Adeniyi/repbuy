@@ -51,16 +51,16 @@ async function GetUntilityAuth(req: Request, res: Response) {
     }
 }
 
-const IntervalsInMilliseconds = 5 * 60 * 1000;
-setInterval(async () => {
-    console.log("Interval callback called at", new Date());
+// const IntervalsInMilliseconds = 5 * 60 * 1000;
+// setInterval(async () => {
+//     console.log("Interval callback called at", new Date());
 
-    // Call GetAuth function without passing req, res
-    try {
-        await GetUntilityAuth({} as Request, {} as Response);
-    } catch (error) {
-        console.error("Error in interval:", error);
-    }
-}, IntervalsInMilliseconds);
+//     // Call GetAuth function without passing req, res
+//     try {
+//         await GetUntilityAuth({} as Request, {} as Response);
+//     } catch (error) {
+//         console.error("Error in interval:", error);
+//     }
+// }, IntervalsInMilliseconds);
 
 export default GetUntilityAuth
