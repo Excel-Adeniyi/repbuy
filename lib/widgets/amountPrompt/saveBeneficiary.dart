@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/completedPayment.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/completed_payment.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/successBeneficiary.dart';
 
 import '../../utils/colors/coloors.dart';

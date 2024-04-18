@@ -28,5 +28,6 @@ class ClearController extends GetxController {
     dataBundleController.priceController.clear();
     purchaseController.isLoading.value = false;
     purchaseController.dataRx.value = false;
+    purchaseController.allowDisplay.value = false;
   }
 }

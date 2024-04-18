@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/utils/paymentList/paylistclass.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/pinAuth.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/pin_auth.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 import '../../utils/width.dart';

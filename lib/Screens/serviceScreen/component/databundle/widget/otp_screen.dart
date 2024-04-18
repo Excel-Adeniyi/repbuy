@@ -9,7 +9,7 @@ import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
 import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
 import 'package:shapmanpaypoint/services/otp_service.dart';
 
-import 'package:shapmanpaypoint/widgets/amountPrompt/completedPayment.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/completed_payment.dart';
 // import '../../../components/dailbutton/customdailpad.dart';
 import '../../../../../utils/colors/coloors.dart';
 

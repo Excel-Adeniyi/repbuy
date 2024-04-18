@@ -15,7 +15,7 @@ import '../../utils/width.dart';
 class CompletedAmount extends StatelessWidget {
   final String title;
   final String purchase;
-  final PurchaseResponse purchaseController = Get.find();
+  final PurchaseResponse purchaseController = Get.put(PurchaseResponse());
   final AirtimeCController airtimeCController = Get.find();
   final MasterController masterController = Get.find<MasterController>();
   final ClearController clearController = Get.put(ClearController());
@@ -65,7 +65,8 @@ class CompletedAmount extends StatelessWidget {
                 ),
               );
             } else {
-              if (purchaseController.dataRx.value == true) {
+              if (purchaseController.dataRx.value == true &&
+                  purchaseController.allowDisplay.isTrue) {
                 return Container(
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.center,
@@ -222,83 +223,105 @@ class CompletedAmount extends StatelessWidget {
                   ),
                 );
               } else {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.cancel,
-                        size: 200,
-                        color: Color.fromARGB(255, 158, 33, 24),
-                      ),
-                      const Text("Sorry, currently unable to complete request"),
-                      Container(
-                        width: containerWidth,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black45, // Shadow color
-                                blurRadius: 5.0, // Blur radius
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            border: Border.all(
-                                color: const Color.fromARGB(255, 219, 218, 218),
-                                width: 2.0),
-                            gradient: const LinearGradient(
-                                colors: buttongradient,
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: TextButton(
-                            onPressed: () {
-                              title == "Data Top up"
-                                  ? Get.toNamed(
-                                      '/data',
-                                    )
-                                  : Get.toNamed('/recharge',
-                                      arguments: 'Airtime Top up');
-                              clearController.clearForm();
-                            },
-                            child: const Text(
-                              "Try Again",
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
-                      Container(
-                        width: containerWidth,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black45, // Shadow color
-                                blurRadius: 5.0, // Blur radius
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            border: Border.all(
-                                color: const Color.fromARGB(255, 219, 218, 218),
-                                width: 2.0),
-                            gradient: const LinearGradient(
-                                colors: buttongradient,
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: TextButton(
-                            onPressed: () {
-                              Get.toNamed('/dashboard');
-                              clearController.clearForm();
-                            },
-                            child: const Text(
-                              "Dashboard",
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      )
-                    ],
-                  ),
-                );
+                if (purchaseController.allowDisplay.isFalse) {
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 200, width: 200, child: Loading()),
+                        Text(
+                          "Processing request",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "Roboto",
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.cancel,
+                          size: 200,
+                          color: Color.fromARGB(255, 158, 33, 24),
+                        ),
+                        const Text(
+                            "Sorry, currently unable to complete request"),
+                        Container(
+                          width: containerWidth,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black45, // Shadow color
+                                  blurRadius: 5.0, // Blur radius
+                                  offset: Offset(0, 2),
+                                )
+                              ],
+                              border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 219, 218, 218),
+                                  width: 2.0),
+                              gradient: const LinearGradient(
+                                  colors: buttongradient,
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
+                              borderRadius: BorderRadius.circular(16)),
+                          child: TextButton(
+                              onPressed: () {
+                                title == "Data Top up"
+                                    ? Get.toNamed(
+                                        '/data',
+                                      )
+                                    : Get.toNamed('/recharge',
+                                        arguments: 'Airtime Top up');
+                                clearController.clearForm();
+                              },
+                              child: const Text(
+                                "Try Again",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        Container(
+                          width: containerWidth,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black45, // Shadow color
+                                  blurRadius: 5.0, // Blur radius
+                                  offset: Offset(0, 2),
+                                )
+                              ],
+                              border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 219, 218, 218),
+                                  width: 2.0),
+                              gradient: const LinearGradient(
+                                  colors: buttongradient,
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
+                              borderRadius: BorderRadius.circular(16)),
+                          child: TextButton(
+                              onPressed: () {
+                                Get.toNamed('/dashboard');
+                                clearController.clearForm();
+                              },
+                              child: const Text(
+                                "Dashboard",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        )
+                      ],
+                    ),
+                  );
+                }
               }
             }
           }),

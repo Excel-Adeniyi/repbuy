@@ -9,7 +9,7 @@ import 'package:shapmanpaypoint/controller/Animation/shimmer_controller.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/otp_service.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/pinAuth.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/pin_auth.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/widgets/selectPayementMethod/select_payment_method.dart';
 
