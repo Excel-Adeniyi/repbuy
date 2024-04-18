@@ -5,7 +5,7 @@ import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/services/otp_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/pinAuth.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/pin_auth.dart';
 
 class SelectPaymentMethod extends StatelessWidget {
   final String title;

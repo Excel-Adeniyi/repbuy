@@ -4,7 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/completedPayment.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/completed_payment.dart';
 
 class PaymentVerify {
   static BaseOptions options = BaseOptions(

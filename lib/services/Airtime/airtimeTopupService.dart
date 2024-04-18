@@ -46,11 +46,12 @@ class AirtimeTopupService {
       const value = '';
       otpController.checkOTP(value);
       if (response.data['Success'] != false) {
+        purchasecontroller.dataRx.value = true;
         purchasecontroller.isLoading.value = false;
         print('HELLOWORLD');
         purchasecontroller.rsuccess.value =
             response.data['transactionId'].toString();
-        purchasecontroller.dataRx.value = true;
+        purchasecontroller.allowDisplay.value = true;
       } else {
         purchasecontroller.dataRx.value = false;
         // otpController.pinController.close();
@@ -62,6 +63,7 @@ class AirtimeTopupService {
       print('RUFUS');
       purchasecontroller.isLoading.value = true;
       purchasecontroller.dataRx.value = false;
+      purchasecontroller.allowDisplay.value = true;
       // otpController.pinController.close();
 
       rethrow;

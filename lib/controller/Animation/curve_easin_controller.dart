@@ -12,7 +12,7 @@ class CurveIn extends GetxController with GetSingleTickerProviderStateMixin {
   void onInit() {
     super.onInit();
     _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 10));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _controller.forward().whenComplete(() {
       _controller.dispose();
