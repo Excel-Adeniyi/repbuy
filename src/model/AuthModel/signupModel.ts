@@ -63,7 +63,7 @@ class SignupModel {
         });
     }
     async checkUserModel(email: string, phone_number: any): Promise<RowDataPacket[]> {
-        const sql = "SELECT * FROM user_account WHERE email = ?  OR phone_number = ?"
+        const sql = "SELECT email, phone_number,terms_n_condition FROM user_account WHERE email = ?  OR phone_number = ?"
         // console.log(data)
     
         return new Promise((resolve, reject) => {
@@ -99,7 +99,7 @@ class SignupModel {
     }
 
     async userdata(data: any): Promise<RowDataPacket[]>{
-        const sql = "SELECT * FROM user_account WHERE email = ? AND password = ?"
+        const sql = "SELECT id, first_name, last_name, email, country, phone_number, PASSWORD, terms_n_condition, date, avatar, verified, userpin  FROM user_account WHERE email = ? AND password = ?"
         const params = [data.email, data.password]
         return new Promise((resolve, reject) => {
             this.pool.query(

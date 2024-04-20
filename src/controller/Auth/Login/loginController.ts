@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import LoginModel from "../../../model/Auth/loginModel";
+import LoginModel from "../../../model/AuthModel/loginModel";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
 import GetAuthTopUP from "../getAuthTopup";

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import myCache from '../middleware/cache'
-import AirtimeDataClass from '../model/GetAirtime/get_airtime_Model';
+import myCache from '../../middleware/cache'
+import AirtimeDataClass from '../../model/GetAirtimeModel/get_airtime_Model';
 
 class GetAirtimeController {
     private model: AirtimeDataClass
@@ -25,9 +25,9 @@ class GetAirtimeController {
             }
             const successdata: any = await this.model.CHECKSuccessful(data)
             console.log(successdata)
-            if(successdata[0].successful == 1) {
+            if(successdata.length > 0 &&  successdata[0].successful == 1) {
                 const cachedD = myCache.get("AUTH_DATA_KEY");
-                // console.log("CACHE", cachedD);
+                console.log("CACHE", cachedD);
                 const axiosInstance = axios.create();
                 const response: AxiosResponse = await axiosInstance.post('https://topups-sandbox.reloadly.com/topups-async ', dataReq,
                     {
@@ -130,6 +130,8 @@ class GetAirtimeController {
 
         }
     }
+
+    
 }
 
 

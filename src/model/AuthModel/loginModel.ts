@@ -30,7 +30,7 @@ class LoginModel {
     }
     
     async loginMobileData(data: any): Promise<RowDataPacket[]>{
-        const query = "SELECT * FROM user_account WHERE phone_number = ? AND password = ?"
+        const query = "SELECT id, first_name, last_name, email, country, phone_number, avatar, verified, userpin FROM user_account WHERE phone_number = ? AND password = ?"
         console.log(data)
        const dataN = {
         phone_number: data.userdata,

@@ -1,6 +1,6 @@
 import pool from "../../config/dbConfig";
-import GetAirtimeController from "../../controller/getAirtime";
-import AirtimeDataClass from "../../model/GetAirtime/get_airtime_Model";
+import GetAirtimeController from "../../controller/GetAirtime/getAirtime";
+import AirtimeDataClass from "../../model/GetAirtimeModel/get_airtime_Model";
 
 
 const airtimeClassModel = new AirtimeDataClass(pool)
