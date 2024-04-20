@@ -26,7 +26,7 @@ class OTPModel {
         })
     }
     async GetID(email: string): Promise<RowDataPacket[]>{
-        const sql = "SELECT * FROM user_account WHERE email = ?"
+        const sql = "SELECT id FROM user_account WHERE email = ?"
         return new Promise((resolve, reject) => {
             this.pool.query(sql, [email], (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
@@ -39,9 +39,25 @@ class OTPModel {
             })
         })
     }
+    async ValidatePincode(email: any): Promise<RowDataPacket[]>{
+        const sql = "UPDATE user_account SET userpin = 1 WHERE email = ?"
+        const payload = [email]
+        console.log(payload)
+        return new Promise((resolve, reject)=>{
+            this.pool.query(sql, payload, (error: QueryError | null, results: RowDataPacket[]) =>{
+                if (error) {
+                    reject(error)
+                    console.log("Error found in request", error.message)
+                } else {
+                    resolve(results)
+                    console.log("Successfully Checked data", results)
+                }
+            })
+        })
+    }
     async CreatePincode(data: any): Promise<RowDataPacket[]>{
-        const sql = "UPDATE user_account SET userpin = ? WHERE email = ?"
-        const payload = [data.pincode, data.email]
+        const sql = "INSERT INTO user_access (user_pin, user_id) Values (?,?)"
+        const payload = [data.pincode, data.user_id]
         console.log(payload)
         return new Promise((resolve, reject)=>{
             this.pool.query(sql, payload, (error: QueryError | null, results: RowDataPacket[]) =>{
@@ -57,7 +73,7 @@ class OTPModel {
     }
     async CHECKOTP(data: any): Promise<RowDataPacket[]> {
 
-        const sql = "SELECT * FROM otp WHERE u_id = ?"
+        const sql = "SELECT id, otp, u_id, time FROM otp WHERE u_id = ?"
         const dataReq = [data.userId]
 
         return new Promise((resolve, reject) => {

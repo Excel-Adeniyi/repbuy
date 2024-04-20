@@ -3,7 +3,7 @@ import { ValueDigit } from "../../helper/randomDigit";
 import nodemailer from 'nodemailer'
 import OTPModel from "../../model/OTPModel/otp_model";
 import HistoryModel from "../../model/HistoryModel/historyModel";
-import User_detailsMODEL from "../../model/UserDetails/user_details";
+import User_detailsMODEL from "../../model/UserDetailsModel/user_details";
 
 class HistoryClass {
   private otpModel: OTPModel;

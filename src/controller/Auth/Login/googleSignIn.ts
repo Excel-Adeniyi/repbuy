@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import SignupModel from "../../../model/Auth/signupModel";
+import SignupModel from "../../../model/AuthModel/signupModel";
 import jwt from 'jsonwebtoken'
 import { RowDataPacket } from "mysql2";
 

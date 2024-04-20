@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { reference } from "../../helper/reference";
-import CurrentPurchaseModel from "../../model/Payment/current_purchase_select";
+import CurrentPurchaseModel from "../../model/PaymentModel/current_purchase_select";
 import axios, { AxiosError } from "axios";
 
 

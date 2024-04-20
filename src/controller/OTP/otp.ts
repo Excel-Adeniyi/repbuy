@@ -3,7 +3,7 @@ import { ValueDigit } from "../../helper/randomDigit";
 import nodemailer from 'nodemailer'
 import OTPModel from "../../model/OTPModel/otp_model";
 import HistoryModel from "../../model/HistoryModel/historyModel";
-import User_detailsMODEL from "../../model/UserDetails/user_details";
+import User_detailsMODEL from "../../model/UserDetailsModel/user_details";
 
 class OTPClass {
   private otpModel: OTPModel;
@@ -50,7 +50,7 @@ class OTPClass {
               const updateOtp = await this.otpModel.UPDATEOTP(otp_data)
               if (updateOtp != null && updateOtp != undefined) {
 
-               
+
                 const transporter = nodemailer.createTransport({
                   host: "mail.nextpaypoint.com",
                   port: 465,
@@ -124,7 +124,7 @@ class OTPClass {
       } else {
         const storeOTP = await this.otpModel.OTPObj(otp_data)
         if (storeOTP !== undefined && storeOTP !== null) {
-
+          console.log()
           const transporter = nodemailer.createTransport({
             host: "mail.nextpaypoint.com",
             port: 465,
@@ -169,7 +169,9 @@ class OTPClass {
 
 
       const userData = await this.otpModel.GetID(email)
+      console.log(userData)
       const userId = userData[0].id
+      console.log(userId)
       const data = {
         otp, email, userId
       }
@@ -191,7 +193,7 @@ class OTPClass {
             if (currentTime <= correctedTime) {
 
               const response: any = await this.otpModel.VerifyEmail(userId)
-          
+
               if (response.affectedRows = 1) {
                 res.status(200).json({ success: true, message: "Email Verification Successful" })
               } else {
@@ -199,7 +201,7 @@ class OTPClass {
               }
 
             } else {
-              console.log("HI", {currentTime, correctedTime})
+              console.log("HI", { currentTime, correctedTime })
               res.status(500).json({ success: false, message: "OTP Expired" })
             }
           } else {
@@ -213,24 +215,32 @@ class OTPClass {
       res.status(500).json({ success: false, message: "Internal Server error" })
     }
   }
-  async pincode(req: Request, res: Response):Promise<void>{
-    const {pincode, email} = req.body;
-try {
-  const data = {
-    pincode, email
-  }
-  console.log(data)
-  const queryResponse: any = await this.otpModel.CreatePincode(data) 
-  if(queryResponse.affectedRows = 1){
-    
-    res.status(200).json({success: true, message: "Pin Successfully Created"})
-  }else{
-    res.status(424).json({success:false, message: "Unable to create pin "})
-  }
-} catch (error) {
-  res.status(500).json({success: false, message: "Internal Server Error"})
-}
+  async pincode(req: Request, res: Response): Promise<void> {
+    const { pincode, email } = req.body;
+    try {
+      const data = {
+        pincode, email
+      }
+      const userData = await this.otpModel.GetID(email)
+      if (userData[0].id !== undefined) {
+        console.log(data)
+        const user_id = userData[0].id
+        const createUserPin: any = await this.otpModel.CreatePincode(user_id)
+        if (createUserPin.affectedRows === 1) {
+          const queryResponse: any = await this.otpModel.ValidatePincode(email)
+          if (queryResponse.affectedRows === 1) {
+            res.status(200).json({ success: true, message: "Pin Successfully Created" })
+          } else {
+            res.status(424).json({ success: false, message: "Unable to create pin " })
+          }
+        }
 
-  } 
+      }
+
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+
+  }
 }
 export default OTPClass;

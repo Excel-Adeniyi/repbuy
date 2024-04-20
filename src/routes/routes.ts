@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import GetAirtime from "../controller/getAirtime";
+import GetAirtime from "../controller/GetAirtime/getAirtime";
 import GetBalance from "../controller/getBalance";
 import iosController from "./IOSroutes/IOSroutes";
 import getSavedIosController from "./SavedIOSroutes/SavedIOSroutes";
