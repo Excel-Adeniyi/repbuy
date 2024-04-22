@@ -1,17 +1,18 @@
 import { Pool } from "mysql2/typings/mysql/lib/Pool";
 import pool from "../../config/dbConfig";
 import { QueryError, RowDataPacket } from "mysql2";
+import{ reference } from "../../helper/reference";
 
-
-class AirtimeDataClass {
+class PurchaseModel {
     private pool: Pool
 
     constructor(pool: Pool){
         this.pool = pool
     }
-    async GetAirtimeModel(data: any): Promise<RowDataPacket[]>{
-        const query = 'UPDATE current_purchase SET transactionId = ?, success = 1 WHERE userId= ? ORDER BY time DESC LIMIT 1'
-        const params = [data.transactionId, data.userId]
+    async GetPurchaseModel(data: any): Promise<RowDataPacket[]>{
+        const ntransactionId = reference()
+        const query = 'UPDATE current_purchase SET transactionId = ?, ntransactionId = ?,success = 1 WHERE userId= ? ORDER BY time DESC LIMIT 1'
+        const params = [data.transactionId, ntransactionId, data.userId]
        return new Promise((resolve, reject) => {
         this.pool.query(query, params, (error: QueryError | null, results: RowDataPacket[]) => {
             if(error){
@@ -59,4 +60,4 @@ class AirtimeDataClass {
     
 }
 
-export default AirtimeDataClass
+export default PurchaseModel

@@ -25,7 +25,7 @@ class OTPModel {
             })
         })
     }
-    async GetID(email: string): Promise<RowDataPacket[]>{
+    async GetID(email: string): Promise<RowDataPacket[]> {
         const sql = "SELECT id FROM user_account WHERE email = ?"
         return new Promise((resolve, reject) => {
             this.pool.query(sql, [email], (error: QueryError | null, results: RowDataPacket[]) => {
@@ -39,12 +39,12 @@ class OTPModel {
             })
         })
     }
-    async ValidatePincode(email: any): Promise<RowDataPacket[]>{
+    async ValidatePincode(email: any): Promise<RowDataPacket[]> {
         const sql = "UPDATE user_account SET userpin = 1 WHERE email = ?"
         const payload = [email]
         console.log(payload)
-        return new Promise((resolve, reject)=>{
-            this.pool.query(sql, payload, (error: QueryError | null, results: RowDataPacket[]) =>{
+        return new Promise((resolve, reject) => {
+            this.pool.query(sql, payload, (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
                     reject(error)
                     console.log("Error found in request", error.message)
@@ -55,12 +55,12 @@ class OTPModel {
             })
         })
     }
-    async CreatePincode(data: any): Promise<RowDataPacket[]>{
-        const sql = "INSERT INTO user_access (user_pin, user_id) Values (?,?)"
+    async CreatePincode(data: any): Promise<RowDataPacket[]> {
+        const sql = "INSERT INTO user_access (user_pin, user_id) Values (?,?) ON DUPLICATE KEY UPDATE  user_pin = VALUES (user_pin)"
         const payload = [data.pincode, data.user_id]
         console.log(payload)
-        return new Promise((resolve, reject)=>{
-            this.pool.query(sql, payload, (error: QueryError | null, results: RowDataPacket[]) =>{
+        return new Promise((resolve, reject) => {
+            this.pool.query(sql, payload, (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
                     reject(error)
                     console.log("Error found in request", error.message)
@@ -88,7 +88,7 @@ class OTPModel {
             })
         })
     }
-    async VerifyEmail(id: any): Promise<RowDataPacket[]>{
+    async VerifyEmail(id: any): Promise<RowDataPacket[]> {
         const sql = "UPDATE user_account SET verified = 1 WHERE id = ?"
         return new Promise((resolve, reject) => {
             this.pool.query(sql, [id], (error: QueryError | null, results: RowDataPacket[]) => {

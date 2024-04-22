@@ -27,6 +27,8 @@ import VerifyPaymnents from "../controller/Payments/payments_verify_controller";
 import { verify } from "jsonwebtoken";
 import verifypay from "./verifyPaymentsroutes/verifyPayroutes";
 import operatorsclass from "./Operatorsroutes/operatorsroutes";
+import pincodeverifier from "./Pincode/pincode_route";
+import datarequestController from "./Dataroutes/dataroutes";
 
 
 let router = Router();
@@ -40,6 +42,9 @@ router.post('/otp/verify', (req, res) => airtimeController.VerifyOTP(req, res))
 router.post("/airtime/request", (req, res) => airtimeController.GetAirtime(req, res));
 
 
+//Data service
+router.post('/data/request', (req, res) => datarequestController.GetData(req, res))
+
 
 
 router.get('/utilitybiller', UtilityBiller)
@@ -49,6 +54,8 @@ router.post("/otp", (req, res) => otpcontroller.CreateHISTORYController(req, res
 router.post('/otp/request', (req, res) => otpcontroller.recieveOTP(req, res))
 
 router.post('/userpin', (req, res) => otpcontroller.pincode(req, res))
+router.post('/userpin/verify', (req, res) => pincodeverifier.initiateVerify(req, res))
+
 
 router.post('/avater', (req, res) => signUPController.updateAvater(req, res))
 
@@ -69,7 +76,7 @@ router.post('/getreference',(req, res) => paymentinit.initializePayment(req, res
 router.post('/verifyPayment', (req, res) => verifypay.verifyPayment(req, res))
 
 
-router.post("/history", (req, res) => historyContoller.CreateHISTORYController(req, res))
+router.post("/history", (req, res) => historyContoller.CreatePurchaseController(req, res))
 router.get("/getios", (req, res) => {
   getSavedIosroute.getAllDbIosRecords(req, res);
 });

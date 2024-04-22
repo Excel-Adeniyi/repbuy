@@ -10,9 +10,9 @@ class HistoryModel {
         this.pool = pool
     }
 
-    async History_Model(data: any): Promise<RowDataPacket[]> {
-        const sql = 'INSERT INTO current_purchase (operatorId, amount, countryCode, number, userId, time) VALUES (?,?,?,?,?,?)'
-        const dataReq = [data.operatorId, data.amount, data.countryCode, data.number, data.userId, data.timeData]
+    async Create_Current_Purchase_Model(data: any): Promise<RowDataPacket[]> {
+        const sql = 'INSERT INTO current_purchase (operatorId, amount, countryCode, number, userId, time, purchase_type) VALUES (?,?,?,?,?,?,?)'
+        const dataReq = [data.operatorId, data.amount, data.countryCode, data.number, data.userId, data.timeData, data.purchase_type]
         return new Promise((resolve, reject) => {
             this.pool.query(
                 sql, dataReq, (error: QueryError | null, results: RowDataPacket[]) => {
@@ -28,7 +28,7 @@ class HistoryModel {
         })
 
     }
-    async Update_History_Model(data: any): Promise<RowDataPacket[]> {
+    async Update_Current_Purchase_Model(data: any): Promise<RowDataPacket[]> {
         const sql = 'UPDATE current_purchase SET transactionId = ?, success = 1 WHERE userId= ? ORDER BY time DESC LIMIT 1'
         const dataReq = [data.transactionId, data.userId]
         return new Promise((resolve, reject) => {
