@@ -218,14 +218,16 @@ class OTPClass {
   async pincode(req: Request, res: Response): Promise<void> {
     const { pincode, email } = req.body;
     try {
-      const data = {
-        pincode, email
-      }
+   
       const userData = await this.otpModel.GetID(email)
       if (userData[0].id !== undefined) {
-        console.log(data)
+        // console.log(data)
         const user_id = userData[0].id
-        const createUserPin: any = await this.otpModel.CreatePincode(user_id)
+        const data = {
+          user_id,
+          pincode
+        }
+        const createUserPin: any = await this.otpModel.CreatePincode(data)
         if (createUserPin.affectedRows === 1) {
           const queryResponse: any = await this.otpModel.ValidatePincode(email)
           if (queryResponse.affectedRows === 1) {
@@ -242,5 +244,7 @@ class OTPClass {
     }
 
   }
+
+  
 }
 export default OTPClass;

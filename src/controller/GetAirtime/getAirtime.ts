@@ -44,7 +44,7 @@ class GetAirtimeController {
                         transactionId: responseData.transactionId,
                         userId: airtimeData.userId
                     }
-                    const updatePurchaseTable = await this.model.GetAirtimeModel(data)
+                    const updatePurchaseTable = await this.model.GetPurchaseModel(data)
                     if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
                         res.status(200).json({ Success: true, message: responseData})
                     }
@@ -104,7 +104,7 @@ class GetAirtimeController {
                         const data = {
                             userId: airtimeData.userId
                         }
-                        const updatePurchaseTable = await this.model.GetAirtimeModel(data)
+                        const updatePurchaseTable = await this.model.GetPurchaseModel(data)
                         if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
                             res.status(200).json({ Success: true, message: "OTP is valid" })
                         }
@@ -118,7 +118,7 @@ class GetAirtimeController {
                 const data = {
                     userId: airtimeData.userId
                 }
-                const updatePurchaseTable = await this.model.GetAirtimeModel(data)
+                const updatePurchaseTable = await this.model.GetPurchaseModel(data)
                 // console.log(updatePurchaseTable)
                 if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
                     res.status(200).json({ Success: true, message: "OTP Valid" })

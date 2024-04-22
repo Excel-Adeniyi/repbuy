@@ -21,7 +21,7 @@ async function GetGiftCardAuth(req: Request, res: Response) {
     const CachedData = myCache.get("AUTH_GIFTCARD_KEY");
     if (CachedData) {
         // console.log("Cached Data", CachedData);
-        if (res) res.json({ success: CachedData });
+        res.json({ success: CachedData });
         return
       }
     const response: AxiosResponse = await axios.post(
@@ -41,10 +41,10 @@ async function GetGiftCardAuth(req: Request, res: Response) {
           .json({ axiosError: "Server Error" });
       } else if (axiosError.request) {
         console.log("No response from server");
-        if (res) res.status(500).json({ axiosError: "error code 500" });
+       res.status(500).json({ axiosError: "error code 500" });
       } else {
         console.log("Server error:", axiosError.message);
-        if (res) res.status(500).json({ axiosError: "Internal server error" });
+         res.status(500).json({ axiosError: "Internal server error" });
       }
     }
   }
