@@ -15,6 +15,7 @@ class DataBundleController extends GetxController {
   final RxString selectedFixedAmountDes = "00.0".obs;
   final RxString selectedFixedValues = "".obs;
   final RxString selectedFixed = "".obs;
+  final RxString selectedPackageName = "".obs;
   final RxString currencySelector = ''.obs;
   final TextEditingController priceController = TextEditingController();
   final MasterController masterController = Get.find<MasterController>();
@@ -75,10 +76,16 @@ class DataBundleController extends GetxController {
     print(bundle);
     final currentProvider = selectPackkage.firstWhere(
       (data) => data.operatorId.toString() == provider,
-    ); // Handling the case where provider is not found
+    );
+    
+     // Handling the case where provider is not found
     print(currentProvider);
+
+
     currencySelector.value =
         currentProvider.destinationCurrencySymbol as String;
+
+        
     final selectedValue = currentProvider.fixedAmountsDescriptions.entries
         .firstWhere((valuess) => valuess.key == bundle, orElse: () {
       return const MapEntry('', '');
@@ -88,7 +95,7 @@ class DataBundleController extends GetxController {
         selectedCountryIso.value = currentProvider.country["isoName"];
     currentProvider.destinationCurrencySymbol as String;
     selectedFixedValues.value = selectedValue.value;
-        update();
+    update();
   }
 
   void updateDropdownItems(Map<String, dynamic> newData) {

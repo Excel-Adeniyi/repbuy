@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
 import 'package:shapmanpaypoint/Model/ISOData/iso_model.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
+import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
@@ -25,8 +26,9 @@ class RechargeCard extends StatelessWidget {
       Get.put(ContactPickerController());
   final IsoController isoController = Get.put(IsoController());
   final PhoneController phoneNumberContoller = Get.put(PhoneController());
-  final AirtimeCController _airtimeController = Get.put(AirtimeCController());
-  final LoaderController _loaderController = Get.put(LoaderController());
+  // final AirtimeCController _airtimeController = Get.put(AirtimeCController());
+  // final LoaderController _loaderController = Get.put(LoaderController());
+  final _ontapEffectController = Get.put(OnTapEffect());
   final airtimeAuth = AirtimeAuth();
   RechargeCard({Key? key}) : super(key: key);
   var items = [
@@ -42,7 +44,7 @@ class RechargeCard extends StatelessWidget {
         .validateAmountField(phoneNumberContoller.amountField.value);
     final validatorAmount = phoneNumberContoller
         .validateAmountField(phoneNumberContoller.amountField.value);
-
+    Size screenSize = MediaQuery.sizeOf(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -55,7 +57,7 @@ class RechargeCard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // Navigate to the specified route
             Get.toNamed('dashboard');
@@ -64,8 +66,8 @@ class RechargeCard extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
+          child: SizedBox(
+            width: screenSize.width * 0.9,
             child: Column(
               children: [
                 ShaderMask(
@@ -145,11 +147,14 @@ class RechargeCard extends StatelessWidget {
                   height: 15,
                 ),
                 Container(
+                    // margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                     decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
                         border: Border.all(
                             width: 1.0,
                             color: const Color.fromARGB(255, 73, 22, 105))),
-                    height: 50,
+                    height: 65,
                     width: double.infinity,
                     child: Obx(
                       () => DropdownButton<String>(
@@ -157,6 +162,11 @@ class RechargeCard extends StatelessWidget {
                         isExpanded: true,
                         value: isoController.selectedCountry.value,
                         icon: const Icon(Icons.keyboard_arrow_down),
+                        style: const TextStyle(
+                         fontWeight: FontWeight.w500,
+                         fontSize: 14,
+                         color: Colors.black
+                        ),
                         items: [
                           const DropdownMenuItem<String>(
                             value: "Select Country",
@@ -178,7 +188,9 @@ class RechargeCard extends StatelessWidget {
                       ),
                     )),
                 //######END ISONAME #######
-
+                const SizedBox(
+                  height: 15,
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
                   alignment: Alignment.centerRight,
@@ -327,10 +339,11 @@ class RechargeCard extends StatelessWidget {
                 //############### END Amount ###########
 
                 //############### BEGIN SUBMIT ##############
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                  width: containerWidth,
-                  height: 40,
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1000),
+                  // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                  height: 50,
+                  width: screenSize.width * 0.8,
                   decoration: BoxDecoration(
                       boxShadow: const [
                         BoxShadow(
@@ -341,32 +354,48 @@ class RechargeCard extends StatelessWidget {
                       ],
                       border: Border.all(
                           color: const Color.fromARGB(255, 219, 218, 218),
-                          width: 2.0),
-                      gradient: const LinearGradient(
-                          colors: buttongradient,
+                          width: 1.0),
+                      gradient: LinearGradient(
+                          colors: _ontapEffectController.isTapped.value
+                              ? isbuttongradient
+                              : buttongradient,
                           begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter),
-                      borderRadius: BorderRadius.circular(16)),
+                          end: Alignment.bottomRight),
+                      borderRadius: BorderRadius.circular(10)),
                   child: TextButton(
                     onPressed: () {
-                      if (contactController
-                              .phonController.phoneController.text.isNotEmpty &&
-                          imageSelector.amountCont.text.isNotEmpty &&
-                          validatorAmount == null &&
-                          validatorPhone == null) {
-                        Get.to(AmountPrompt(title: title));
-                        airtimeAuth.activator();
-                      }
+                      _ontapEffectController.isTapped.value = true;
+                      Future.delayed(const Duration(milliseconds: 1000), () {
+                        _ontapEffectController.isTapped.value = false;
+                        _ontapEffectController.isBSopen.value = false;
+                        print("WORKING");
+                        if (contactController.phonController.phoneController
+                                .text.isNotEmpty &&
+                            imageSelector.amountCont.text.isNotEmpty &&
+                            validatorAmount == null &&
+                            validatorPhone == null) {
+                          Get.to(AmountPrompt(title: title));
+                          airtimeAuth.activator("");
+                        }
+                        // Get.to(PinAuth(title: title));
+                      });
                     },
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                    ),
+                    child: _ontapEffectController.isTapped.value == true
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            'Continue',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
+                          ),
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                )
               ],
             ),
           ),

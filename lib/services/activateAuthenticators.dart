@@ -14,14 +14,14 @@ class AirtimeAuth {
   final Dio dio = Dio(options);
   final loaderController = Get.put(LoaderController());
   final fetchOperator = FetchOperatorService();
-  Future<Response<dynamic>> activator() async {
+  Future<Response<dynamic>> activator(String title) async {
     try {
       loaderController.isLoading.value = true;
       final response = await dio.post('/authtopup', options: Options());
 
       if (response.data == "successfully") {
         loaderController.isLoading.value = false;
-        fetchOperator.operators();
+        title == "Data Top Up" ? null : fetchOperator.operators();
         print(response);
       } else {
         loaderController.isLoading.value = true;

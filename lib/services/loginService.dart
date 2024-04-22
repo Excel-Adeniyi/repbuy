@@ -58,7 +58,7 @@ class SigninService {
         if (jwt.payload != null) {
           if (jwt.payload["verified"] == 0) {
             Get.toNamed("/otplogin");
-          } else if (jwt.payload["userpin"] == null) {
+          } else if (jwt.payload["userpin"] == 0) {
             Get.toNamed('/insertpin');
           } else {
             final jwtPayload = jsonEncode(jwt.payload);

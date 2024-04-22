@@ -22,7 +22,7 @@ class PinAuth extends StatelessWidget {
   final String title;
   final payVoid = PaymentCheckout();
   final otpService = OTPService();
-  final verifyOtpService = VerifyAirtime();
+  final verifyOtpService = VerifyPurchase();
   final _ontapEffectController = Get.put(OnTapEffect());
   // final _loaderController = Get.find<LoaderController>();
   PinAuth({Key? key, required this.title}) : super(key: key);
@@ -39,7 +39,7 @@ class PinAuth extends StatelessWidget {
     } else {
       containerWidth = 500.0;
     }
-    // print('dgs' + title);
+    print('dgs' + title);
     return GestureDetector(
       onTap: () {
         FocusNode().unfocus();
@@ -95,25 +95,6 @@ class PinAuth extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                  Obx(
-                    () => (_timercontroller.minutes.value == 0 &&
-                            _timercontroller.seconds.value == 0)
-                        ? TextButton(
-                            onPressed: (() {
-                              _timercontroller.startTimer();
-                              otpService.otpReq();
-                            }),
-                            child: const Text(
-                              'Resend OTP',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.purple),
-                            ))
-                        : Text(
-                            'Resend OTP: ${_timercontroller.minutes.value} : ${_timercontroller.seconds.value}',
-                            style: const TextStyle(color: Colors.purple),
-                          ),
                   ),
                   const SizedBox(
                     height: 80,

@@ -12,11 +12,14 @@ class ProviderSelector extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           border: Border.all(
-              width: 1.0, color: const Color.fromARGB(255, 73, 22, 105))),
-      height: 50,
+              width: 1.0, color: const Color.fromARGB(255, 73, 22, 105)),
+          borderRadius: const BorderRadius.all(Radius.circular(5))),
+      height: 65,
       width: double.infinity,
       child: Obx(
         () => DropdownButton<String>(
+          elevation: 0,
+          underline: const SizedBox(),
           padding: const EdgeInsets.all(8.0),
           isExpanded: true,
           value: databundleController.selectedPName.value,
@@ -36,7 +39,7 @@ class ProviderSelector extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(item.name),
+                          Center(child: Text(item.name)),
                           FadeInImage.assetNetwork(
                             placeholder: 'lib/assets/logo.png',
                             image: item.logoUrls[0],
@@ -67,7 +70,9 @@ class ProviderSelector extends StatelessWidget {
 
             if (selectedPackage != false) {
               // Update the selected country name
-
+              final String mutableProvider = selectedPackage.name;
+              // print("CHECKER $mutableProvider");
+              databundleController.selectedPackageName.value = mutableProvider;
               final mutableLogo = List<String>.from(selectedPackage.logoUrls);
               databundleController.selectedLogoUrls.value = mutableLogo[0];
 
@@ -75,8 +80,6 @@ class ProviderSelector extends StatelessWidget {
                   selectedPackage.fixedAmountsDescriptions);
 
               databundleController.updateDropdownItems(mutableDb);
-
-            
             }
           },
         ),

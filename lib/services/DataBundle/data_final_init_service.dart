@@ -8,6 +8,7 @@ import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
+import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 
 import '../../utils/flutter_storage/flutter_storage.dart';
@@ -24,6 +25,7 @@ class DataTopUpService {
   final _dataBundleController = Get.find<DataBundleController>();
   final _contactPickerController = Get.find<ContactPickerController>();
   final SecureStorage stora = SecureStorage();
+  final dataPurchaseService = DataPurchaseService();
   final PurchaseResponse purchasecontroller = Get.put(PurchaseResponse());
   Future<Response<dynamic>> databundleReq() async {
     final decodedToken = await stora.readSecureData('ResBody');
@@ -37,6 +39,7 @@ class DataTopUpService {
         "userId": userId,
         "operatorId": _dataBundleController.selectedPName.value,
         "amount": _dataBundleController.priceController.text,
+        "purchase_type": "data",
         "recipientPhone": {
           "countryCode": _dataBundleController.selectedCountryIso.value,
           "number": _contactPickerController.phonController.phoneController.text
@@ -44,32 +47,33 @@ class DataTopUpService {
       };
 
       final response =
-          await dio.post('/airtime', options: Options(), data: dataReq);
+          await dio.post('/data/request', options: Options(), data: dataReq);
       print("HIIH ${response}");
-      otpController.pinController.close();
+      otpController.pinController.value = '';
       const value = '';
       otpController.checkOTP(value);
-      if (response.data['transactionId'] != null) {
+      if (response.data['Success'] == true) {
         purchasecontroller.isLoading.value = false;
         print('HELLOWORLD');
         purchasecontroller.rsuccess.value =
             response.data['transactionId'].toString();
         purchasecontroller.dataRx.value = true;
+        purchasecontroller.allowDisplay.value = true;
       } else {
         purchasecontroller.dataRx.value = false;
-        otpController.pinController.close();
+        otpController.pinController.value = '';
       }
       return response;
     } catch (error) {
       print('RUFUS');
-      purchasecontroller.isLoading.value = true;
+      purchasecontroller.isLoading.value = false;
       purchasecontroller.dataRx.value = false;
-      otpController.pinController.close();
+      otpController.pinController.value = '';
 
       rethrow;
     } finally {
       purchasecontroller.isLoading.value = false;
-      otpController.pinController.close();
+      otpController.pinController.value = '';
     }
   }
 }
