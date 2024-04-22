@@ -13,8 +13,10 @@ class BundleSelector extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           border: Border.all(
-              width: 1.0, color: const Color.fromARGB(255, 73, 22, 105))),
-      height: 50,
+              width: 1.0, color: const Color.fromARGB(255, 73, 22, 105)),
+                 borderRadius: const BorderRadius.all(Radius.circular(5))
+              ),
+      height: 65,
       // width: 200,
       child: GetBuilder<DataBundleController>(builder: (controller) {
         if (databundleController.selectedPName.value.isNotEmpty &&
@@ -25,8 +27,11 @@ class BundleSelector extends StatelessWidget {
 
               // print(mutableLogo);
               return DropdownButton<String>(
-                padding: const EdgeInsets.all(8.0),
+                style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
+                padding: const EdgeInsets.fromLTRB(8, 8,8, 0),
                 isExpanded: true,
+                 underline: const SizedBox(),
+                hint: const Text("Data bundle"),
                 value: databundleController.selectedFixedAmountDes.value,
                 items: [
                   const DropdownMenuItem<String>(

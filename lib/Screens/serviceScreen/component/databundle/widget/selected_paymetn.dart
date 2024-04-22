@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
-import 'package:shapmanpaypoint/services/otp_service.dart';
+import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/pin_auth.dart';
 
-class SelectPaymentMethod extends StatelessWidget {
+class DataSelectPaymentMethod extends StatelessWidget {
   final String title;
 
-  const SelectPaymentMethod({Key? key, required this.title}) : super(key: key);
+  const DataSelectPaymentMethod({Key? key, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final initPay = Get.put(PaymentController());
-    final otpService = OTPService();
-
     final ontapEffectController = Get.find<OnTapEffect>();
     final payVoid = PaymentCheckout();
     Size screenSize = MediaQuery.sizeOf(context);
@@ -202,7 +199,6 @@ class SelectPaymentMethod extends StatelessWidget {
                             if (ontapEffectController.isCard.value) {
                               payVoid.chargeCardPayment(context, title);
                             } else {
-                              otpService.otpReq();
                               Get.to(PinAuth(title: title));
                             }
                           });

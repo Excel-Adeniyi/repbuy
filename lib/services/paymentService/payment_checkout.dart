@@ -22,7 +22,7 @@ class PaymentCheckout {
   final MasterController masterController = Get.find<MasterController>();
   final AirtimeCController airtimeCController = Get.find<AirtimeCController>();
   final UserInfoController userInfo = Get.find<UserInfoController>();
-  final PaymentController paymentController = Get.find<PaymentController>();
+  final PaymentController paymentController = Get.put(PaymentController());
   final loaderController = Get.put(LoaderController());
   final airtimeService = AirtimeTopupService();
   final ontapEffectController = Get.find<OnTapEffect>();

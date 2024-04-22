@@ -8,6 +8,7 @@ import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/utils/Loader/loader.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/saveBeneficiary.dart';
+import 'package:shapmanpaypoint/widgets/button/newbutton.dart';
 
 import '../../utils/colors/coloors.dart';
 import '../../utils/width.dart';
@@ -19,7 +20,7 @@ class CompletedAmount extends StatelessWidget {
   final AirtimeCController airtimeCController = Get.find();
   final MasterController masterController = Get.find<MasterController>();
   final ClearController clearController = Get.put(ClearController());
-
+// final databundle
   final _contactPickerController = Get.find<ContactPickerController>();
   CompletedAmount({
     Key? key,
@@ -46,7 +47,7 @@ class CompletedAmount extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Obx(() {
-            // print("CHECK ${purchaseController.isLoading.value}");
+            print("CHECKS ${purchaseController.isLoading.value}");
             if (purchaseController.isLoading.value == true) {
               return const Center(
                 child: Column(
@@ -104,7 +105,7 @@ class CompletedAmount extends StatelessWidget {
                       Text(
                         title == 'Electricity Bill Payment'
                             ? 'Your Electricity Bill (ID: 909090687895)'
-                            : title == "Data Top up"
+                            : title == "Data Top Up"
                                 ? ' Data bundle of ${dataBundleController.priceController.text} was sent Successfully'
                                 : ' Airtime of ${airtimeCController.amount.value} was sent Successfully',
                         style: TextStyle(
@@ -124,7 +125,7 @@ class CompletedAmount extends StatelessWidget {
                       Text(
                         title == 'Electricity Bill Payment'
                             ? 'successful'
-                            : title == "Data Top up"
+                            : title == "Data Top Up"
                                 ? '"${_contactPickerController.phonController.phoneController.text}"'
                                 : '"${airtimeCController.number.value}"',
                         style: TextStyle(
@@ -183,42 +184,12 @@ class CompletedAmount extends StatelessWidget {
                       const SizedBox(
                         height: 40,
                       ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                        width: calculateContainerWidth(context),
-                        height: 40,
-                        decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black45, // Shadow color
-                                blurRadius: 5.0, // Blur radius
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            border: Border.all(
-                                color: const Color.fromARGB(255, 219, 218, 218),
-                                width: 2.0),
-                            gradient: const LinearGradient(
-                                colors: buttongradient,
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: TextButton(
-                          onPressed: () {
-                            Get.toNamed('/dashboard');
-                            clearController.clearForm();
-                          },
-                          child: Text(
-                            title == 'Electricity Bill Payment'
-                                ? 'Okay'
-                                : 'Done',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14),
-                          ),
-                        ),
-                      ),
+                      UniversalButton(
+                          route: '/dashboard',
+                          buttonText: title == 'Electricity Bill Payment'
+                              ? 'Okay'
+                              : 'Done',
+                          withIcon: "no")
                     ],
                   ),
                 );
@@ -275,7 +246,7 @@ class CompletedAmount extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16)),
                           child: TextButton(
                               onPressed: () {
-                                title == "Data Top up"
+                                title == "Data Top Up"
                                     ? Get.toNamed(
                                         '/data',
                                       )
@@ -289,35 +260,39 @@ class CompletedAmount extends StatelessWidget {
                               )),
                         ),
                         Container(
-                          width: containerWidth,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black45, // Shadow color
-                                  blurRadius: 5.0, // Blur radius
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 219, 218, 218),
-                                  width: 2.0),
-                              gradient: const LinearGradient(
-                                  colors: buttongradient,
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: TextButton(
-                              onPressed: () {
-                                Get.toNamed('/dashboard');
-                                clearController.clearForm();
-                              },
-                              child: const Text(
-                                "Dashboard",
-                                style: TextStyle(color: Colors.white),
-                              )),
-                        )
+                            width: containerWidth,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black45, // Shadow color
+                                    blurRadius: 5.0, // Blur radius
+                                    offset: Offset(0, 2),
+                                  )
+                                ],
+                                border: Border.all(
+                                    color: const Color.fromARGB(
+                                        255, 219, 218, 218),
+                                    width: 2.0),
+                                gradient: const LinearGradient(
+                                    colors: buttongradient,
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter),
+                                borderRadius: BorderRadius.circular(16)),
+                            child: const UniversalButton(
+                                route: "/dashboard",
+                                buttonText: 'Dashboard',
+                                withIcon: "no")
+                            // child: TextButton(
+                            //     onPressed: () {
+                            //       Get.toNamed('/dashboard');
+                            //       clearController.clearForm();
+                            //     },
+                            //     child: const Text(
+                            //       "Dashboard",
+                            //       style: TextStyle(color: Colors.white),
+                            //     )),
+                            )
                       ],
                     ),
                   );

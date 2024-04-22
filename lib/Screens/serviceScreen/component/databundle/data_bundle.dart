@@ -11,6 +11,7 @@ import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/widge
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/widget/user_number.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
+import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/validator/airtime_validator.dart';
@@ -30,7 +31,7 @@ class DataBundleScreen extends StatelessWidget {
   final DataBundleController databundleController =
       Get.put(DataBundleController());
   final PhoneController phoneNumberContoller = Get.put(PhoneController());
-
+  final _ontapEffectController = Get.put(OnTapEffect());
   final airtimeAuth = AirtimeAuth();
   DataBundleScreen({Key? key}) : super(key: key);
   var items = [
@@ -47,7 +48,7 @@ class DataBundleScreen extends StatelessWidget {
         .validateAmountField(phoneNumberContoller.amountField.value);
     final validatorAmount = phoneNumberContoller
         .validateAmountField(phoneNumberContoller.amountField.value);
-
+    Size screenSize = MediaQuery.sizeOf(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -69,9 +70,10 @@ class DataBundleScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
+          child: SizedBox(
+            width: screenSize.width * 0.9,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
@@ -151,14 +153,20 @@ class DataBundleScreen extends StatelessWidget {
                 ),
 
                 //######END Data Name and Operator Id #######
+                const Text('Provider:',
+                    style: TextStyle(fontWeight: FontWeight.w500)),
                 const ProviderSelector(),
                 //########## DATA BUNDLE amount and data package ################
                 const SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
+                const Text('Data bundle:',
+                    style: TextStyle(fontWeight: FontWeight.w500)),
                 const BundleSelector(),
                 //############# DATA BUNDLE amount and data package end ################
-
+                const SizedBox(
+                  height: 30,
+                ),
                 //############# DATA BUNDLE PRICE ###################
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
@@ -192,14 +200,17 @@ class DataBundleScreen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
+                const Text('Amount:',
+                    style: TextStyle(fontWeight: FontWeight.w500)),
                 const PriceField(),
                 //############### END Amount ###########
 
                 //############### BEGIN SUBMIT ##############
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                  width: containerWidth,
-                  height: 40,
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1000),
+                  // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                  height: 50,
+                  width: screenSize.width * 0.8,
                   decoration: BoxDecoration(
                       boxShadow: const [
                         BoxShadow(
@@ -210,33 +221,49 @@ class DataBundleScreen extends StatelessWidget {
                       ],
                       border: Border.all(
                           color: const Color.fromARGB(255, 219, 218, 218),
-                          width: 2.0),
-                      gradient: const LinearGradient(
-                          colors: buttongradient,
+                          width: 1.0),
+                      gradient: LinearGradient(
+                          colors: _ontapEffectController.isTapped.value
+                              ? isbuttongradient
+                              : buttongradient,
                           begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter),
-                      borderRadius: BorderRadius.circular(16)),
+                          end: Alignment.bottomRight),
+                      borderRadius: BorderRadius.circular(10)),
                   child: TextButton(
                     onPressed: () {
-                      if (contactController
-                              .phonController.phoneController.text.isNotEmpty &&
-                          databundleController
-                              .priceController.text.isNotEmpty &&
-                          validatorAmount == null &&
-                          validatorPhone == null) {
-                        Get.to(DataAmountPrompt());
-                        airtimeAuth.activator();
-                      }
+                      _ontapEffectController.isTapped.value = true;
+                      Future.delayed(const Duration(milliseconds: 1000), () {
+                        _ontapEffectController.isTapped.value = false;
+                        _ontapEffectController.isBSopen.value = false;
+                        print("WORKING");
+                        if (contactController.phonController.phoneController
+                                .text.isNotEmpty &&
+                            databundleController
+                                .priceController.text.isNotEmpty &&
+                            validatorAmount == null &&
+                            validatorPhone == null) {
+                          Get.to(DataAmountPrompt());
+                          airtimeAuth.activator("Data Top Up");
+                        }
+                        // Get.to(PinAuth(title: title));
+                      });
                     },
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                    ),
+                    child: _ontapEffectController.isTapped.value == true
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            'Continue',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
+                          ),
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                )
               ],
             ),
           ),

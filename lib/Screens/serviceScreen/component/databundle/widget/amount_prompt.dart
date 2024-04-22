@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/widget/otp_screen.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/widget/selected_paymetn.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
+import 'package:shapmanpaypoint/controller/Animation/curve_easin_controller.dart';
+import 'package:shapmanpaypoint/controller/Animation/shimmer_controller.dart';
 import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
+import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-import '../../../../../utils/width.dart';
 
 class DataAmountPrompt extends StatelessWidget {
   DataAmountPrompt({Key? key}) : super(key: key);
@@ -16,10 +18,14 @@ class DataAmountPrompt extends StatelessWidget {
   final _databundleController = Get.find<DataBundleController>();
   final _phoneNumberController = Get.find<ContactPickerController>();
   final _loaderController = Get.find<LoaderController>();
-  final otpServices = DataOTPService();
+  final _curveInController = Get.put(CurveIn());
+  final _ontapEffectController = Get.put(OnTapEffect());
+  // final otpServices = DataOTPService();
+  final _shimmerController = Get.put(ShimmerEffect());
   @override
   Widget build(BuildContext context) {
     AirtimeModel model = _dataDetails.toModel();
+    Size screenSize = MediaQuery.sizeOf(context);
     print('HI $model');
     return Scaffold(
       body: Padding(
@@ -50,66 +56,180 @@ class DataAmountPrompt extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                Container(
-                  height: 200,
-                  width: 500,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                      Color(0xFF5423bb),
-                      Color(0xFF8629b1),
-                      Color(0xFFa12cab),
-                    ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text(
-                        'You are about to purchase data:',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        _phoneNumberController
-                            .phonController.phoneController.text,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      Text(
-                        _databundleController.selectedFixedValues.value
-                            .toString(),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "${_databundleController.currencySelector.value} ${_databundleController.priceController.text}",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800),
-                      ),
-                      const Text(
-                        'Available Balance = NGN 10,000.00',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                AnimatedBuilder(
+                  animation: _curveInController.controller,
+                  builder: ((context, child) {
+                    return AnimatedContainer(
+                        duration: const Duration(seconds: 2),
+                        height: 300,
+                        width: screenSize.width * 0.9,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          gradient: LinearGradient(
+                              colors: const [
+                                Color.fromARGB(235, 83, 35, 187),
+                                Color(0xFF5423bb),
+                                Color.fromARGB(234, 70, 38, 139),
+                                Color.fromARGB(228, 116, 41, 177),
+                                Color(0xFFa12cab),
+                              ],
+                              begin: Alignment(
+                                  -1 -
+                                      _shimmerController
+                                          .animationController.value,
+                                  0),
+                              end: Alignment(
+                                  1 +
+                                      _shimmerController
+                                          .animationController.value,
+                                  0)),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            const Text(
+                              'Kindly Verify Transaction',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: "Shantell_Sans",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const Divider(),
+                            const Text(
+                              'phone number:',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              _phoneNumberController
+                                  .phonController.phoneController.text,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const Text(
+                              'provider:',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              _databundleController.selectedPackageName.value
+                                  .toString(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            const Text(
+                              'data bundle:',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              _databundleController.selectedFixedValues.value
+                                  .toString(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(height: 5),
+                            const Text(
+                              'amount:',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              "${_databundleController.currencySelector.value} ${_databundleController.priceController.text}",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 300,
+                              padding: const EdgeInsets.all(8.0),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Colors.white),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    'Available Balance:',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Roboto',
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
+                                    'NGN 0.00',
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 102, 37, 177),
+                                        fontSize: 18,
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w800),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ));
+                  }),
                 ),
-                Row(
+                const SizedBox(
+                  height: 20,
+                ),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                      height: 40,
-                      width: 200,
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 1000),
+                      // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                      height: 50,
+                      width: screenSize.width * 0.8,
                       decoration: BoxDecoration(
                           boxShadow: const [
                             BoxShadow(
@@ -120,45 +240,73 @@ class DataAmountPrompt extends StatelessWidget {
                           ],
                           border: Border.all(
                               color: const Color.fromARGB(255, 219, 218, 218),
-                              width: 2.0),
-                          gradient: const LinearGradient(
-                              colors: buttongradient,
+                              width: 1.0),
+                          gradient: LinearGradient(
+                              colors: _ontapEffectController.isTapped.value
+                                  ? isbuttongradient
+                                  : buttongradient,
                               begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter),
-                          borderRadius: BorderRadius.circular(16)),
+                              end: Alignment.bottomRight),
+                          borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {
-                          Get.to(DataPinAuth());
-                          otpServices.dataotpReq();
+                          _ontapEffectController.isTapped.value = true;
+                          Future.delayed(const Duration(milliseconds: 1000),
+                              () {
+                            _ontapEffectController.isTapped.value = false;
+                            _ontapEffectController.isBSopen.value = false;
+                            print("WORKING");
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  const DataSelectPaymentMethod(
+                                      title: "Data Top Up"),
+                            );
+
+                            // Get.to(PinAuth(title: title));
+                          });
                         },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Continue',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              Icons.east,
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
+                        child: _ontapEffectController.isTapped.value == true
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Continue',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Icon(
+                                    Icons.east,
+                                    color: Colors.white,
+                                  )
+                                ],
+                              ),
                       ),
                     ),
-                    SizedBox(
-                      width: 100,
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 1000),
+                      width: screenSize.width * 0.8,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.purple),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
                       child: TextButton(
-                        style: TextButton.styleFrom(
-                          side: const BorderSide(color: Colors.purple),
-                        ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed('/dashboard');
+                        },
                         child: ShaderMask(
                           shaderCallback: (Rect bounds) {
                             return const LinearGradient(
@@ -180,7 +328,82 @@ class DataAmountPrompt extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    //  Container(
+                    //   margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                    //   height: 40,
+                    //   width: 200,
+                    //   decoration: BoxDecoration(
+                    //       boxShadow: const [
+                    //         BoxShadow(
+                    //           color: Colors.black45, // Shadow color
+                    //           blurRadius: 5.0, // Blur radius
+                    //           offset: Offset(0, 2),
+                    //         )
+                    //       ],
+                    //       border: Border.all(
+                    //           color: const Color.fromARGB(255, 219, 218, 218),
+                    //           width: 2.0),
+                    //       gradient: const LinearGradient(
+                    //           colors: buttongradient,
+                    //           begin: Alignment.topCenter,
+                    //           end: Alignment.bottomCenter),
+                    //       borderRadius: BorderRadius.circular(16)),
+                    //   child: TextButton(
+                    //     onPressed: () {
+                    //       Get.to(DataPinAuth());
+                    //       otpServices.dataotpReq();
+                    //     },
+                    //     child: const Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         Text(
+                    //           'Continue',
+                    //           style: TextStyle(
+                    //               color: Colors.white,
+                    //               fontWeight: FontWeight.bold,
+                    //               fontSize: 14),
+                    //         ),
+                    //         SizedBox(
+                    //           width: 10,
+                    //         ),
+                    //         Icon(
+                    //           Icons.east,
+                    //           color: Colors.white,
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   width: 100,
+                    //   child: TextButton(
+                    //     style: TextButton.styleFrom(
+                    //       side: const BorderSide(color: Colors.purple),
+                    //     ),
+                    //     onPressed: () {},
+                    //     child: ShaderMask(
+                    //       shaderCallback: (Rect bounds) {
+                    //         return const LinearGradient(
+                    //                 colors: [
+                    //               Color(0xFF5423bb),
+                    //               Color(0xFF8629b1),
+                    //               Color(0xFFa12cab),
+                    //             ],
+                    //                 begin: Alignment.topLeft,
+                    //                 end: Alignment.bottomRight)
+                    //             .createShader(bounds);
+                    //       },
+                    //       child: const Text(
+                    //         "Cancel",
+                    //         style: TextStyle(
+                    //             fontSize: 14,
+                    //             color: Colors.white,
+                    //             fontWeight: FontWeight.bold),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 )
               ],
