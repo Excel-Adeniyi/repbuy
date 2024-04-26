@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:shapmanpaypoint/utils/paymentList/paylistclass.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/biller_amount.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/biller_meter_number.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/biller_name.dart';
+import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/electricController.dart';
 
-import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-import 'package:shapmanpaypoint/utils/dialog/dialogShow.dart';
-
-import '../../../../utils/dialog/otherPayment.dart';
+import 'package:shapmanpaypoint/widgets/button/newbutton.dart';
 
 class Electric extends StatelessWidget {
   final ElectricController imageSelector = Get.put(ElectricController());
+  final UtilityController utilityController = Get.put(UtilityController());
+
   Electric({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String title = 'Electric Bills';
+    Size screenSize = MediaQuery.sizeOf(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -30,9 +32,10 @@ class Electric extends StatelessWidget {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
+          child: SizedBox(
+            width: screenSize.width * 0.9,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
@@ -52,155 +55,36 @@ class Electric extends StatelessWidget {
                   ),
                 ),
                 TopBalance(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const SizedBox(height: 30),
+                const Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Select Network Provider"),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: 45,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                gradient: const LinearGradient(
-                                    colors: buttongradient,
-                                    begin: Alignment.bottomLeft,
-                                    end: Alignment.bottomRight),
-                              ),
-                              child: const Icon(
-                                Icons.chevron_left,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 45,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                gradient: const LinearGradient(
-                                    colors: buttongradient,
-                                    begin: Alignment.bottomLeft,
-                                    end: Alignment.bottomRight),
-                              ),
-                              child: const Icon(
-                                Icons.chevron_right,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
+                    Text("Biller", style: TextStyle()),
                   ],
                 ),
-                if (imageSelector.images.length > 4)
-                  Container(
-                    height: 70, // Set a fixed height for the list view
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: getImageWidgets(),
-                    ),
-                  )
-                else
-                  (const Text('GGG')),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: imageSelector.buttonValue
-                      .map((value) => GetBuilder<ElectricController>(
-                            builder: (controller) {
-                              return Container(
-                                width: 170,
-                                alignment: Alignment.topLeft,
-                                child: RadioListTile(
-                                  title: Text(
-                                    value,
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                  value: value,
-                                  groupValue: controller.selectedButton.value,
-                                  onChanged: (newValue) {
-                                    controller.setSelectButtonValue(
-                                        newValue as String);
-                                  },
-                                ),
-                              );
-                            },
-                          ))
-                      .toList(),
+                const BillerName(),
+                const SizedBox(height: 30),
+                const Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Meter number", style: TextStyle()),
+                  ],
                 ),
+                CustomerMeterNumber(),
                 const SizedBox(
-                  height: 50,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Enter Meter Number',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
+                  height: 2,
                 ),
-                const SizedBox(
-                  height: 15,
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text("Amount(Price)", style: TextStyle()),
+                  ],
                 ),
-                const SizedBox(
-                  height: 50,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Enter Amount',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                  width: containerWidth,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black45, // Shadow color
-                          blurRadius: 5.0, // Blur radius
-                          offset: Offset(0, 2),
-                        )
-                      ],
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 219, 218, 218),
-                          width: 2.0),
-                      gradient: const LinearGradient(
-                          colors: buttongradient,
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter),
-                      borderRadius: BorderRadius.circular(16)),
-                  child: TextButton(
-                    onPressed: () {
-                      Get.to(Otherpayment(
-                          title: title,
-                          paymentList: PaymentList(
-                              'KAEDECO',
-                              'N 5,000.00',
-                              '01234567890',
-                              'KAEDECO PREPAID',
-                              'N100.00',
-                              'N7.50',
-                              'N5,607.50')));
-                    },
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                    ),
-                  ),
-                ),
+                BillerAmount(),
+                const UniversalButton(
+                    route: "/utilityreview",
+                    buttonText: "Continue",
+                    withIcon: "no"),
               ],
             ),
           ),

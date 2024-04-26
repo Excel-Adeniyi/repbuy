@@ -20,13 +20,13 @@ UtilityModel _$UtilityModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UtilityModel {
-  int get utilityId => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get countryCode => throw _privateConstructorUsedError;
   String get serviceType => throw _privateConstructorUsedError;
-  String get minInternationalTransactionAmount =>
+  double get minInternationalTransactionAmount =>
       throw _privateConstructorUsedError;
-  String get maxInternationalTransactionAmount =>
+  double get maxInternationalTransactionAmount =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,12 +42,12 @@ abstract class $UtilityModelCopyWith<$Res> {
       _$UtilityModelCopyWithImpl<$Res, UtilityModel>;
   @useResult
   $Res call(
-      {int utilityId,
+      {int id,
       String name,
       String countryCode,
       String serviceType,
-      String minInternationalTransactionAmount,
-      String maxInternationalTransactionAmount});
+      double minInternationalTransactionAmount,
+      double maxInternationalTransactionAmount});
 }
 
 /// @nodoc
@@ -63,7 +63,7 @@ class _$UtilityModelCopyWithImpl<$Res, $Val extends UtilityModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? utilityId = null,
+    Object? id = null,
     Object? name = null,
     Object? countryCode = null,
     Object? serviceType = null,
@@ -71,9 +71,9 @@ class _$UtilityModelCopyWithImpl<$Res, $Val extends UtilityModel>
     Object? maxInternationalTransactionAmount = null,
   }) {
     return _then(_value.copyWith(
-      utilityId: null == utilityId
-          ? _value.utilityId
-          : utilityId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -91,12 +91,12 @@ class _$UtilityModelCopyWithImpl<$Res, $Val extends UtilityModel>
               minInternationalTransactionAmount
           ? _value.minInternationalTransactionAmount
           : minInternationalTransactionAmount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       maxInternationalTransactionAmount: null ==
               maxInternationalTransactionAmount
           ? _value.maxInternationalTransactionAmount
           : maxInternationalTransactionAmount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
     ) as $Val);
   }
 }
@@ -110,12 +110,12 @@ abstract class _$$UtilityModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int utilityId,
+      {int id,
       String name,
       String countryCode,
       String serviceType,
-      String minInternationalTransactionAmount,
-      String maxInternationalTransactionAmount});
+      double minInternationalTransactionAmount,
+      double maxInternationalTransactionAmount});
 }
 
 /// @nodoc
@@ -129,7 +129,7 @@ class __$$UtilityModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? utilityId = null,
+    Object? id = null,
     Object? name = null,
     Object? countryCode = null,
     Object? serviceType = null,
@@ -137,9 +137,9 @@ class __$$UtilityModelImplCopyWithImpl<$Res>
     Object? maxInternationalTransactionAmount = null,
   }) {
     return _then(_$UtilityModelImpl(
-      utilityId: null == utilityId
-          ? _value.utilityId
-          : utilityId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -157,12 +157,12 @@ class __$$UtilityModelImplCopyWithImpl<$Res>
               minInternationalTransactionAmount
           ? _value.minInternationalTransactionAmount
           : minInternationalTransactionAmount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       maxInternationalTransactionAmount: null ==
               maxInternationalTransactionAmount
           ? _value.maxInternationalTransactionAmount
           : maxInternationalTransactionAmount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
     ));
   }
 }
@@ -171,7 +171,7 @@ class __$$UtilityModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UtilityModelImpl implements _UtilityModel {
   const _$UtilityModelImpl(
-      {required this.utilityId,
+      {required this.id,
       required this.name,
       required this.countryCode,
       required this.serviceType,
@@ -182,7 +182,7 @@ class _$UtilityModelImpl implements _UtilityModel {
       _$$UtilityModelImplFromJson(json);
 
   @override
-  final int utilityId;
+  final int id;
   @override
   final String name;
   @override
@@ -190,13 +190,13 @@ class _$UtilityModelImpl implements _UtilityModel {
   @override
   final String serviceType;
   @override
-  final String minInternationalTransactionAmount;
+  final double minInternationalTransactionAmount;
   @override
-  final String maxInternationalTransactionAmount;
+  final double maxInternationalTransactionAmount;
 
   @override
   String toString() {
-    return 'UtilityModel(utilityId: $utilityId, name: $name, countryCode: $countryCode, serviceType: $serviceType, minInternationalTransactionAmount: $minInternationalTransactionAmount, maxInternationalTransactionAmount: $maxInternationalTransactionAmount)';
+    return 'UtilityModel(id: $id, name: $name, countryCode: $countryCode, serviceType: $serviceType, minInternationalTransactionAmount: $minInternationalTransactionAmount, maxInternationalTransactionAmount: $maxInternationalTransactionAmount)';
   }
 
   @override
@@ -204,8 +204,7 @@ class _$UtilityModelImpl implements _UtilityModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UtilityModelImpl &&
-            (identical(other.utilityId, utilityId) ||
-                other.utilityId == utilityId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.countryCode, countryCode) ||
                 other.countryCode == countryCode) &&
@@ -225,7 +224,7 @@ class _$UtilityModelImpl implements _UtilityModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      utilityId,
+      id,
       name,
       countryCode,
       serviceType,
@@ -248,19 +247,19 @@ class _$UtilityModelImpl implements _UtilityModel {
 
 abstract class _UtilityModel implements UtilityModel {
   const factory _UtilityModel(
-          {required final int utilityId,
+          {required final int id,
           required final String name,
           required final String countryCode,
           required final String serviceType,
-          required final String minInternationalTransactionAmount,
-          required final String maxInternationalTransactionAmount}) =
+          required final double minInternationalTransactionAmount,
+          required final double maxInternationalTransactionAmount}) =
       _$UtilityModelImpl;
 
   factory _UtilityModel.fromJson(Map<String, dynamic> json) =
       _$UtilityModelImpl.fromJson;
 
   @override
-  int get utilityId;
+  int get id;
   @override
   String get name;
   @override
@@ -268,9 +267,9 @@ abstract class _UtilityModel implements UtilityModel {
   @override
   String get serviceType;
   @override
-  String get minInternationalTransactionAmount;
+  double get minInternationalTransactionAmount;
   @override
-  String get maxInternationalTransactionAmount;
+  double get maxInternationalTransactionAmount;
   @override
   @JsonKey(ignore: true)
   _$$UtilityModelImplCopyWith<_$UtilityModelImpl> get copyWith =>

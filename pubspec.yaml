@@ -90,6 +90,7 @@ flutter:
     - lib/assets/electric/
     - lib/utils/jsons/countryIso.json
     - lib/utils/jsons/data_operators.json
+    - lib/utils/jsons/utility.json
     - lib/assets/env/.env.dev
     - lib/assets/env/.env.prod
 

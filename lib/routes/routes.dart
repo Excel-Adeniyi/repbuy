@@ -8,6 +8,7 @@ import 'package:shapmanpaypoint/Screens/login/forgetPassword/forgetpassword.dart
 import 'package:shapmanpaypoint/Screens/login/login.dart';
 import 'package:shapmanpaypoint/Screens/profile/profile.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/data_bundle.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/electricityScreen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/recharge_screen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/serviceScreen.dart';
 import 'package:shapmanpaypoint/Screens/signup/pinInsertion/pin2.dart';
@@ -18,6 +19,7 @@ import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
 import 'package:shapmanpaypoint/Screens/onboardingslider/onboadingslider.dart';
 import 'package:shapmanpaypoint/Screens/signup/completionScreen/completionScreen.dart';
 import 'package:shapmanpaypoint/Screens/signup/signup.dart';
+import 'package:shapmanpaypoint/widgets/paymentReview/successPay.dart';
 
 import '../Screens/funding/component/paymentsummary.dart';
 import '../Screens/signup/pinInsertion/pin.dart';
@@ -46,5 +48,10 @@ final pages = [
   GetPage(name: '/data', page: () => DataBundleScreen()),
   GetPage(name: '/funding', page: () => const PaymentMethod()),
   GetPage(name: '/banktransfer', page: () => BankTransfer()),
-  GetPage(name: '/paymentsummary', page: () => const PaymentSummary())
+  GetPage(name: '/paymentsummary', page: () => const PaymentSummary()),
+  GetPage(name: '/utility', page: () => Electric(), binding: ElectricBinding()),
+  GetPage(
+    name: '/utilityreview',
+    page: () => SuccessPay(),
+  )
 ];
