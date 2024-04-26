@@ -8,19 +8,19 @@ part of 'utility_model.dart';
 
 _$UtilityModelImpl _$$UtilityModelImplFromJson(Map<String, dynamic> json) =>
     _$UtilityModelImpl(
-      utilityId: json['utilityId'] as int,
+      id: json['id'] as int,
       name: json['name'] as String,
       countryCode: json['countryCode'] as String,
       serviceType: json['serviceType'] as String,
       minInternationalTransactionAmount:
-          json['minInternationalTransactionAmount'] as String,
+          (json['minInternationalTransactionAmount'] as num).toDouble(),
       maxInternationalTransactionAmount:
-          json['maxInternationalTransactionAmount'] as String,
+          (json['maxInternationalTransactionAmount'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$UtilityModelImplToJson(_$UtilityModelImpl instance) =>
     <String, dynamic>{
-      'utilityId': instance.utilityId,
+      'id': instance.id,
       'name': instance.name,
       'countryCode': instance.countryCode,
       'serviceType': instance.serviceType,

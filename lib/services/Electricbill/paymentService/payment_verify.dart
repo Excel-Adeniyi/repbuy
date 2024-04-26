@@ -5,6 +5,7 @@ import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_final_init_service.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/completed_payment.dart';
 
 class PaymentVerify {
   static BaseOptions options = BaseOptions(
@@ -32,8 +33,8 @@ class PaymentVerify {
         loaderController.isChecker.value = false;
         print(response);
 
-        // title == "Data Top Up" ? airtimeService.airtimeReq() : dataService.databundleReq();
-        // Get.to(CompletedAmount(title: title));
+        title == "Data Top Up" ? airtimeService.airtimeReq() : dataService.databundleReq();
+        Get.to(CompletedAmount(title: title));
       }
       return response;
     } on DioException catch (error) {

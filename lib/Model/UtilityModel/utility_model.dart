@@ -5,12 +5,12 @@ part 'utility_model.g.dart';
 @freezed
 class UtilityModel with _$UtilityModel {
   const factory UtilityModel({
-    required int utilityId,
+    required int id,
     required String name,
     required String countryCode,
     required String serviceType,
-    required String minInternationalTransactionAmount,
-    required String maxInternationalTransactionAmount,
+    required double minInternationalTransactionAmount,
+    required double maxInternationalTransactionAmount,
   }) = _UtilityModel;
 
   factory UtilityModel.fromJson(Map<String, dynamic> json) => _$UtilityModelFromJson(json);

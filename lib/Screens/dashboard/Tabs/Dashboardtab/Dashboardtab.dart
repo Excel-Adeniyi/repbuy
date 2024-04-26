@@ -110,7 +110,7 @@ class DashboardTab extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Get.to(Electric(), binding: ElectricBinding());
+                              Get.toNamed('/utility');
                             },
                             child: const Text(
                               'Electricity',
