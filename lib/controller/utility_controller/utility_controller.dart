@@ -13,6 +13,7 @@ class UtilityController extends GetxController {
   final RxDouble maxITA = 00.0.obs;
   final RxBool minSmall = false.obs;
   final RxBool maxBig = false.obs;
+  final RxInt utilityId = 0.obs;
   final RxString utilityProvider = ''.obs;
   final RxString utilityName = ''.obs;
   final RxBool isMeterComplete = false.obs;
@@ -59,6 +60,7 @@ class UtilityController extends GetxController {
         minITA.value = data.minInternationalTransactionAmount;
         maxITA.value = data.maxInternationalTransactionAmount;
         utilityName.value = data.name;
+        utilityId.value = data.id;
         valuers.text = maxITA.toString();
         update();
         return data.id.toString() == utilityPackage.value;

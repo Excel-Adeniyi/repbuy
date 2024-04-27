@@ -25,7 +25,11 @@ class CompletedAmount extends StatelessWidget {
   CompletedAmount({
     Key? key,
     required this.title,
-  })  : purchase = title == 'Data Top up' ? 'Data' : 'Airtime',
+  })  : purchase = title == 'Data Top up'
+            ? 'Data'
+            : title == "Electric Bill"
+                ? "Utility Bill"
+                : 'Airtime',
         super(key: key);
 
   @override
