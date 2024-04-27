@@ -4,7 +4,9 @@ import 'package:get/route_manager.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_final_init_service.dart';
+import 'package:shapmanpaypoint/services/Electricbill/electricbill_final_init_service.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
+import 'package:shapmanpaypoint/widgets/amountPrompt/completed_payment.dart';
 
 class PaymentVerify {
   static BaseOptions options = BaseOptions(
@@ -16,6 +18,7 @@ class PaymentVerify {
   final airtimeService = AirtimeTopupService();
   final dataService = DataTopUpService();
   final loaderController = Get.find<LoaderController>();
+  final utilityService = UtilityService();
 
   Future<Response<dynamic>> verifier(
       String? reference, title, accessCode, userid) async {
@@ -30,10 +33,14 @@ class PaymentVerify {
       if (response.data['Success'] == true &&
           response.data["message"] == "success") {
         loaderController.isChecker.value = false;
-        print(response);
+        print(title);
 
-        // title == "Data Top Up" ? airtimeService.airtimeReq() : dataService.databundleReq();
-        // Get.to(CompletedAmount(title: title));
+        title == "Data Top Up"
+            ? airtimeService.airtimeReq()
+            : title == "Electric Bill"
+                ? utilityService.utilityReq()
+                : dataService.databundleReq();
+        Get.to(CompletedAmount(title: title));
       }
       return response;
     } on DioException catch (error) {

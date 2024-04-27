@@ -41,7 +41,7 @@ class UPaymentCheckout {
       await plugin.initialize(publicKey: publicKey);
       final accessCode = await accesscode.paymentInit();
       final userData = await stora.readSecureData("ResBody");
-      
+
       Map<String, dynamic> decodedData = json.decode(userData);
       final userid = decodedData['id'];
       print("Checking");
@@ -51,7 +51,7 @@ class UPaymentCheckout {
             : editcontroller.email.text
         ..amount = utilityController.utilityPaystackInt.value
         ..accessCode = accessCode;
-        
+
       CheckoutResponse response = await plugin.checkout(context,
           charge: charge, method: CheckoutMethod.card, fullscreen: true);
       print(response);
@@ -59,6 +59,7 @@ class UPaymentCheckout {
         ontapEffectController.isBSopen.value = true;
         loaderController.isChecker.value = true;
         final String? reference = response.reference;
+        // const title = "Utility";
         verifyPayment.verifier(reference, title, accessCode, userid);
         print(loaderController.isChecker.value);
       } else {

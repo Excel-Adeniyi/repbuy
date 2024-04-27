@@ -204,7 +204,7 @@ class UtilitySelectPaymentMethod extends StatelessWidget {
                             }
                           });
                         },
-                        child: ontapEffectController.isSelected.value == true && loaderController.isLoading.value == true
+                        child: ontapEffectController.isSelected.value == true 
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )

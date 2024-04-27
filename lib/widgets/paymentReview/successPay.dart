@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/payment_method.dart';
-import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
-import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
+import 'package:shapmanpaypoint/services/Electricbill/electricbill_auth_service.dart';
 import 'package:shapmanpaypoint/utils/paymentList/paylistclass.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/pin_auth.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-
-import '../../utils/width.dart';
 
 class SuccessPay extends StatelessWidget {
   final String title = 'Electric';
   PaymentList? paymentList;
   SuccessPay({super.key});
   final _ontapEffectController = Get.put(OnTapEffect());
-  final AirtimeCController _airtimeController = Get.put(AirtimeCController());
-  final _dataBundleController = Get.put(DataBundleController());
-    final phonController = Get.put(RechargeController());
-  final _contactPickerController = Get.put(ContactPickerController());
+  final phonController = Get.put(RechargeController());
+  final electricService = ElectricAuthService();
   final UtilityController utilityController = Get.find<UtilityController>();
 
   @override
@@ -95,8 +88,8 @@ class SuccessPay extends StatelessWidget {
                   alignment: Alignment.bottomLeft,
                   child: Text(
                     utilityController.billerMeter.value,
-                    style:
-                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                 ),
                 const SizedBox(
@@ -123,7 +116,8 @@ class SuccessPay extends StatelessWidget {
                           const Text('Package',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 12)),
-                          GradientStyle(data: utilityController.utilityName.value)
+                          GradientStyle(
+                              data: utilityController.utilityName.value)
                         ],
                       ),
                       const Divider(
@@ -164,7 +158,8 @@ class SuccessPay extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 12),
                           ),
-                          GradientStyle(data: utilityController.utilitySum.value)
+                          GradientStyle(
+                              data: utilityController.utilitySum.value)
                         ],
                       ),
                     ],
@@ -201,8 +196,10 @@ class SuccessPay extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {
+                          electricService.electricAuth();
                           _ontapEffectController.isTapped.value = true;
-                          Future.delayed(const Duration(milliseconds: 1000), () {
+                          Future.delayed(const Duration(milliseconds: 1000),
+                              () {
                             _ontapEffectController.isTapped.value = false;
                             _ontapEffectController.isBSopen.value = false;
                             print("WORKING");
@@ -212,7 +209,6 @@ class SuccessPay extends StatelessWidget {
                                   const UtilitySelectPaymentMethod(
                                       title: "Electric Bill"),
                             );
-                    
                             // Get.to(PinAuth(title: title));
                           });
                         },
@@ -221,7 +217,8 @@ class SuccessPay extends StatelessWidget {
                                 color: Colors.white,
                               )
                             : const Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Continue',
@@ -258,11 +255,14 @@ class SuccessPay extends StatelessWidget {
                         },
                         child: ShaderMask(
                           shaderCallback: (Rect bounds) {
-                            return const LinearGradient(colors: [
-                              Color(0xFF5423bb),
-                              Color(0xFF8629b1),
-                              Color(0xFFa12cab),
-                            ], begin: Alignment.topLeft, end: Alignment.bottomRight)
+                            return const LinearGradient(
+                                    colors: [
+                                  Color(0xFF5423bb),
+                                  Color(0xFF8629b1),
+                                  Color(0xFFa12cab),
+                                ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight)
                                 .createShader(bounds);
                           },
                           child: const Text(
