@@ -31,6 +31,8 @@ import pincodeverifier from "./Pincode/pincode_route";
 import datarequestController from "./Dataroutes/dataroutes";
 import UtilityPayment from "../controller/Auth/Utility/utilityPayment";
 import utilityPayment from "./Utilityroutes/utility_route";
+import utilityVerify from "./Utilityroutes/utility_verify";
+import utilityPurchase from "./Utilityroutes/utility_purchase";
 
 
 let router = Router();
@@ -50,6 +52,11 @@ router.post('/data/request', (req, res) => datarequestController.GetData(req, re
 
 //Utility service
 router.post('/utility/payment', (req, res) => utilityPayment.ubiller(req, res))
+//Utility verify
+router.get('/utility/verify/:pid', (req, res) => utilityVerify.verify(req, res))
+
+//Save Utility Purchase in the db
+router.post('/utility/purchase/data', (req, res) => utilityPurchase.utilitypurchasecontroller(req, res))
 
 
 router.get('/utilitybiller', UtilityBiller)
