@@ -29,6 +29,8 @@ import verifypay from "./verifyPaymentsroutes/verifyPayroutes";
 import operatorsclass from "./Operatorsroutes/operatorsroutes";
 import pincodeverifier from "./Pincode/pincode_route";
 import datarequestController from "./Dataroutes/dataroutes";
+import UtilityPayment from "../controller/Auth/Utility/utilityPayment";
+import utilityPayment from "./Utilityroutes/utility_route";
 
 
 let router = Router();
@@ -45,6 +47,9 @@ router.post("/airtime/request", (req, res) => airtimeController.GetAirtime(req, 
 //Data service
 router.post('/data/request', (req, res) => datarequestController.GetData(req, res))
 
+
+//Utility service
+router.post('/utility/payment', (req, res) => utilityPayment.ubiller(req, res))
 
 
 router.get('/utilitybiller', UtilityBiller)

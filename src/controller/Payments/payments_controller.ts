@@ -18,7 +18,7 @@ class PaymentController {
             amount, userId, email
         }
         const amountWhole = amount * 100
-        
+        console.log(data)
         axios.interceptors.request.use((config) => {
             config.headers.Authorization= `Bearer ${process.env.PAY_SECRET}`
             // console.log(config)
