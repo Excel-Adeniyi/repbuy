@@ -10,6 +10,7 @@ import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
+import 'package:shapmanpaypoint/services/Electricbill/electric_purchase_verify.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 
 import '../../utils/flutter_storage/flutter_storage.dart';
@@ -22,12 +23,13 @@ class UtilityService {
   );
   final Dio dio = Dio(options);
 
-  final OTPController otpController = Get.find<OTPController>();
+  final OTPController otpController = Get.put(OTPController());
 
   final SecureStorage stora = SecureStorage();
-  final dataPurchaseService = DataPurchaseService();
+  // final dataPurchaseService = DataPurchaseService();
   final PurchaseResponse purchasecontroller = Get.put(PurchaseResponse());
   final UtilityController utilityController = Get.find<UtilityController>();
+  final utilityVerifier = UtilityVerify();
   Future<Response<dynamic>> utilityReq() async {
     final decodedToken = await stora.readSecureData('ResBody');
     Map<String, dynamic> userDecode = json.decode(decodedToken);
@@ -56,12 +58,14 @@ class UtilityService {
       print("HIIH ${response}");
       otpController.pinController.value = '';
       const value = '';
+      final pid = response.data['message']['id'];
+      print('PRINTING PID $pid');
       otpController.checkOTP(value);
       if (response.data['Success'] == true) {
+        utilityVerifier.utilityVerify(pid);
         purchasecontroller.isLoading.value = false;
         print('HELLOWORLD');
-        purchasecontroller.rsuccess.value =
-            response.data['transactionId'].toString();
+        purchasecontroller.rsuccess.value = response.data['message'].toString();
         purchasecontroller.dataRx.value = true;
         purchasecontroller.allowDisplay.value = true;
       } else {

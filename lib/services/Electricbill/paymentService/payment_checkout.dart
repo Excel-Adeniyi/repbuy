@@ -14,7 +14,7 @@ import 'package:shapmanpaypoint/controller/utility_controller/utility_controller
 import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
 import 'package:shapmanpaypoint/services/Electricbill/paymentService/payment_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_service.dart';
-import 'package:shapmanpaypoint/services/paymentService/payment_verify.dart';
+import 'package:shapmanpaypoint/services/Electricbill/paymentService/payment_verify.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 
 class UPaymentCheckout {
@@ -29,7 +29,7 @@ class UPaymentCheckout {
   final ontapEffectController = Get.find<OnTapEffect>();
   final stora = SecureStorage();
   final String publicKey = Env.publickey;
-  final verifyPayment = PaymentVerify();
+  final verifyPayment = UPaymentVerify();
   Future<void> chargeCardPayment(BuildContext context, title) async {
     final SignUpController editcontroller =
         masterController.signupIsActive.value == true
