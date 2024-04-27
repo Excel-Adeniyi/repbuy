@@ -4,20 +4,21 @@ import 'package:get/route_manager.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_final_init_service.dart';
+import 'package:shapmanpaypoint/services/Electricbill/electricbill_final_init_service.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/completed_payment.dart';
 
-class PaymentVerify {
+class UPaymentVerify {
   static BaseOptions options = BaseOptions(
     baseUrl: Constants.base_url,
     connectTimeout: const Duration(minutes: 3),
     receiveTimeout: const Duration(minutes: 3),
   );
   final dio = Dio(options);
-  final airtimeService = AirtimeTopupService();
-  final dataService = DataTopUpService();
+  // final airtimeService = AirtimeTopupService();
+  // final dataService = DataTopUpService();
   final loaderController = Get.find<LoaderController>();
-
+  final utilityService = UtilityService();
   Future<Response<dynamic>> verifier(
       String? reference, title, accessCode, userid) async {
     try {
@@ -33,7 +34,7 @@ class PaymentVerify {
         loaderController.isChecker.value = false;
         print(response);
 
-        title == "Data Top Up" ? airtimeService.airtimeReq() : dataService.databundleReq();
+        utilityService.utilityReq();
         Get.to(CompletedAmount(title: title));
       }
       return response;
