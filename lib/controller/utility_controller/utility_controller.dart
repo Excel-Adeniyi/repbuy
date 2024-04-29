@@ -23,6 +23,8 @@ class UtilityController extends GetxController {
   final RxDouble vat = 7.50.obs;
   final RxInt utilityPaystackInt = 0.obs;
   final RxString utilitySum = ''.obs;
+  final RxString countryCode = ''.obs;
+  final RxString processMessage = ''.obs;
   // final RxString maxamount = 10.obs;
   TextEditingController valuers = TextEditingController();
   @override
@@ -61,6 +63,7 @@ class UtilityController extends GetxController {
         maxITA.value = data.maxInternationalTransactionAmount;
         utilityName.value = data.name;
         utilityId.value = data.id;
+        countryCode.value = data.countryCode;
         valuers.text = maxITA.toString();
         update();
         return data.id.toString() == utilityPackage.value;

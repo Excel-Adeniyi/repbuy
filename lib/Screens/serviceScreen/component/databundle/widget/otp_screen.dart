@@ -16,7 +16,7 @@ import '../../../../../utils/colors/coloors.dart';
 class DataPinAuth extends StatelessWidget {
   final OTPController _otpController = Get.put(OTPController());
   final TimerController _timercontroller = Get.put(TimerController());
-  final otpServices = DataOTPService();
+  // final otpServices = DataOTPService();
   final dataService = DataTopUpService();
   final _loaderController = LoaderController();
   DataPinAuth({Key? key}) : super(key: key);

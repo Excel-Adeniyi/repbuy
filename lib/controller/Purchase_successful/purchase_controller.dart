@@ -5,4 +5,5 @@ class PurchaseResponse extends GetxController {
   RxBool isLoading = true.obs;
   RxBool dataRx = false.obs;
   RxBool allowDisplay = false.obs;
+  RxBool pending = false.obs;
 }

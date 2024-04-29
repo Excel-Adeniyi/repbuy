@@ -2,17 +2,12 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
-import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
-import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
-import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
-import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
 import 'package:shapmanpaypoint/services/Electricbill/electric_purchase_verify.dart';
+import 'package:shapmanpaypoint/services/Electricbill/electricbill_purchase_data_save.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
-
 import '../../utils/flutter_storage/flutter_storage.dart';
 
 class UtilityService {
@@ -30,6 +25,7 @@ class UtilityService {
   final PurchaseResponse purchasecontroller = Get.put(PurchaseResponse());
   final UtilityController utilityController = Get.find<UtilityController>();
   final utilityVerifier = UtilityVerify();
+  final utilityPurchaseSave = UtilityDataSave();
   Future<Response<dynamic>> utilityReq() async {
     final decodedToken = await stora.readSecureData('ResBody');
     Map<String, dynamic> userDecode = json.decode(decodedToken);
@@ -39,8 +35,6 @@ class UtilityService {
     try {
       print(purchasecontroller.isLoading.value);
       final reference = DateTime.now().toString();
-      // final refJson = json
-      print("EFIS");
       final dataReq = {
         // "otp": otpController.pinController.value,
         "userId": userId,
@@ -62,9 +56,16 @@ class UtilityService {
       print('PRINTING PID $pid');
       otpController.checkOTP(value);
       if (response.data['Success'] == true) {
-        utilityVerifier.utilityVerify(pid);
+        if (response.data['message']['status'] == "PROCESSING") {
+          purchasecontroller.pending.value = true;
+          utilityPurchaseSave.sendReq();
+          utilityController.processMessage.value =
+              response.data['message']['message'];
+          // utilityVerifier.utilityVerify(pid);
+        } else {
+          null;
+        }
         purchasecontroller.isLoading.value = false;
-        print('HELLOWORLD');
         purchasecontroller.rsuccess.value = response.data['message'].toString();
         purchasecontroller.dataRx.value = true;
         purchasecontroller.allowDisplay.value = true;

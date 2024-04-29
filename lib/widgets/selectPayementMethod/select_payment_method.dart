@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/PinValidation/pin_verification.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/services/otp_service.dart';
@@ -61,7 +62,8 @@ class SelectPaymentMethod extends StatelessWidget {
                           Future.delayed(
                               const Duration(milliseconds: 400),
                               () => {
-                                    ontapEffectController.isWallet.value = true
+                                    ontapEffectController.isWallet.value = true,
+                                    // Get.to(UPinAuth(title: 'Electric Bill Payment',))
                                   });
                         },
                         child: Row(
