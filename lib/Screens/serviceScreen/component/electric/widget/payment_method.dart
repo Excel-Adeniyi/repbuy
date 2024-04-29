@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/PinValidation/pin_verification.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/Electricbill/paymentService/payment_checkout.dart';
@@ -200,7 +201,7 @@ class UtilitySelectPaymentMethod extends StatelessWidget {
                             if (ontapEffectController.isCard.value) {
                               payVoid.chargeCardPayment(context, title);
                             } else {
-                              Get.to(PinAuth(title: title));
+                              Get.to(UPinAuth(title: title));
                             }
                           });
                         },

@@ -43,9 +43,9 @@ class CableScreen extends StatelessWidget {
                     ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
                         .createShader(bounds);
                   },
-                  child: Text(
-                    title,
-                    style: const TextStyle(
+                  child: const Text(
+                    "Cable TV",
+                    style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
@@ -145,7 +145,7 @@ class CableScreen extends StatelessWidget {
                   height: 50,
                   child: TextField(
                     decoration: InputDecoration(
-                      labelText: 'Enter Meter Number',
+                      labelText: 'Decoder Number',
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -158,6 +158,18 @@ class CableScreen extends StatelessWidget {
                   child: TextField(
                     decoration: InputDecoration(
                       labelText: 'Enter Amount',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const SizedBox(
+                  height: 50,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Package',
                       border: OutlineInputBorder(),
                     ),
                   ),

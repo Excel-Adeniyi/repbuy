@@ -12,7 +12,7 @@ class UtilityDataSave {
     connectTimeout: const Duration(minutes: 3),
     receiveTimeout: const Duration(minutes: 3),
   );
-  final Dio dio = Dio();
+  final Dio dio = Dio(options);
   final SecureStorage stora = SecureStorage();
   final UtilityController utilityController = Get.find<UtilityController>();
   Future<Response<dynamic>> sendReq() async {
@@ -22,11 +22,11 @@ class UtilityDataSave {
     final payload = {
       // "otp": otpController.pinController.value,
       "userId": userId,
-      "subscriberAccountNumber": utilityController.billerMeter.value,
+      "number": utilityController.billerMeter.value,
       "amount": utilityController.purchasePrice.value,
-      // "countryCode": utilityController.
-      "billerId": utilityController.utilityId.value,
-      "purchase_type": "Electric bill"
+      "countryCode": utilityController.countryCode.value,
+      "operatorId": utilityController.utilityId.value,
+      "purchase_type": "Electric"
     };
     try {
       final response = await dio.post('/utility/purchase/data', data: payload);

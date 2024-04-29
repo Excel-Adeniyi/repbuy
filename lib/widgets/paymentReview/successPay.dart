@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/payment_method.dart';
+import 'package:shapmanpaypoint/controller/Animation/payment_animation_controller.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
+import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
 import 'package:shapmanpaypoint/services/Electricbill/electricbill_auth_service.dart';
@@ -14,349 +17,399 @@ class SuccessPay extends StatelessWidget {
   SuccessPay({super.key});
   final _ontapEffectController = Get.put(OnTapEffect());
   final phonController = Get.put(RechargeController());
+  final _loaderController = Get.put(LoaderController());
   final electricService = ElectricAuthService();
   final UtilityController utilityController = Get.find<UtilityController>();
+   final animationController = Get.put(PaymentAnimation());
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Center(
-        child: SizedBox(
-          width: screenSize.width * 0.9,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(colors: [
-                      Color(0xFF5423bb),
-                      Color(0xFF8629b1),
-                      Color(0xFFa12cab),
-                    ], begin: Alignment.topLeft, end: Alignment.bottomRight)
-                        .createShader(bounds);
-                  },
-                  child: const Text(
-                    'Payment Review',
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Container(
-                    alignment: Alignment.bottomLeft,
-                    padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
-                    child: const Text(
-                      'For',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.left,
-                    )),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        utilityController.utilityProvider.value,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        utilityController.purchasePrice.value,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    utilityController.billerMeter.value,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  height: 200,
-                  width: 500,
-                  padding: const EdgeInsets.all(20),
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        Color.fromARGB(255, 193, 192, 196),
-                        Color.fromARGB(255, 193, 192, 196),
-                        Color.fromARGB(255, 193, 192, 196),
-                      ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Package',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12)),
-                          GradientStyle(
-                              data: utilityController.utilityName.value)
-                        ],
-                      ),
-                      const Divider(
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Commission',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12)),
-                          GradientStyle(data: '100')
-                        ],
-                      ),
-                      const Divider(
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('VAT',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12)),
-                          GradientStyle(data: '7.50')
-                        ],
-                      ),
-                      const Divider(
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Total Debit',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 12),
-                          ),
-                          GradientStyle(
-                              data: utilityController.utilitySum.value)
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Obx(() {
+          if (_loaderController.isChecker.value == true) {
+            return Dialog.fullscreen(
+              // insetAnimationCurve: Curves.easeInOut,
+              backgroundColor: Colors.white,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 1000),
-                      // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                    _loaderController.isVerifyFailed.value == false
+                        ? const PaymentGradientWidget()
+                        : const Text(
+                            "Unable to verify payment Kindly contact support",
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontFamily: "Roboto",
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                          ),
+                    _loaderController.isVerifyFailed.value == false
+                        ? LoadingAnimationWidget.staggeredDotsWave(
+                            color: const Color(0xFF1A1A3F),
+                            size: 100,
+                          )
+                        : TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              _loaderController.isVerifyFailed.value = false;
+                              _loaderController.isChecker.value = false;
+                            },
+                            child: const Text(
+                              "Close",
+                              style: TextStyle(color: Colors.black),
+                            ))
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return SizedBox(
+              width: screenSize.width * 0.9,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
                       height: 50,
-                      width: screenSize.width * 0.8,
-                      decoration: BoxDecoration(
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black45, // Shadow color
-                              blurRadius: 5.0, // Blur radius
-                              offset: Offset(0, 2),
-                            )
-                          ],
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 219, 218, 218),
-                              width: 1.0),
-                          gradient: LinearGradient(
-                              colors: _ontapEffectController.isTapped.value
-                                  ? isbuttongradient
-                                  : buttongradient,
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomRight),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextButton(
-                        onPressed: () {
-                          electricService.electricAuth();
-                          _ontapEffectController.isTapped.value = true;
-                          Future.delayed(const Duration(milliseconds: 1000),
-                              () {
-                            _ontapEffectController.isTapped.value = false;
-                            _ontapEffectController.isBSopen.value = false;
-                            print("WORKING");
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  const UtilitySelectPaymentMethod(
-                                      title: "Electric Bill"),
-                            );
-                            // Get.to(PinAuth(title: title));
-                          });
-                        },
-                        child: _ontapEffectController.isTapped.value == true
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
-                              )
-                            : const Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Continue',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Icon(
-                                    Icons.east,
-                                    color: Colors.white,
-                                  )
-                                ],
-                              ),
+                    ),
+                    ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return const LinearGradient(colors: [
+                          Color(0xFF5423bb),
+                          Color(0xFF8629b1),
+                          Color(0xFFa12cab),
+                        ], begin: Alignment.topLeft, end: Alignment.bottomRight)
+                            .createShader(bounds);
+                      },
+                      child: const Text(
+                        'Payment Review',
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                        alignment: Alignment.bottomLeft,
+                        padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
+                        child: const Text(
+                          'For',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.left,
+                        )),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            utilityController.utilityProvider.value,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            utilityController.purchasePrice.value,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        utilityController.billerMeter.value,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 30,
                     ),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 1000),
-                      width: screenSize.width * 0.8,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.purple),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10))),
-                      child: TextButton(
-                        onPressed: () {
-                          Get.toNamed('/dashboard');
-                        },
-                        child: ShaderMask(
-                          shaderCallback: (Rect bounds) {
-                            return const LinearGradient(
-                                    colors: [
-                                  Color(0xFF5423bb),
-                                  Color(0xFF8629b1),
-                                  Color(0xFFa12cab),
-                                ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight)
-                                .createShader(bounds);
-                          },
-                          child: const Text(
-                            "Cancel",
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                    Container(
+                      height: 200,
+                      width: 500,
+                      padding: const EdgeInsets.all(20),
+                      decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [
+                                Color.fromARGB(255, 193, 192, 196),
+                                Color.fromARGB(255, 193, 192, 196),
+                                Color.fromARGB(255, 193, 192, 196),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Package',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              GradientStyle(
+                                  data: utilityController.utilityName.value)
+                            ],
                           ),
-                        ),
+                          const Divider(
+                            color: Colors.white,
+                            thickness: 1,
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Commission',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              GradientStyle(data: '100')
+                            ],
+                          ),
+                          const Divider(
+                            color: Colors.white,
+                            thickness: 1,
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('VAT',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              GradientStyle(data: '7.50')
+                            ],
+                          ),
+                          const Divider(
+                            color: Colors.white,
+                            thickness: 1,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Total Debit',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 12),
+                              ),
+                              GradientStyle(
+                                  data: utilityController.utilitySum.value)
+                            ],
+                          ),
+                        ],
                       ),
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 1000),
+                          // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                          height: 50,
+                          width: screenSize.width * 0.8,
+                          decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black45, // Shadow color
+                                  blurRadius: 5.0, // Blur radius
+                                  offset: Offset(0, 2),
+                                )
+                              ],
+                              border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 219, 218, 218),
+                                  width: 1.0),
+                              gradient: LinearGradient(
+                                  colors: _ontapEffectController.isTapped.value
+                                      ? isbuttongradient
+                                      : buttongradient,
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextButton(
+                            onPressed: () {
+                              electricService.electricAuth();
+                              _ontapEffectController.isTapped.value = true;
+                              Future.delayed(const Duration(milliseconds: 1000),
+                                  () {
+                                _ontapEffectController.isTapped.value = false;
+                                _ontapEffectController.isBSopen.value = false;
+                                print("WORKING");
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      const UtilitySelectPaymentMethod(
+                                          title: "Electric Bill"),
+                                );
+                                // Get.to(PinAuth(title: title));
+                              });
+                            },
+                            child: _ontapEffectController.isTapped.value == true
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : const Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Continue',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Icon(
+                                        Icons.east,
+                                        color: Colors.white,
+                                      )
+                                    ],
+                                  ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 1000),
+                          width: screenSize.width * 0.8,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.purple),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10))),
+                          child: TextButton(
+                            onPressed: () {
+                              Get.toNamed('/dashboard');
+                            },
+                            child: ShaderMask(
+                              shaderCallback: (Rect bounds) {
+                                return const LinearGradient(
+                                        colors: [
+                                      Color(0xFF5423bb),
+                                      Color(0xFF8629b1),
+                                      Color(0xFFa12cab),
+                                    ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight)
+                                    .createShader(bounds);
+                              },
+                              child: const Text(
+                                "Cancel",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   children: [
+                    //     Container(
+                    //       margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+                    //       height: 40,
+                    //       width: 170,
+                    //       decoration: BoxDecoration(
+                    //           boxShadow: const [
+                    //             BoxShadow(
+                    //               color: Colors.black45, // Shadow color
+                    //               blurRadius: 5.0, // Blur radius
+                    //               offset: Offset(0, 2),
+                    //             )
+                    //           ],
+                    //           border: Border.all(
+                    //               color: const Color.fromARGB(255, 219, 218, 218),
+                    //               width: 2.0),
+                    //           gradient: const LinearGradient(
+                    //               colors: buttongradient,
+                    //               begin: Alignment.topCenter,
+                    //               end: Alignment.bottomCenter),
+                    //           borderRadius: BorderRadius.circular(16)),
+                    //       child: TextButton(
+                    //         onPressed: () {
+                    //           Get.to(PinAuth(title: "Electricity Bill Payment"));
+                    //         },
+                    //         child: const Row(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: [
+                    //             Text(
+                    //               'Pay',
+                    //               style: TextStyle(
+                    //                   color: Colors.white,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   fontSize: 17),
+                    //             ),
+                    //             SizedBox(
+                    //               width: 20,
+                    //             ),
+                    //             Icon(
+                    //               Icons.east,
+                    //               color: Colors.white,
+                    //             )
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       width: 140,
+                    //       child: TextButton(
+                    //         style: TextButton.styleFrom(
+                    //           side: const BorderSide(color: Colors.purple),
+                    //         ),
+                    //         onPressed: () {},
+                    //         child: ShaderMask(
+                    //           shaderCallback: (Rect bounds) {
+                    //             return const LinearGradient(colors: [
+                    //               Color(0xFF5423bb),
+                    //               Color(0xFF8629b1),
+                    //               Color(0xFFa12cab),
+                    //             ], begin: Alignment.topLeft, end: Alignment.bottomRight)
+                    //                 .createShader(bounds);
+                    //           },
+                    //           child: const Text(
+                    //             "Cancel",
+                    //             style: TextStyle(
+                    //                 fontSize: 14,
+                    //                 color: Colors.white,
+                    //                 fontWeight: FontWeight.bold),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     )
+                    //   ],
+                    // )
                   ],
-                )
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //   children: [
-                //     Container(
-                //       margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                //       height: 40,
-                //       width: 170,
-                //       decoration: BoxDecoration(
-                //           boxShadow: const [
-                //             BoxShadow(
-                //               color: Colors.black45, // Shadow color
-                //               blurRadius: 5.0, // Blur radius
-                //               offset: Offset(0, 2),
-                //             )
-                //           ],
-                //           border: Border.all(
-                //               color: const Color.fromARGB(255, 219, 218, 218),
-                //               width: 2.0),
-                //           gradient: const LinearGradient(
-                //               colors: buttongradient,
-                //               begin: Alignment.topCenter,
-                //               end: Alignment.bottomCenter),
-                //           borderRadius: BorderRadius.circular(16)),
-                //       child: TextButton(
-                //         onPressed: () {
-                //           Get.to(PinAuth(title: "Electricity Bill Payment"));
-                //         },
-                //         child: const Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             Text(
-                //               'Pay',
-                //               style: TextStyle(
-                //                   color: Colors.white,
-                //                   fontWeight: FontWeight.bold,
-                //                   fontSize: 17),
-                //             ),
-                //             SizedBox(
-                //               width: 20,
-                //             ),
-                //             Icon(
-                //               Icons.east,
-                //               color: Colors.white,
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       width: 140,
-                //       child: TextButton(
-                //         style: TextButton.styleFrom(
-                //           side: const BorderSide(color: Colors.purple),
-                //         ),
-                //         onPressed: () {},
-                //         child: ShaderMask(
-                //           shaderCallback: (Rect bounds) {
-                //             return const LinearGradient(colors: [
-                //               Color(0xFF5423bb),
-                //               Color(0xFF8629b1),
-                //               Color(0xFFa12cab),
-                //             ], begin: Alignment.topLeft, end: Alignment.bottomRight)
-                //                 .createShader(bounds);
-                //           },
-                //           child: const Text(
-                //             "Cancel",
-                //             style: TextStyle(
-                //                 fontSize: 14,
-                //                 color: Colors.white,
-                //                 fontWeight: FontWeight.bold),
-                //           ),
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // )
-              ],
-            ),
-          ),
-        ),
+                ),
+              ),
+            );
+          }
+        }),
       ),
     );
   }
