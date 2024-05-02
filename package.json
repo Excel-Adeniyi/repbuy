@@ -27,11 +27,13 @@
     "mysql2": "^3.6.5",
     "node-cache": "^5.1.2",
     "node-mailer": "^0.1.1",
-    "nodemailer": "^6.9.11"
+    "nodemailer": "^6.9.11",
+    "ws": "^8.17.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/nodemailer": "^6.4.14",
+    "@types/ws": "^8.5.10",
     "nodemon": "^3.0.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.2"
