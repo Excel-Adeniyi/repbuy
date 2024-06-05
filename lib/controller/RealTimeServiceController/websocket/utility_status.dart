@@ -70,9 +70,9 @@ class UtilityStatusSocket extends GetxController {
       final messsageUnit = messages['pin_number'].toString();
       await flutterLocalNotificationsPlugin.show(
         idMSG + index,
-        'New Message ${index + 1}',
-        messages['type'] != null
-            ? "  ${messages['type']} 👍"
+        'New Message',
+        messages['purchase_type'] != null
+            ?  "${messages['purchase_type']} payment of ${messages['amount']} was success 👍"
             : "You have a new message ❗ ",
         platformChannelSpecifics,
         payload: messages['type'] = 'item x',
