@@ -144,7 +144,6 @@ class UCompletedAmount extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                       const SizedBox(height: 20),
-                    
                       const SizedBox(
                         height: 20,
                       ),
@@ -289,10 +288,34 @@ class UCompletedAmount extends StatelessWidget {
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter),
                                 borderRadius: BorderRadius.circular(16)),
-                            child: const UniversalButton(
-                                route: "/dashboard",
-                                buttonText: 'Dashboard',
-                                withIcon: "no")
+                            child: GestureDetector(
+                              onTap: () {
+                                utilityController.ntransactionId.value = 0;
+                                utilityController.utilityPackage.value =
+                                    "Select Service";
+                                utilityController.utilityServiceType.value = "";
+                                utilityController.minITA.value = 00.0;
+                                utilityController.maxITA.value = 00.0;
+                                utilityController.minSmall.value = false;
+                                utilityController.maxBig.value = false;
+                                utilityController.utilityId.value = 0;
+                                utilityController.utilityProvider.value = '';
+                                utilityController.utilityName.value = '';
+                                utilityController.isMeterComplete.value = false;
+                                utilityController.billerMeter.value = "";
+                                utilityController.purchasePrice.value = "";
+                                utilityController.commission.value = 100;
+                                utilityController.vat.value = 7.50;
+                                utilityController.utilityPaystackInt.value = 0;
+                                utilityController.utilitySum.value = '';
+                                utilityController.countryCode.value = '';
+                                utilityController.processMessage.value = '';
+                              },
+                              child: const UniversalButton(
+                                  route: "/dashboard",
+                                  buttonText: 'Dashboard',
+                                  withIcon: "no"),
+                            )
                             // child: TextButton(
                             //     onPressed: () {
                             //       Get.toNamed('/dashboard');

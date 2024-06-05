@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shapmanpaypoint/Screens/login/login.dart';
 import 'package:shapmanpaypoint/widgets/slider/slide1.dart';
 
@@ -50,6 +51,7 @@ class OnboardingScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       Get.toNamed('/home');
+                      GetStorage().write("onboardingcomplete", true);
                     },
                     child: const Text('Get Started'),
                   ),

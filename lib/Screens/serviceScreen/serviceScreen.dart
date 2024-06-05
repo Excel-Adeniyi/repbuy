@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/gift_card.dart';
+import 'package:shapmanpaypoint/services/GiftCard/giftcard_auth.dart';
+import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
+import 'package:shapmanpaypoint/utils/width.dart';
 
 import '../Dashboard/Header/header.dart';
 
@@ -7,28 +13,14 @@ class ServiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    double containerHeight;
-    if (screenHeight < 480) {
-      containerHeight = 500;
-    } else if (screenHeight < 900) {
-      containerHeight = 470;
-    } else {
-      containerHeight = 1300;
-    }
-    double containerWidth;
-    if (screenWidth < 600) {
-      containerWidth = 200.0;
-    } else if (screenWidth < 1200) {
-      containerWidth = 320.0;
-    } else {
-      containerWidth = 130.0;
-    }
+    final containerWidth = calculateButtonWidth(context);
+    final screenSize = calculateContainerWidth(context);
+    final authService = GiftCardAuth();
     return Column(
       children: [
         DashboardHeader(),
-        Container(
+        SizedBox(
+          width: screenSize,
           child: Column(
             children: [
               Row(
@@ -65,98 +57,103 @@ class ServiceScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Container(
-                            width: containerWidth,
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 1.0, color: Colors.purple),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(10))),
-                            child: Column(
-                              children: [
-                                const Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    'Airtime',
-                                    style: TextStyle(color: Colors.black),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                                SizedBox(
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Image.asset(
-                                      'lib/assets/calling.png',
-                                      height: 40,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Container(
-                            width: containerWidth,
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 1.0, color: Colors.purple),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(10))),
-                            child: Column(
-                              children: [
-                                const Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    'Data Plan',
-                                    style: TextStyle(color: Colors.black),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                                SizedBox(
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Image.asset(
-                                      'lib/assets/signal.png',
-                                      height: 40,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed('recharge', arguments: 'Airtime Top up');
+                        },
+                        child: Container(
+                          width: containerWidth,
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 1.0, color: Colors.purple),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10))),
+                          child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  'Airtime',
+                                  style: TextStyle(color: Colors.black),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              SizedBox(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Image.asset(
+                                    'lib/assets/calling.png',
+                                    height: 40,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Get.toNamed('data');
+                        },
+                        child: Container(
+                          width: containerWidth,
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 1.0, color: Colors.purple),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10))),
+                          child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  'Data Plan',
+                                  style: TextStyle(color: Colors.black),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              SizedBox(
+                                child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Image.asset(
+                                    'lib/assets/signal.png',
+                                    height: 40,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Get.toNamed('/utility');
+                        },
                         child: Container(
                           width: containerWidth,
                           padding: const EdgeInsets.all(2),
@@ -191,7 +188,9 @@ class ServiceScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed('/utility');
+                        },
                         child: Container(
                           width: containerWidth,
                           padding: const EdgeInsets.all(2),
@@ -230,7 +229,8 @@ class ServiceScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -238,41 +238,53 @@ class ServiceScreen extends StatelessWidget {
                     Expanded(
                       child: TextButton(
                         onPressed: () {},
-                        child: Container(
-                          width: containerWidth,
-                          padding: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 1.0, color: Colors.purple),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                          child: Column(
-                            children: [
-                              const Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  'Sport Wallet',
-                                  style: TextStyle(color: Colors.black),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                              SizedBox(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Image.asset(
-                                    'lib/assets/balls-sports.png',
-                                    height: 40,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children:[ 
+                            const Text("--Coming Soon--", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w800, fontSize: 16),),
+                            Opacity(
+                              opacity: 0.6,
+                              child: Container(
+                              width: containerWidth,
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 1.0, color: Colors.purple),
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(10))),
+                              child: Column(
+                                children: [
+                                  const Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      'Sport Wallet',
+                                      style: TextStyle(color: Colors.black),
+                                      textAlign: TextAlign.start,
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
+                                  SizedBox(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Image.asset(
+                                        'lib/assets/balls-sports.png',
+                                        height: 40,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                                                        ),
+                            ),
+                          ]
                         ),
                       ),
                     ),
                     Expanded(
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(GiftCard());
+                          authService.auth();
+                        },
                         child: Container(
                           width: containerWidth,
                           padding: const EdgeInsets.all(2),

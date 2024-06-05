@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+
 import 'package:get/instance_manager.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
@@ -26,12 +27,13 @@ class UtilityService {
   final UtilityController utilityController = Get.find<UtilityController>();
   final utilityVerifier = UtilityVerify();
   final utilityPurchaseSave = UtilityDataSave();
-  Future<Response<dynamic>> utilityReq() async {
+  Future<Response<dynamic>> utilityReq(transId) async {
     final decodedToken = await stora.readSecureData('ResBody');
     Map<String, dynamic> userDecode = json.decode(decodedToken);
     final userId = userDecode['id'];
-
     purchasecontroller.isLoading.value = true;
+    purchasecontroller.allowDisplay.value = false;
+    purchasecontroller.dataRx.value = false;
     try {
       print(purchasecontroller.isLoading.value);
       final reference = DateTime.now().toString();
@@ -43,8 +45,9 @@ class UtilityService {
         "amountId": null,
         "billerId": utilityController.utilityId.value,
         "useLocalAmount": false,
-        "referenceId": reference,
-        "additionalInfo": {"invoiceId": null}
+        "referenceId": transId.toString(),
+        "ntransactionId": transId.toString(),
+        "additionalInfo": {"invoiceId": transId.toString()}
       };
 
       final response =
@@ -58,7 +61,6 @@ class UtilityService {
       if (response.data['Success'] == true) {
         if (response.data['message']['status'] == "PROCESSING") {
           purchasecontroller.pending.value = true;
-          utilityPurchaseSave.sendReq();
           utilityController.processMessage.value =
               response.data['message']['message'];
           // utilityVerifier.utilityVerify(pid);
@@ -70,12 +72,19 @@ class UtilityService {
         purchasecontroller.dataRx.value = true;
         purchasecontroller.allowDisplay.value = true;
       } else {
+        purchasecontroller.isLoading.value = false;
         purchasecontroller.dataRx.value = false;
         otpController.pinController.value = '';
       }
       return response;
-    } catch (error) {
-      print('RUFUS');
+    } on DioException catch (error) {
+      if (error.response!.statusCode == 503) {
+        purchasecontroller.isLoading.value = false;
+        purchasecontroller.dataRx.value = false;
+        purchasecontroller.allowDisplay.value = true;
+        otpController.pinController.value = '';
+      }
+      print('RUFUS $error');
       purchasecontroller.isLoading.value = false;
       purchasecontroller.dataRx.value = false;
       otpController.pinController.value = '';

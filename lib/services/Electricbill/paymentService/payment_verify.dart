@@ -5,7 +5,7 @@ import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/Complet
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/Electricbill/electricbill_final_init_service.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/completed_payment.dart';
+
 
 class UPaymentVerify {
   static BaseOptions options = BaseOptions(
@@ -17,11 +17,11 @@ class UPaymentVerify {
   // final airtimeService = AirtimeTopupService();
   // final dataService = DataTopUpService();
   final loaderController = Get.find<LoaderController>();
-
   final utilityService = UtilityService();
   Future<Response<dynamic>> verifier(
-      String? reference, title, accessCode, userid) async {
+      String? reference, title, accessCode, userid, transId) async {
     try {
+      
       final data = {
         'reference': reference,
         'accessCode': accessCode,
@@ -35,7 +35,7 @@ class UPaymentVerify {
         print(response);
 
         // if(response.data[])
-        utilityService.utilityReq();
+        utilityService.utilityReq(transId);
         Get.to(UCompletedAmount(title: title));
       }
       return response;

@@ -25,6 +25,7 @@ class UtilityController extends GetxController {
   final RxString utilitySum = ''.obs;
   final RxString countryCode = ''.obs;
   final RxString processMessage = ''.obs;
+  final RxInt ntransactionId = 0.obs;
   // final RxString maxamount = 10.obs;
   TextEditingController valuers = TextEditingController();
   @override
@@ -143,7 +144,7 @@ class UtilityController extends GetxController {
     print("CHECKPAY" + paystackAmount);
     utilitySum.value = sumString;
     final double paystactDouble = double.parse(paystackAmount);
-    final paystackRounded = paystactDouble * 100;
+    final paystackRounded = paystactDouble;
     final paystackInt = paystackRounded.toInt();
     utilityPaystackInt.value = paystackInt;
     print(utilityPaystackInt.value);

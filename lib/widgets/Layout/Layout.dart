@@ -2,14 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/Screens/profile/profile.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/serviceScreen.dart';
 import 'package:shapmanpaypoint/Screens/walletscreen/walletscreen.dart';
-
-import '../../Screens/Dashboard/Header/header.dart';
-import '../../controller/passwordtoggle.dart';
 import '../../controller/tabcontroller.dart';
-import '../../utils/colors/coloors.dart';
 import '../bottomNav/buildTab.dart';
 import '../tabbar/tabbar.dart';
 

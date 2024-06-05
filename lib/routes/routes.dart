@@ -1,14 +1,18 @@
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Binding/electric_binding.dart';
 import 'package:shapmanpaypoint/Binding/signup_binding.dart';
+import 'package:shapmanpaypoint/Middleware/auth_middleware.dart';
+import 'package:shapmanpaypoint/Middleware/idle_middleware.dart';
 import 'package:shapmanpaypoint/Screens/funding/PaymentMethod.dart';
-import 'package:shapmanpaypoint/Screens/funding/component/bankTransfer.dart';
+import 'package:shapmanpaypoint/Screens/funding/component/bank_transfer.dart';
 
 import 'package:shapmanpaypoint/Screens/login/forgetPassword/forgetpassword.dart';
 import 'package:shapmanpaypoint/Screens/login/login.dart';
 import 'package:shapmanpaypoint/Screens/profile/profile.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/data_bundle.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/electricityScreen.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/gift_card.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/PaymentReview/payment_review.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/recharge_screen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/serviceScreen.dart';
 import 'package:shapmanpaypoint/Screens/signup/pinInsertion/pin2.dart';
@@ -41,7 +45,8 @@ final pages = [
   GetPage(
       name: '/dashboard',
       page: () => LayoutScreen(),
-      binding: DashElectricBinding()),
+      binding: DashElectricBinding(),
+      middlewares: [IdleMiddleware(), AuthMiddleWare()]),
   GetPage(name: '/service', page: () => const ServiceScreen()),
   GetPage(name: '/profile', page: () => const ProfileScreen()),
   GetPage(name: '/recharge', page: () => RechargeCard()),
@@ -53,5 +58,10 @@ final pages = [
   GetPage(
     name: '/utilityreview',
     page: () => SuccessPay(),
-  )
+  ),
+  GetPage(
+    name: '/giftcardpaymentreview',
+    page: () => PaymentReviewGiftCard(),
+  ),
+  GetPage(name: '/giftcard', page: () => GiftCard())
 ];
