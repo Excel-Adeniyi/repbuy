@@ -10,6 +10,10 @@ class TransactionListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchTransactionList();
+  }
+
+  Future<void> fetchTransactionList() async {
     translistService.getTransactionList(recentPurchase);
   }
 

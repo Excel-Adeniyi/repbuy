@@ -40,8 +40,7 @@ class UtilityStatusSocket extends GetxController {
       final converted = json.decode(data);
       print("THE CONVERTED DATA $converted");
       _showNotification(converted);
-      // final recentPurchase = TransactionListController().
-      translist.getTransactionList(translistController.recentPurchase);
+      translistController.fetchTransactionList();
       Get.snackbar('WebSocket Message', data,
           titleText: const Text('New Message ()'),
           snackPosition: SnackPosition.TOP);
