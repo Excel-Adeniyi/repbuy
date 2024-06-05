@@ -23,12 +23,14 @@ class VerifyPaymnents {
         const data = {
             reference, userId, accessCode
         }
+        console.log("CHECKING THE VERIFIER",data)
         try {
             if (reference != undefined && reference != null) {
                 const url = "https://api.paystack.co/transaction/verify/"
 
                 const response: AxiosResponse = await axios.get(`${url}${reference}`);
                 const responseData = response.data
+                // console.log("VERIFIER",responseData)
                 if(responseData.message === "Verification successful"){
                     const updatePaymentSuccess: any = await this.model.UpdatePaymentTable(data)
                     console.log("Update response", updatePaymentSuccess)

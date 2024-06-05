@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import myCache from "../../../../middleware/cache";
+import myCache from "../../../middleware/cache";
 import * as dotenv from "dotenv";
 dotenv.config();
 

@@ -1,29 +1,29 @@
-/// <reference path="../types/session.d.ts" />
-import csrf from 'csrf'
+import csrf from 'csrf';
+import { NextFunction, Request, Response } from 'express';
 
-import { NextFunction, Request, Response } from 'express'
+const tokens = new csrf();
 
-const tokens = new csrf()
-const CsrfData = (req: Request ,res: Response, next: NextFunction ) => {
-   // Generate a new CSRF secret
+const CsrfData = (req: Request, res: Response, next: NextFunction) => {
    try {
-    const csrfSecret = tokens.secretSync();
-    // Store the CSRF secret in the session
-    req.session.csrfSecret = csrfSecret;
-  
-    // Generate a CSRF token for the current request
-    const csrfToken = tokens.create(csrfSecret);
-   //  console.log(csrfToken)
-    // Make the CSRF token available in the response locals
-    res.status(200).json({success: true, message: csrfToken})
-  
-    // Continue to the next middleware or route handler
-    
-   } catch (error) {
-    console.log(error)
-    
-   }
- 
-}
+      console.log("Request body:", req.body);
 
-export  default CsrfData;
+      const { csptoken } = req.body;
+
+      if (csptoken === process.env.CSRFREQUESTER) {
+         if (!req.session.csrfSecret) {
+            const csrfSecret = tokens.secretSync();
+            req.session.csrfSecret = csrfSecret;
+            console.log("CSRF Secret generated and stored:", csrfSecret);
+         }
+
+         const csrfToken = tokens.create(req.session.csrfSecret);
+         console.log("CSRF Token generated:", csrfToken);
+         return res.status(200).json({ success: true, message: csrfToken });
+      } 
+   } catch (error) {
+      console.error("Error in CSRF middleware:", error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
+   }
+};
+
+export default CsrfData;

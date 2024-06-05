@@ -25,7 +25,7 @@ async function GetGiftCardAuth(req: Request, res: Response) {
       "https://auth.reloadly.com/oauth/token",
       reqbody
     );
-    console.log(response)
+    console.log(response.data)
     const responseData = response.data;
     myCache.set("AUTH_GIFTCARD_KEY", responseData.access_token);
     res.json({ success: "Successful" });
@@ -35,11 +35,11 @@ async function GetGiftCardAuth(req: Request, res: Response) {
       if (axiosError.response) {
         console.log(`Request failed with status code ${axiosError}`);
         res
-          .status(500)
+          .status(503)
           .json({ axiosError: "Server Error" });
       } else if (axiosError.request) {
         console.log("No response from server");
-       res.status(500).json({ axiosError: "error code 500" });
+       res.status(408).json({ axiosError: "error code 500" });
       } else {
         console.log("Server error:", axiosError.message);
          res.status(500).json({ axiosError: "Internal server error" });
