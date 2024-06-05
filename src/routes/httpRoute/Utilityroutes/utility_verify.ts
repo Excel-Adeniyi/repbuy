@@ -1,4 +1,4 @@
-import UtilityVerifier from "../../../controller/http/Auth/Utility/utilityVerify";
+import UtilityVerifier from "../../../controller/http/Utility/utilityVerify";
 
 
 const utilityVerify = new UtilityVerifier()

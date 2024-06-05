@@ -1,5 +1,5 @@
 import pool from "../../../config/dbConfig";
-import GetAirtimeController from "../../controller/GetAirtime/getAirtime";
+import GetAirtimeController from "../../../controller/http/GetAirtime/getAirtime";
 import AirtimeDataClass from "../../../model/GetAirtimeModel/get_airtime_Model";
 
 

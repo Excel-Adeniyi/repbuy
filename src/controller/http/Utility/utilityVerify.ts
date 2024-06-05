@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import myCache from "../../../../middleware/cache";
+import myCache from "../../../middleware/cache";
 
 class UtilityVerifier{
 

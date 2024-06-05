@@ -13,6 +13,7 @@ class PaymentController {
     }
     async initializePayment(req: Request, res: Response): Promise<void> {
         const { amount, userId, email } = req.body
+        
         const referenceInfo = reference()
         const data = {
             amount, userId, email
@@ -34,12 +35,14 @@ class PaymentController {
                 "email": email,
                 "reference": referenceInfo
             }
+            console.log('PAYLOAD', payload)
             if (purchase_id != undefined) {
                 const response = await axios.post("https://api.paystack.co/transaction/initialize",
 
                     payload,
                 )
                 const responseData = response.data
+                console.log(responseData)
                 if (responseData.status == true) {
                     res.status(200).json({ success: true, message: responseData.data.access_code })
                     const params = {
@@ -54,13 +57,14 @@ class PaymentController {
             }
 
         } catch (error) {
+            console.log(error)
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError
 
                 if (axiosError.response) {
-                    res.status(500).json({ success: false, message: "Payment gateway is unresponsive" })
+                    res.status(503).json({ success: false, message: "Payment gateway is unresponsive" })
                 } else if (axiosError.request) {
-                    res.status(500).json({ success: false, message: "Payment is unsuccessful" })
+                    res.status(408).json({ success: false, message: "Payment is unsuccessful" })
                 } else {
                     console.log(axiosError.message)
                     res.status(500).json({ success: false, message: "internal server error" })

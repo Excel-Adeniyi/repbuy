@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import myCache from '../../middleware/cache'
-import AirtimeDataClass from '../../model/GetAirtimeModel/get_airtime_Model';
+import myCache from '../../../middleware/cache'
+import AirtimeDataClass from '../../../model/GetAirtimeModel/get_airtime_Model';
 
 class GetAirtimeController {
     private model: AirtimeDataClass

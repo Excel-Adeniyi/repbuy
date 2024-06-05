@@ -1,5 +1,6 @@
 import { QueryError, RowDataPacket } from "mysql2";
 import { Pool } from "mysql2/typings/mysql/lib/Pool";
+import { reference } from "../../helper/reference";
 
 
 class UtilityPurchase {
@@ -10,10 +11,10 @@ class UtilityPurchase {
         this.pool = pool
     }
 
-    async utilityPurchaseModel(data: any): Promise<RowDataPacket[]> {
-
-        const query = "INSERT INTO current_purchase (userId, number, amount, countryCode, operatorId, purchase_type, status, time) VALUES (?,?,?,?,?,?, 'pending', CURTIME())"
-        const params = [ ...Object.values(data) ]
+    async utilityPurchaseModel(data: any, transactionId: string): Promise<RowDataPacket[]> {
+      
+        const query = "INSERT INTO current_purchase (userId, number, amount, countryCode, operatorId, purchase_type, status, time, ntransactionId) VALUES (?,?,?,?,?,?, 'pending', CURTIME(), ? )"
+        const params = [ ...Object.values(data), transactionId ]
 
         return new Promise((resolve, reject) => {
             this.pool.query(

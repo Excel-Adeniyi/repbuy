@@ -5,6 +5,7 @@ import myCache from "../../../middleware/cache";
 class OrderGiftCards {
   async OrderGiftcardsProducts(req: Request, res: Response): Promise<void> {
     const endpoint = "https://giftcards-sandbox.reloadly.com/orders";
+
     const {
       customIdentifier,
       productId,
@@ -14,6 +15,8 @@ class OrderGiftCards {
       phoneNumber,
       senderName,
       unitPrice,
+      recipientPhoneDetails,
+      preOrder
     } = req.body;
     const data = {
       customIdentifier,
@@ -24,7 +27,10 @@ class OrderGiftCards {
       phoneNumber,
       senderName,
       unitPrice,
+      recipientPhoneDetails,
+      preOrder
     };
+    console.log(data)
     try {
       const AuthKEY = myCache.get("AUTH_GIFTCARD_KEY");
       console.log("GGGG", AuthKEY);
@@ -34,9 +40,9 @@ class OrderGiftCards {
           "Content-Type": "Application/json",
         },
       });
-     
-        res.status(200).json({success: response.data});
-    
+
+      res.status(200).json({ success: response.data });
+
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
