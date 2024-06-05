@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/Screens/dashboard/Tabs/Dashboardtab/Dashboardtab.dart';
+import 'package:shapmanpaypoint/Screens/dashboard/Tabs/Dashboardtab/dashboard_tab.dart';
+import 'package:shapmanpaypoint/utils/width.dart';
 
 import '../../controller/tabcontroller.dart';
 
@@ -15,19 +16,19 @@ class Dashboard extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double containerHeight;
     if (screenHeight < 480) {
-      containerHeight = 700;
+      containerHeight = calculateContainerWidth(context);
     } else if (screenHeight < 900) {
-      containerHeight = 700;
+      containerHeight = calculateContainerWidth(context);
     } else {
-      containerHeight = 1300;
+      containerHeight = calculateContainerWidth(context);
     }
     double containerWidth;
     if (screenWidth < 600) {
-      containerWidth = 300.0;
+      containerWidth = calculateContainerWidth(context);
     } else if (screenWidth < 1200) {
-      containerWidth = 400.0;
+      containerWidth = calculateContainerWidth(context);
     } else {
-      containerWidth = 500.0;
+      containerWidth = calculateContainerWidth(context);
     }
     return SingleChildScrollView(
         child: DashboardTab(containerWidth: containerWidth));

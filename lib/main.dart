@@ -1,11 +1,40 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shapmanpaypoint/Middleware/auth_middleware.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
+import 'package:shapmanpaypoint/controller/RealTimeServiceController/push_notification_controller.dart';
 import 'package:shapmanpaypoint/routes/routes.dart';
 
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel',
+  'High Importance Notifications',
+  description: 'This channel is used for important notifications.',
+  importance: Importance.high,
+);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+Future<void> _firebaseMessaginBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background messageL ${message.messageId}');
+}
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  await Firebase.initializeApp();
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessaginBackgroundHandler);
+
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
   runApp(const MyApp());
 }
 
@@ -15,8 +44,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.put(NotificationController());
     Get.put(ObscureController());
     Get.put(PasswordController());
+    // Get.put(IdleMiddleware());
+    Get.put(AuthMiddleWare());
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -45,6 +77,7 @@ class MyApp extends StatelessWidget {
           ? '/home'
           : '/onboarding',
       getPages: pages,
+      // initialBinding: ,
     );
   }
 }

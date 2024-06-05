@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(MasterController());
     final googleSign = GoogleService();
-    final csrfService = CsrfService();
+   
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -79,7 +79,7 @@ class LoginScreen extends StatelessWidget {
                             fixedSize: MaterialStateProperty.all(
                                 const Size(200.0, 10.0))),
                         onPressed: () =>
-                            {Get.toNamed('/signin'), csrfService.get()},
+                            {Get.toNamed('/signin')},
                         child: const Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.center,

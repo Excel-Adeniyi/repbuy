@@ -4,14 +4,14 @@ class ScreenWidth {
   static double calculateContainerWidth(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
+    double widthSize = MediaQuery.sizeOf(context).width;
     double containerWidth;
-
     if (screenWidth < 600) {
-      containerWidth = 300.0;
+      containerWidth = widthSize * 0.9;
     } else if (screenWidth < 1200) {
-      containerWidth = 400.0;
+      containerWidth = widthSize * 0.5;
     } else {
-      containerWidth = 500.0;
+      containerWidth = widthSize * 0.7;
     }
     return containerWidth;
   }

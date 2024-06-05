@@ -15,7 +15,7 @@ class UtilityDataSave {
   final Dio dio = Dio(options);
   final SecureStorage stora = SecureStorage();
   final UtilityController utilityController = Get.find<UtilityController>();
-  Future<Response<dynamic>> sendReq() async {
+  Future<int> sendReq() async {
     final decodedToken = await stora.readSecureData('ResBody');
     Map<String, dynamic> userDecode = json.decode(decodedToken);
     final userId = userDecode['id'];
@@ -24,13 +24,24 @@ class UtilityDataSave {
       "userId": userId,
       "number": utilityController.billerMeter.value,
       "amount": utilityController.purchasePrice.value,
+
       "countryCode": utilityController.countryCode.value,
       "operatorId": utilityController.utilityId.value,
+      
       "purchase_type": "Electric"
     };
     try {
       final response = await dio.post('/utility/purchase/data', data: payload);
-      return response;
+      print("THE RESPOND ${response.data["reference"]}");
+      if (response.data['Success'] == true &&
+          response.data["message"] == "Saved" &&
+          response.data["reference"] != null) {
+        print("CHECKING IF SUCCEEDED");
+        utilityController.ntransactionId.value = response.data["reference"];
+        print(utilityController.ntransactionId.value);
+      }
+      final int newtransId = utilityController.ntransactionId.value;
+      return newtransId;
     } on DioException catch (error) {
       rethrow;
     }

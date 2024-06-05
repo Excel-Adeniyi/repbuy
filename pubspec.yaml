@@ -56,6 +56,13 @@ dependencies:
   envied: ^0.5.4+1
   mocktail: ^1.0.3
   loading_animation_widget: ^1.2.1
+  carousel_slider: ^4.2.1
+  html_unescape: ^2.0.0
+  flutter_svg: ^2.0.9
+  flutter_progress_hud: ^2.0.2
+  firebase_messaging: ^14.9.2
+  flutter_local_notifications: ^17.1.2
+  web_socket_channel: ^2.4.5
 
 dev_dependencies:
   flutter_test:
@@ -91,6 +98,8 @@ flutter:
     - lib/utils/jsons/countryIso.json
     - lib/utils/jsons/data_operators.json
     - lib/utils/jsons/utility.json
+    - lib/utils/jsons/images.json
+    - lib/utils/jsons/bank_list.json
     - lib/assets/env/.env.dev
     - lib/assets/env/.env.prod
 

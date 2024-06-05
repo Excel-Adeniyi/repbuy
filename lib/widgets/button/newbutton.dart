@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
+import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 
 class UniversalButton extends StatelessWidget {
   final String route;
@@ -16,12 +17,12 @@ class UniversalButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ontapEffectController = Get.put(OnTapEffect());
-    final screenSize = MediaQuery.sizeOf(context);
+    
     return Obx(() => AnimatedContainer(
           duration: const Duration(milliseconds: 1000),
           // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
           height: 50,
-          width: screenSize.width * 0.8,
+          width: calculateButtonWidth(context),
           decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
@@ -40,45 +41,49 @@ class UniversalButton extends StatelessWidget {
                   end: Alignment.bottomRight),
               borderRadius: BorderRadius.circular(10)),
           child: TextButton(
-            onPressed: () {
-              ontapEffectController.isTapped.value = true;
-              Future.delayed(const Duration(milliseconds: 1000), () {
-                ontapEffectController.isTapped.value = false;
-                // print("WORKING");
-                // verifyOtpService.verifyOTP(title);
-                Get.toNamed(route);
-              });
-            },
-            child: ontapEffectController.isTapped.value == true
-                ? const CircularProgressIndicator(
-                    color: Colors.white,
-                  )
-                : withIcon == "yes" ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        buttonText,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Icon(
-                        Icons.east,
-                        color: Colors.white,
-                      )
-                    ],
-                  ): Text(
-                        buttonText,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                      )
-          ),
+              onPressed: () {
+                ontapEffectController.isTapped.value = true;
+                Future.delayed(const Duration(milliseconds: 1000), () {
+                  ontapEffectController.isTapped.value = false;
+                  // print("WORKING");
+                  // verifyOtpService.verifyOTP(title);
+                  if (route.isNotEmpty) {
+                    Get.toNamed(route);
+                    
+                  }
+                });
+              },
+              child: ontapEffectController.isTapped.value == true
+                  ? const CircularProgressIndicator(
+                      color: Colors.white,
+                    )
+                  : withIcon == "yes"
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              buttonText,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.east,
+                              color: Colors.white,
+                            )
+                          ],
+                        )
+                      : Text(
+                          buttonText,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14),
+                        )),
         ));
   }
 }

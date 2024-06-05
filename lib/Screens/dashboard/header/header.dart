@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Auth/useravatar_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_avatar.dart';
@@ -49,11 +50,14 @@ class DashboardHeader extends StatelessWidget {
                             ),
                     ),
                   ),
-                  Text(
-                    'Welcome, ${_userDetails.first_name.value} ${_userDetails.last_name}',
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                    softWrap: true,
+                  Flexible(
+                    child: Text(
+                      'Welcome, ${_userDetails.first_name.value} ${_userDetails.last_name}',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Image.asset(
                     'lib/assets/logo.png',

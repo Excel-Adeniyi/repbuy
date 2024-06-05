@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/Auth/signinModel.dart';
+import 'package:shapmanpaypoint/assets/envied/env.dart';
 import 'package:shapmanpaypoint/controller/Auth/signin_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
@@ -18,42 +20,49 @@ class SigninService {
   final Dio dio = Dio(options);
 
   final SecureStorage stora = SecureStorage();
-  final SignInController login = Get.find<SignInController>();
+  final SignInController signincontroller = Get.find<SignInController>();
   // final _jwtsonPlugin = Jwtson();
   final _userController = Get.put(UserInfoController());
   Future<List<dynamic>> userLogin(User user) async {
     try {
-      login.isLoading.value = true;
+      signincontroller.isLoading.value = true;
 
       final token = await stora.readSecureData('X-csrf');
       // final tokenAll = await stora.readAll();
+      final cookie = await stora.readSecureData('sid');
       _userController.password.value = user.password;
       final dataS = {
         'userdata': user.userdata,
         'password': user.password,
-        'csrf': token
+        'x_csrf': token
       };
       // print(dataS);R
+      dio.interceptors.add(InterceptorsWrapper(onRequest:
+          (RequestOptions options, RequestInterceptorHandler handler) {
+        options.headers.addAll({'cookie': cookie});
+        return handler.next(options);
+      }));
       final response =
           await dio.post('/login', options: Options(), data: dataS);
       print(response);
       final List<dynamic> resData = [];
       if (response.data[0].containsKey('success') &&
           response.data[0]['success'] == true) {
-        login.isLoggedIn.value = true;
+        signincontroller.isLoggedIn.value = true;
         String myPayload = response.data[0]['message'];
         print(myPayload);
-        const sETN = "ksjdkjierowninficd-239nwdc8jsaks&dn9wne!askjd";
-        final stringPayload = jsonEncode(myPayload);
 
+        final stringPayload = jsonEncode(myPayload);
+        String jws = Env.jwskey;
         final stringDecode = json.decode(stringPayload);
-        final jwt = JWT.verify(stringDecode, SecretKey(sETN));
+        final jwt = JWT.verify(stringDecode, SecretKey(jws));
         print(jwt.payload);
         print(jwt.payload["first_name"]);
         print(jwt.payload["last_mame"]);
         _userController.first_name.value = jwt.payload["first_name"];
         _userController.last_name.value = jwt.payload["last_mame"];
         _userController.email.value = jwt.payload["email"];
+        _userController.exp.value = jwt.payload["exp"];
 
         if (jwt.payload != null) {
           if (jwt.payload["verified"] == 0) {
@@ -63,21 +72,61 @@ class SigninService {
           } else {
             final jwtPayload = jsonEncode(jwt.payload);
             await stora.writeSecureData('ResBody', jwtPayload);
-            Get.toNamed('/dashboard');
+            Get.offNamed('/dashboard');
           }
         }
         resData.add(response.data[0]['success']);
       } else {
-        login.isLoggedIn.value = false;
+        signincontroller.isLoggedIn.value = false;
+        signincontroller.isLoading.value = false;
+        Get.snackbar(
+          "", "",
+          backgroundColor: Colors.red,
+          messageText: Text(
+            response.data[0]['message'].toString(),
+            style: const TextStyle(
+                fontWeight: FontWeight.w500, color: Colors.white),
+          ),
+          titleText: const Text(
+            'Error',
+            style: TextStyle(fontWeight: FontWeight.w800, color: Colors.white),
+          ),
+          snackPosition: SnackPosition.TOP,
+          duration: const Duration(seconds: 4),
+          colorText: Colors.white,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: 10.0,
+          // dismissDirection: SnackDismissDirection.HORIZONTAL,
+          forwardAnimationCurve: Curves.easeOutBack,
+          reverseAnimationCurve: Curves.easeInBack,
+        );
+
         resData.add("No data returned");
       }
-
+      // signincontroller.isLoggedIn.value = false;
       return resData;
-    } catch (error) {
-      login.isLoggedIn.value = false;
+    } on DioException catch (error) {
+      if (error.response != null && error.response?.statusCode != 200) {
+        Get.snackbar(
+          "Error", error.response!.data['message'].toString(),
+          backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+          colorText: Colors.white,
+          margin: const EdgeInsets.all(20.0),
+          borderRadius: 10.0,
+          // dismissDirection: SnackDismissDirection.HORIZONTAL,
+          forwardAnimationCurve: Curves.easeOutBack,
+          reverseAnimationCurve: Curves.easeInBack,
+        );
+        signincontroller.isLoggedIn.value = false;
+        signincontroller.isLoading.value = false;
+      }
+      signincontroller.isLoggedIn.value = false;
+      signincontroller.isLoading.value = false;
       rethrow;
     } finally {
-      login.isLoading.value = false;
+      signincontroller.isLoading.value = false;
     }
   }
 }

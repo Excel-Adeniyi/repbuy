@@ -63,7 +63,7 @@ class Electric extends StatelessWidget {
                   ],
                 ),
                 const BillerName(),
-                const SizedBox(height: 30),
+                const SizedBox(height: 38),
                 const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -85,6 +85,7 @@ class Electric extends StatelessWidget {
                     route: "/utilityreview",
                     buttonText: "Continue",
                     withIcon: "no"),
+                    const SizedBox(height: 20,)
               ],
             ),
           ),

@@ -1,0 +1,9 @@
+<resources>
+    <string name="default_web_client_id" translatable="false"></string>
+    <string name="firebase_database_url" translatable="false">"https://nexttellar-a5f1a.firebaseio.com"</string>
+    <string name="gcm_defaultSenderId" translatable="false">51402759890</string>
+    <string name="google_api_key" translatable="false">AIzaSyB6hhDmwKInnZl-E2sim_TlDBMM3jnDBUk</string>
+    <string name="google_app_id" translatable="false">1:51402759890:android:cf0b41e8108402ccbad70b</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB6hhDmwKInnZl-E2sim_TlDBMM3jnDBUk</string>
+    <string name="project_id" translatable="false">nexttellar-a5f1a</string>
+</resources>

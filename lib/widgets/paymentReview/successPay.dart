@@ -8,12 +8,12 @@ import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
 import 'package:shapmanpaypoint/services/Electricbill/electricbill_auth_service.dart';
-import 'package:shapmanpaypoint/utils/paymentList/paylistclass.dart';
+// import 'package:shapmanpaypoint/utils/paymentList/paylistclass.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 class SuccessPay extends StatelessWidget {
   final String title = 'Electric';
-  PaymentList? paymentList;
+  // PaymentList? paymentList;
   SuccessPay({super.key});
   final _ontapEffectController = Get.put(OnTapEffect());
   final phonController = Get.put(RechargeController());

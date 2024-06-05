@@ -11,9 +11,8 @@ import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
-import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
+import 'package:shapmanpaypoint/services/Electricbill/electricbill_purchase_data_save.dart';
 import 'package:shapmanpaypoint/services/Electricbill/paymentService/payment_service.dart';
-import 'package:shapmanpaypoint/services/paymentService/payment_service.dart';
 import 'package:shapmanpaypoint/services/Electricbill/paymentService/payment_verify.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 
@@ -29,6 +28,7 @@ class UPaymentCheckout {
   final ontapEffectController = Get.find<OnTapEffect>();
   final stora = SecureStorage();
   final String publicKey = Env.publickey;
+    final utilityPurchaseSave = UtilityDataSave();
   final verifyPayment = UPaymentVerify();
   Future<void> chargeCardPayment(BuildContext context, title) async {
     final SignUpController editcontroller =
@@ -39,6 +39,7 @@ class UPaymentCheckout {
       // Ensure Paystack SDK is initialized
       final plugin = PaystackPlugin();
       await plugin.initialize(publicKey: publicKey);
+             final transId = await utilityPurchaseSave.sendReq();
       final accessCode = await accesscode.paymentInit();
       final userData = await stora.readSecureData("ResBody");
 
@@ -49,7 +50,7 @@ class UPaymentCheckout {
         ..email = editcontroller.email.text.isEmpty
             ? userInfo.email.value
             : editcontroller.email.text
-        ..amount = utilityController.utilityPaystackInt.value
+        ..amount = utilityController.utilityPaystackInt.value * 100
         ..accessCode = accessCode;
 
       CheckoutResponse response = await plugin.checkout(context,
@@ -60,7 +61,7 @@ class UPaymentCheckout {
         loaderController.isChecker.value = true;
         final String? reference = response.reference;
         // const title = "Utility";
-        verifyPayment.verifier(reference, title, accessCode, userid);
+        verifyPayment.verifier(reference, title, accessCode, userid, transId);
         print(loaderController.isChecker.value);
       } else {
         Get.toNamed('');

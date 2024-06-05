@@ -36,7 +36,7 @@ class SignUpController extends GetxController {
         country.value.isNotEmpty &&
         terms.value == false &&
         confirmpasswordValidator.value == false) {
-      print("HI");
+      print("HISUP");
       isVisible.value = false;
     } else {
       isVisible.value = true; // Reset visibility if any field is cleared

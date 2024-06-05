@@ -7,6 +7,7 @@ import 'package:shapmanpaypoint/Model/ISOData/iso_model.dart';
 class IsoController extends GetxController {
   final RxList<Iso> isoDetails = <Iso>[].obs;
   final selectedCountry = "Select Country".obs;
+  final isoName = "Select Country".obs;
 
   @override
   void onInit() {

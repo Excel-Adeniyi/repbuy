@@ -62,7 +62,7 @@ class UploadAvatarService {
         _userController.first_name.value = jwt.payload["first_name"];
         _userController.last_name.value = jwt.payload["last_name"];
         if (jwt.payload != null) {
-          print("HI");
+          print("HIU");
           final jwtPayload = jsonEncode(jwt.payload);
           await stora.writeSecureData('ResBody', jwtPayload);
           Get.toNamed('/dashboard');
