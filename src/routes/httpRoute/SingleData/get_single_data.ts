@@ -1,5 +1,5 @@
 import pool from "../../../config/dbConfig";
-import GetOnePurchasedItem from "../../../controller/http/SingleData/getoneutility";
+import GetOnePurchasedItem from "../../../controller/http/SingleData/fetch_single_data";
 import SinglePurchasedData from "../../../model/SingleData/single_data";
 import UtilitySingleDataRequest from "../../../model/UtilityModel/utility_single_data_request";
 

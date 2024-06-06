@@ -135,7 +135,7 @@ router.post("/store/token", (req, res) => {
 
 
 //Get Single Purchased Data
-router.get("/purchase/data/:type/:transactionId/:userId", (req, res)=> {
+router.get("/purchase/data/:type/:ntransactionId/:userId", (req, res)=> {
   singleDataController.provideSingleData(req, res)
 })
 
