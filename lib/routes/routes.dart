@@ -24,6 +24,7 @@ import 'package:shapmanpaypoint/Screens/onboardingslider/onboadingslider.dart';
 import 'package:shapmanpaypoint/Screens/signup/completionScreen/completionScreen.dart';
 import 'package:shapmanpaypoint/Screens/signup/signup.dart';
 import 'package:shapmanpaypoint/widgets/paymentReview/successPay.dart';
+import 'package:shapmanpaypoint/widgets/singlePurchasedItem/single_purchased_item.dart';
 
 import '../Screens/funding/component/paymentsummary.dart';
 import '../Screens/signup/pinInsertion/pin.dart';
@@ -63,5 +64,6 @@ final pages = [
     name: '/giftcardpaymentreview',
     page: () => PaymentReviewGiftCard(),
   ),
+  GetPage(name: '/singlePurchase', page: () => const SinglePurchasedItemPage()),
   GetPage(name: '/giftcard', page: () => GiftCard())
 ];

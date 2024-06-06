@@ -17,9 +17,9 @@ class DashboardTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final TabbController control = Get.put(TabbController());
     Get.put(UtilityStatusSocket());
-    Get.put(TransactionListController());
+
     final TransactionListController transactionController =
-        Get.find<TransactionListController>();
+        Get.put(TransactionListController());
     final authService = GiftCardAuth();
     return Column(
       children: [
@@ -233,9 +233,6 @@ class DashboardTab extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 5,
-            ),
             Obx(() {
               final transactions = transactionController.recentPurchase;
 
@@ -293,9 +290,17 @@ class DashboardTab extends StatelessWidget {
                                           transaction.purchase_type ==
                                               "Electric"
                                       ? Colors.yellow[700]
-                                      : transaction.success == 1 && transaction.status ==
-                                              "successful" ? Colors.green[700] : Colors.red),
+                                      : transaction.success == 1 &&
+                                              transaction.status == "successful"
+                                          ? Colors.green[700]
+                                          : Colors.red),
                         ),
+                        onTap: () {
+                          if (transaction.purchase_type == "Electric") {
+                            Get.toNamed('/singlePurchase',
+                                arguments: transaction);
+                          }
+                        },
                       );
                     },
                     separatorBuilder: (context, index) => const Divider(),
