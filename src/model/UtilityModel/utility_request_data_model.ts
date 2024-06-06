@@ -17,8 +17,9 @@ class UtilityRequestData {
         data.user_id,
         data.pin_number,
         data.pin_unit]
-        const params2 = [data.user_id]
-        const query2 = 'SELECT transactionId, pin_number  FROM utility_user_details WHERE user_id = ?  ORDER BY created_at '
+
+        const params2 = [data.user_id, data.transactionId]
+        const query2 = 'SELECT ntransactionId, purchase_type, amount  FROM current_purchase WHERE userId = ? AND transactionId = ?'
         const connection = await this.pool.getConnection()
         try {
             await connection.beginTransaction()
