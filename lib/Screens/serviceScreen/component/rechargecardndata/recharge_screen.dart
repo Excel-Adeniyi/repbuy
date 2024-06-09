@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
 import 'package:shapmanpaypoint/Model/ISOData/iso_model.dart';
-import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
-import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 // import 'package:get_storage/get_storage.dart';
 import 'package:shapmanpaypoint/controller/validator/airtime_validator.dart';
 import 'package:shapmanpaypoint/services/activateAuthenticators.dart';
-import 'package:shapmanpaypoint/services/operatorsService.dart';
+import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
+import 'package:shapmanpaypoint/utils/width.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/amount_prompt.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-import '../../../../utils/dialog/dialogShow.dart';
 // import 'package:shapmanpaypoint/utils/dialog/dialogShow.dart';
 
 class RechargeCard extends StatelessWidget {
@@ -72,20 +69,22 @@ class RechargeCard extends StatelessWidget {
               children: [
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
-                    return const LinearGradient(colors: [
-                      Color(0xFF5423bb),
-                      Color(0xFF8629b1),
-                      Color(0xFFa12cab),
-                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+                    return const LinearGradient(
+                            colors: buttongradient,
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight)
                         .createShader(bounds);
                   },
                   child: Text(
-                    title,
+                    title.toUpperCase(),
                     style: const TextStyle(
                         fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         color: Colors.white),
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 TopBalance(),
                 const SizedBox(
@@ -97,8 +96,8 @@ class RechargeCard extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                       gradient: LinearGradient(
                           colors: buttongradient,
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight)),
+                          begin: Alignment.bottomRight,
+                          end: Alignment.topLeft)),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: imageSelector.buttonValue
@@ -116,12 +115,17 @@ class RechargeCard extends StatelessWidget {
                                                     value
                                                 ? Colors.black87
                                                 : Colors.white),
-                                    child: ElevatedButton(
+                                    child: TextButton(
                                         onPressed: () {
                                           controller
                                               .setSelectButtonValue(value);
                                         },
                                         style: ElevatedButton.styleFrom(
+                                            foregroundColor: controller
+                                                        .selectedButton.value ==
+                                                    value
+                                                ? Colors.black87
+                                                : Colors.white,
                                             backgroundColor: controller
                                                         .selectedButton.value ==
                                                     value
@@ -134,7 +138,7 @@ class RechargeCard extends StatelessWidget {
                                                           .value ==
                                                       value
                                                   ? Colors.white
-                                                  : Colors.purple),
+                                                  : const Color(0xff0a2417)),
                                         )),
                                   ),
                                 );
@@ -144,7 +148,7 @@ class RechargeCard extends StatelessWidget {
 
                 //######## ISO NAME #################
                 const SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
                 Container(
                     // margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -152,21 +156,21 @@ class RechargeCard extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5)),
                         border: Border.all(
-                            width: 1.0,
-                            color: const Color.fromARGB(255, 73, 22, 105))),
+                            width: 1.0, color: const Color(0xff0a2417))),
                     height: 65,
-                    width: double.infinity,
+                    width: calculateContainerWidth(context),
                     child: Obx(
                       () => DropdownButton<String>(
                         padding: const EdgeInsets.all(8.0),
                         isExpanded: true,
+                        underline: const SizedBox.shrink(),
                         value: isoController.selectedCountry.value,
                         icon: const Icon(Icons.keyboard_arrow_down),
                         style: const TextStyle(
-                         fontWeight: FontWeight.w500,
-                         fontSize: 14,
-                         color: Colors.black
-                        ),
+                            // fontWeight: FontWeight.w500,
+                            fontFamily: 'Poppin',
+                            fontSize: 16,
+                            color: Color(0xff0a2417)),
                         items: [
                           const DropdownMenuItem<String>(
                             value: "Select Country",
@@ -197,13 +201,9 @@ class RechargeCard extends StatelessWidget {
                   child: ShaderMask(
                     shaderCallback: (Rect bounds) {
                       return const LinearGradient(
-                              colors: [
-                            Color(0xFF5423bb),
-                            Color(0xFF8629b1),
-                            Color(0xFFa12cab),
-                          ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter)
+                              colors: buttongradient,
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft)
                           .createShader(bounds);
                     },
                     child: const Text(
@@ -241,14 +241,7 @@ class RechargeCard extends StatelessWidget {
                                 : true,
                         maxLength: 16,
                         decoration: InputDecoration(
-                          focusColor: Colors.black,
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 73, 22, 105))),
                           labelText: 'Phone number',
-                          labelStyle: const TextStyle(color: Colors.grey),
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue)),
                           error: Obx(() {
                             final validatorError =
                                 phoneNumberContoller.validatePhoneNumber(
@@ -266,12 +259,16 @@ class RechargeCard extends StatelessWidget {
                                     : const Text('')
                                 : const Text('');
                           }),
+                          focusColor: Colors.black54,
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xfffcdc2a))),
+                          labelStyle: const TextStyle(color: Color(0xff0a2417)),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xff0a2417))),
                           focusedErrorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 73, 22, 105))),
+                              borderSide: BorderSide(color: Color(0xfffcdc2a))),
                           errorBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 73, 22, 105))),
+                              borderSide: BorderSide(color: Color(0xff0a2417))),
                           suffixIcon: GestureDetector(
                             onTap: () async {
                               if (imageSelector.selectedButton.value !=
@@ -281,7 +278,7 @@ class RechargeCard extends StatelessWidget {
                             },
                             child: const Icon(
                               Icons.contact_phone_sharp,
-                              color: Colors.purple,
+                              color: Color(0xff0a2417),
                             ),
                           ),
                         ),
@@ -318,20 +315,17 @@ class RechargeCard extends StatelessWidget {
                               )
                             : const Text('');
                       }),
-                      focusColor: Colors.black,
+                      focusColor: Colors.black54,
                       focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 73, 22, 105))),
+                          borderSide: BorderSide(color: Color(0xfffcdc2a))),
                       labelText: 'Enter Amount',
-                      labelStyle: const TextStyle(color: Colors.grey),
+                      labelStyle: const TextStyle(color: Color(0xff0a2417)),
                       border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue)),
+                          borderSide: BorderSide(color: Color(0xff0a2417))),
                       focusedErrorBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 73, 22, 105))),
+                          borderSide: BorderSide(color: Color(0xfffcdc2a))),
                       errorBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 73, 22, 105))),
+                          borderSide: BorderSide(color: Color(0xff0a2417))),
                     ),
                   ),
                 ),
@@ -343,7 +337,7 @@ class RechargeCard extends StatelessWidget {
                   duration: const Duration(milliseconds: 1000),
                   // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                   height: 50,
-                  width: screenSize.width * 0.8,
+                  width: calculateButtonWidth(context),
                   decoration: BoxDecoration(
                       boxShadow: const [
                         BoxShadow(
@@ -359,8 +353,8 @@ class RechargeCard extends StatelessWidget {
                           colors: _ontapEffectController.isTapped.value
                               ? isbuttongradient
                               : buttongradient,
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomRight),
+                          begin: Alignment.bottomRight,
+                          end: Alignment.topCenter),
                       borderRadius: BorderRadius.circular(10)),
                   child: TextButton(
                     onPressed: () {

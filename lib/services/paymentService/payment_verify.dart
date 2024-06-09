@@ -23,6 +23,7 @@ class PaymentVerify {
   final utilityPurchaseSave = UtilityDataSave();
   Future<Response<dynamic>> verifier(
       String? reference, title, accessCode, userid) async {
+    print(title);
     try {
       final data = {
         'reference': reference,
@@ -36,7 +37,7 @@ class PaymentVerify {
         loaderController.isChecker.value = false;
         print(title);
 
-        title == "Data Top Up"
+        title != "Data Top Up"
             ? airtimeService.airtimeReq()
             : dataService.databundleReq();
         Get.to(CompletedAmount(title: title));

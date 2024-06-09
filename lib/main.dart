@@ -53,8 +53,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: "Roboto",
-
+        fontFamily: "Poppin",
+        focusColor: const Color(0xfffcdc2a),
         // This is the theme of your application.
         //
         // TRY THIS: Try running your application with "flutter run". You'll see
@@ -70,7 +70,10 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 12, 24, 10),
+            background: Colors.white),
         useMaterial3: true,
       ),
       initialRoute: GetStorage().read('onboardingcomplete') == true

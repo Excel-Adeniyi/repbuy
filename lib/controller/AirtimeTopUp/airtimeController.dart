@@ -18,4 +18,14 @@ class AirtimeCController extends GetxController {
       number: number.value,
     );
   }
+
+  @override
+  void dispose() {
+    
+    operatorId.value = '';
+    amount.value = '';
+    network.value = '';
+    countryCode.value = '';
+    number.value = '';
+  }
 }

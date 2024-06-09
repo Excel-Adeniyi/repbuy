@@ -18,7 +18,7 @@ class AuthMiddleWare extends GetMiddleware {
     bool isExpired = DateTime.now().isAfter(convertTime);
     print("EXPIRED BOOL $isExpired");
     if (!loggedIN || isExpired) {
-      return const RouteSettings(name: '/signin');
+      return const RouteSettings(name: '/dashboard');
     }
     return null;
   }

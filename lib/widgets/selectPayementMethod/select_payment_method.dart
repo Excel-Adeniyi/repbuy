@@ -15,7 +15,7 @@ class SelectPaymentMethod extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initPay = Get.put(PaymentController());
+    // final initPay = Get.put(PaymentController());
     final otpService = OTPService();
 
     final ontapEffectController = Get.find<OnTapEffect>();
@@ -92,7 +92,7 @@ class SelectPaymentMethod extends StatelessWidget {
                                 ),
                                 const Icon(
                                   Icons.wallet,
-                                  color: Colors.purple,
+                                  // color: Colors.purple,
                                 ),
                                 ontapEffectController.isWallet.value
                                     ? const Icon(
@@ -147,7 +147,7 @@ class SelectPaymentMethod extends StatelessWidget {
                                 children: [
                                   const Icon(
                                     Icons.credit_card,
-                                    color: Colors.purple,
+                                    // color: Colors.purple,
                                   ),
                                   ontapEffectController.isCard.value
                                       ? const Icon(
@@ -191,8 +191,8 @@ class SelectPaymentMethod extends StatelessWidget {
                               colors: ontapEffectController.isSelected.value
                                   ? isbuttongradient
                                   : buttongradient,
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomRight),
+                             begin: Alignment.bottomRight,
+                          end: Alignment.topCenter),
                           borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {

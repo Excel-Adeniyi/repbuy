@@ -6,6 +6,7 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingAnimationWidget.hexagonDots(color: Colors.purple, size: 100);
+    return LoadingAnimationWidget.threeRotatingDots(
+        color: const Color(0xff0a2417), size: 100);
   }
 }
