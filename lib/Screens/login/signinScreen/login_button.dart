@@ -43,8 +43,8 @@ class LoginButton extends StatelessWidget {
                   colors: ontapEffectController.isTapped.value
                       ? isbuttongradient
                       : buttongradient,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomRight),
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topCenter),
               borderRadius: BorderRadius.circular(10)),
           child: Obx(() {
             print(signincontroller.isLoading.value);
@@ -64,10 +64,11 @@ class LoginButton extends StatelessWidget {
                     if (signincontroller.isLoading.value == true) {
                       print("PROGRESS SHOW");
                       progress?.show();
-                      Future.delayed(
-                          const Duration(seconds: 3), () => progress?.dismiss());
+                      Future.delayed(const Duration(seconds: 3),
+                          () => progress?.dismiss());
                     }
                   });
+                  // Get.toNamed('/dashboard');
                 },
                 child: ontapEffectController.isTapped.value == true
                     ? const CircularProgressIndicator(

@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
 
 const buttongradient = [
-  Color(0xFF5423bb),
-  Color(0xFF5423bb),
-  Color(0xFF8629b1),
-  Color.fromARGB(255, 255, 4, 180),
+  // Color(0xfff7f6bb),
+  Color(0xfffcdc2a),
+  Color(0xff87a922),
+  Color(0xff0a2417),
+  // Color.fromARGB(255, 13, 71, 42),
+];
+const dashboardgradient = [
+  // Color(0xfff7f6bb),
+  Color(0xfffcdc2a),
+  Color(0xff87a922),
+  Color(0xff0a2417),
+];
+const amounPromptgradient = [
+  // Color(0xfff7f6bb),
+
+  Color(0xff0a2417),
+  Color(0xff87a922),
+  Color(0xfffcdc2a),
 ];
 const isbuttongradient = [
-  Color.fromARGB(255, 255, 4, 180),
-  Color.fromARGB(255, 255, 4, 180),
-  Color.fromARGB(255, 255, 4, 180),
-  Color(0xFF5423bb),
+  Color(0xfff7f6bb),
+  Color(0xfffcdc2a),
+  Color(0xff87a922),
+  Color(0xff87a922),
+  Color(0xff0a2417),
 ];
 const buttongradientInactive = [
-  Color.fromARGB(97, 83, 35, 187),
-  Color.fromARGB(131, 83, 35, 187),
-  Color.fromARGB(113, 134, 41, 177),
-  Color.fromARGB(80, 255, 4, 180),
+  Color.fromARGB(76, 247, 246, 187),
+  Color.fromARGB(115, 252, 220, 42),
+  Color.fromARGB(120, 135, 169, 34),
+  Color.fromARGB(73, 10, 36, 23),
+  Color.fromARGB(78, 13, 71, 42),
 ];

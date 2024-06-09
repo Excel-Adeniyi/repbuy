@@ -16,6 +16,8 @@ class PhoneController extends GetxController {
 
     if (intAmount != null && intAmount < 50) {
       return "Price must not be less than 50";
+    } else if (intAmount != null && intAmount > 250001) {
+      return "Price must not be greater than 250,000";
     }
     return null;
   }

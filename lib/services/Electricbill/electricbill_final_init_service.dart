@@ -24,7 +24,7 @@ class UtilityService {
   final SecureStorage stora = SecureStorage();
   // final dataPurchaseService = DataPurchaseService();
   final PurchaseResponse purchasecontroller = Get.put(PurchaseResponse());
-  final UtilityController utilityController = Get.find<UtilityController>();
+  final UtilityController utilityController = Get.put(UtilityController());
   final utilityVerifier = UtilityVerify();
   final utilityPurchaseSave = UtilityDataSave();
   Future<Response<dynamic>> utilityReq(transId) async {

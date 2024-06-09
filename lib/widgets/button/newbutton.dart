@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
+import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
+import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
+import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
+import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
+
+import '../../controller/validator/airtime_validator.dart';
 
 class UniversalButton extends StatelessWidget {
   final String route;
@@ -17,7 +25,13 @@ class UniversalButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ontapEffectController = Get.put(OnTapEffect());
-    
+    Get.put(AirtimeCController());
+    Get.put(LoaderController());
+    Get.put(IsoController());
+    Get.put(PhoneController());
+    Get.put(PurchaseResponse());
+    Get.put(ContactPickerController());
+    Get.put(RechargeController());
     return Obx(() => AnimatedContainer(
           duration: const Duration(milliseconds: 1000),
           // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
@@ -37,19 +51,23 @@ class UniversalButton extends StatelessWidget {
                   colors: ontapEffectController.isTapped.value
                       ? isbuttongradient
                       : buttongradient,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomRight),
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topCenter),
               borderRadius: BorderRadius.circular(10)),
           child: TextButton(
               onPressed: () {
                 ontapEffectController.isTapped.value = true;
                 Future.delayed(const Duration(milliseconds: 1000), () {
                   ontapEffectController.isTapped.value = false;
-                  // print("WORKING");
-                  // verifyOtpService.verifyOTP(title);
+                  Get.delete<AirtimeCController>();
+                  Get.delete<IsoController>();
+                  Get.delete<PhoneController>();
+                  Get.delete<LoaderController>();
+                  Get.delete<ContactPickerController>();
+                  Get.delete<RechargeController>();
+                  Get.delete<PurchaseResponse>();
                   if (route.isNotEmpty) {
                     Get.toNamed(route);
-                    
                   }
                 });
               },

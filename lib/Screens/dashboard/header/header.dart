@@ -73,7 +73,7 @@ class DashboardHeader extends StatelessWidget {
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   gradient: LinearGradient(
-                      colors: buttongradient,
+                      colors: dashboardgradient,
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter),
                 ),

@@ -22,7 +22,7 @@ class DataTopUpService {
   final Dio dio = Dio(options);
   final airtimeCController = Get.find<AirtimeCController>();
   final OTPController otpController = Get.find<OTPController>();
-  final _dataBundleController = Get.find<DataBundleController>();
+  final _dataBundleController = Get.put(DataBundleController());
   final _contactPickerController = Get.find<ContactPickerController>();
   final SecureStorage stora = SecureStorage();
   final dataPurchaseService = DataPurchaseService();
