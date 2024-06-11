@@ -34,7 +34,7 @@ class GiftcardProcessPurchase {
                     }
                 })
               
-                if (responseAxios.data !== undefined) {
+                if (responseAxios.data.status !== undefined) {
                     console.log(responseAxios.data)
                     res.status(200).json({ Success: true, message: responseAxios.data })
                 } else {
