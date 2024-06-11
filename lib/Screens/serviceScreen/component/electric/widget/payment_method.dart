@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/PinValidation/pin_verification.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
+
 import 'package:shapmanpaypoint/services/Electricbill/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/pin_auth.dart';
 
 class UtilitySelectPaymentMethod extends StatelessWidget {
   final String title;
@@ -16,12 +15,11 @@ class UtilitySelectPaymentMethod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ontapEffectController = Get.find<OnTapEffect>();
-    final loaderController = Get.put(LoaderController());
+    // final loaderController = Get.put(LoaderController());
     final payVoid = UPaymentCheckout();
     Size screenSize = MediaQuery.sizeOf(context);
     return Obx(() {
       if (ontapEffectController.isBSopen.value == true) {
-        print("GOT HERE");
         Navigator.of(context).pop();
         return const SizedBox.shrink();
       } else {
@@ -89,7 +87,7 @@ class UtilitySelectPaymentMethod extends StatelessWidget {
                                 ),
                                 const Icon(
                                   Icons.wallet,
-                                  color: Colors.purple,
+                                  color: Color(0xff0a2417),
                                 ),
                                 ontapEffectController.isWallet.value
                                     ? const Icon(
@@ -144,7 +142,7 @@ class UtilitySelectPaymentMethod extends StatelessWidget {
                                 children: [
                                   const Icon(
                                     Icons.credit_card,
-                                    color: Colors.purple,
+                                    color: Color(0xff0a2417),
                                   ),
                                   ontapEffectController.isCard.value
                                       ? const Icon(
@@ -188,8 +186,8 @@ class UtilitySelectPaymentMethod extends StatelessWidget {
                               colors: ontapEffectController.isSelected.value
                                   ? isbuttongradient
                                   : buttongradient,
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomRight),
+                               begin: Alignment.topLeft,
+                            end: Alignment.bottomRight),
                           borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {
@@ -197,7 +195,7 @@ class UtilitySelectPaymentMethod extends StatelessWidget {
                           Future.delayed(const Duration(milliseconds: 1000),
                               () {
                             ontapEffectController.isSelected.value = false;
-                            print("WORKING");
+
                             if (ontapEffectController.isCard.value) {
                               payVoid.chargeCardPayment(context, title);
                             } else {
@@ -205,7 +203,7 @@ class UtilitySelectPaymentMethod extends StatelessWidget {
                             }
                           });
                         },
-                        child: ontapEffectController.isSelected.value == true 
+                        child: ontapEffectController.isSelected.value == true
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )

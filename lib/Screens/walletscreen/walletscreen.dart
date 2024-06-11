@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_controller.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
+import 'package:shapmanpaypoint/utils/width.dart';
 
 import '../Dashboard/Header/header.dart';
 
@@ -8,204 +11,200 @@ class WalletScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    double containerHeight;
-    if (screenHeight < 480) {
-      containerHeight = 500;
-    } else if (screenHeight < 900) {
-      containerHeight = 470;
-    } else {
-      containerHeight = 1300;
-    }
-    double containerWidth;
-    if (screenWidth < 600) {
-      containerWidth = 300.0;
-    } else if (screenWidth < 1200) {
-      containerWidth = 400.0;
-    } else {
-      containerWidth = 500.0;
-    }
-    return Column(
-      children: [
-        DashboardHeader(),
-        Container(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: 150,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            colors: [Colors.white, Colors.grey]),
-                        border: Border.all(width: 1.0, color: Colors.white),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black45, // Shadow color
-                            blurRadius: 5.0, // Blur radius
-                            offset: Offset(0, 2),
+    final TransactionListController transactionController =
+        Get.put(TransactionListController());
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          DashboardHeader(),
+          SizedBox(
+            width: calculateContainerWidth(context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 150,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              colors: [Colors.white, Colors.grey]),
+                          border: Border.all(width: 1.0, color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black45, // Shadow color
+                              blurRadius: 5.0, // Blur radius
+                              offset: Offset(0, 2),
+                            )
+                          ]),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ShaderMask(
+                            shaderCallback: (Rect bounds) {
+                              return const LinearGradient(
+                                      colors: buttongradient,
+                                      begin: Alignment.topRight,
+                                      end: Alignment.bottomLeft)
+                                  .createShader(bounds);
+                            },
+                            child: const Text(
+                              'Fund Wallet',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 27, 23, 23)),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Icon(
+                            Icons.add,
+                            size: 20,
                           )
-                        ]),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ShaderMask(
-                          shaderCallback: (Rect bounds) {
-                            return const LinearGradient(
-                                    colors: [
-                                  Color(0xFF5423bb),
-                                  Color(0xFF8629b1),
-                                  Color(0xFFa12cab),
-                                ],
-                                    begin: Alignment.topRight,
-                                    end: Alignment.bottomLeft)
-                                .createShader(bounds);
-                          },
-                          child: const Text(
-                            'Fund Wallet',
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 150,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              colors: buttongradient,
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft),
+                          border: Border.all(width: 1.0, color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black45, // Shadow color
+                              blurRadius: 5.0, // Blur radius
+                              offset: Offset(0, 2),
+                            )
+                          ]),
+                      child: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'My Card',
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                             textAlign: TextAlign.center,
                           ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Icon(
-                          Icons.add,
-                          size: 20,
-                        )
-                      ],
-                    ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: calculateContainerWidth(context),
+                  child: const Row(
+                    children: [
+                      Text('Recent Activities'),
+                      Expanded(child: Divider())
+                    ],
                   ),
-                  Container(
-                    width: 150,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            colors: buttongradient,
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft),
-                        border: Border.all(width: 1.0, color: Colors.white),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black45, // Shadow color
-                            blurRadius: 5.0, // Blur radius
-                            offset: Offset(0, 2),
-                          )
-                        ]),
-                    child: const Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'My Card',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 70,
-              ),
-              Container(
-                width: containerWidth,
-                child: const Row(
-                  children: [
-                    Text('Recent Activities'),
-                    Expanded(child: Divider())
-                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: containerWidth,
-                child: const Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Airtime Recharge',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 12),
-                            ),
-                            Text(
-                              '7:45am 11 jul, 2020',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 12),
-                            )
-                          ],
-                        ),
-                        Text(
-                          '- NGN500.00',
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Received Funds',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 12),
-                            ),
-                            Text(
-                              '9:30am 21 sept, 2023',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 12),
-                            )
-                          ],
-                        ),
-                        Text(
-                          '- NGN5000.00',
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ],
+                const SizedBox(
+                  height: 20,
                 ),
-              )
-            ],
+                Obx(() {
+                  final transactions = transactionController.recentPurchase;
+
+                  if (transactions.isEmpty) {
+                    return SizedBox(
+                      width: calculateContainerWidth(context),
+                      child: const Card(
+                        elevation: 8.0,
+                        child: Center(
+                            child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.cloud,
+                                color: Colors.black54,
+                              ),
+                              Text("No recent activity has be done."),
+                            ],
+                          ),
+                        )),
+                      ),
+                    );
+                  } else {
+                    return SizedBox(
+                      height: 400,
+                      width: calculateContainerWidth(context),
+                      child: ListView.separated(
+                        itemCount: transactions.length,
+                        itemBuilder: (BuildContext context, index) {
+                          final transaction = transactions[index];
+
+                          final dateTime =
+                              DateTime.parse(transaction.updated_at).toLocal();
+                          final localTime = dateTime.toString();
+                          return ListTile(
+                            title: Text(transaction.purchase_type,
+                                style: const TextStyle(
+                                    color: Colors.black54, fontSize: 12)),
+                            subtitle: Text(
+                              localTime,
+                              style: const TextStyle(
+                                  color: Colors.black54, fontSize: 12),
+                            ),
+                            trailing: Text(
+                              transaction.amount,
+                              style: TextStyle(
+                                  color: transaction.success == 0 &&
+                                          transaction.purchase_type !=
+                                              "successful" &&
+                                          transaction.purchase_type !=
+                                              "Electric"
+                                      ? Colors.red
+                                      : transaction.success == 0 &&
+                                              transaction.purchase_type !=
+                                                  "successful" &&
+                                              transaction.purchase_type ==
+                                                  "Electric"
+                                          ? Colors.yellow[700]
+                                          : transaction.success == 1 &&
+                                                  transaction.status ==
+                                                      "successful"
+                                              ? Colors.green[700]
+                                              : Colors.red),
+                            ),
+                            onTap: () {
+                              if (transaction.purchase_type == "Electric") {
+                                Get.toNamed('/singlePurchase',
+                                    arguments: transaction);
+                              }
+                            },
+                          );
+                        },
+                        separatorBuilder: (context, index) => const Divider(),
+                      ),
+                    );
+                  }
+                }),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

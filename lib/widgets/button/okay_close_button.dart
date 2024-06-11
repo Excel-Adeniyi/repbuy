@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/completed/giftcard_completed.dart';
 import 'package:shapmanpaypoint/controller/Clear/giftcard_clear_controller.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
+import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
+import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 class OkayClearerButton extends StatelessWidget {
@@ -17,7 +20,9 @@ class OkayClearerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ontapEffectController = Get.put(OnTapEffect());
-    final giftcardClear = Get.put(GiftCardClearer());
+    // final giftcardClear = Get.put(GiftCardClearer());
+    Get.put(GiftCardController());
+    Get.put(IsoController());
     final screenSize = MediaQuery.sizeOf(context);
     return Obx(() => AnimatedContainer(
           duration: const Duration(milliseconds: 1000),
@@ -38,19 +43,20 @@ class OkayClearerButton extends StatelessWidget {
                   colors: ontapEffectController.isTapped.value
                       ? isbuttongradient
                       : buttongradient,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomRight),
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topCenter),
               borderRadius: BorderRadius.circular(10)),
           child: TextButton(
               onPressed: () {
                 ontapEffectController.isTapped.value = true;
                 Future.delayed(const Duration(milliseconds: 1000), () {
                   ontapEffectController.isTapped.value = false;
-                  // print("WORKING");
+                  print("WORKING");
                   // verifyOtpService.verifyOTP(title);
+                  Get.delete<GiftCardController>();
+                  Get.delete<IsoController>();
                   if (route.isNotEmpty) {
                     Get.toNamed(route);
-                    giftcardClear.clearForm();
                   }
                 });
               },

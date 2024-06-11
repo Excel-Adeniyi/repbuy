@@ -41,11 +41,11 @@ class UserMobile extends StatelessWidget {
               focusColor: Colors.black,
               focusedBorder: const OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: Color.fromARGB(255, 73, 22, 105))),
+                      BorderSide(color: Color(0xff0a2417))),
               labelText: 'Phone number',
-              labelStyle: const TextStyle(color: Colors.grey),
+              labelStyle: const TextStyle(color: Colors.black45),
               border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
+                  borderSide: BorderSide(color: Color(0xfffcdc2a))),
               error: Obx(() {
                 final validatorError = phoneNumberContoller.validatePhoneNumber(
                     phoneNumberContoller.phoneNumber.value);
@@ -62,10 +62,10 @@ class UserMobile extends StatelessWidget {
               }),
               focusedErrorBorder: const OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: Color.fromARGB(255, 73, 22, 105))),
+                      BorderSide(color: Color(0xff0a2417))),
               errorBorder: const OutlineInputBorder(
                   borderSide:
-                      BorderSide(color: Color.fromARGB(255, 73, 22, 105))),
+                      BorderSide(color: Color(0xff0a2417))),
               suffixIcon: GestureDetector(
                 onTap: () async {
                   if (imageSelector.selectedButton.value != 'Buy for Self') {
@@ -74,7 +74,7 @@ class UserMobile extends StatelessWidget {
                 },
                 child: const Icon(
                   Icons.contact_phone_sharp,
-                  color: Colors.purple,
+                  color: Color(0xff0a2417),
                 ),
               ),
             ),

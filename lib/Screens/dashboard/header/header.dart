@@ -57,10 +57,11 @@ class DashboardHeader extends StatelessWidget {
                           fontSize: 16, fontWeight: FontWeight.bold),
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   Image.asset(
-                    'lib/assets/logo.png',
+                    'lib/assets/NEXTELLAR1c.png',
                     width: 60,
                     height: 60,
                   ),

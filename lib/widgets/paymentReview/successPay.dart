@@ -10,6 +10,7 @@ import 'package:shapmanpaypoint/controller/utility_controller/utility_controller
 import 'package:shapmanpaypoint/services/Electricbill/electricbill_auth_service.dart';
 // import 'package:shapmanpaypoint/utils/paymentList/paylistclass.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
+import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 
 class SuccessPay extends StatelessWidget {
   final String title = 'Electric';
@@ -20,7 +21,7 @@ class SuccessPay extends StatelessWidget {
   final _loaderController = Get.put(LoaderController());
   final electricService = ElectricAuthService();
   final UtilityController utilityController = Get.find<UtilityController>();
-   final animationController = Get.put(PaymentAnimation());
+  final animationController = Get.put(PaymentAnimation());
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +80,10 @@ class SuccessPay extends StatelessWidget {
                     ),
                     ShaderMask(
                       shaderCallback: (Rect bounds) {
-                        return const LinearGradient(colors: [
-                          Color(0xFF5423bb),
-                          Color(0xFF8629b1),
-                          Color(0xFFa12cab),
-                        ], begin: Alignment.topLeft, end: Alignment.bottomRight)
+                        return const LinearGradient(
+                                colors: buttongradient,
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight)
                             .createShader(bounds);
                       },
                       child: const Text(
@@ -145,11 +145,7 @@ class SuccessPay extends StatelessWidget {
                       padding: const EdgeInsets.all(20),
                       decoration: const BoxDecoration(
                           gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(255, 193, 192, 196),
-                                Color.fromARGB(255, 193, 192, 196),
-                                Color.fromARGB(255, 193, 192, 196),
-                              ],
+                              colors: bggradient,
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -204,7 +200,7 @@ class SuccessPay extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
-                                'Total Debit',
+                                'Total',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 12),
                               ),
@@ -225,7 +221,7 @@ class SuccessPay extends StatelessWidget {
                           duration: const Duration(milliseconds: 1000),
                           // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                           height: 50,
-                          width: screenSize.width * 0.8,
+                          width: calculateButtonWidth(context),
                           decoration: BoxDecoration(
                               boxShadow: const [
                                 BoxShadow(
@@ -242,8 +238,8 @@ class SuccessPay extends StatelessWidget {
                                   colors: _ontapEffectController.isTapped.value
                                       ? isbuttongradient
                                       : buttongradient,
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomRight),
+                                  begin: Alignment.bottomRight,
+                                            end: Alignment.topCenter),
                               borderRadius: BorderRadius.circular(10)),
                           child: TextButton(
                             onPressed: () {
@@ -294,10 +290,10 @@ class SuccessPay extends StatelessWidget {
                         ),
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 1000),
-                          width: screenSize.width * 0.8,
+                          width: calculateButtonWidth(context),
                           height: 50,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.purple),
+                              border: Border.all(color: const Color(0xff0a2417)),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10))),
                           child: TextButton(
@@ -307,11 +303,7 @@ class SuccessPay extends StatelessWidget {
                             child: ShaderMask(
                               shaderCallback: (Rect bounds) {
                                 return const LinearGradient(
-                                        colors: [
-                                      Color(0xFF5423bb),
-                                      Color(0xFF8629b1),
-                                      Color(0xFFa12cab),
-                                    ],
+                                        colors:buttongradient,
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight)
                                     .createShader(bounds);
@@ -328,82 +320,6 @@ class SuccessPay extends StatelessWidget {
                         ),
                       ],
                     )
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //   children: [
-                    //     Container(
-                    //       margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                    //       height: 40,
-                    //       width: 170,
-                    //       decoration: BoxDecoration(
-                    //           boxShadow: const [
-                    //             BoxShadow(
-                    //               color: Colors.black45, // Shadow color
-                    //               blurRadius: 5.0, // Blur radius
-                    //               offset: Offset(0, 2),
-                    //             )
-                    //           ],
-                    //           border: Border.all(
-                    //               color: const Color.fromARGB(255, 219, 218, 218),
-                    //               width: 2.0),
-                    //           gradient: const LinearGradient(
-                    //               colors: buttongradient,
-                    //               begin: Alignment.topCenter,
-                    //               end: Alignment.bottomCenter),
-                    //           borderRadius: BorderRadius.circular(16)),
-                    //       child: TextButton(
-                    //         onPressed: () {
-                    //           Get.to(PinAuth(title: "Electricity Bill Payment"));
-                    //         },
-                    //         child: const Row(
-                    //           mainAxisAlignment: MainAxisAlignment.center,
-                    //           children: [
-                    //             Text(
-                    //               'Pay',
-                    //               style: TextStyle(
-                    //                   color: Colors.white,
-                    //                   fontWeight: FontWeight.bold,
-                    //                   fontSize: 17),
-                    //             ),
-                    //             SizedBox(
-                    //               width: 20,
-                    //             ),
-                    //             Icon(
-                    //               Icons.east,
-                    //               color: Colors.white,
-                    //             )
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     SizedBox(
-                    //       width: 140,
-                    //       child: TextButton(
-                    //         style: TextButton.styleFrom(
-                    //           side: const BorderSide(color: Colors.purple),
-                    //         ),
-                    //         onPressed: () {},
-                    //         child: ShaderMask(
-                    //           shaderCallback: (Rect bounds) {
-                    //             return const LinearGradient(colors: [
-                    //               Color(0xFF5423bb),
-                    //               Color(0xFF8629b1),
-                    //               Color(0xFFa12cab),
-                    //             ], begin: Alignment.topLeft, end: Alignment.bottomRight)
-                    //                 .createShader(bounds);
-                    //           },
-                    //           child: const Text(
-                    //             "Cancel",
-                    //             style: TextStyle(
-                    //                 fontSize: 14,
-                    //                 color: Colors.white,
-                    //                 fontWeight: FontWeight.bold),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     )
-                    //   ],
-                    // )
                   ],
                 ),
               ),
@@ -424,9 +340,9 @@ class GradientStyle extends StatelessWidget {
     return ShaderMask(
       shaderCallback: (Rect bounds) {
         return const LinearGradient(
-                colors: buttongradient,
+                colors: textgradient,
                 begin: Alignment.bottomLeft,
-                end: Alignment.bottomRight)
+                end: Alignment.bottomLeft)
             .createShader(bounds);
       },
       child: Text(

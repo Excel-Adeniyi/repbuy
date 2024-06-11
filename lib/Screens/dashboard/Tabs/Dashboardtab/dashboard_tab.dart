@@ -39,7 +39,8 @@ class DashboardTab extends StatelessWidget {
                         width: 130,
                         padding: const EdgeInsets.all(1),
                         decoration: BoxDecoration(
-                            border: Border.all(width: 0.1),
+                            border: Border.all(
+                                width: 0.6, color: const Color(0xff0a2417)),
                             borderRadius: BorderRadius.circular(5)),
                         child: TextButton(
                           onPressed: () {
@@ -58,6 +59,8 @@ class DashboardTab extends StatelessWidget {
                               Image.asset(
                                 'lib/assets/calling.png',
                                 width: 40,
+                                color: const Color(0xff0a2417).withOpacity(0.9),
+                                colorBlendMode: BlendMode.modulate,
                               )
                             ],
                           ),
@@ -66,7 +69,8 @@ class DashboardTab extends StatelessWidget {
                       width: 130,
                       padding: const EdgeInsets.all(1),
                       decoration: BoxDecoration(
-                          border: Border.all(width: 0.1),
+                          border: Border.all(
+                              width: 0.6, color: const Color(0xff0a2417)),
                           borderRadius: BorderRadius.circular(5)),
                       child: TextButton(
                         onPressed: () {
@@ -84,6 +88,8 @@ class DashboardTab extends StatelessWidget {
                             Image.asset(
                               'lib/assets/signal.png',
                               width: 40,
+                              color: const Color(0xff0a2417).withOpacity(0.9),
+                              colorBlendMode: BlendMode.modulate,
                             )
                           ],
                         ),
@@ -105,7 +111,8 @@ class DashboardTab extends StatelessWidget {
                         width: 130,
                         padding: const EdgeInsets.all(1),
                         decoration: BoxDecoration(
-                            border: Border.all(width: 0.1),
+                            border: Border.all(
+                                width: 0.6, color: const Color(0xff0a2417)),
                             borderRadius: BorderRadius.circular(5)),
                         child: TextButton(
                           onPressed: () {
@@ -123,6 +130,8 @@ class DashboardTab extends StatelessWidget {
                               Image.asset(
                                 'lib/assets/electricity.png',
                                 width: 40,
+                                color: const Color(0xff0a2417).withOpacity(0.9),
+                                colorBlendMode: BlendMode.modulate,
                               )
                             ],
                           ),
@@ -131,24 +140,28 @@ class DashboardTab extends StatelessWidget {
                       width: 130,
                       padding: const EdgeInsets.all(1),
                       decoration: BoxDecoration(
-                          border: Border.all(width: 0.1),
+                          border: Border.all(
+                              width: 0.6, color: const Color(0xff0a2417)),
                           borderRadius: BorderRadius.circular(5)),
                       child: TextButton(
                         onPressed: () {
-                          Get.toNamed('/utility');
+                          Get.to(GiftCard());
+                          authService.auth();
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
-                              'Cable Tv',
+                              'Gift Card',
                               style:
                                   TextStyle(fontSize: 12, color: Colors.black),
                             ),
                             Image.asset(
-                              'lib/assets/tv-box.png',
+                              'lib/assets/gift-card.png',
                               width: 40,
+                              color: const Color(0xff0a2417).withOpacity(0.9),
+                              colorBlendMode: BlendMode.modulate,
                             )
                           ],
                         ),
@@ -170,25 +183,25 @@ class DashboardTab extends StatelessWidget {
                         width: 130,
                         padding: const EdgeInsets.all(1),
                         decoration: BoxDecoration(
-                            border: Border.all(width: 0.1),
+                            border: Border.all(
+                                width: 0.6, color: const Color(0xff0a2417)),
                             borderRadius: BorderRadius.circular(5)),
                         child: TextButton(
-                          onPressed: () {
-                            Get.to(GiftCard());
-                            authService.auth();
-                          },
+                          onPressed: () {},
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
-                                'Gift Card',
+                                'Cable Tv',
                                 style: TextStyle(
                                     fontSize: 12, color: Colors.black),
                               ),
                               Image.asset(
-                                'lib/assets/gift-card.png',
+                                'lib/assets/tv-box.png',
                                 width: 40,
+                                color: const Color(0xff0a2417).withOpacity(0.9),
+                                colorBlendMode: BlendMode.modulate,
                               )
                             ],
                           ),
@@ -197,7 +210,8 @@ class DashboardTab extends StatelessWidget {
                       width: 130,
                       padding: const EdgeInsets.all(1),
                       decoration: BoxDecoration(
-                        border: Border.all(width: 0.1),
+                        border: Border.all(
+                            width: 0.6, color: const Color(0xff0a2417)),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: TextButton(
@@ -217,6 +231,8 @@ class DashboardTab extends StatelessWidget {
                             Image.asset(
                               'lib/assets/menu.png',
                               width: 40,
+                              color: const Color(0xff0a2417).withOpacity(0.9),
+                              colorBlendMode: BlendMode.modulate,
                             )
                           ],
                         ),

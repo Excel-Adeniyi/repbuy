@@ -19,7 +19,7 @@ class GiftCardCompletedAmount extends StatelessWidget {
   final PurchaseResponse purchaseController = Get.put(PurchaseResponse());
   // final AirtimeCController airtimeCController = Get.find();
   final MasterController masterController = Get.find<MasterController>();
-  final ClearController clearController = Get.put(ClearController());
+  // final ClearController clearController = Get.put(ClearController());
   final GiftCardController giftCardController = Get.find<GiftCardController>();
 // final databundle
   // final _contactPickerController = Get.find<ContactPickerController>();
@@ -79,11 +79,7 @@ class GiftCardCompletedAmount extends StatelessWidget {
                       ShaderMask(
                         shaderCallback: (Rect bounds) {
                           return const LinearGradient(
-                                  colors: [
-                                Color(0xFF5423bb),
-                                Color(0xFF8629b1),
-                                Color(0xFFa12cab),
-                              ],
+                                  colors: buttongradient,
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight)
                               .createShader(bounds);
@@ -101,22 +97,9 @@ class GiftCardCompletedAmount extends StatelessWidget {
                         'lib/assets/wow.png',
                         height: 300,
                       ),
-                      // purchaseController.pending.value
-                      //     ? Text(
-                      //         "Processing",
-                      //         style: TextStyle(
-                      //             color: Colors.amber[700],
-                      //             fontSize: 30,
-                      //             fontWeight: FontWeight.bold),
-                      //       )
-                      //     : const SizedBox.shrink(),
+          
                       const SizedBox(height: 20),
-                      // purchaseController.pending.value
-                      //     ? const Text(
-                      //        "HEY",
-                      //         textAlign: TextAlign.center,
-                      //       )
-                      //     : const SizedBox.shrink(),
+                  
                       const SizedBox(height: 20),
                       Text(
                         'Giftcard Purchase of ${giftCardController.senderCurrencyCode.value} ${giftCardController.totalPrices.value} Successful and sent to ${giftCardController.recipientemaill.value})',
@@ -128,12 +111,7 @@ class GiftCardCompletedAmount extends StatelessWidget {
                         overflow: TextOverflow.clip,
                       ),
                       const SizedBox(height: 20),
-                      // Text(
-                      //   utilityController.utilityName.value,
-                      //   style: const TextStyle(
-                      //       fontWeight: FontWeight.bold, fontSize: 14),
-                      // ),
-                      // const SizedBox(height: 20),
+                
                       const SizedBox(
                         height: 20,
                       ),
@@ -248,7 +226,7 @@ class GiftCardCompletedAmount extends StatelessWidget {
                                 Get.toNamed(
                                   '/giftcard',
                                 );
-                                clearController.clearForm();
+                                // clearController.clearForm();
                               },
                               child: const Text(
                                 "Try Again",

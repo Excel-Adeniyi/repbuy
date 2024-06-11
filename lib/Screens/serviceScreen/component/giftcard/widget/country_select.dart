@@ -16,7 +16,7 @@ class CountrySelector extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           border: Border.all(
-              width: 1.0, color: const Color.fromARGB(255, 73, 22, 105))),
+              width: 1.0, color: const Color(0xff0a2417))),
       height: 65,
       width: double.infinity,
       child: Obx(
@@ -36,8 +36,8 @@ class CountrySelector extends StatelessWidget {
             ...isoController.isoDetails
                 .map<DropdownMenuItem<String>>((Iso item) {
               return DropdownMenuItem<String>(
-                value: item.isoName ?? "Unknown",
-                child: Text(item.name ?? "Unknown"),
+                value: item.isoName,
+                child: Text(item.name),
               );
             }).toList(),
           ],

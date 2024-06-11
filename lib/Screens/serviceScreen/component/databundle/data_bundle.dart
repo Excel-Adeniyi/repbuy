@@ -11,6 +11,7 @@ import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/validator/airtime_validator.dart';
 import 'package:shapmanpaypoint/services/activateAuthenticators.dart';
+import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
@@ -66,22 +67,21 @@ class DataBundleScreen extends StatelessWidget {
           child: SizedBox(
             width: screenSize.width * 0.9,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
-                    return const LinearGradient(colors: [
-                      Color(0xFF5423bb),
-                      Color(0xFF8629b1),
-                      Color(0xFFa12cab),
-                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+                    return const LinearGradient(
+                            colors: buttongradient,
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight)
                         .createShader(bounds);
                   },
                   child: const Text(
                     'Data Top up',
                     style: TextStyle(
                         fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         color: Colors.white),
                   ),
                 ),
@@ -102,10 +102,10 @@ class DataBundleScreen extends StatelessWidget {
                       children: imageSelector.buttonValue
                           .map((value) => GetBuilder<RechargeController>(
                                   builder: (controller) {
-                                return SizedBox(
-                                  width: 150,
-                                  height: 50,
+                                return FittedBox(
                                   child: Container(
+                                    width: 150,
+                                    height: 50,
                                     decoration: BoxDecoration(
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(5)),
@@ -114,12 +114,22 @@ class DataBundleScreen extends StatelessWidget {
                                                     value
                                                 ? Colors.black87
                                                 : Colors.white),
-                                    child: ElevatedButton(
+                                    child: TextButton(
                                         onPressed: () {
                                           controller
                                               .setSelectButtonValue(value);
                                         },
-                                        style: ElevatedButton.styleFrom(
+                                        // clipBehavior: Clip.antiAlias,
+                                        style: TextButton.styleFrom(
+                                          shape: const RoundedRectangleBorder(
+                                              
+                                          ),
+                                          // side: BorderSide(width: 0.0),
+                                            foregroundColor: controller
+                                                        .selectedButton.value ==
+                                                    value
+                                                ? Colors.black87
+                                                : Colors.white,
                                             backgroundColor: controller
                                                         .selectedButton.value ==
                                                     value
@@ -132,7 +142,7 @@ class DataBundleScreen extends StatelessWidget {
                                                           .value ==
                                                       value
                                                   ? Colors.white
-                                                  : Colors.purple),
+                                                  : const Color(0xff0a2417)),
                                         )),
                                   ),
                                 );
@@ -142,20 +152,19 @@ class DataBundleScreen extends StatelessWidget {
 
                 //######## ISO NAME #################
                 const SizedBox(
-                  height: 15,
+                  height: 30
                 ),
 
                 //######END Data Name and Operator Id #######
-                const Text('Provider:',
-                    style: TextStyle(fontWeight: FontWeight.w500)),
+
                 const ProviderSelector(),
                 //########## DATA BUNDLE amount and data package ################
                 const SizedBox(
-                  height: 30,
+                  height: 40,
                 ),
-                const Text('Data bundle:',
-                    style: TextStyle(fontWeight: FontWeight.w500)),
+
                 const BundleSelector(),
+
                 //############# DATA BUNDLE amount and data package end ################
                 const SizedBox(
                   height: 30,
@@ -167,13 +176,9 @@ class DataBundleScreen extends StatelessWidget {
                   child: ShaderMask(
                     shaderCallback: (Rect bounds) {
                       return const LinearGradient(
-                              colors: [
-                            Color(0xFF5423bb),
-                            Color(0xFF8629b1),
-                            Color(0xFFa12cab),
-                          ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter)
+                              colors: buttongradient,
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight)
                           .createShader(bounds);
                     },
                     child: const Text(
@@ -193,8 +198,7 @@ class DataBundleScreen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                const Text('Amount:',
-                    style: TextStyle(fontWeight: FontWeight.w500)),
+               
                 const PriceField(),
                 //############### END Amount ###########
 
@@ -203,7 +207,7 @@ class DataBundleScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 1000),
                   // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                   height: 50,
-                  width: screenSize.width * 0.8,
+                  width: calculateButtonWidth(context),
                   decoration: BoxDecoration(
                       boxShadow: const [
                         BoxShadow(
@@ -219,8 +223,8 @@ class DataBundleScreen extends StatelessWidget {
                           colors: _ontapEffectController.isTapped.value
                               ? isbuttongradient
                               : buttongradient,
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomRight),
+                       begin: Alignment.bottomRight,
+                                            end: Alignment.topCenter),
                       borderRadius: BorderRadius.circular(10)),
                   child: TextButton(
                     onPressed: () {

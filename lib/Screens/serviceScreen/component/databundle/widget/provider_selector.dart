@@ -12,7 +12,7 @@ class ProviderSelector extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           border: Border.all(
-              width: 1.0, color: const Color.fromARGB(255, 73, 22, 105)),
+              width: 1.0, color: const Color(0xff0a2417)),
           borderRadius: const BorderRadius.all(Radius.circular(5))),
       height: 65,
       width: double.infinity,

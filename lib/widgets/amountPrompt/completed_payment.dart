@@ -113,11 +113,14 @@ class CompletedAmount extends StatelessWidget {
                                   'lib/assets/wow.png',
                                   height: 300,
                                 ),
+                               title == "Data Top Up" ? Text(
+                                  dataBundleController.selectedFixedValues.value
+                                ) : const SizedBox.shrink(),
                                 Text(
                                   title == 'Electricity Bill Payment'
                                       ? 'Your Electricity Bill (ID: 909090687895)'
                                       : title == "Data Top Up"
-                                          ? ' Data bundle of ${dataBundleController.priceController.text} was sent Successfully'
+                                          ? ' ${dataBundleController.selectedPackageName.value} bundle of ${dataBundleController.priceController.text} was sent Successfully'
                                           : ' ${airtimeCController.network.value} Airtime of ${airtimeCController.amount.value} was sent Successfully',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,

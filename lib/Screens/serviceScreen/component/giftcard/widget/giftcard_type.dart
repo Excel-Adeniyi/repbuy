@@ -42,14 +42,8 @@ class GiftCardType extends StatelessWidget {
             }).toList(),
           ],
           onChanged: (String? newValue) {
-            // Handle dropdown value change if needed
-            // print(newValue);
-            giftcardController.giftcardValue.value = newValue as String;
-            
-        
-           
+            giftcardController.giftcardValue.value = newValue as String; 
             if (giftcardController.giftcardValue.value.isNotEmpty) {
-              // availableCards.cardRequest();
               giftbyId.giftcardidRequest();
             }
           },

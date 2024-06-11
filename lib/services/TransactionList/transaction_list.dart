@@ -6,7 +6,6 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shapmanpaypoint/Model/TransactionListModel/transaction_list_model.dart';
-import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_controller.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 
@@ -48,7 +47,7 @@ class TransactionList {
           //       transactionListResponse.message as RxList<TransactionListModel>;
         } else {
           Get.snackbar("Empty", "Unable to fetch get undefined",
-              backgroundColor: Colors.purple, colorText: Colors.white);
+              backgroundColor: Colors.red, colorText: Colors.white);
         }
 
         // transController.recentPurchase.value = listResponse;

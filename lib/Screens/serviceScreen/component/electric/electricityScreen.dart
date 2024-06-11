@@ -4,6 +4,7 @@ import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/biller_meter_number.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/biller_name.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/electricController.dart';
 
@@ -20,6 +21,8 @@ class Electric extends StatelessWidget {
     String title = 'Electric Bills';
     Size screenSize = MediaQuery.sizeOf(context);
     double screenWidth = MediaQuery.of(context).size.width;
+    FocusNode meterNumberFocus = FocusNode();
+    FocusNode amountFocus = FocusNode();
     double containerWidth;
     if (screenWidth < 600) {
       containerWidth = 300.0;
@@ -30,63 +33,52 @@ class Electric extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Center(
-          child: SizedBox(
-            width: screenSize.width * 0.9,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(colors: [
-                      Color(0xFF5423bb),
-                      Color(0xFF8629b1),
-                      Color(0xFFa12cab),
-                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
-                        .createShader(bounds);
-                  },
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+      body: GestureDetector(
+        onTap: () {
+          meterNumberFocus.unfocus();
+          amountFocus.unfocus();
+        },
+        child: SingleChildScrollView(
+          child: Center(
+            child: SizedBox(
+              width: screenSize.width * 0.9,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                      return const LinearGradient(
+                              colors: buttongradient,
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight)
+                          .createShader(bounds);
+                    },
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
+                    ),
                   ),
-                ),
-                TopBalance(),
-                const SizedBox(height: 30),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Biller", style: TextStyle()),
-                  ],
-                ),
-                const BillerName(),
-                const SizedBox(height: 38),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Meter number", style: TextStyle()),
-                  ],
-                ),
-                CustomerMeterNumber(),
-                const SizedBox(
-                  height: 2,
-                ),
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text("Amount(Price)", style: TextStyle()),
-                  ],
-                ),
-                BillerAmount(),
-                const UniversalButton(
-                    route: "/utilityreview",
-                    buttonText: "Continue",
-                    withIcon: "no"),
-                    const SizedBox(height: 20,)
-              ],
+                  TopBalance(),
+                  const SizedBox(height: 30),
+                  const BillerName(),
+                  const SizedBox(height: 38),
+                  CustomerMeterNumber(meterNumberFocus: meterNumberFocus),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  BillerAmount(amountFocus: amountFocus),
+                  const UniversalButton(
+                      route: "/utilityreview",
+                      buttonText: "Continue",
+                      withIcon: "no"),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
+              ),
             ),
           ),
         ),

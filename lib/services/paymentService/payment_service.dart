@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/Auth/signup_controller.dart';
+import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
@@ -19,6 +20,7 @@ class PaymentService {
   final AirtimeCController airtimeCController = Get.find<AirtimeCController>();
   final SecureStorage stora = SecureStorage();
   final UserInfoController _userInfo = Get.find<UserInfoController>();
+    final _databundleController = Get.find<DataBundleController>();
   Future<String> paymentInit() async {
     final SignUpController editcontroller =
         masterController.signupIsActive.value == true
@@ -31,7 +33,7 @@ class PaymentService {
         "email": editcontroller.email.text.isEmpty
             ? _userInfo.email.value
             : editcontroller.email.text,
-        "amount": airtimeCController.amount.value,
+        "amount": airtimeCController.amount.value != ""  ? airtimeCController.amount.value : _databundleController.priceController.text,
         "userId": userDecode['id']
       };
 

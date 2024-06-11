@@ -1,51 +1,33 @@
-import 'dart:convert' show utf8;
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/biller_amount.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/biller_meter_number.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/country_select.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/giftcard_price.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/giftcard_quantity.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/giftcard_type.dart';
 import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
-import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
-import 'package:shapmanpaypoint/controller/electricController.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:shapmanpaypoint/widgets/button/newbutton.dart';
 
 class GiftCard extends StatelessWidget {
-  final ElectricController imageSelector = Get.put(ElectricController());
-  final UtilityController utilityController = Get.put(UtilityController());
   final GiftCardController giftCardController = Get.put(GiftCardController());
   var unescape = HtmlUnescape();
   GiftCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // var _currentStep = ;
-
     String title = 'Gift Cards';
     Size screenSize = MediaQuery.sizeOf(context);
-    double screenWidth = MediaQuery.of(context).size.width;
 
-    double containerWidth;
-    if (screenWidth < 600) {
-      containerWidth = 300.0;
-    } else if (screenWidth < 1200) {
-      containerWidth = 400.0;
-    } else {
-      containerWidth = 500.0;
-    }
     return Scaffold(
       appBar: AppBar(),
       body: Obx(() {
         String redeemInstruction = giftCardController.redeemInstruction.value;
 
         String normalString = unescape.convert(redeemInstruction);
-        List<Step> _steppers = [
+        List<Step> steppers = [
           Step(
               title: const Text("Country", style: TextStyle()),
               subtitle:
@@ -94,20 +76,16 @@ class GiftCard extends StatelessWidget {
                   ShaderMask(
                     shaderCallback: (Rect bounds) {
                       return const LinearGradient(
-                              colors: [
-                            Color(0xFF5423bb),
-                            Color(0xFF8629b1),
-                            Color(0xFFa12cab),
-                          ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter)
+                              colors: buttongradient,
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight)
                           .createShader(bounds);
                     },
                     child: Text(
                       title,
                       style: const TextStyle(
                           fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white),
                     ),
                   ),
@@ -116,8 +94,6 @@ class GiftCard extends StatelessWidget {
                   CarouselSlider(
                     options: CarouselOptions(
                       height: 100,
-                      // aspectRatio: 16 / 9,
-                      // viewportFraction: 0.8,
                       initialPage: 0,
                       enableInfiniteScroll: true,
                       reverse: false,
@@ -128,7 +104,6 @@ class GiftCard extends StatelessWidget {
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enlargeCenterPage: true,
                       enlargeFactor: 0.3,
-                      // onPageChanged: callbackFunction,
                       scrollDirection: Axis.vertical,
                     ),
                     items: giftCardController.cardImages.map((i) {
@@ -140,11 +115,11 @@ class GiftCard extends StatelessWidget {
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
-                                  color: Colors.black,
+                                  color: const Color(0xff0a2417),
                                   borderRadius: BorderRadius.circular(8.0),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.purple.withOpacity(0.2),
+                                      color: Colors.yellow.withOpacity(0.2),
                                       spreadRadius: 2,
                                       blurRadius: 2,
                                       offset: const Offset(
@@ -168,13 +143,13 @@ class GiftCard extends StatelessWidget {
                             currentStep: giftCardController.currentStep.value,
                             onStepContinue: () {
                               if (giftCardController.currentStep.value <
-                                  _steppers.length - 1) {
+                                  steppers.length - 1) {
                                 giftCardController.currentStep.value++;
                               } else {
                                 null;
                               }
                             },
-                            steps: _steppers,
+                            steps: steppers,
                           ),
                         )
                       : giftCardController.currentStep.value == 4
@@ -192,7 +167,7 @@ class GiftCard extends StatelessWidget {
                                     null;
                                   }
                                 },
-                                steps: _steppers,
+                                steps: steppers,
                               ),
                             )
                           : Obx(
@@ -201,7 +176,7 @@ class GiftCard extends StatelessWidget {
                                     giftCardController.currentStep.value,
                                 onStepContinue: () {
                                   if (giftCardController.currentStep.value <
-                                      _steppers.length - 1) {
+                                      steppers.length - 1) {
                                     giftCardController.currentStep.value++;
                                   } else {
                                     null;
@@ -217,7 +192,7 @@ class GiftCard extends StatelessWidget {
                                     null;
                                   }
                                 },
-                                steps: _steppers,
+                                steps: steppers,
                               ),
                             ),
                   const SizedBox(height: 30),
@@ -228,38 +203,5 @@ class GiftCard extends StatelessWidget {
         );
       }),
     );
-  }
-
-  List<Widget> getImageWidgets() {
-    return imageSelector.images.map((image) {
-      // final isSelectedObservable = image.isSelected.obs;
-      return GestureDetector(
-        onTap: () {
-          imageSelector.selectImage(image.value);
-          print(image.value);
-        },
-        child: GetBuilder<ElectricController>(
-          builder: (controller) {
-            return Container(
-              padding: const EdgeInsets.all(2),
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(
-                      color: controller.isImageSelected(image.value)
-                          ? Colors.purple
-                          : Colors.grey,
-                      width:
-                          controller.isImageSelected(image.value) ? 2 : 0.2)),
-              child: Image.asset(
-                image.value,
-                width: 50,
-                height: 30,
-              ),
-            );
-          },
-        ),
-      );
-    }).toList();
   }
 }

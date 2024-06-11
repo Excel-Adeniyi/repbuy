@@ -28,11 +28,11 @@ class GiftCardPaymentVerify {
         'userId': userid
       };
       final response = await dio.post('/verifyPayment', data: data);
-
+      print("VERIFIER $response");
       if (response.data['Success'] == true &&
           response.data["message"] == "success") {
         loaderController.isChecker.value = false;
-        print(response);
+        // print(response);
 
         // if(response.data[])
         giftcardService.gcpaymentReq();

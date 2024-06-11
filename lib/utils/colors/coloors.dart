@@ -7,6 +7,20 @@ const buttongradient = [
   Color(0xff0a2417),
   // Color.fromARGB(255, 13, 71, 42),
 ];
+const bggradient = [
+  // Color(0xfff7f6bb),
+  Color(0xfffcdc2a),
+  Color.fromARGB(211, 135, 169, 34),
+  Color.fromARGB(206, 10, 36, 23),
+  // Color.fromARGB(255, 13, 71, 42),
+];
+const textgradient = [
+  // Color(0xfff7f6bb),
+  Color.fromARGB(255, 29, 28, 28),
+  Color.fromARGB(255, 43, 48, 28),
+  Color.fromARGB(255, 10, 10, 9),
+  // Color.fromARGB(255, 13, 71, 42),
+];
 const dashboardgradient = [
   // Color(0xfff7f6bb),
   Color(0xfffcdc2a),

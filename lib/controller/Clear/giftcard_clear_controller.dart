@@ -5,7 +5,7 @@ import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
 
 class GiftCardClearer extends GetxController {
   final giftcardController = Get.find<GiftCardController>();
-  final isoName = Get.find<IsoController>();
+  final isoName = Get.put(IsoController());
   void clearForm() {
     isoName.selectedCountry.value = "Select Country";
     isoName.isoName.value = "Select Country";
