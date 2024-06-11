@@ -5,7 +5,8 @@ import 'package:shapmanpaypoint/controller/utility_controller/utility_controller
 
 class BillerAmount extends StatelessWidget {
   final UtilityController utilityController = Get.find<UtilityController>();
-  BillerAmount({super.key});
+  final dynamic amountFocus;
+  BillerAmount({super.key, required this.amountFocus});
 
   @override
   Widget build(BuildContext context) {
@@ -13,24 +14,26 @@ class BillerAmount extends StatelessWidget {
       height: 100,
       child: Obx(
         () => TextField(
-          cursorColor: Colors.purple,
-          cursorErrorColor: Colors.grey,
+          cursorColor: const Color(0xff0a2417),
+          cursorErrorColor: Colors.red,
           // controller: utilityController.valuers,
           keyboardType: TextInputType.number,
+          focusNode: amountFocus,
           style: const TextStyle(),
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
             focusedErrorBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color.fromARGB(255, 73, 22, 105)),
+              borderSide: BorderSide(color: Color(0xff0a2417)),
             ),
-            labelStyle: const TextStyle(color: Colors.grey),
+            labelStyle: const TextStyle(color: Colors.black45),
             errorBorder: const OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Color.fromARGB(255, 73, 22, 105))),
+                    BorderSide(color: Color(0xff0a2417))),
             labelText: 'Enter Amount',
+            focusColor: Color(0xff0a2417),
             error: utilityController.showError(),
             border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.purple)),
+                borderSide: BorderSide(color: Color(0xff0a2417))),
           ),
           onChanged: (dynamic amountValue) {
             utilityController.amountValidator(amountValue);

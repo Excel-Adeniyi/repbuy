@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/pin_auth.dart';
@@ -19,7 +18,6 @@ class DataSelectPaymentMethod extends StatelessWidget {
     Size screenSize = MediaQuery.sizeOf(context);
     return Obx(() {
       if (ontapEffectController.isBSopen.value == true) {
-        print("GOT HERE");
         Navigator.of(context).pop();
         return const SizedBox.shrink();
       } else {
@@ -87,7 +85,7 @@ class DataSelectPaymentMethod extends StatelessWidget {
                                 ),
                                 const Icon(
                                   Icons.wallet,
-                                  color: Colors.purple,
+                                  color: Color(0xff0a2417),
                                 ),
                                 ontapEffectController.isWallet.value
                                     ? const Icon(
@@ -142,12 +140,13 @@ class DataSelectPaymentMethod extends StatelessWidget {
                                 children: [
                                   const Icon(
                                     Icons.credit_card,
-                                    color: Colors.purple,
+                                    color: Color(0xff0a2417),
                                   ),
                                   ontapEffectController.isCard.value
                                       ? const Icon(
                                           Icons.check,
-                                          color: Colors.green,
+                                          color:
+                                              Color.fromARGB(255, 60, 82, 61),
                                         )
                                       : const SizedBox(
                                           width: 0,
@@ -186,8 +185,8 @@ class DataSelectPaymentMethod extends StatelessWidget {
                               colors: ontapEffectController.isSelected.value
                                   ? isbuttongradient
                                   : buttongradient,
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomRight),
+                              begin: Alignment.bottomRight,
+                              end: Alignment.topCenter),
                           borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {
@@ -195,7 +194,6 @@ class DataSelectPaymentMethod extends StatelessWidget {
                           Future.delayed(const Duration(milliseconds: 1000),
                               () {
                             ontapEffectController.isSelected.value = false;
-                            print("WORKING");
                             if (ontapEffectController.isCard.value) {
                               payVoid.chargeCardPayment(context, title);
                             } else {

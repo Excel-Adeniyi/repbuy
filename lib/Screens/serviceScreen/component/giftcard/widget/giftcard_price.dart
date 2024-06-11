@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
-import 'package:shapmanpaypoint/services/GiftCard/get_giftcard_by_id.dart';
 
 class GiftCardPrice extends StatelessWidget {
   const GiftCardPrice({super.key});
@@ -9,13 +8,12 @@ class GiftCardPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GiftCardController giftcardController = Get.put(GiftCardController());
-    final giftbyId = GiftCardByIDService();
     return Container(
       // margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           border: Border.all(
-              width: 1.0, color: const Color.fromARGB(255, 73, 22, 105))),
+              width: 1.0, color: const Color(0xff0a2417))),
       height: 65,
       width: double.infinity,
       child: Obx(
@@ -44,11 +42,9 @@ class GiftCardPrice extends StatelessWidget {
           ],
           onChanged: (String? newValue) {
             // Handle dropdown value change if needed
-            print(newValue);
+
             giftcardController.giftcardPriceKey.value = newValue as String;
             if (giftcardController.giftcardPriceKey.value.isNotEmpty) {
-              print(giftcardController
-                  .fixedRecipientToSenderDenominationsMap.entries);
               final dynamic priceKey = giftcardController
                   .fixedRecipientToSenderDenominationsMap.entries
                   .firstWhere((entry) {
@@ -59,10 +55,8 @@ class GiftCardPrice extends StatelessWidget {
                     : (entry.value is int)
                         ? entry.value.toDouble()
                         : entry.value;
-                print(valuedouble);
                 return entrydouble == valuedouble;
               }, orElse: () => null!).value;
-              print(priceKey);
               if (priceKey != null) {
                 giftcardController.giftcardQuantity.value = "0";
                 giftcardController.giftCardPriceValue.value =

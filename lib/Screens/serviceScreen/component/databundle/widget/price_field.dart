@@ -37,17 +37,17 @@ class PriceField extends StatelessWidget {
             focusColor: Colors.black,
             focusedBorder: const OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Color.fromARGB(255, 73, 22, 105))),
-            // labelText: 'Enter Amount',
-            // labelStyle: const TextStyle(color: Colors.grey),
+                    BorderSide(color: Color(0xff0a2417))),
+            labelText: 'Enter Amount',
+            labelStyle: const TextStyle(color: Colors.black45),
             border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue)),
+                borderSide: BorderSide(color: Color(0xff0a2417))),
             focusedErrorBorder: const OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Color.fromARGB(255, 73, 22, 105))),
+                    BorderSide(color: Color(0xfffcdc2a))),
             errorBorder: const OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Color.fromARGB(255, 73, 22, 105))),
+                    BorderSide(color: Color(0xff0a2417))),
           ),
         ),
       ),

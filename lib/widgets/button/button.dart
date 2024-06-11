@@ -15,12 +15,12 @@ class ButtonWidget extends StatelessWidget {
           children: [
             Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   fontSize: 18),
             ),
-            Icon(
+            const Icon(
               Icons.login,
               color: Colors.white,
             )

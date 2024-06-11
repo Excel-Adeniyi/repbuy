@@ -1,20 +1,13 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
-
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
-import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
-import 'package:shapmanpaypoint/services/Electricbill/electric_purchase_verify.dart';
-import 'package:shapmanpaypoint/services/Electricbill/electricbill_purchase_data_save.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 import '../../utils/flutter_storage/flutter_storage.dart';
 
@@ -43,9 +36,10 @@ class GiftcardFinalService {
         userDecode['first_name'] + ' ' + userDecode['last_mame'];
     purchasecontroller.isLoading.value = true;
     try {
-      print("ACTIVE IN GCIS");
+
       final dataReq = {
         "userId": userId,
+        "product_type": "GiftCard",
         "unitPrice": num.parse(giftCardController.giftcardPriceKey.value),
         "amount": giftCardController.totalPrices.value,
         "quantity": int.parse(giftCardController.giftcardQuantity.value),

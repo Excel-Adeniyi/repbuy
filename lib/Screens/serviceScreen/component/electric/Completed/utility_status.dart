@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/Clear/clear_controller.dart';
-import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
-import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
+import 'package:shapmanpaypoint/controller/ShareController/share_controller.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
 import 'package:shapmanpaypoint/utils/Loader/loader.dart';
@@ -31,13 +30,10 @@ class UCompletedAmount extends StatelessWidget {
                 ? "Utility Bill"
                 : 'Airtime',
         super(key: key);
-
+  final ShareController shareController = Get.put(ShareController());
+  final GlobalKey globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    // final dataBundleController =
-    //     masterController.databundleController.value == true
-    //         ? Get.find<DataBundleController>()
-    //         : Get.put(DataBundleController());
     double screenWidth = MediaQuery.of(context).size.width;
     double containerWidth;
     if (screenWidth < 600) {
@@ -51,7 +47,6 @@ class UCompletedAmount extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: Obx(() {
-            print("CHECKS ${purchaseController.isLoading.value}");
             if (purchaseController.isLoading.value == true) {
               return const Center(
                 child: Column(
@@ -79,71 +74,72 @@ class UCompletedAmount extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return const LinearGradient(
-                                  colors: [
-                                Color(0xFF5423bb),
-                                Color(0xFF8629b1),
-                                Color(0xFFa12cab),
-                              ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight)
-                              .createShader(bounds);
-                        },
-                        child: Text(
-                          title,
-                          style: const TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      purchaseController.pending.value
-                          ? const Icon(
-                              Icons.punch_clock,
-                              size: 100,
-                              color: Color.fromARGB(255, 150, 114, 6),
-                            )
-                          : Image.asset(
-                              'lib/assets/wow.png',
-                              height: 300,
-                            ),
-                      purchaseController.pending.value
-                          ? Text(
-                              "Processing",
-                              style: TextStyle(
-                                  color: Colors.amber[700],
-                                  fontSize: 30,
+                      RepaintBoundary(
+                        key: globalKey,
+                        child: Column(children: [
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          ShaderMask(
+                            shaderCallback: (Rect bounds) {
+                              return const LinearGradient(
+                                      colors: buttongradient,
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight)
+                                  .createShader(bounds);
+                            },
+                            child: Text(
+                              title,
+                              style: const TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold),
-                            )
-                          : const SizedBox.shrink(),
-                      const SizedBox(height: 20),
-                      purchaseController.pending.value
-                          ? Text(
-                              utilityController.processMessage.value,
-                              textAlign: TextAlign.center,
-                            )
-                          : const SizedBox.shrink(),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Your Electricity Bill (Meter Number: ${utilityController.billerMeter.value})',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          purchaseController.pending.value
+                              ? const Icon(
+                                  Icons.punch_clock,
+                                  size: 100,
+                                  color: Color.fromARGB(255, 150, 114, 6),
+                                )
+                              : Image.asset(
+                                  'lib/assets/wow.png',
+                                  height: 300,
+                                ),
+                          purchaseController.pending.value
+                              ? Text(
+                                  "Processing",
+                                  style: TextStyle(
+                                      color: Colors.amber[700],
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : const SizedBox.shrink(),
+                          const SizedBox(height: 20),
+                          purchaseController.pending.value
+                              ? Text(
+                                  utilityController.processMessage.value,
+                                  textAlign: TextAlign.center,
+                                )
+                              : const SizedBox.shrink(),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Your Electricity Bill (Meter Number: ${utilityController.billerMeter.value})',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            utilityController.utilityName.value,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                          const SizedBox(height: 20),
+                        ]),
                       ),
-                      const SizedBox(height: 20),
-                      Text(
-                        utilityController.utilityName.value,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
-                      ),
-                      const SizedBox(height: 20),
                       const SizedBox(
                         height: 20,
                       ),
@@ -175,7 +171,9 @@ class UCompletedAmount extends StatelessWidget {
                                 color: Colors.grey,
                                 borderRadius: BorderRadius.circular(10)),
                             child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  shareController.captureandImage(globalKey);
+                                },
                                 child: const Column(
                                   children: [
                                     Icon(

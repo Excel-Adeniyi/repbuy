@@ -6,7 +6,7 @@ import 'package:shapmanpaypoint/controller/rechargeController.dart';
 
 class ContactPickerController extends GetxController {
   // final TextEditingController phoneController = TextEditingController();
-  final phonController = Get.find<RechargeController>();
+  final phonController = Get.put(RechargeController());
   final RxList<Contact> selectedContacts = <Contact>[].obs;
 
   Future<void> pickContacts() async {

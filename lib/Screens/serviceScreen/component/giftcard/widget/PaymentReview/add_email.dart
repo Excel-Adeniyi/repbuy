@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/ISOData/iso_model.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/payment_method.dart';
@@ -10,17 +7,16 @@ import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
 import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
+import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 
 class EmailAddress extends StatelessWidget {
   const EmailAddress({super.key});
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.sizeOf(context);
-    TextEditingController phoneNumber = TextEditingController();
-    TextEditingController emailAdd = TextEditingController();
     GiftCardController giftCardController = Get.find<GiftCardController>();
     final IsoController isoController = Get.put(IsoController());
-    final _ontapEffectController = Get.put(OnTapEffect());
+    final ontapEffectController = Get.put(OnTapEffect());
     final FocusNode focusnode = FocusNode();
     final FocusNode phoneFocuse = FocusNode();
     return GestureDetector(
@@ -31,9 +27,6 @@ class EmailAddress extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(),
         body: Obx(
-          // print(newValue);
-
-          // print(giftCardController.recipientemaill.value);
           () => Center(
             child: SizedBox(
               width: screenSize.width * 0.9,
@@ -42,20 +35,16 @@ class EmailAddress extends StatelessWidget {
                   ShaderMask(
                     shaderCallback: (Rect bounds) {
                       return const LinearGradient(
-                              colors: [
-                            Color(0xFF5423bb),
-                            Color(0xFF8629b1),
-                            Color(0xFFa12cab),
-                          ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter)
+                              colors: buttongradient,
+                               begin: Alignment.topLeft,
+                            end: Alignment.bottomRight)
                           .createShader(bounds);
                     },
                     child: const Text(
                       "Recipient Details",
                       style: TextStyle(
                           fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white),
                     ),
                   ),
@@ -65,10 +54,10 @@ class EmailAddress extends StatelessWidget {
                   TextField(
                     autocorrect: true,
                     focusNode: focusnode,
-                    controller: phoneNumber,
+                    // controller: phoneNumber,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
-                      label: Text("Input Recipient Email Address"),
+                      label: Text("Recipient Email Address"),
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (String newValue) {
@@ -87,7 +76,7 @@ class EmailAddress extends StatelessWidget {
                     readOnly: giftCardController.countryCodeValidated.isTrue
                         ? false
                         : true,
-                    controller: emailAdd,
+                    // controller: emailAdd,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
@@ -110,13 +99,12 @@ class EmailAddress extends StatelessWidget {
                             ...isoController.isoDetails
                                 .map<DropdownMenuItem<String>>((Iso item) {
                               return DropdownMenuItem<String>(
-                                value: item.isoName ?? "Unknown",
+                                value: item.isoName,
                                 child: SizedBox(
                                   width:
                                       MediaQuery.sizeOf(context).width * 0.15,
                                   child: Text(
-                                      "${item.isoName} ${item.callingCodes}" ??
-                                          "Unknown"),
+                                      "${item.isoName} ${item.callingCodes}"),
                                 ),
                               );
                             }).toList(),
@@ -126,21 +114,20 @@ class EmailAddress extends StatelessWidget {
                             if (newValue != null) {
                               giftCardController.recipientCountryCode.value =
                                   newValue;
-                              print(giftCardController
-                                  .recipientCountryCode.value);
+
                               giftCardController.countryCodeValidator(newValue);
                             }
                           },
                         ),
                       ),
-                      label: const Text("Input Recipient Phone Number"),
+                      label: const Text("Recipient Phone Number"),
                       border: const OutlineInputBorder(),
                     ),
                     onChanged: (String newValue) {
-                      if (newValue != null) {
+                      if (newValue.isNotEmpty) {
                         giftCardController.recipientphoneNumber.value =
                             newValue;
-                        print(giftCardController.recipientphoneNumber.value);
+                        // print(giftCardController.recipientphoneNumber.value);
                         giftCardController.phoneValidator(newValue);
                       }
                     },
@@ -157,7 +144,7 @@ class EmailAddress extends StatelessWidget {
                       duration: const Duration(milliseconds: 1000),
                       // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                       height: 50,
-                      width: screenSize.width * 0.8,
+                      width: calculateButtonWidth(context),
                       decoration: BoxDecoration(
                           boxShadow: const [
                             BoxShadow(
@@ -170,35 +157,33 @@ class EmailAddress extends StatelessWidget {
                               color: const Color.fromARGB(255, 219, 218, 218),
                               width: 1.0),
                           gradient: LinearGradient(
-                              colors: _ontapEffectController.isTapped.value
+                              colors: ontapEffectController.isTapped.value
                                   ? isbuttongradient
                                   : buttongradient,
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomRight),
+                              begin: Alignment.bottomRight,
+                                            end: Alignment.topCenter),
                           borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {
                           if (giftCardController.countryCodeValidated.isTrue &&
                               giftCardController.phoneNumberValidated.isTrue &&
                               giftCardController.emailValidated.isTrue) {
-                            _ontapEffectController.isTapped.value = true;
+                            ontapEffectController.isTapped.value = true;
                             Future.delayed(const Duration(milliseconds: 1000),
                                 () {
-                              _ontapEffectController.isTapped.value = false;
-                              _ontapEffectController.isBSopen.value = false;
-                              print("WORKING");
+                              ontapEffectController.isTapped.value = false;
+                              ontapEffectController.isBSopen.value = false;
+
                               showModalBottomSheet(
                                 context: context,
                                 builder: (BuildContext context) =>
                                     const GiftCardSelectPaymentMethod(
                                         title: "GiftCard Purchase"),
                               );
-                              // Get.to(PinAuth(title: title));
                             });
                           }
-                          // Get.to(const EmailAddress());
                         },
-                        child: _ontapEffectController.isTapped.value == true
+                        child: ontapEffectController.isTapped.value == true
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )

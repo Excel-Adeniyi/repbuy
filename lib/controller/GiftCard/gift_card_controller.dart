@@ -95,7 +95,7 @@ class GiftCardController extends GetxController {
     initialPrice.value = "";
     giftcardQuantity.value = "0";
     giftCardPriceValue.value = '0';
-
+    print(responseData);
     if (responseData != null) {
       productName.value = responseData['productName'];
       productId.value = 0;

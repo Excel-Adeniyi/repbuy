@@ -12,18 +12,19 @@ class GiftCardQuantity extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           border: Border.all(
-              width: 1.0, color: const Color.fromARGB(255, 73, 22, 105))),
+              width: 1.0, color: const Color(0xff0a2417))),
       height: 65,
       width: double.infinity,
       child: Obx(() {
         textController.text = giftCardController.giftcardQuantity.value;
         return TextField(
-          cursorColor: Colors.purple,
+          cursorColor: const Color(0xff0a2417),
           cursorErrorColor: Colors.grey,
           controller: textController,
           keyboardType: TextInputType.number,
           style: const TextStyle(),
           readOnly: true,
+          
           textAlign: TextAlign.center,
           decoration: InputDecoration(
             prefixIcon: IconButton(
@@ -44,16 +45,16 @@ class GiftCardQuantity extends StatelessWidget {
                 },
                 icon: const Icon(Icons.add)),
             focusedErrorBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color.fromARGB(255, 73, 22, 105)),
+              borderSide: BorderSide(color: Color(0xfffcdc2a)),
             ),
-            labelStyle: const TextStyle(color: Colors.grey),
+            labelStyle: const TextStyle(color: Colors.black45),
             errorBorder: const OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Color.fromARGB(255, 73, 22, 105))),
+                    BorderSide(color: Color(0xfffcdc2a))),
             labelText: 'Quantity',
             // error: utilityController.showError(),
             border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.purple)),
+                borderSide: BorderSide(color: Color(0xff0a2417))),
           ),
           onChanged: (dynamic amountValue) {
             // utilityController.amountValidator(amountValue);

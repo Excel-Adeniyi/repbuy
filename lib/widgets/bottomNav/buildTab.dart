@@ -35,13 +35,16 @@ class BuildTab extends StatelessWidget {
               Image.asset(
                 imageAsset,
                 width: 25,
+                color: focuss.value == true ? const Color(0xfffcdc2a).withOpacity(0.9) : const Color(0xff0a2417).withOpacity(0.9),
+                colorBlendMode: BlendMode.modulate,
               ),
-              Text(
-                title,
-                style: TextStyle(
+              Text(title,
+                  style: TextStyle(
                     fontSize: 10,
-                    color: focuss.value == true ? Colors.purple : Colors.black),
-              )
+                    color: focuss.value == true
+                        ? const Color(0xfffcdc2a)
+                        : const Color(0xff0a2417),
+                  ))
             ],
           ),
         ),

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
+import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
+import 'package:shapmanpaypoint/controller/electricController.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
+import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 
@@ -32,6 +35,9 @@ class UniversalButton extends StatelessWidget {
     Get.put(PurchaseResponse());
     Get.put(ContactPickerController());
     Get.put(RechargeController());
+    Get.put(DataBundleController());
+    Get.put(ElectricController());
+    Get.put(UtilityController());
     return Obx(() => AnimatedContainer(
           duration: const Duration(milliseconds: 1000),
           // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
@@ -66,6 +72,9 @@ class UniversalButton extends StatelessWidget {
                   Get.delete<ContactPickerController>();
                   Get.delete<RechargeController>();
                   Get.delete<PurchaseResponse>();
+                  Get.delete<DataBundleController>();
+                  Get.delete<ElectricController>();
+                  Get.delete<UtilityController>();
                   if (route.isNotEmpty) {
                     Get.toNamed(route);
                   }

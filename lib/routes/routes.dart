@@ -13,6 +13,7 @@ import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/data_
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/electricityScreen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/gift_card.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/PaymentReview/payment_review.dart';
+import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/completed/giftcard_completed.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/rechargecardndata/recharge_screen.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/serviceScreen.dart';
 import 'package:shapmanpaypoint/Screens/signup/pinInsertion/pin2.dart';
@@ -65,5 +66,6 @@ final pages = [
     page: () => PaymentReviewGiftCard(),
   ),
   GetPage(name: '/singlePurchase', page: () => const SinglePurchasedItemPage()),
-  GetPage(name: '/giftcard', page: () => GiftCard())
+  GetPage(name: '/giftcard', page: () => GiftCard()),
+  GetPage(name: '/giftcard/final', page: () => GiftCardCompletedAmount())
 ];

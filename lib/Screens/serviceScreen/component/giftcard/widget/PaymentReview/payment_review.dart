@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/widget/payment_method.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/PaymentReview/add_email.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/PaymentReview/widget/bullet_point.dart';
 import 'package:shapmanpaypoint/controller/Animation/payment_animation_controller.dart';
@@ -12,6 +10,7 @@ import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/services/Electricbill/electricbill_auth_service.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
+import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 
 class PaymentReviewGiftCard extends StatelessWidget {
   final String title = 'Giftcard';
@@ -85,11 +84,8 @@ class PaymentReviewGiftCard extends StatelessWidget {
                     ),
                     ShaderMask(
                       shaderCallback: (Rect bounds) {
-                        return const LinearGradient(colors: [
-                          Color(0xFF5423bb),
-                          Color(0xFF8629b1),
-                          Color(0xFFa12cab),
-                        ], begin: Alignment.topLeft, end: Alignment.bottomRight)
+                        return const LinearGradient(colors: buttongradient, begin: Alignment.bottomRight,
+                                            end: Alignment.topCenter)
                             .createShader(bounds);
                       },
                       child: const Text(
@@ -97,7 +93,7 @@ class PaymentReviewGiftCard extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 24,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                     const SizedBox(
@@ -109,11 +105,7 @@ class PaymentReviewGiftCard extends StatelessWidget {
                       padding: const EdgeInsets.all(20),
                       decoration: const BoxDecoration(
                           gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(255, 193, 192, 196),
-                                Color.fromARGB(255, 193, 192, 196),
-                                Color.fromARGB(255, 193, 192, 196),
-                              ],
+                              colors: bggradient,
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -224,7 +216,7 @@ class PaymentReviewGiftCard extends StatelessWidget {
                           duration: const Duration(milliseconds: 1000),
                           // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                           height: 50,
-                          width: screenSize.width * 0.8,
+                          width: calculateButtonWidth(context),
                           decoration: BoxDecoration(
                               boxShadow: const [
                                 BoxShadow(
@@ -241,27 +233,12 @@ class PaymentReviewGiftCard extends StatelessWidget {
                                   colors: _ontapEffectController.isTapped.value
                                       ? isbuttongradient
                                       : buttongradient,
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomRight),
+                                  begin: Alignment.bottomRight,
+                                            end: Alignment.topCenter),
                               borderRadius: BorderRadius.circular(10)),
                           child: TextButton(
                             onPressed: () {
-                              // electricService.electricAuth();
-                              // _ontapEffectController.isTapped.value = true;
-                              // Future.delayed(const Duration(milliseconds: 1000),
-                              //     () {
-                              //   _ontapEffectController.isTapped.value = false;
-                              //   _ontapEffectController.isBSopen.value = false;
-                              //   print("WORKING");
-                              //   showModalBottomSheet(
-                              //     context: context,
-                              //     builder: (BuildContext context) =>
-                              //         const UtilitySelectPaymentMethod(
-                              //             title: "GiftCard Purchase"),
-                              //   );
-                              //   // Get.to(PinAuth(title: title));
-                              // });
-
+                            
                               Get.to(const EmailAddress());
                             },
                             child: _ontapEffectController.isTapped.value == true
@@ -295,10 +272,10 @@ class PaymentReviewGiftCard extends StatelessWidget {
                         ),
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 1000),
-                          width: screenSize.width * 0.8,
+                          width: calculateButtonWidth(context),
                           height: 50,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.purple),
+                              border: Border.all(color: const Color(0xff0a2417)),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10))),
                           child: TextButton(
@@ -308,13 +285,9 @@ class PaymentReviewGiftCard extends StatelessWidget {
                             child: ShaderMask(
                               shaderCallback: (Rect bounds) {
                                 return const LinearGradient(
-                                        colors: [
-                                      Color(0xFF5423bb),
-                                      Color(0xFF8629b1),
-                                      Color(0xFFa12cab),
-                                    ],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight)
+                                        colors: buttongradient,
+                                      begin: Alignment.topLeft,
+                            end: Alignment.bottomRight)
                                     .createShader(bounds);
                               },
                               child: const Text(
@@ -352,7 +325,7 @@ class GradientStyle extends StatelessWidget {
     return ShaderMask(
       shaderCallback: (Rect bounds) {
         return const LinearGradient(
-                colors: buttongradient,
+                colors: textgradient,
                 begin: Alignment.bottomLeft,
                 end: Alignment.bottomRight)
             .createShader(bounds);
