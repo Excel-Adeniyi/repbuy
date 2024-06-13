@@ -31,12 +31,13 @@ class GiftcardFinalService {
     final decodedToken = await stora.readSecureData('ResBody');
     Map<String, dynamic> userDecode = json.decode(decodedToken);
     final userId = userDecode['id'];
-    final String userUniqueId = userDecode['last_mame'] + userId.toString();
+    // final datenow = DateTime.now();
+    final String userUniqueId =
+        userId.toString() + DateTime.fromMillisecondsSinceEpoch.toString();
     final String userName =
         userDecode['first_name'] + ' ' + userDecode['last_mame'];
     purchasecontroller.isLoading.value = true;
     try {
-
       final dataReq = {
         "userId": userId,
         "product_type": "GiftCard",
@@ -44,7 +45,7 @@ class GiftcardFinalService {
         "amount": giftCardController.totalPrices.value,
         "quantity": int.parse(giftCardController.giftcardQuantity.value),
         "productId": int.parse(giftCardController.giftcardValue.value),
-        "customIdentifier": userUniqueId,
+        "customIdentifier": giftCardController.ntransactionId.value,
         "senderName": userName,
         "recipientEmail": giftCardController.recipientemaill.value.isNotEmpty
             ? giftCardController.recipientemaill.value

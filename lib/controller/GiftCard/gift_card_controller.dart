@@ -26,6 +26,7 @@ class GiftCardController extends GetxController {
   final phoneNumberValidated = false.obs;
   final emailValidated = false.obs;
   final countryCodeValidated = false.obs;
+  RxString ntransactionId = "".obs;
 
   //##### RESUlt GOTTEN FROM THE ID ######
   RxString productName = ''.obs;

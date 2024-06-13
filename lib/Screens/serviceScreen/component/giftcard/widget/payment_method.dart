@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/PinValidation/pin_validtaion.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
+import 'package:shapmanpaypoint/services/GiftCard/giftcard_save_data_first.dart';
 import 'package:shapmanpaypoint/services/GiftCard/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
@@ -15,6 +16,7 @@ class GiftCardSelectPaymentMethod extends StatelessWidget {
   Widget build(BuildContext context) {
     final ontapEffectController = Get.find<OnTapEffect>();
     final payVoid = GCPaymentCheckout();
+    final saveRequest = GiftCardSaveDataFirst();
     Size screenSize = MediaQuery.sizeOf(context);
     return Obx(() {
       if (ontapEffectController.isBSopen.value == true) {
@@ -184,16 +186,18 @@ class GiftCardSelectPaymentMethod extends StatelessWidget {
                               colors: ontapEffectController.isSelected.value
                                   ? isbuttongradient
                                   : buttongradient,
-                           begin: Alignment.bottomRight,
-                                            end: Alignment.topCenter),
+                              begin: Alignment.bottomRight,
+                              end: Alignment.topCenter),
                           borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {
+                          saveRequest.sendTransfer();
                           ontapEffectController.isSelected.value = true;
+                          
                           Future.delayed(const Duration(milliseconds: 1000),
                               () {
                             ontapEffectController.isSelected.value = false;
-                       
+
                             if (ontapEffectController.isCard.value) {
                               payVoid.chargeCardPayment(context, title);
                             } else {

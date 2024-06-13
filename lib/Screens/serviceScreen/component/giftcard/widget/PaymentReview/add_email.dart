@@ -173,7 +173,7 @@ class EmailAddress extends StatelessWidget {
                                 () {
                               ontapEffectController.isTapped.value = false;
                               ontapEffectController.isBSopen.value = false;
-
+  
                               showModalBottomSheet(
                                 context: context,
                                 builder: (BuildContext context) =>
