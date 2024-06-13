@@ -31,6 +31,8 @@ class GradientButton extends StatelessWidget {
                   Image.asset(
                     imagedata,
                     width: 50,
+                    color: const Color(0xff0a2417).withOpacity(0.9),
+                    colorBlendMode: BlendMode.modulate,
                   ),
                   const SizedBox(
                     width: 20,
@@ -56,6 +58,8 @@ class GradientButton extends StatelessWidget {
                       Image.asset(
                         imagedata,
                         width: 50,
+                        color: const Color(0xff0a2417).withOpacity(0.9),
+                        colorBlendMode: BlendMode.modulate,
                       ),
                       const SizedBox(
                         width: 20,
