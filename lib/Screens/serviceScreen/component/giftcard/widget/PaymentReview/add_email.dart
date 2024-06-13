@@ -36,8 +36,8 @@ class EmailAddress extends StatelessWidget {
                     shaderCallback: (Rect bounds) {
                       return const LinearGradient(
                               colors: buttongradient,
-                               begin: Alignment.topLeft,
-                            end: Alignment.bottomRight)
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight)
                           .createShader(bounds);
                     },
                     child: const Text(
@@ -57,9 +57,11 @@ class EmailAddress extends StatelessWidget {
                     // controller: phoneNumber,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
-                      label: Text("Recipient Email Address"),
-                      border: OutlineInputBorder(),
-                    ),
+                        label: Text("Recipient Email Address"),
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xfffcdc2a), width: 0.8))),
                     onChanged: (String newValue) {
                       if (newValue.isNotEmpty) {
                         giftCardController.recipientemaill.value = newValue;
@@ -79,50 +81,56 @@ class EmailAddress extends StatelessWidget {
                     // controller: emailAdd,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      prefixIcon: Obx(
-                        () => DropdownButton<String>(
-                          padding: const EdgeInsets.all(8.0),
-                          isExpanded: false,
-                          underline: const SizedBox.shrink(),
-                          value: giftCardController.recipientCountryCode.value,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                              color: Colors.black),
-                          items: [
-                            const DropdownMenuItem<String>(
-                              value: "",
-                              child: Text("+#"),
-                            ),
-                            ...isoController.isoDetails
-                                .map<DropdownMenuItem<String>>((Iso item) {
-                              return DropdownMenuItem<String>(
-                                value: item.isoName,
-                                child: SizedBox(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.15,
-                                  child: Text(
-                                      "${item.isoName} ${item.callingCodes}"),
-                                ),
-                              );
-                            }).toList(),
-                          ],
-                          onChanged: (dynamic newValue) {
-                            // Handle dropdown value change if needed
-                            if (newValue != null) {
-                              giftCardController.recipientCountryCode.value =
-                                  newValue;
 
-                              giftCardController.countryCodeValidator(newValue);
-                            }
-                          },
+                    decoration: InputDecoration(
+                        prefixIcon: Obx(
+                          () => DropdownButton<String>(
+                            focusColor: const Color(0xfffcdc2a),
+                            padding: const EdgeInsets.all(8.0),
+                            isExpanded: false,
+                            underline: const SizedBox.shrink(),
+                            value:
+                                giftCardController.recipientCountryCode.value,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                                color: Colors.black),
+                            items: [
+                              const DropdownMenuItem<String>(
+                                value: "",
+                                child: Text("+#"),
+                              ),
+                              ...isoController.isoDetails
+                                  .map<DropdownMenuItem<String>>((Iso item) {
+                                return DropdownMenuItem<String>(
+                                  value: item.isoName,
+                                  child: SizedBox(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.15,
+                                    child: Text(
+                                        "${item.isoName} ${item.callingCodes}"),
+                                  ),
+                                );
+                              }).toList(),
+                            ],
+                            onChanged: (dynamic newValue) {
+                              // Handle dropdown value change if needed
+                              if (newValue != null) {
+                                giftCardController.recipientCountryCode.value =
+                                    newValue;
+
+                                giftCardController
+                                    .countryCodeValidator(newValue);
+                              }
+                            },
+                          ),
                         ),
-                      ),
-                      label: const Text("Recipient Phone Number"),
-                      border: const OutlineInputBorder(),
-                    ),
+                        label: const Text("Recipient Phone Number"),
+                        border: const OutlineInputBorder(),
+                        focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xfffcdc2a), width: 0.8))),
                     onChanged: (String newValue) {
                       if (newValue.isNotEmpty) {
                         giftCardController.recipientphoneNumber.value =
@@ -161,7 +169,7 @@ class EmailAddress extends StatelessWidget {
                                   ? isbuttongradient
                                   : buttongradient,
                               begin: Alignment.bottomRight,
-                                            end: Alignment.topCenter),
+                              end: Alignment.topCenter),
                           borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {
@@ -173,7 +181,7 @@ class EmailAddress extends StatelessWidget {
                                 () {
                               ontapEffectController.isTapped.value = false;
                               ontapEffectController.isBSopen.value = false;
-  
+
                               showModalBottomSheet(
                                 context: context,
                                 builder: (BuildContext context) =>
