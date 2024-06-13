@@ -66,7 +66,7 @@ class GCPaymentCheckout {
         verifyPayment.verifier(reference, title, accessCode, userid);
         print(loaderController.isChecker.value);
       } else {
-        Get.toNamed('');
+        
       }
     } catch (e) {
       print('Error during checkout: $e');
