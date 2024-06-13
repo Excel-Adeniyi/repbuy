@@ -1,9 +1,16 @@
 import { Request, Response } from "express";
 import myCache from "../../../middleware/cache";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import GiftcardUpdatePostPayent from "../../../model/GiftCardModel/giftcard_update_after_payment";
 
 
 class GiftcardProcessPurchase {
+    private model: GiftcardUpdatePostPayent
+
+    constructor(model: GiftcardUpdatePostPayent){
+        this.model = model
+    }
+
     async processPayment(req: Request, res: Response): Promise<void> {
         const cachedData: string | undefined = myCache.get("AUTH_GIFTCARD_KEY");
         const endpoint = 'https://giftcards-sandbox.reloadly.com/orders'
@@ -15,7 +22,7 @@ class GiftcardProcessPurchase {
                 unitPrice: payload_giftcard.unitPrice,
                 quantity: payload_giftcard.quantity,
                 productId: payload_giftcard.productId,
-                customerIdentifier: payload_giftcard.customIdentifier,
+                customIdentifier: payload_giftcard.customIdentifier,
                 senderName: payload_giftcard.senderName,
                 recipientPhoneDetails: {
                     countryCode: payload_giftcard.recipientPhoneDetails.countryCode,
@@ -34,8 +41,14 @@ class GiftcardProcessPurchase {
                     }
                 })
               
-                if (responseAxios.data.status !== undefined) {
+                if (responseAxios.data.status === "SUCCESSFUL") {
                     console.log(responseAxios.data)
+                    const params = {
+                        status: 'successful',
+                        success: 1,
+                        ntransactionId: responseAxios.data.customIdentifier
+                    }
+                    this.model.updateBothModel(params)
                     res.status(200).json({ Success: true, message: responseAxios.data })
                 } else {
                     res.status(503).json({ Success: false, message: "Unable to generate response at this time" })
