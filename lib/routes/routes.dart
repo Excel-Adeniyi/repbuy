@@ -3,7 +3,7 @@ import 'package:shapmanpaypoint/Binding/electric_binding.dart';
 import 'package:shapmanpaypoint/Binding/signup_binding.dart';
 import 'package:shapmanpaypoint/Middleware/auth_middleware.dart';
 import 'package:shapmanpaypoint/Middleware/idle_middleware.dart';
-import 'package:shapmanpaypoint/Screens/funding/PaymentMethod.dart';
+import 'package:shapmanpaypoint/Screens/funding/payment_method.dart';
 import 'package:shapmanpaypoint/Screens/funding/component/bank_transfer.dart';
 
 import 'package:shapmanpaypoint/Screens/login/forgetPassword/forgetpassword.dart';

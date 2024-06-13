@@ -74,17 +74,27 @@ class PaymentMethod extends StatelessWidget {
                   height: 20,
                 ),
                 const GradientButton(
-                  imagedata: 'lib/assets/mtf.png',
-                  assetName: 'Bank Transfer',
+                  imagedata: 'lib/assets/creditCard.png',
+                  assetName: 'Add Money Via Card',
                   pageRoute: 'banktransfer',
                 ),
-                const GradientButton(
-                  imagedata: 'lib/assets/creditCard.png',
-                  assetName: 'Add Bank Card',
-                  pageRoute: '',
+                const Opacity(
+                  opacity: 0.8,
+                  child: GradientButton(
+                      imagedata: 'lib/assets/mtf.png',
+                      assetName: 'Bank Transfer',
+                      pageRoute: ""),
                 ),
                 const Opacity(
-                  opacity: 0.5,
+                  opacity: 0.8,
+                  child: GradientButton(
+                    imagedata: 'lib/assets/creditCard.png',
+                    assetName: 'Add Bank Card',
+                    pageRoute: '',
+                  ),
+                ),
+                const Opacity(
+                  opacity: 0.8,
                   child: GradientButton(
                     imagedata: 'lib/assets/wallet10.png',
                     assetName: 'Bitcoin',
