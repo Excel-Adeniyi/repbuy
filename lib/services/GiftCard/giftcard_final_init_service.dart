@@ -56,6 +56,8 @@ class GiftcardFinalService {
         },
         "preOrder": false
       };
+      // print(dataReq);
+      
       final response = await dio.post('/giftcard/order', data: dataReq);
       if (kDebugMode) {
         print("HIIH $response");

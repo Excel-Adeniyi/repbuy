@@ -53,6 +53,7 @@ class GiftCardSaveDataFirst {
       final response = await dio.post('/giftcard/save/bpayment', data: dataReq);
       final ntransactionId = response.data['message'][0]['ntransactionId'];
       giftCardController.ntransactionId.value = ntransactionId;
+      
     } catch (error) {
       rethrow;
     }
