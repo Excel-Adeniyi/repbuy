@@ -1,0 +1,5 @@
+
+
+class WalletController{
+    private model: 
+}
