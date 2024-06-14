@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/funding/add_fund_with_card/add_fund_with_card.dart';
 import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 
 class GradientButton extends StatelessWidget {
@@ -51,7 +52,11 @@ class GradientButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: TextButton(
                   onPressed: () {
-                    Get.toNamed(pageRoute);
+                    if (pageRoute == "paystack") {
+                      Get.to(const AddFundsWithCard());
+                    } else {
+                      Get.toNamed(pageRoute);
+                    }
                   },
                   child: Row(
                     children: [

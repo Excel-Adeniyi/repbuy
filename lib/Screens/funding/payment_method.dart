@@ -24,7 +24,6 @@ class PaymentMethod extends StatelessWidget {
             width: screenSize,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(
                   height: 50,
@@ -102,25 +101,31 @@ class PaymentMethod extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
-                Container(
-                    width: buttonSize,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        gradient: LinearGradient(colors: buttongradient)),
-                    child: TextButton(
-                      onPressed: () {
-                        Get.offNamed('dashboard');
-                      },
-                      child: const Text(
-                        "Back",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 18),
-                      ),
-                    ))
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18.0, 0, 18.0, 0),
+                  child: Container(
+                      width: buttonSize,
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          gradient: LinearGradient(colors: buttongradient)),
+                      child: TextButton(
+                        onPressed: () {
+                          Get.offNamed('dashboard');
+                        },
+                        child: const Text(
+                          "Back",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 18),
+                        ),
+                      )),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
               ],
             ),
           ),

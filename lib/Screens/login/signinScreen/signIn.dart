@@ -27,22 +27,8 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: ProgressHUD(
-        backgroundColor: const Color.fromARGB(255, 101, 21, 116),
-        indicatorWidget: Column(
-          children: [
-            Image.asset("lib/assets/logo.png", width: 30, height: 30),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              "Loading",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  decoration: TextDecoration.none),
-            )
-          ],
-        ),
+        barrierColor: Colors.black45,
+        indicatorWidget:  SizedBox(width: 100, height: 100, child: FittedBox(child: Image.asset("lib/assets/NEXTELLAR1c.png"))),
         child: GestureDetector(
           onTap: () {
             _textfocusnode.unfocus();
