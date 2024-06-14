@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/currency/currencyController.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
 class BankTransfer extends StatelessWidget {
@@ -38,8 +39,10 @@ class BankTransfer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 const Text(
-                  'Bank Transfer',
+                  'USER INFORMATION FORM',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.clip,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
                   height: 20,
@@ -60,7 +63,8 @@ class BankTransfer extends StatelessWidget {
                               padding: const EdgeInsets.fromLTRB(8, 1, 0, 1),
                               decoration: BoxDecoration(
                                 // gradient: LinearGradient(colors: buttongradient),
-                                border: Border.all(color: Colors.purple),
+                                border:
+                                    Border.all(color: const Color(0xff0a2417)),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: DropdownButton<String>(
@@ -86,7 +90,8 @@ class BankTransfer extends StatelessWidget {
                               padding: const EdgeInsets.fromLTRB(8, 1, 0, 1),
                               decoration: BoxDecoration(
                                 // gradient: LinearGradient(colors: buttongradient),
-                                border: Border.all(color: Colors.purple),
+                                border:
+                                    Border.all(color: const Color(0xff0a2417)),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: TextField(
@@ -95,7 +100,8 @@ class BankTransfer extends StatelessWidget {
                                 controller: TextEditingController(
                                     text: currency.amount.value),
                                 decoration: const InputDecoration(
-                                    hintText: 'Amount', border: InputBorder.none),
+                                    hintText: 'Amount',
+                                    border: InputBorder.none),
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly,
                                 ],
@@ -115,7 +121,7 @@ class BankTransfer extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple),
+                      border: Border.all(color: const Color(0xff0a2417)),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     width: 400,
@@ -135,7 +141,7 @@ class BankTransfer extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple),
+                      border: Border.all(color: const Color(0xff0a2417)),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     width: 400,
@@ -155,7 +161,7 @@ class BankTransfer extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: Colors.purple),
+                      border: Border.all(color: const Color(0xff0a2417)),
                     ),
                     width: 400,
                     child: TextField(
@@ -174,7 +180,7 @@ class BankTransfer extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: Colors.purple),
+                      border: Border.all(color: const Color(0xff0a2417)),
                     ),
                     width: 400,
                     child: TextField(
@@ -193,7 +199,7 @@ class BankTransfer extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: Colors.purple),
+                      border: Border.all(color: const Color(0xff0a2417)),
                     ),
                     width: 400,
                     child: TextField(
@@ -212,7 +218,7 @@ class BankTransfer extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: Colors.purple),
+                      border: Border.all(color: const Color(0xff0a2417)),
                     ),
                     width: 400,
                     child: TextField(
@@ -226,91 +232,39 @@ class BankTransfer extends StatelessWidget {
                   height: 20,
                 ),
                 SizedBox(
-                  width: screenWidth,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 150,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Color.fromARGB(55, 0, 0, 0),
-                                offset: Offset(2, 3))
-                          ],
-                          gradient: const LinearGradient(colors: [
-                            Colors.white,
-                            Color.fromARGB(255, 160, 153, 153)
-                          ]),
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              strokeAlign: BorderSide.strokeAlignOutside),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            Get.toNamed('funding');
-                          },
-                          child: ShaderMask(
-                            shaderCallback: (Rect bounds) {
-                              return const LinearGradient(
-                                      colors: [
-                                    Colors.pink,
-                                    Colors.pink,
-                                    Colors.pink,
-                                    Colors.purple
-                                  ],
-                                      begin: Alignment.bottomLeft,
-                                      end: Alignment.bottomRight)
-                                  .createShader(bounds);
-                            },
-                            child: const Text(
-                              'Back',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
+                  width: calculateContainerWidth(context),
+                  child: Container(
+                    // width: 150,
+                    // height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Color.fromARGB(55, 0, 0, 0),
+                            offset: Offset(2, 3))
+                      ],
+                      gradient: const LinearGradient(colors:buttongradient,  begin: Alignment.bottomRight,
+                                            end: Alignment.topCenter),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                          strokeAlign: BorderSide.strokeAlignOutside),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Get.toNamed('paymentsummary');
+                      },
+                      child: const Text(
+                        'Make Payment',
+                        style: TextStyle(
+                            fontSize: 16,
+                            // fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                     
-                      Container(
-                        width: 150,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Color.fromARGB(55, 0, 0, 0),
-                                offset: Offset(2, 3))
-                          ],
-                          gradient: const LinearGradient(colors: [
-                            Color(0xFFa12cab),
-                            Color(0xFF8629b1),
-                            Color(0xFF5423bb),
-                          ]),
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              strokeAlign: BorderSide.strokeAlignOutside),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            Get.toNamed('paymentsummary');
-                          },
-                          child: const Text(
-                            'Request Transfer',
-                            style: TextStyle(
-                                fontSize: 16,
-                                // fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
                 const SizedBox(
-                  width: 100,
+                  height: 30,
                 )
               ],
             ),
