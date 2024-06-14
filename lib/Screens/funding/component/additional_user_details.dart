@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/controller/AdditionalDetailsController/additional_detail_controller.dart';
 import 'package:shapmanpaypoint/controller/currency/currencyController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
+import 'package:string_validator/string_validator.dart';
 
 class BankTransfer extends StatelessWidget {
   final amountFocus = FocusNode();
@@ -18,6 +20,8 @@ class BankTransfer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CurrencyController currency = Get.put(CurrencyController());
+    final AdditionalDetailsController addInfo =
+        Get.put(AdditionalDetailsController());
     final screenWidth = calculateContainerWidth(context);
     return GestureDetector(
       onTap: () {
@@ -77,6 +81,7 @@ class BankTransfer extends StatelessWidget {
                                   }).toList(),
                                   onChanged: (value) {
                                     currency.currencyValue.value = value!;
+                                    addInfo.currency.value = value;
                                   }),
                             ),
                           ],
@@ -105,6 +110,10 @@ class BankTransfer extends StatelessWidget {
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly,
                                 ],
+                                onChanged: (String value) {
+                                  final validChecker = isAlphanumeric(value);
+                                  addInfo.amount.value = value;
+                                },
                               ),
                             ),
                           ],
@@ -243,15 +252,17 @@ class BankTransfer extends StatelessWidget {
                             color: Color.fromARGB(55, 0, 0, 0),
                             offset: Offset(2, 3))
                       ],
-                      gradient: const LinearGradient(colors:buttongradient,  begin: Alignment.bottomRight,
-                                            end: Alignment.topCenter),
+                      gradient: const LinearGradient(
+                          colors: buttongradient,
+                          begin: Alignment.bottomRight,
+                          end: Alignment.topCenter),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 255, 255),
                           strokeAlign: BorderSide.strokeAlignOutside),
                     ),
                     child: TextButton(
                       onPressed: () {
-                        Get.toNamed('paymentsummary');
+                        // Get.toNamed('paymentsummary');
                       },
                       child: const Text(
                         'Make Payment',
