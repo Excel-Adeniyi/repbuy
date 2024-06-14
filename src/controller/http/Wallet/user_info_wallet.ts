@@ -8,10 +8,13 @@ interface DataProps {
     country: string,
     state: string,
     zip: string,
-    address: string
+    address: string,
+    created_at: Date,
+    updated_at: Date
 }
 interface Data2Props {
     userId: number,
+    updated_at: Date
 
 }
 class UserAdditionDetailsController {
@@ -23,10 +26,15 @@ class UserAdditionDetailsController {
 
 
     async  addingDetails(req: Request, res: Response): Promise<void>{
-        const userDetails = req.params
+        const userDetails = req.body
+        console.log(userDetails)
+        const updated_at_dateTime = new Date()
+        const created_at_dateTime = new Date()
         try {
             const payload: Data2Props =  {
-                userId: parseInt(userDetails.userId)
+                updated_at: updated_at_dateTime,
+                userId: parseInt(userDetails.userId),
+                
             }
             const userPayload:DataProps = {
                 userId: parseInt(userDetails.userId),
@@ -34,7 +42,10 @@ class UserAdditionDetailsController {
                 country: userDetails.country,
                 state: userDetails.state,
                 zip: userDetails.zip,
-                address: userDetails.address
+                address: userDetails.address,
+                created_at: created_at_dateTime,
+                updated_at: updated_at_dateTime
+
             }
             const responseData: any = await this.model.submitInfo(userPayload, payload)
             if(responseData.affectedRows !== 0){
@@ -43,7 +54,10 @@ class UserAdditionDetailsController {
                 res.status(503).json({Success: false, message: "Record not Saved"})
             }
         } catch (error) {
+            console.log(error)
             res.status(500).json({Success: false, message: "Internal Server Error"})
         }
     }
 }
+
+export default UserAdditionDetailsController

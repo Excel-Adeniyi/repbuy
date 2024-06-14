@@ -42,6 +42,8 @@ import fcmStorageController from "./FCMStorageroutes/FCMStorageroutes";
 import singleDataController from "./SingleData/get_single_data";
 import translistcontroller from "./TransactionList/transaction_list_routes";
 import giftcardpurchasebeforePayment from "./OrderGiftCards/giftcard_purchase_first_save_to_db";
+import walletController from "./Wallet/wallet_routes";
+import user_additional_details_controller from "./AddtionalUserDetails/additional_user_details";
 
 
 let router = Router();
@@ -126,5 +128,14 @@ router.post("/store/token", (req, res) => {
   fcmStorageController.fcmstorer(req, res)
 })
 
-//##########
+//########## Wallet ###############
+router.post("/wallet/funding", (req, res) =>{
+  walletController.verifyPayment(req, res)
+})
+
+//######## ADDITONAL DETAILS ########
+router.post("/user/additional/details", (req, res) => {
+  user_additional_details_controller.addingDetails(req, res)
+})
+
 export { router };
