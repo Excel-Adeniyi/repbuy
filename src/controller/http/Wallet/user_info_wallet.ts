@@ -43,7 +43,7 @@ class UserAdditionDetailsController {
                 country: userDetails.country,
                 state: userDetails.state,
                 city: userDetails.city,
-                zipcode: userDetails.zip,
+                zipcode: userDetails.zipcode,
                 address: userDetails.address,
                 created_at: created_at_dateTime,
                 updated_at: updated_at_dateTime
