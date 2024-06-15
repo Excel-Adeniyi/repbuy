@@ -7,7 +7,8 @@ interface DataProps {
     fullname_company: string,
     country: string,
     state: string,
-    zip: string,
+    city: string,
+    zipcode: string,
     address: string,
     created_at: Date,
     updated_at: Date
@@ -41,7 +42,8 @@ class UserAdditionDetailsController {
                 fullname_company: userDetails.fullname_company,
                 country: userDetails.country,
                 state: userDetails.state,
-                zip: userDetails.zip,
+                city: userDetails.city,
+                zipcode: userDetails.zip,
                 address: userDetails.address,
                 created_at: created_at_dateTime,
                 updated_at: updated_at_dateTime
