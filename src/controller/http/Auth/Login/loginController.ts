@@ -36,7 +36,8 @@ class LoginController {
                         phone_number: modelResult[0].phone_number,
                         userpin: modelResult[0].userpin,
                         verified: modelResult[0].verified,
-                        avatar: modelResult[0].avatar
+                        avatar: modelResult[0].avatar,
+                        userInformation: modelResult[0].user_information
                     }
                     console.log(userData)
                     const secret: any = process.env.JWEB
@@ -62,7 +63,8 @@ class LoginController {
                             phone_number: modelResult[0].phone_number,
                             userpin: modelResult[0].userpin,
                             verified: modelResult[0].verified,
-                            avatar: modelResult[0].avatar
+                            avatar: modelResult[0].avatar,
+                            userInformation: modelResult[0].user_information
                         }
                         console.log(userData)
                         const secret: any = process.env.JWEB

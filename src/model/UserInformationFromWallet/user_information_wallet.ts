@@ -6,7 +6,8 @@ interface DataProps {
     fullname_company: string,
     country: string,
     state: string,
-    zip: string,
+    city: string,
+    zipcode: string,
     address: string,
     created_at: Date,
     updated_at: Date
@@ -27,7 +28,7 @@ class UserInformationWallet {
 
 
     async submitInfo(data1: DataProps, data2: Data2Props): Promise<RowDataPacket[]> {
-        const query1 = "INSERT INTO user_additional_details (userId, fullname_or_company, country, state, zip, address, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE userId = VALUES(userId), fullname_or_company = VALUES(fullname_or_company), country = VALUES(country), state = VALUES(state), zip = VALUES(zip), address = VALUES(address), updated_at = VALUES(updated_at)"
+        const query1 = "INSERT INTO user_additional_details (userId, fullname_or_company, country, state, city, zipcode, address, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE userId = VALUES(userId), fullname_or_company = VALUES(fullname_or_company), country = VALUES(country), state = VALUES(state), zip = VALUES(zip), address = VALUES(address), updated_at = VALUES(updated_at)"
         const params1 = [...Object.values(data1)]
         const query2 = "UPDATE user_account SET user_information = 1, updated_at = ? WHERE id = ?"
         const params2 = [...Object.values(data2)]
