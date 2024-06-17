@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_avatar.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
-import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 import '../../utils/colors/coloors.dart';
 
@@ -13,7 +11,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = calculateContainerWidth(context);
-    final buttonSize = calculateButtonWidth(context);
     final userDetails = Get.find<UserInfoController>();
     final useravatar = Get.put(UserImage());
 
@@ -116,6 +113,8 @@ class ProfileScreen extends StatelessWidget {
                     Image.asset(
                       'lib/assets/edit.png',
                       width: 40,
+                      color: const Color(0xff0a2417).withOpacity(0.9),
+                      colorBlendMode: BlendMode.modulate,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 15.0),
@@ -139,6 +138,8 @@ class ProfileScreen extends StatelessWidget {
                     Image.asset(
                       'lib/assets/setting.png',
                       width: 40,
+                      color: const Color(0xff0a2417).withOpacity(0.9),
+                      colorBlendMode: BlendMode.modulate,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 15),
@@ -162,6 +163,8 @@ class ProfileScreen extends StatelessWidget {
                     Image.asset(
                       'lib/assets/collaboration.png',
                       width: 40,
+                      color: const Color(0xff0a2417).withOpacity(0.9),
+                      colorBlendMode: BlendMode.modulate,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 15),
@@ -185,6 +188,8 @@ class ProfileScreen extends StatelessWidget {
                     Image.asset(
                       'lib/assets/headphone.png',
                       width: 40,
+                      color: const Color(0xff0a2417).withOpacity(0.9),
+                      colorBlendMode: BlendMode.modulate,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 15),
@@ -208,6 +213,8 @@ class ProfileScreen extends StatelessWidget {
                     Image.asset(
                       'lib/assets/notice.png',
                       width: 40,
+                      color: const Color(0xff0a2417).withOpacity(0.9),
+                      colorBlendMode: BlendMode.modulate,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 15),
@@ -231,6 +238,8 @@ class ProfileScreen extends StatelessWidget {
                     Image.asset(
                       'lib/assets/logout.png',
                       width: 40,
+                      color: const Color(0xff0a2417).withOpacity(0.9),
+                      colorBlendMode: BlendMode.modulate,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 15),

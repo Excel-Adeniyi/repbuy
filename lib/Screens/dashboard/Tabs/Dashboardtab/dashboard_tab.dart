@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/gift_card.dart';
 import 'package:shapmanpaypoint/controller/RealTimeServiceController/websocket/utility_status.dart';
-import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_controller.dart';
+import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_and_balance_controller.dart';
 import 'package:shapmanpaypoint/controller/tabcontroller.dart';
 import 'package:shapmanpaypoint/services/GiftCard/giftcard_auth.dart';
 import '../../Header/header.dart';
@@ -28,8 +28,6 @@ class DashboardTab extends StatelessWidget {
           children: [
             DashboardHeader(),
             Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   width: containerWidth,

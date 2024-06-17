@@ -23,7 +23,6 @@ class PaymentVerify {
   final utilityPurchaseSave = UtilityDataSave();
   Future<Response<dynamic>> verifier(
       String? reference, title, accessCode, userid) async {
-    print(title);
     try {
       final data = {
         'reference': reference,
@@ -35,7 +34,6 @@ class PaymentVerify {
       if (response.data['Success'] == true &&
           response.data["message"] == "success") {
         loaderController.isChecker.value = false;
-        print(title);
 
         title != "Data Top Up"
             ? airtimeService.airtimeReq()
@@ -45,7 +43,7 @@ class PaymentVerify {
       return response;
     } on DioException catch (error) {
       loaderController.isVerifyFailed.value = true;
-      print(error);
+
       rethrow;
     }
   }

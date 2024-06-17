@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/controller/currency/currencyController.dart';
-import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
 class AddFundsWithCard extends StatelessWidget {
@@ -20,7 +19,7 @@ class AddFundsWithCard extends StatelessWidget {
         width: calculateContainerWidth(context),
         child: Column(
           children: [
-            Text('User Details'),
+            const Text('User Details'),
             Text('${userDetails.first_name} ${userDetails.last_name}'),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,10 +38,13 @@ class AddFundsWithCard extends StatelessWidget {
                       isExpanded: true,
                       focusColor: const Color(0xfffcdc2a),
                       value: currency.currencyValue.value,
-                      items: currency.currency.map((String item) {
-                        return DropdownMenuItem<String>(
-                            value: item, child: Text(item));
-                      }).toList(),
+                      items: 
+                        currency.currency.entries.map((item) {
+                          return DropdownMenuItem<String>(
+                              value: item.key.toString(),
+                              child: Text(item.value.toString()));
+                        }).toList(),
+                      
                       onChanged: (value) {
                         currency.currencyValue.value = value!;
                       }),
