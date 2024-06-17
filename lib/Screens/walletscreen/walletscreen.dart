@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_controller.dart';
+import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_and_balance_controller.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 

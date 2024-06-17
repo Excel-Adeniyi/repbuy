@@ -15,24 +15,19 @@ class TransactionList {
     connectTimeout: const Duration(minutes: 3),
     receiveTimeout: const Duration(minutes: 3),
   );
-  // final transController = Get.put<TransactionListController>();
   final Dio dio = Dio(options);
   Future<Response<dynamic>> getTransactionList(
       RxList<TransactionListModel> transactionList) async {
     final SecureStorage stora = SecureStorage();
     try {
-      // loaderController.isLoading.value = true;
       final decodedToken = await stora.readSecureData('ResBody');
       Map<String, dynamic> userDecode = json.decode(decodedToken);
       final userId = userDecode['id'].toString();
       final response = await dio.get('/purchase/list/$userId');
-      // print(response.data);
+
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonData = response.data;
-        // print(jsonData);
-        // final transactionListResponse =
-        //     TransactionsListReponse.fromJson(jsonData);
-        // print('TRANSSS $transactionListResponse');
+
         final bool success = jsonData['Success'];
         final List<dynamic> message = jsonData['message'];
 
@@ -40,17 +35,11 @@ class TransactionList {
           final List<TransactionListModel> listResponse = message
               .map((item) => TransactionListModel.fromJson(item))
               .toList();
-          print(listResponse);
           transactionList.value = listResponse;
-          // if (transactionListResponse.successs) {
-          //   transactionList.value =
-          //       transactionListResponse.message as RxList<TransactionListModel>;
         } else {
           Get.snackbar("Empty", "Unable to fetch get undefined",
               backgroundColor: Colors.red, colorText: Colors.white);
         }
-
-        // transController.recentPurchase.value = listResponse;
       }
       return response;
     } catch (error) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:shapmanpaypoint/controller/AdditionalDetailsController/balance_controller.dart';
 import 'package:shapmanpaypoint/controller/Auth/useravatar_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_avatar.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
@@ -16,7 +18,8 @@ class DashboardHeader extends StatelessWidget {
   final MasterController masterController = Get.put(MasterController());
   final _userDetails = Get.find<UserInfoController>();
   final _useravatar = Get.put(UserImage());
-
+  final BalanceController balanceController = Get.put(BalanceController());
+  final NumberFormat numberFormat = NumberFormat('#,##0.00', 'en_us');
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -92,16 +95,20 @@ class DashboardHeader extends StatelessWidget {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
-                              child: Obx(() => Text(
-                                    _controller.hideText == false
-                                        ? "******"
-                                        : 'NGN 10,000',
-                                    style: const TextStyle(
-                                        fontSize: 24,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  )),
+                              child: Obx(() {
+                                final balancee =
+                                    balanceController.numberformat();
+                                return Text(
+                                  _controller.hideText == false
+                                      ? "******"
+                                      : 'NGN $balancee',
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                );
+                              }),
                             ),
                           ),
                           TextButton(

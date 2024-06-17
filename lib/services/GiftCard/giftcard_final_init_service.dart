@@ -32,8 +32,6 @@ class GiftcardFinalService {
     Map<String, dynamic> userDecode = json.decode(decodedToken);
     final userId = userDecode['id'];
     // final datenow = DateTime.now();
-    final String userUniqueId =
-        userId.toString() + DateTime.fromMillisecondsSinceEpoch.toString();
     final String userName =
         userDecode['first_name'] + ' ' + userDecode['last_mame'];
     purchasecontroller.isLoading.value = true;
@@ -180,7 +178,7 @@ class GiftcardFinalService {
         Get.toNamed('/dashboard');
         rethrow;
       }
-      print('RUFUS');
+      // print('RUFUS');
       purchasecontroller.isLoading.value = false;
       purchasecontroller.dataRx.value = false;
       otpController.pinController.value = '';

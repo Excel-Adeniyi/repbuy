@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_controller.dart';
+import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_and_balance_controller.dart';
 import 'package:shapmanpaypoint/services/TransactionList/transaction_list.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 import 'package:web_socket_channel/io.dart';
