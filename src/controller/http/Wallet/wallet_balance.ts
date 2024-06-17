@@ -65,8 +65,8 @@ class WalletController {
                     const wallet = {
                         userId,
                         current_balance,
-                        last_deposit_amount: responseData.data.amount,
-                        total_overall_deposit: total_overall_deposit,
+                        last_deposit_amount: responseData.data.amount/100,
+                        total_overall_deposit,
                         last_funded: last_funded_dateTime,
                         channel: responseData.data.channel,
                         created_at: create_at_datetTime
@@ -75,7 +75,7 @@ class WalletController {
                         operatorId: responseData.data.id,
 
                         //last_deposti_amount
-                        amount: responseData.data.amount,
+                        amount: (responseData.data.amount/100).toString(),
 
                         //currency_type
                         countryCode: responseData.data.currency,

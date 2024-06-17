@@ -44,6 +44,7 @@ import translistcontroller from "./TransactionList/transaction_list_routes";
 import giftcardpurchasebeforePayment from "./OrderGiftCards/giftcard_purchase_first_save_to_db";
 import walletController from "./Wallet/wallet_routes";
 import user_additional_details_controller from "./AddtionalUserDetails/additional_user_details";
+import current_balance_wallet from "./Wallet/wallet_balance";
 
 
 let router = Router();
@@ -92,7 +93,7 @@ router.post("/orderGiftcard", JToken, (req, res) => {
 router.get("/getGiftCardProducts", JToken, (req, res) => {
   getallgiftcardProducts.GetAllGiftCardProducts(req, res)
 })
-router.post('/giftcard/save/bpayment', (req,res) => giftcardpurchasebeforePayment.cardPurchase(req, res))
+router.post('/giftcard/save/bpayment', (req, res) => giftcardpurchasebeforePayment.cardPurchase(req, res))
 
 
 
@@ -112,7 +113,7 @@ router.post('/verifyPayment', (req, res) => verifypay.verifyPayment(req, res))
 
 
 //############ Get Single Purchased Data ###############
-router.get("/purchase/data/:type/:ntransactionId/:userId", (req, res)=> {
+router.get("/purchase/data/:type/:ntransactionId/:userId", (req, res) => {
   singleDataController.provideSingleData(req, res)
 })
 router.get('/purchase/list/:userId', (req, res) => {
@@ -129,13 +130,17 @@ router.post("/store/token", (req, res) => {
 })
 
 //########## Wallet ###############
-router.post("/wallet/funding", (req, res) =>{
+router.post("/wallet/funding", (req, res) => {
   walletController.verifyPayment(req, res)
 })
+
+//######## Wallet Balance ########
+router.get("/wallet/balance/:userId", (req, res) => { current_balance_wallet.walletBalance(req, res) })
 
 //######## ADDITONAL DETAILS ########
 router.post("/user/additional/details", (req, res) => {
   user_additional_details_controller.addingDetails(req, res)
 })
+
 
 export { router };

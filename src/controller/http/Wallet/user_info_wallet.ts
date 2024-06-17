@@ -49,6 +49,7 @@ class UserAdditionDetailsController {
                 updated_at: updated_at_dateTime
 
             }
+            console.log("FROM WALLET INFO",userPayload)
             const responseData: any = await this.model.submitInfo(userPayload, payload)
             if(responseData.affectedRows !== 0){
                 res.status(200).json({Success: true, message: "User Record Saved Successfully"})
