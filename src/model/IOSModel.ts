@@ -20,10 +20,10 @@ class IOSModel {
         (error: QueryError | null, results: RowDataPacket[]) => {
           if (error) {
             reject(error);
-            console.log("Error Found!", error);
+            //console.log("Error Found!", error);
           } else {
             resolve(results);
-            console.log("Response from db", results);
+            //console.log("Response from db", results);
           }
         }
       );

@@ -6,14 +6,14 @@ async function JToken(req: Request, res: Response, next: NextFunction) {
     try {
         const secret: any = process.env.JWEB
         const verifiedToken = jwt.verify(jtoken, secret);
-        console.log(verifiedToken)
+        //console.log(verifiedToken)
         if (jtoken) {
             next()
         } else {
             res.status(401).json({ success: false, message: "Unauthorized Access" })
         }
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).json({ error: "Unauthorized Access" })
         
     }

@@ -14,7 +14,7 @@ class GiftCardPurchaseBeforePayment {
 
     async cardPurchase(req: Request, res: Response): Promise<void> {
         const payload = req.body
-        console.log(payload)
+        //console.log(payload)
         try {
             const data1 = {
                 operatorId: payload.productId, amount: payload.amount, countryCode: payload.recipientPhoneDetails.countryCode, number: payload.recipientPhoneDetails.phoneNumber, userId: payload.userId, ntransactionId: payload.customIdentifier, purchase_type: payload.product_type
@@ -35,7 +35,7 @@ class GiftCardPurchaseBeforePayment {
             }
 
         } catch (error: any) {
-            console.log(error)
+            //console.log(error)
             res.status(500).json({ Success: false, message: "Internal Server Error" })
 
 

@@ -14,17 +14,17 @@ class LoginController {
 
     async loginAccount(req: Request, res: Response): Promise<void> {
         const data = req.body
-        console.log(data)
+        //console.log(data)
 
 
         const dataRs = data?.userdata
-        console.log(dataRs)
+        //console.log(dataRs)
 
         const email = data.email;
         let resData: any[] = []
         try {
             if (typeof dataRs === 'string' && /^\d+$/.test(dataRs)) {
-                console.log('HI', data.userdata);
+                //console.log('HI', data.userdata);
                 const modelResult = await this.model.loginMobileData(data)
                 if (modelResult.length > 0) {
                     const userData = {
@@ -39,7 +39,7 @@ class LoginController {
                         avatar: modelResult[0].avatar,
                         userInformation: modelResult[0].user_information
                     }
-                    console.log(userData)
+                    //console.log(userData)
                     const secret: any = process.env.JWEB
                     const token = jwt.sign(userData, secret, { expiresIn: '1h' })
                     // const results = await GetAuthTopUP(req, res)
@@ -49,10 +49,10 @@ class LoginController {
                 }
                 res.status(200).json(resData)
             } else {
-                console.log('Invalid dataRs:', dataRs);
+                //console.log('Invalid dataRs:', dataRs);
                 if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dataRs)) {
                     const modelResult = await this.model.loginData(data)
-                    console.log(modelResult)
+                    //console.log(modelResult)
                     if (modelResult.length > 0) {
                         const userData = {
                             id: modelResult[0].id,
@@ -66,7 +66,7 @@ class LoginController {
                             avatar: modelResult[0].avatar,
                             userInformation: modelResult[0].user_information
                         }
-                        console.log(userData)
+                        //console.log(userData)
                         const secret: any = process.env.JWEB
                         const token = jwt.sign(userData, secret, { expiresIn: '1h' })
                         // const results = await GetAuthTopUP(req, res)
@@ -81,7 +81,7 @@ class LoginController {
             }
 
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             res.status(500).json("Internal Server Error")
         }
     }

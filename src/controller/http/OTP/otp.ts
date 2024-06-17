@@ -21,7 +21,7 @@ class OTPClass {
 
     try {
       const { email } = req.body
-      // console.log(saleDetails)
+      // //console.log(saleDetails)
       const digits = ValueDigit();
       const timeData = new Date()
       const userData = await this.otpModel.GetID(email)
@@ -34,7 +34,7 @@ class OTPClass {
 
       const currentTime = new Date().getTime()
       if (otpCheck != null && otpCheck != undefined && otpCheck.length > 0) {
-        console.log(otpCheck)
+        //console.log(otpCheck)
         otpCheck.forEach(async (item) => {
           const otpTime = item.time
           const toUpdatedTime = new Date(otpTime.getTime() + (1 * 60 * 60 * 1000))
@@ -42,7 +42,7 @@ class OTPClass {
           const currentDate = new Date().toLocaleDateString()
           const verifyTime = new Date(toUpdatedTime.getTime() + (2 * 60 * 1000))
           const correctedTime = verifyTime.getTime()
-          console.log({ verifyTime, currentTime })
+          //console.log({ verifyTime, currentTime })
           if (otpDate == currentDate) {
 
             if (currentTime >= correctedTime) {
@@ -72,7 +72,7 @@ class OTPClass {
                     html: `<body style='justify-content: center; padding-left: 15%; padding-right: 15%; padding-top: 10%;'><main style='display: flex; justify-content: center; text-align: center'><h1 style='color: purple; text-align: center'>Next Paypoint</h1></main><div><h4 style='text-align:center'>Email verification</h4><h5>Your OTP for Email Verification</h5><hr /><h3 style='color: aquamarine; font-weight: bold; background-color:rgb(53, 52, 51); text-align: center'>${digits}</h3><h4>kindly contact us if you have a complaint: <a href='mailto:support@nextpaypoint.com'>support@nextpaypoint.com</a></h6><h4>Regards,</h6><h4>Next Paypoint</h4></div></body>`, // html body
                   });
 
-                  console.log("Message sent: %s", info.messageId);
+                  //console.log("Message sent: %s", info.messageId);
 
                   // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
                 }
@@ -110,7 +110,7 @@ class OTPClass {
                   html: `<body style='justify-content: center; padding-left: 15%; padding-right: 15%; padding-top: 10%;'><main style='display: flex; justify-content: center; text-align: center'><h1 style='color: purple; text-align: center'>Next Paypoint</h1></main><div><h4 style='text-align:center'>Email verification</h4><h5>Your OTP for Email Verification</h5><hr /><h3 style='color: aquamarine; font-weight: bold; background-color:rgb(53, 52, 51); text-align: center'>${digits}</h3><h4>kindly contact us if you have a complaint: <a href='mailto:support@nextpaypoint.com'>support@nextpaypoint.com</a></h6><h4>Regards,</h6><h4>Next Paypoint</h4></div></body>`, // html body
                 });
 
-                console.log("Message sent: %s", info.messageId);
+                //console.log("Message sent: %s", info.messageId);
 
                 // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
               }
@@ -124,7 +124,7 @@ class OTPClass {
       } else {
         const storeOTP = await this.otpModel.OTPObj(otp_data)
         if (storeOTP !== undefined && storeOTP !== null) {
-          console.log()
+          //console.log()
           const transporter = nodemailer.createTransport({
             host: "mail.nextpaypoint.com",
             port: 465,
@@ -146,7 +146,7 @@ class OTPClass {
               html: `<body style='justify-content: center; padding-left: 15%; padding-right: 15%; padding-top: 10%;'><main style='display: flex; justify-content: center; text-align: center'><h1 style='color: purple; text-align: center'>Next Paypoint</h1></main><div><h4 style='text-align:center'>Email verification</h4><h5>Your OTP for Email Verification</h5><hr /><h3 style='color: aquamarine; font-weight: bold; background-color:rgb(53, 52, 51); text-align: center'>${digits}</h3><h4>kindly contact us if you have a complaint: <a href='mailto:support@nextpaypoint.com'>support@nextpaypoint.com</a></h6><h4>Regards,</h6><h4>Next Paypoint</h4></div></body>`, // html body
             });
 
-            console.log("Message sent: %s", info.messageId);
+            //console.log("Message sent: %s", info.messageId);
 
             // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
           }
@@ -158,7 +158,7 @@ class OTPClass {
       }
 
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       res.status(500).json("Internal Server Error")
     }
 
@@ -169,9 +169,9 @@ class OTPClass {
 
 
       const userData = await this.otpModel.GetID(email)
-      console.log(userData)
+      //console.log(userData)
       const userId = userData[0].id
-      console.log(userId)
+      //console.log(userId)
       const data = {
         otp, email, userId
       }
@@ -179,7 +179,7 @@ class OTPClass {
 
       const currentTime = new Date().getTime()
       if (otpCheck != null && otpCheck != undefined && otpCheck.length > 0 && otpCheck[0].otp == otp) {
-        console.log(otpCheck)
+        //console.log(otpCheck)
         otpCheck.forEach(async (item) => {
           const otpTime = item.time
           const toUpdatedTime = new Date(otpTime.getTime() + (1 * 60 * 60 * 1000))
@@ -187,9 +187,9 @@ class OTPClass {
           const currentDate = new Date().toLocaleDateString()
           const verifyTime = new Date(toUpdatedTime.getTime() + ((60 * 60 * 1000) + (15 * 60 * 1000)))
           const correctedTime = verifyTime.getTime()
-          console.log({ verifyTime, currentTime })
+          //console.log({ verifyTime, currentTime })
           if (otpDate == currentDate) {
-            console.log({ otpDate, currentDate })
+            //console.log({ otpDate, currentDate })
             if (currentTime <= correctedTime) {
 
               const response: any = await this.otpModel.VerifyEmail(userId)
@@ -201,7 +201,7 @@ class OTPClass {
               }
 
             } else {
-              console.log("HI", { currentTime, correctedTime })
+              //console.log("HI", { currentTime, correctedTime })
               res.status(500).json({ success: false, message: "OTP Expired" })
             }
           } else {
@@ -221,7 +221,7 @@ class OTPClass {
    
       const userData = await this.otpModel.GetID(email)
       if (userData[0].id !== undefined) {
-        // console.log(data)
+        // //console.log(data)
         const user_id = userData[0].id
         const data = {
           user_id,

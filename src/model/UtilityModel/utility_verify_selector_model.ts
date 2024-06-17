@@ -12,7 +12,7 @@ class UtilityStatusSelector {
         return new Promise((resolve, reject) => {
             this.pool.query(query, ["pending"], (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
-                    console.log(error)
+                    //console.log(error)
                     reject(error)
                 } else {
                     resolve(results)
@@ -25,7 +25,7 @@ class UtilityStatusSelector {
         return new Promise((resolve, reject) => {
             this.pool.query(query, ["successful", 1, tid, id], (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
-                    console.log(error)
+                    //console.log(error)
                     reject(error)
                 } else {
                     resolve(results)

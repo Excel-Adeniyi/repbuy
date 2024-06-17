@@ -28,7 +28,7 @@ class UserAdditionDetailsController {
 
     async  addingDetails(req: Request, res: Response): Promise<void>{
         const userDetails = req.body
-        console.log(userDetails)
+        //console.log(userDetails)
         const updated_at_dateTime = new Date()
         const created_at_dateTime = new Date()
         try {
@@ -49,7 +49,7 @@ class UserAdditionDetailsController {
                 updated_at: updated_at_dateTime
 
             }
-            console.log("FROM WALLET INFO",userPayload)
+            //console.log("FROM WALLET INFO",userPayload)
             const responseData: any = await this.model.submitInfo(userPayload, payload)
             if(responseData.affectedRows !== 0){
                 res.status(200).json({Success: true, message: "User Record Saved Successfully"})
@@ -57,7 +57,7 @@ class UserAdditionDetailsController {
                 res.status(503).json({Success: false, message: "Record not Saved"})
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             res.status(500).json({Success: false, message: "Internal Server Error"})
         }
     }

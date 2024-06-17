@@ -11,16 +11,16 @@ class User_detailsMODEL{
 
     async  getUserDetails(userID: string): Promise<RowDataPacket[]>{
         const sql = "SELECT email from  user_account WHERE id=?" ;
-        console.log(userID)
+        //console.log(userID)
         const dataReq = [userID]
         return new Promise((resolve, reject) => {
             this.pool.query(sql, dataReq, (error: QueryError | null, results: RowDataPacket[]) => {
                 if(error){
-                    console.log("DB error in getting error", error)
+                    //console.log("DB error in getting error", error)
                     reject(error)
                 }else{
                     resolve(results);
-                    console.log("Succefully Fetched details")
+                    //console.log("Succefully Fetched details")
                 }
             })
         })

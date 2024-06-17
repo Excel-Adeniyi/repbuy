@@ -13,12 +13,12 @@ const urdata = new UtilityRequestData(pools);
 
 
 function startInterval(server: any) {
-    console.log("INIT INTERVAL")
+    //console.log("INIT INTERVAL")
   
     const verifyPaymentInstance = new VerifyPayment(model, urdata, server);
     const IntervalsInMilliseconds = 100 * 1000;
     setInterval(async() => {
-        console.log("Interval callback called at startInterval", new Date());
+        //console.log("Interval callback called at startInterval", new Date());
 
         // Call verify method
         try {

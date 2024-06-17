@@ -17,10 +17,10 @@ class CurrentPurchaseModel {
                 query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                     if(error){
                         reject(error);
-                        console.log("Error Found in GetSavedIOSModel", error.message);
+                        //console.log("Error Found in GetSavedIOSModel", error.message);
                     }else{
                         resolve(results)
-                        // console.log(results)
+                        // //console.log(results)
                     }
                 }
             )
@@ -34,10 +34,10 @@ class CurrentPurchaseModel {
                 query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                     if(error){
                         reject(error);
-                        console.log("Error Found in InsertPaymentTableModel", error.message);
+                        //console.log("Error Found in InsertPaymentTableModel", error.message);
                     }else{
                         resolve(results)
-                        console.log(results)
+                        //console.log(results)
                     }
                 }
             )
@@ -51,7 +51,7 @@ class CurrentPurchaseModel {
                 query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                     if(error){
                         reject(error)
-                        console.log("Error FOund in UpdatePaymentTable", error.message)
+                        //console.log("Error FOund in UpdatePaymentTable", error.message)
                     }else{
                         resolve(results)
                     }

@@ -22,7 +22,7 @@ class TransactionListController {
             }
 
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             res.status(503).json({ Success: false, message: "Unable to provide list" })
         }
     }

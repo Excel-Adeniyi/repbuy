@@ -13,13 +13,13 @@ class GetSavedIOSController {
       const records: any = await this.model.getSavedIOSRecords();
       if (records.length !== 0){
         const jsonRecord = JSON.parse(records[0].extras)
-        console.log()
+        //console.log()
       res.json({success: true, message: jsonRecord});
       }else{
         res.json({success: true, message: "Error Fetching Data"});
       }
     } catch (error) {
-      console.log("Error from SavedIOSController", error);
+      //console.log("Error from SavedIOSController", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }

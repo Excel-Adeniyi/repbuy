@@ -15,7 +15,7 @@ class LoginModel {
         email: data.userdata,
         password: data.password
        }
-       console.log(dataN)
+       //console.log(dataN)
         return  new Promise((resolve, reject) =>{
             this.pool.query(
                 query, [...Object.values(dataN)], (error: QueryError | null, results: RowDataPacket[]) => {
@@ -31,12 +31,12 @@ class LoginModel {
     
     async loginMobileData(data: any): Promise<RowDataPacket[]>{
         const query = "SELECT id, first_name, last_name, email, country, phone_number, avatar, verified, userpin, user_information FROM user_account WHERE phone_number = ? AND password = ?"
-        console.log(data)
+        //console.log(data)
        const dataN = {
         phone_number: data.userdata,
         password: data.password
        }
-    //    console.log(dataN)
+    //    //console.log(dataN)
         return  new Promise((resolve, reject) =>{
             this.pool.query(
                 query, [...Object.values(dataN)], (error: QueryError | null, results: RowDataPacket[]) => {

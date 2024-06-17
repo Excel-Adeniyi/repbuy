@@ -20,9 +20,9 @@ app.use(cookiePaser());
 app.use(SessionData)
 
 startInterval(websocket)
-// console.log("HI")
+// //console.log("HI")
 app.use(express.json())
 
 app.use('/', router)
-server.listen(PORT, () => { console.log(`App Listening on ${PORT}`) })
+server.listen(PORT, () => { //console.log(`App Listening on ${PORT}`) })
 

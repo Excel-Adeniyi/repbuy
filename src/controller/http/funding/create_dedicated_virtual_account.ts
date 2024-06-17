@@ -9,7 +9,7 @@ class CreateDedicatedAccount {
         const axiosInstance = axios.create()
         const paysecret = process.env.PAY_SECRET
         try {
-            console.log(paysecret)
+            //console.log(paysecret)
             
             axiosInstance.interceptors.request.use(
                 function (config) {
@@ -37,20 +37,20 @@ class CreateDedicatedAccount {
             if(response)
             res.status(200).json({Success: true, response})
 
-            console.log(response)
+            //console.log(response)
         } catch (error: any) {
-            console.log(error.message)
+            //console.log(error.message)
             if( axios.isAxiosError(error)){
                const axiosError = error as AxiosError
 
                if(axiosError.request){
-                console.log( "Server responded with non-2xx status (408):", axiosError.request)
+                //console.log( "Server responded with non-2xx status (408):", axiosError.request)
                 res.status(408).json({Success: false, message: axiosError.request})
                } else if(axiosError.response){
-                console.log("Server responded with non-2xx status (503):", axiosError.response)
+                //console.log("Server responded with non-2xx status (503):", axiosError.response)
                 res.status(503).json({Success: false, message: axiosError.response})
                }else{
-                console.log("Server responded with non-2xx status (500):", error)
+                //console.log("Server responded with non-2xx status (500):", error)
                 res.status(500).json({Success:false, message: error.message})
                }
             }

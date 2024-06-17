@@ -12,9 +12,9 @@ class GetAirtimeController {
     }
     async GetAirtime(req: Request, res: Response): Promise<void> {
         try {
-            console.log("HLLL")
+            //console.log("HLLL")
             let airtimeData = req.body
-            console.log(airtimeData)
+            //console.log(airtimeData)
             const data = {
                 userId: airtimeData.userId,
             }
@@ -24,10 +24,10 @@ class GetAirtimeController {
                 recipientPhone: { countryCode: airtimeData.recipientPhone.countryCode, number: airtimeData.recipientPhone.number }
             }
             const successdata: any = await this.model.CHECKSuccessful(data)
-            console.log(successdata)
+            //console.log(successdata)
             if(successdata.length > 0 &&  successdata[0].successful == 1) {
                 const cachedD = myCache.get("AUTH_DATA_KEY");
-                console.log("CACHE", cachedD);
+                //console.log("CACHE", cachedD);
                 const axiosInstance = axios.create();
                 const response: AxiosResponse = await axiosInstance.post('https://topups-sandbox.reloadly.com/topups-async ', dataReq,
                     {
@@ -38,7 +38,7 @@ class GetAirtimeController {
                     }
                 )
                 const responseData = response.data
-                console.log(responseData)
+                //console.log(responseData)
                 if (responseData.transactionId != undefined && responseData.transactionId != null) {
                     const data = {
                         transactionId: responseData.transactionId,
@@ -55,25 +55,25 @@ class GetAirtimeController {
             
 
         } catch (error: any) {
-            // console.log(error)
+            // //console.log(error)
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError
 
                 if (axiosError.response) {
 
                     const responseData = axiosError.response.data as ({ message: string })
-                    console.log('Server response with a non-2xx status', responseData.message)
+                    //console.log('Server response with a non-2xx status', responseData.message)
                     res.status(500).json({ axiosError: responseData.message })
                 } else if (axiosError.request) {
-                    // console.log('Server reequest Error ', axiosError.request)
+                    // //console.log('Server reequest Error ', axiosError.request)
                     res.status(500).json({ axiosError: 'Server Error 500' })
                 } else {
-                    console.log('Server with status code 500', axiosError.message)
+                    //console.log('Server with status code 500', axiosError.message)
                     res.status(500).json({ axiosError: 'Internal Server error' })
                 }
             }
             else {
-                console.log('Internal server error', (error as Error).message)
+                //console.log('Internal server error', (error as Error).message)
                 res.status(500).json({ error: 'Internal server error' })
             }
         }
@@ -82,13 +82,13 @@ class GetAirtimeController {
         try {
 
             let airtimeData = req.body
-            console.log(airtimeData)
+            //console.log(airtimeData)
             const dataOTP = {
                 otp: airtimeData.otp,
                 userId: airtimeData.userId
             }
             const modelResult = await this.model.CHECKOTP(dataOTP)
-            console.log("VERIFY THE OTP", modelResult)
+            //console.log("VERIFY THE OTP", modelResult)
             if (modelResult !== null && modelResult !== undefined && modelResult.length > 0) {
                 const otpTime = modelResult[0].time
                 const currentTime = new Date().getTime()
@@ -100,7 +100,7 @@ class GetAirtimeController {
                 if (otpDate === currentDate) {
                     if (currentTime < correctedTime) {
                         const cachedD = myCache.get("AUTH_DATA_KEY");
-                        console.log("CACHE", cachedD);
+                        //console.log("CACHE", cachedD);
                         const data = {
                             userId: airtimeData.userId
                         }
@@ -114,18 +114,18 @@ class GetAirtimeController {
                 }
             } else {
                 const cachedD = myCache.get("AUTH_DATA_KEY");
-                console.log('CHACHE', cachedD)
+                //console.log('CHACHE', cachedD)
                 const data = {
                     userId: airtimeData.userId
                 }
                 const updatePurchaseTable = await this.model.GetPurchaseModel(data)
-                // console.log(updatePurchaseTable)
+                // //console.log(updatePurchaseTable)
                 if (updatePurchaseTable !== undefined && updatePurchaseTable !== null) {
                     res.status(200).json({ Success: true, message: "OTP Valid" })
                 }
             }
         } catch (error: any) {
-            console.log('Internal server error', (error as Error).message)
+            //console.log('Internal server error', (error as Error).message)
             res.status(500).json({ error: 'Internal server error' })
 
         }

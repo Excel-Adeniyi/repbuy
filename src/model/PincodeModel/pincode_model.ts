@@ -20,7 +20,7 @@ class Pincode {
             this.pool.query(query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
                     reject(error);
-                    console.log("Error Found in GetSavedIOSModel", error.message);
+                    //console.log("Error Found in GetSavedIOSModel", error.message);
                 } else {
                     resolve(results)
                 }

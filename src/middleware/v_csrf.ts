@@ -5,12 +5,12 @@ const tokens = new csrf()
 async function VerifyXTOKEN(req: Request, res: Response, next: NextFunction) {
     let { x_csrf } = req.body
     try {
-        console.log("XRF", x_csrf)
+        //console.log("XRF", x_csrf)
         if (x_csrf !== undefined) {
             const session_key: string = req.session.csrfSecret as string
-            console.log("SESSION KEY:",req.session.csrfSecret)
+            //console.log("SESSION KEY:",req.session.csrfSecret)
             const verified = tokens.verify(session_key, x_csrf)
-            console.log('VERRI:', verified)
+            //console.log('VERRI:', verified)
             if (!verified) {
                 res.status(401).json({ success: false, message: "Csrf cannpt be verified" })
             } else {

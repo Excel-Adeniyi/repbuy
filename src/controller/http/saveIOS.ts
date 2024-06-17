@@ -13,7 +13,7 @@ class IOSController {
   async getAllRecords(req: Request, res: Response): Promise<void> {
     try {
       const authData = myCache.get("AUTH_DATA_KEY");
-      console.log("UTH", authData);
+      // //console.log("UTH", authData);
       const response: AxiosResponse = await axios.get(
         "https://topups-sandbox.reloadly.com/countries",
         {

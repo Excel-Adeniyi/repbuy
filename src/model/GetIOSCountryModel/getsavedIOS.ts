@@ -15,10 +15,10 @@ class GETSavedIOSModel {
         (error: QueryError | null, results: RowDataPacket[]) => {
           if (error) {
             reject(error);
-            console.log("Error Found in GetSavedIOSModel", error.message);
+            //console.log("Error Found in GetSavedIOSModel", error.message);
           } else {
             resolve(results);
-            console.log("Successfully fetched data");
+            //console.log("Successfully fetched data");
           }
         }
       );

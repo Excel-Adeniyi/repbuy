@@ -12,9 +12,9 @@ class GetDataController {
     }
     async GetData(req: Request, res: Response): Promise<void> {
         try {
-            console.log("HLLL")
+            //console.log("HLLL")
             let airtimeData = req.body
-            console.log(airtimeData)
+            //console.log(airtimeData)
             const data = {
                 userId: airtimeData.userId,
             }
@@ -24,10 +24,10 @@ class GetDataController {
                 recipientPhone: { countryCode: airtimeData.recipientPhone.countryCode, number: airtimeData.recipientPhone.number }
             }
             const successdata: any = await this.model.CHECKSuccessful(data)
-            console.log("HECHECK",successdata)
+            //console.log("HECHECK",successdata)
             if(airtimeData.otp !== undefined) {
                 const cachedD = myCache.get("AUTH_DATA_KEY");
-                console.log("CACHE", cachedD);
+                //console.log("CACHE", cachedD);
                 const axiosInstance = axios.create();
                 const response: AxiosResponse = await axiosInstance.post('https://topups-sandbox.reloadly.com/topups-async ', dataReq,
                     {
@@ -38,7 +38,7 @@ class GetDataController {
                     }
                 )
                 const responseData = response.data
-                console.log(responseData)
+                //console.log(responseData)
                 if (responseData.transactionId != undefined && responseData.transactionId != null) {
                     const data = {
                         transactionId: responseData.transactionId,
@@ -55,25 +55,25 @@ class GetDataController {
             
 
         } catch (error: any) {
-            // console.log(error)
+            // //console.log(error)
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError
 
                 if (axiosError.response) {
 
                     const responseData = axiosError.response.data as ({ message: string })
-                    console.log('Server response with a non-2xx status', responseData.message)
+                    //console.log('Server response with a non-2xx status', responseData.message)
                     res.status(500).json({ axiosError: responseData.message })
                 } else if (axiosError.request) {
-                    // console.log('Server reequest Error ', axiosError.request)
+                    // //console.log('Server reequest Error ', axiosError.request)
                     res.status(500).json({ axiosError: 'Server Error 500' })
                 } else {
-                    console.log('Server with status code 500', axiosError.message)
+                    //console.log('Server with status code 500', axiosError.message)
                     res.status(500).json({ axiosError: 'Internal Server error' })
                 }
             }
             else {
-                console.log('Internal server error', (error as Error).message)
+                //console.log('Internal server error', (error as Error).message)
                 res.status(500).json({ error: 'Internal server error' })
             }
         }

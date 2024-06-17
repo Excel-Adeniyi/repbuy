@@ -40,7 +40,7 @@ class WalletModel {
     async saveToWallet(currentParams: propsTypes): Promise<RowDataPacket[]> {
         const { wallet, currentPurchase } = currentParams
 
-        console.log("FROM PAYSTACK", currentParams)
+        //console.log("FROM PAYSTACK", currentParams)
         const query1 = "INSERT INTO user_wallet_balance (userId, current_balance, last_deposit_amount, total_overall_deposit,  last_funded, channel, created_at) VALUES (?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE userId = VALUES(userId), current_balance = VALUES(current_balance), last_deposit_amount = VALUES(last_deposit_amount), total_overall_deposit = VALUES(total_overall_deposit),last_funded = VALUES(last_funded), channel = (channel)"
         const params1 = [...Object.values(wallet)]
 
@@ -58,12 +58,12 @@ class WalletModel {
             await connection.beginTransaction()
             const [insertQuery1]: any = await connection.query(query1, params1)
             //check if the update or insert was successful
-            // console.log(insertQuery1)
+            // //console.log(insertQuery1)
             if (insertQuery1.affectedRows === 0) {
                 throw new Error('Unable to save data');
             }
             const [checkRow]: any = await connection.query(query4, params4)
-            // console.log("CHECK ROW", checkRow)
+            // //console.log("CHECK ROW", checkRow)
             if (checkRow[0].count === 0) {
                 const [insertQuery2]: any = await connection.query(query2, params2)
                 //check if the insert into the current_purchase was successful
@@ -81,7 +81,7 @@ class WalletModel {
             return rows as RowDataPacket[]
         } catch (error) {
             await connection.rollback()
-            // console.log(error)
+            // //console.log(error)
             throw error
         } finally {
             await connection.release()
