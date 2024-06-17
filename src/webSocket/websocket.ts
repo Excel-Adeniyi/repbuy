@@ -14,29 +14,29 @@ class WebSocketClass {
 
 
     constructor(server: http.Server) {
-        console.log("CHECKING VITALS 1")
+        //console.log("CHECKING VITALS 1")
         this.wss = new WebSocketServer({ noServer: true });
 
         // Correctly scope 'this' within the event handler
-        console.log("CHECKING VITALS 2")
+        //console.log("CHECKING VITALS 2")
         server.on('upgrade', (request, socket, head) => {
             this.wss.handleUpgrade(request, socket, head, (ws) => {
-                console.log("SOMETHING")
+                //console.log("SOMETHING")
                 this.wss.emit('connection', ws, request);
             });
         });
-        console.log("CHECKING VITALS 3")
+        //console.log("CHECKING VITALS 3")
         this.setupWebsocket();
-        console.log("CHECKING VITALS 4")
+        //console.log("CHECKING VITALS 4")
     }
 
     private setupWebsocket() {
-        console.log("STARtING WEBSOCKET")
+        //console.log("STARtING WEBSOCKET")
         this.wss.on('connection', (ws: WebSocket) => {
             ws.on("message", (message: any) => {
                 try {
                     const data = JSON.parse(message)
-                    console.log("WEBSOKETE", data)
+                    //console.log("WEBSOKETE", data)
                     const userId: any = data.userId
                     websocketContext.users[userId] = ws
                 }
@@ -59,23 +59,23 @@ class WebSocketClass {
         for (const userId in websocketContext.users) {
             if (websocketContext.users[userId] === ws) {
                 delete websocketContext.users[userId];
-                console.log(`User ${userId} disconnected`);
+                //console.log(`User ${userId} disconnected`);
                 break;
             }
         }
     }
     public sendToUser(userId: any, message: any): void {
-        console.log("HERE")
+        //console.log("HERE")
         const userWs = websocketContext.users[userId]
-        console.log("USER INFO DATA", userWs)
+        //console.log("USER INFO DATA", userWs)
 
         if (userWs && userWs.readyState === WebSocket.OPEN) {
-            console.log("MESSAGE DATA", message)
+            //console.log("MESSAGE DATA", message)
             const messageData = JSON.stringify(message)
             userWs.send(messageData)
         } else {
             
-            console.log(`User ${userId} is not connected`);
+            //console.log(`User ${userId} is not connected`);
         }
     }
 }

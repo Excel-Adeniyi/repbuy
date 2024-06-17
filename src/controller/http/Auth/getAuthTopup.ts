@@ -8,11 +8,11 @@ import isEmpty from "../../../helper/objectChecker";
 dotenv.config();
 
 async function GetAuthTopUP(req: Request, res: Response) {
-  console.log("Handling endpoint request at", new Date());
+  //console.log("Handling endpoint request at", new Date());
 
   try {
     const CachedData = myCache.get("AUTH_DATA_KEY");
-    console.log(CachedData)
+    //console.log(CachedData)
     let reqbody;
 
     reqbody = {
@@ -21,7 +21,7 @@ async function GetAuthTopUP(req: Request, res: Response) {
       grant_type: process.env.GRANTTYPE,
       audience: process.env.AUDIENCETS,
     };
-    console.log(reqbody)
+    //console.log(reqbody)
     const cacheD: any = CachedData
     if (cacheD !== undefined) {
       res.status(200).json("successfully")
@@ -33,7 +33,7 @@ async function GetAuthTopUP(req: Request, res: Response) {
         reqbody
       );
       const responseData = response.data;
-      console.log("SS", responseData.access_token)
+      //console.log("SS", responseData.access_token)
       myCache.set("AUTH_DATA_KEY", responseData.access_token);
       res.status(200).json("successfully")
       return ({ success: responseData.access_token });
@@ -43,7 +43,7 @@ async function GetAuthTopUP(req: Request, res: Response) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
       if (axiosError.response) {
-        console.log(
+        //console.log(
           "Server responded with non-2xx status:",
           axiosError.response
         );
@@ -51,10 +51,10 @@ async function GetAuthTopUP(req: Request, res: Response) {
           .status(500)
           .json({ axiosError: "Server error" });
       } else if (axiosError.request) {
-        console.log("No response from server");
+        //console.log("No response from server");
         if (res) res.status(500).json({ axiosError: "error code 500" });
       } else {
-        console.log("Server error:", axiosError.message);
+        //console.log("Server error:", axiosError.message);
         if (res) res.status(500).json({ axiosError: "Internal server error" });
       }
     }
@@ -63,7 +63,7 @@ async function GetAuthTopUP(req: Request, res: Response) {
 
 const IntervalsInMilliseconds = 1800 * 1000;
 setInterval(async () => {
-  console.log("Interval callback called at", new Date());
+  //console.log("Interval callback called at", new Date());
 
   // Call GetAuth function without passing req, res
   try {

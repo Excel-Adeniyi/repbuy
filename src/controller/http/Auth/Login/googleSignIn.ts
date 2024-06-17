@@ -35,7 +35,7 @@ class GoogleSignInController {
                     email: checkInfo[0]?.email,
                     phone_number: checkInfo[0]?.phone_number
                 }
-                    console.log(userData)
+                    //console.log(userData)
                     const secret: any = process.env.JWEB
                     const token = jwt.sign(userData, secret, { expiresIn: '1h' })
                 res.status(200).json({ success: false, message: token });
@@ -44,7 +44,7 @@ class GoogleSignInController {
 
                     if (checkInfo[0].email.toLowerCase() !== email.toLowerCase()) {
                         const modelRes = await this.model.GoogleSignInModel(data)
-                        console.log(modelRes)
+                        //console.log(modelRes)
                         const userData = {
                             id: checkInfo[0].id,
                             first_name: checkInfo[0].first_name,
@@ -53,14 +53,14 @@ class GoogleSignInController {
                             email: checkInfo[0].email,
                             phone_number: checkInfo[0].phone_number
                         }
-                            console.log(userData)
+                            //console.log(userData)
                             const secret: any = process.env.JWEB
                             const token = jwt.sign(userData, secret, { expiresIn: '1h' })
                         res.status(200).json({ success: false, message: token });
                     }
                 }
             } catch (error) {
-                console.log(error)
+                //console.log(error)
                 res.status(500).json({ success: false, message: 'Internal server error.' });
             }
         }

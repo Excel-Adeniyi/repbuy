@@ -13,11 +13,11 @@ class PinCodeVerify {
             const data = {
                 user_id, user_pin
             }
-            console.log(data);
+            //console.log(data);
             const recievedPin = await this.model.PincodeModel(data)
-            console.log(recievedPin[0].user_pin )
+            //console.log(recievedPin[0].user_pin )
             const converted_pin = parseInt(user_pin)
-            console.log(converted_pin)
+            //console.log(converted_pin)
             if (recievedPin[0].user_pin === converted_pin) {
                 res.status(200).json({ Success: true, message: "proceed to payment" })
             } else {

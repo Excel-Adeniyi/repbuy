@@ -21,7 +21,7 @@ class CurrentWalletBalanceController{
                 res.status(503).json({Success: false, message: 'Unable to fetch data'})
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             res.status(500).json({Success: false, message: 'Internal Server Error'})
         }
     }

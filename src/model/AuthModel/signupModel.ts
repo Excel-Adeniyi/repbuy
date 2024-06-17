@@ -9,17 +9,17 @@ class SignupModel {
     }
     async createUserModel(data: any): Promise<RowDataPacket[]> {
         const sql = "INSERT INTO user_account (first_name, last_name, email, country, phone_number, password, terms_n_condition) VALUES (?,?,?,?,?,?,?)"
-        console.log(data)
+        //console.log(data)
     
         return new Promise((resolve, reject) => {
             this.pool.query(
                 sql, [...Object.values(data)], (error: QueryError | null, results: RowDataPacket[]) => {
                     if (error) {
                         reject(error);
-                        console.log("Error Found in GetSavedIOSModel", error.message);
+                        //console.log("Error Found in GetSavedIOSModel", error.message);
                     } else {
                         resolve(results);
-                        console.log("Successfully fetched data");
+                        //console.log("Successfully fetched data");
                     }
                 }
             );
@@ -27,17 +27,17 @@ class SignupModel {
     }
     async GoogleSignInModel(data: any): Promise<RowDataPacket[]> {
         const sql = "INSERT INTO user_account (first_name, email) VALUES (?,?)"
-        console.log(data)
+        //console.log(data)
     
         return new Promise((resolve, reject) => {
             this.pool.query(
                 sql, [...Object.values(data)], (error: QueryError | null, results: RowDataPacket[]) => {
                     if (error) {
                         reject(error);
-                        console.log("Error Found in GetSavedIOSModel", error.message);
+                        //console.log("Error Found in GetSavedIOSModel", error.message);
                     } else {
                         resolve(results);
-                        console.log("Successfully fetched data");
+                        //console.log("Successfully fetched data");
                     }
                 }
             );
@@ -46,17 +46,17 @@ class SignupModel {
 
     async checkGoogleModel(email: string): Promise<RowDataPacket[]> {
         const sql = "SELECT * FROM infoChecker WHERE email = ?"
-        // console.log(data)
+        // //console.log(data)
     
         return new Promise((resolve, reject) => {
             this.pool.query(
                 sql, [email], (error: QueryError | null, results: RowDataPacket[]) => {
                     if (error) {
                         reject(error);
-                        console.log("Error Found in GetSavedIOSModel", error.message);
+                        //console.log("Error Found in GetSavedIOSModel", error.message);
                     } else {
                         resolve(results);
-                        console.log(results);
+                        //console.log(results);
                     }
                 }
             );
@@ -64,17 +64,17 @@ class SignupModel {
     }
     async checkUserModel(email: string, phone_number: any): Promise<RowDataPacket[]> {
         const sql = "SELECT email, phone_number,terms_n_condition FROM user_account WHERE email = ?  OR phone_number = ?"
-        // console.log(data)
+        // //console.log(data)
     
         return new Promise((resolve, reject) => {
             this.pool.query(
                 sql, [email, phone_number], (error: QueryError | null, results: RowDataPacket[]) => {
                     if (error) {
                         reject(error);
-                        console.log("Error Found in GetSavedIOSModel", error.message);
+                        //console.log("Error Found in GetSavedIOSModel", error.message);
                     } else {
                         resolve(results);
-                        console.log(results);
+                        //console.log(results);
                     }
                 }
             );
@@ -88,10 +88,10 @@ class SignupModel {
                 sql, params, (error: QueryError| null, results: RowDataPacket[])=> {
                     if (error) {
                         reject(error);
-                        console.log("Error Found in GetSavedIOSModel", error.message);
+                        //console.log("Error Found in GetSavedIOSModel", error.message);
                     } else {
                         resolve(results);
-                        console.log(results);
+                        //console.log(results);
                     }
                 }
             )
@@ -106,10 +106,10 @@ class SignupModel {
                 sql, params, (error: QueryError| null, results: RowDataPacket[])=> {
                     if (error) {
                         reject(error);
-                        console.log("Error Found in GetSavedIOSModel", error.message);
+                        //console.log("Error Found in GetSavedIOSModel", error.message);
                     } else {
                         resolve(results);
-                        console.log(results);
+                        //console.log(results);
                     }
                 }
             )

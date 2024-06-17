@@ -14,37 +14,37 @@ async function GetUntilityAuth(req: Request, res: Response) {
         grant_type: process.env.GRANTTYPE,
         audience: process.env.AUDIENCEU,
     };
-    console.log(reqbody)
+    //console.log(reqbody)
 
     try {
         const CachedData = myCache.get("AUTH_UTILITY_KEY");
         if (CachedData) {
-            // console.log("Cached Data", CachedData);
+            // //console.log("Cached Data", CachedData);
             if (res) res.json({ success: CachedData });
             return
         }
-        console.log("CACHE", CachedData)
+        //console.log("CACHE", CachedData)
         const response: AxiosResponse = await axios.post(
             "https://auth.reloadly.com/oauth/token",
             reqbody
         );
         const responseData = response.data;
-        console.log(responseData);
+        //console.log(responseData);
         myCache.set("AUTH_UTILITY_KEY", responseData.access_token);
         res.json({ success: responseData });
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const axiosError = error as AxiosError;
             if (axiosError.response) {
-                console.log(`Request failed with status code ${axiosError}`);
+                //console.log(`Request failed with status code ${axiosError}`);
                 res
                     .status(axiosError.response.status)
                     .json({ axiosError: "Server Error" });
             } else if (axiosError.request) {
-                console.log("No response from server");
+                //console.log("No response from server");
                 if (res) res.status(500).json({ axiosError: "error code 500" });
             } else {
-                console.log("Server error:", axiosError.message);
+                //console.log("Server error:", axiosError.message);
                 if (res) res.status(500).json({ axiosError: "Internal server error" });
             }
         }
@@ -53,7 +53,7 @@ async function GetUntilityAuth(req: Request, res: Response) {
 
 // const IntervalsInMilliseconds = 5 * 60 * 1000;
 // setInterval(async () => {
-//     console.log("Interval callback called at", new Date());
+//     //console.log("Interval callback called at", new Date());
 
 //     // Call GetAuth function without passing req, res
 //     try {

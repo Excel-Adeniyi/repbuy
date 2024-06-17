@@ -22,10 +22,10 @@ class SignUPController {
         const data = {
             first_name, last_name, email, country, phone_number, password, terms_n_condition
         }
-        console.log(data);
+        //console.log(data);
         try {
             const checkInfo: any = await this.model.checkUserModel(email, phone_number)
-           console.log(checkInfo)
+           //console.log(checkInfo)
            if(checkInfo.length > 0){
             if (checkInfo[0]?.phone_number === phone_number && checkInfo[0]?.email.toLowerCase() === email.toLowerCase()) {
 
@@ -33,7 +33,7 @@ class SignUPController {
             } else if (checkInfo[0].phone_number === phone_number) {
 
                 res.status(409).json({ success: false, message: 'This Phone number Is Already Registered' });
-                console.log("hey")
+                //console.log("hey")
             } else if (checkInfo[0].email.toLowerCase() === email.toLowerCase()) {
 
                 res.status(409).json({ success: false, message: 'This Email address Is Already Registered' });
@@ -42,17 +42,17 @@ class SignUPController {
                
                 if (data.terms_n_condition === 1 && checkInfo[0].phone_number !== phone_number && checkInfo[0].email.toLowerCase() !== email.toLowerCase()) {
                     const modelRes = await this.model.createUserModel(data)
-                    console.log(modelRes)
+                    //console.log(modelRes)
                     res.status(200).json({ success: true, message: 'User account created successfully.' });
                 }
             }
         }else{
             const modelRes = await this.model.createUserModel(data)
-            console.log(modelRes)
+            //console.log(modelRes)
             res.status(200).json({ success: true, message: 'User account created successfully.' });
         }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             res.status(500).json({ success: false, message: 'Internal server error.' });
         }
     }
@@ -67,10 +67,10 @@ class SignUPController {
 
             if(response.affectedRows == 1){
                 const  userData:any = await this.model.userdata(data)
-                console.log(userData)
+                //console.log(userData)
                 if(userData.length > 0){
                     const condata = userData[0]
-                    console.log(condata)
+                    //console.log(condata)
                     const secret: any = process.env.JWEB
                     const token = jwt.sign(condata, secret, { expiresIn: '1h' })
                 res.status(200).json({success: true, message: "Avater Uploaded", data: token})
@@ -79,7 +79,7 @@ class SignUPController {
                 res.status(424).json({success: false, message: "Upload Unsuccessful"})
             }
         }catch(error){
-            console.log(error)
+            //console.log(error)
             res.status(500).json({ success: false, message: 'Internal server error.' });
         }
     }

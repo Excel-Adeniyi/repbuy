@@ -17,10 +17,10 @@ class PurchaseModel {
             this.pool.query(query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
                     reject(error)
-                    console.log("error occured:", error)
+                    //console.log("error occured:", error)
                 } else {
                     resolve(results)
-                    console.log("finito")
+                    //console.log("finito")
                 }
             })
         })
@@ -32,10 +32,10 @@ class PurchaseModel {
             this.pool.query(query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
                     reject(error)
-                    console.log("Error found in CHECKSuccessful", error.message)
+                    //console.log("Error found in CHECKSuccessful", error.message)
                 } else {
                     resolve(results)
-                    // console.log("Successfully recieved data", results)
+                    // //console.log("Successfully recieved data", results)
                 }
             })
         })
@@ -44,15 +44,15 @@ class PurchaseModel {
 
         const query = "SELECT * FROM otp WHERE otp = ? and u_id = ?"
         const params = [data.otp, data.userId]
-        // console.log(dataReq)
+        // //console.log(dataReq)
         return new Promise((resolve, reject) => {
             this.pool.query(query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                 if (error) {
                     reject(error)
-                    console.log("Error found in request", error.message)
+                    //console.log("Error found in request", error.message)
                 } else {
                     resolve(results)
-                    console.log("Successfully Checked data", results)
+                    //console.log("Successfully Checked data", results)
                 }
             })
         })

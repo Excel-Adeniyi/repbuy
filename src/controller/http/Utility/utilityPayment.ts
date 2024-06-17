@@ -15,7 +15,7 @@ class UtilityPayment {
     async ubiller(req: Request, res: Response): Promise<void> {
         try {
             const utilityData = req.body
-            console.log(utilityData)
+            //console.log(utilityData)
             const paymentPayload = {
 
                 subscriberAccountNumber: utilityData.subscriberAccountNumber,
@@ -28,7 +28,7 @@ class UtilityPayment {
                 additionalInfo: { invoiceId: utilityData.invoiceId }
             }
             const cacheDb: string | undefined = myCache.get("AUTH_UTILITY_KEY")
-            console.log(cacheDb)
+            //console.log(cacheDb)
             if (utilityData !== undefined && cacheDb !== undefined) {
                 const axiosInstance = axios.create()
                 const response: any = await axiosInstance.post('https://utilities-sandbox.reloadly.com/pay',
@@ -46,7 +46,7 @@ class UtilityPayment {
 
 
                     const resD = response.data.id
-                    console.log("RESPONSE ID", resD)
+                    //console.log("RESPONSE ID", resD)
                     if(resD !== undefined && resD !== null){
                         await this.model.storeTrans(resD, utilityData.ntransactionId, utilityData.userId)
                         res.status(200).json({ Success: true, message: response.data })
@@ -59,24 +59,24 @@ class UtilityPayment {
                 }
 
             }
-            console.log(utilityData)
+            //console.log(utilityData)
         } catch (error: any) {
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError
 
                 if (axiosError.response) {
                     const responseData = axiosError.response.data as ({ message: string })
-                    console.log('Response Error', responseData)
+                    //console.log('Response Error', responseData)
                     res.status(503).json({ Success: false, message: "Unable to get response" })
                 } else if (axiosError.request) {
                     const requestData = axiosError.request.data as ({ message: string })
-                    console.log('Request Error', requestData)
+                    //console.log('Request Error', requestData)
                     res.status(500).json({ Success: false, message: "Unable to make request" })
                 } else {
                     res.status(500).json({ Success: false, message: "Internal error has occured" })
                 }
             } else {
-                console.log(error.message)
+                //console.log(error.message)
                 res.status(500).json({ Success: false, message: "Internal Server error" })
             }
 

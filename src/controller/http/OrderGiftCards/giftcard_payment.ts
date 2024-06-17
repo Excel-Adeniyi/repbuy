@@ -17,7 +17,7 @@ class GiftcardProcessPurchase {
 
         try {
             const payload_giftcard = req.body
-            console.log({ ...payload_giftcard })
+            //console.log({ ...payload_giftcard })
             const payload = {
                 unitPrice: payload_giftcard.unitPrice,
                 quantity: payload_giftcard.quantity,
@@ -29,8 +29,8 @@ class GiftcardProcessPurchase {
                     phoneNumber: payload_giftcard.recipientPhoneDetails.phoneNumber
                 }
             }
-            console.log("CACHE", cachedData)
-            console.log("PAYLOAD", payload)
+            //console.log("CACHE", cachedData)
+            //console.log("PAYLOAD", payload)
             if (cachedData !== undefined && payload_giftcard !== undefined) {
                 const axiosInstance = axios.create()
                 const responseAxios: AxiosResponse = await axiosInstance.post(endpoint, payload, {
@@ -42,7 +42,7 @@ class GiftcardProcessPurchase {
                 })
               
                 if (responseAxios.data.status === "SUCCESSFUL") {
-                    console.log(responseAxios.data)
+                    //console.log(responseAxios.data)
                     const params = {
                         status: 'successful',
                         success: 1,
@@ -59,20 +59,20 @@ class GiftcardProcessPurchase {
 
 
         } catch (error: any) {
-            console.log(Error)
+            //console.log(Error)
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError
 
                 if (axiosError.response) {
                     const responseError = axiosError.response.data as ({ message: string })
-                    console.log('Error RESPONSE', axiosError.response.data)
+                    //console.log('Error RESPONSE', axiosError.response.data)
                     res.status(503).json({ Success: false, message: "Unable to generate response at this time try later" })
                 } else if (axiosError.request) {
                     const requestError = axiosError.request.data as ({ message: string })
-                    console.log("Error REQUEST", axiosError.request.data)
+                    //console.log("Error REQUEST", axiosError.request.data)
                     res.status(408).json({ Success: false, message: "Unable to proccess request at this time try later" })
                 } else {
-                    console.log(error)
+                    //console.log(error)
                     res.status(500).json({ Success: false, message: " Internal Server error" })
                 }
             }

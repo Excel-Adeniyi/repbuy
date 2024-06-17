@@ -44,11 +44,11 @@ class WalletController {
 
     async verifyPayment(req: Request, res: Response): Promise<void> {
         const { reference, userId, accessCode, current_balance, total_overall_deposit } = req.body
-        console.log(reference)
+        //console.log(reference)
         const data = {
             reference, userId, accessCode
         }
-        console.log("CHECKING THE VERIFIER", data)
+        //console.log("CHECKING THE VERIFIER", data)
         try {
             if (reference != undefined && reference != null) {
                 const url = "https://api.paystack.co/transaction/verify/"
@@ -57,11 +57,11 @@ class WalletController {
                
                 const responseData = response.data
 
-                // console.log("VERIFIER", responseData)
+                // //console.log("VERIFIER", responseData)
                 if (responseData.message === "Verification successful") {
                     const last_funded_dateTime = new Date(responseData.data.paid_at)
                     const create_at_datetTime = new Date(responseData.data.created_at)
-                    // console.log("DATETIME", dateTime)
+                    // //console.log("DATETIME", dateTime)
                     const wallet = {
                         userId,
                         current_balance,
@@ -90,7 +90,7 @@ class WalletController {
                         wallet, currentPurchase
                     }
                     const rows: RowDataPacket[] = await this.model.saveToWallet(currentParams)
-                    console.log("Update response", rows)
+                    //console.log("Update response", rows)
                     if (rows.length > 0) {
                         res.status(200).json({ Success: true, message: rows})
                     } else {
@@ -100,10 +100,10 @@ class WalletController {
                 } else {
                     res.status(503).json({ Success: false, message: responseData.data.message })
                 }
-                // console.log(responseData)
+                // //console.log(responseData)
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError
 

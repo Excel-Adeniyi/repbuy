@@ -15,15 +15,15 @@ class FCMStorageController {
         const data = {
             id: userid,f_token: fcm_token
         }
-        console.log(data)
+        //console.log(data)
         try {
             const initiateStorage: string | undefined = await this.model.fcmstore(data)
-            console.log(initiateStorage)
+            //console.log(initiateStorage)
             if (initiateStorage === "Token processed Successfully"){
                 res.status(200).json({Success: true, message: "Token processed Successfully" })
             }
         } catch (error: any) {
-            console.log(error)
+            //console.log(error)
             res.status(500).json({Success: false, message: error.message})
         }
     }

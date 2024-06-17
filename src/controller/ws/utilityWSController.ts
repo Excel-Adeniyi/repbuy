@@ -22,13 +22,13 @@ class VerifyPayment {
     async verify(): Promise<void> {
 
         const cacheDb = myCache.get('AUTH_UTILITY_KEY')
-        console.log("AUTHHHHH", cacheDb)
-        // console.log("THE SERVER", this.server)
+        //console.log("AUTHHHHH", cacheDb)
+        // //console.log("THE SERVER", this.server)
         try {
             const transactionStatus = await this.model.checkStatus()
 
             for (const tstatus of transactionStatus) {
-                console.log('THE TRANSACTION', tstatus.transactionId)
+                //console.log('THE TRANSACTION', tstatus.transactionId)
                 const axiosInstance = axios.create()
                 const responseVerify = await axiosInstance.get(`https://utilities-sandbox.reloadly.com/transactions/${tstatus.transactionId}`, {
                     headers: {
@@ -38,7 +38,7 @@ class VerifyPayment {
                 })
 
                 if (responseVerify.data.code === "PAYMENT_PROCESSED_SUCCESSFULLY" && responseVerify.data.code !== 'PAYMENT_PROCESSING_IN_PROGRESS') {
-                    console.log("THE TOKEN", responseVerify.data.transaction.billDetails.pinDetails)
+                    //console.log("THE TOKEN", responseVerify.data.transaction.billDetails.pinDetails)
                     const verifiedPayload = {
                         type: 'Electric',
                         code: responseVerify.data.code,
@@ -53,7 +53,7 @@ class VerifyPayment {
                     this.model.updateStatus(tstatus.transactionId, tstatus.userId)
                     if (verifiedPayload.transactionId !== undefined && verifiedPayload.transactionId !== null) {
                         const storeData: any = await this.urdata.UtilityRequestData(verifiedPayload)
-                        console.log('THE STORED DATA', storeData)
+                        //console.log('THE STORED DATA', storeData)
                       
                         if (storeData.length > 0 ) {
                             
@@ -63,7 +63,7 @@ class VerifyPayment {
 
 
                 }
-                console.log('Checker', responseVerify.data)
+                //console.log('Checker', responseVerify.data)
             }
 
         } catch (error: any) {
@@ -72,17 +72,17 @@ class VerifyPayment {
 
                 if (axiosError.response) {
                     const responseData = axiosError.response.data as ({ message: string })
-                    console.log('Response Error', responseData)
+                    //console.log('Response Error', responseData)
                     // res.status(503).json({ Success: false, message: "Unable to get response" })
                 } else if (axiosError.request) {
                     const requestData = axiosError.request.data as ({ message: string })
-                    console.log('Request Error', requestData)
+                    //console.log('Request Error', requestData)
                     // res.status(500).json({ Success: false, message: "Unable to make request" })
                 } else {
                     // res.status(500).json({ Success: false, message: "Internal error has occured" })
                 }
             } else {
-                console.log(error)
+                //console.log(error)
                 // res.status(500).json({ Success: false, message: "Internal Server error" })
             }
         }

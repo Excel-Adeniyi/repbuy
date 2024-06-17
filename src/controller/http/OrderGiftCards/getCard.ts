@@ -22,21 +22,21 @@ class GiftCardsProducts {
         const axiosError = error as AxiosError;
 
         if (axiosError.response) {
-          console.log(axiosError.response);
+          //console.log(axiosError.response);
           res
             .status(axiosError.response.status)
             .json({ axiosError: "Server Error in generating Airtime" });
         } else if (axiosError.request) {
-          console.log("Server reequest Error ", axiosError.request.message);
+          //console.log("Server reequest Error ", axiosError.request.message);
           res
             .status(axiosError.request.status)
             .json({ axiosError: "Server Error 500" });
         } else {
-          console.log("Server with status code 500", axiosError.message);
+          //console.log("Server with status code 500", axiosError.message);
           res.status(500).json({ axiosError: "Internal Server error" });
         }
       } else {
-        console.log("Internal server error", (error as Error).message);
+        //console.log("Internal server error", (error as Error).message);
         res.status(500).json({ error: "Internal server error" });
       }
     }

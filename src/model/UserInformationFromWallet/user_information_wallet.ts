@@ -54,7 +54,7 @@ class UserInformationWallet {
             return updateQuery as RowDataPacket[]
         } catch (error) {
             await connection.rollback()
-            console.log(error)
+            //console.log(error)
             throw error
         } finally {
             await connection.release()

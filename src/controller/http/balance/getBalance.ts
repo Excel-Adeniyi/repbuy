@@ -23,7 +23,7 @@ async function GetBalance(req: Request, res: Response, next: NextFunction) {
       const axiosError = error as AxiosError;
 
       if (axiosError.response) {
-        console.log(
+        //console.log(
           "Server response with a non-2xx status",
           axiosError.response
         );
@@ -31,16 +31,16 @@ async function GetBalance(req: Request, res: Response, next: NextFunction) {
           .status(axiosError.response.status)
           .json({ axiosError: "Server Error in generating Airtime" });
       } else if (axiosError.request) {
-        console.log("Server reequest Error ", axiosError.request);
+        //console.log("Server reequest Error ", axiosError.request);
         res
           .status(axiosError.request.status)
           .json({ axiosError: "Server Error 500" });
       } else {
-        console.log("Server with status code 500", axiosError.message);
+        //console.log("Server with status code 500", axiosError.message);
         res.status(500).json({ axiosError: "Internal Server error" });
       }
     } else {
-      console.log("Internal server error", (error as Error).message);
+      //console.log("Internal server error", (error as Error).message);
       res.status(500).json({ error: "Internal server error" });
     }
   }

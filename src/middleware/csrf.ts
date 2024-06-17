@@ -5,7 +5,7 @@ const tokens = new csrf();
 
 const CsrfData = (req: Request, res: Response, next: NextFunction) => {
    try {
-      console.log("Request body:", req.body);
+      //console.log("Request body:", req.body);
 
       const { csptoken } = req.body;
 
@@ -13,11 +13,11 @@ const CsrfData = (req: Request, res: Response, next: NextFunction) => {
          if (!req.session.csrfSecret) {
             const csrfSecret = tokens.secretSync();
             req.session.csrfSecret = csrfSecret;
-            console.log("CSRF Secret generated and stored:", csrfSecret);
+            //console.log("CSRF Secret generated and stored:", csrfSecret);
          }
 
          const csrfToken = tokens.create(req.session.csrfSecret);
-         console.log("CSRF Token generated:", csrfToken);
+         //console.log("CSRF Token generated:", csrfToken);
          return res.status(200).json({ success: true, message: csrfToken });
       } 
    } catch (error) {

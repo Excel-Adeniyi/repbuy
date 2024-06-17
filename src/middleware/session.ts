@@ -7,7 +7,7 @@ import path from 'path'
 const SessionData = (req: Request, res: Response, next: NextFunction) => {
   try {
     const SqliteStore = sqliteStoreFactory(session)
-    // console.log("CHECK SESSIon");
+    // //console.log("CHECK SESSIon");
     const sessionMiddle = session({
       secret: process.env.SESSION_SECRET || "sajdsjfkf3f39fkssajna0fk2@aokds923jka!jksd",
       resave: false,
@@ -33,7 +33,7 @@ const SessionData = (req: Request, res: Response, next: NextFunction) => {
     
     return sessionMiddle(req, res, next); // Invoking the session middleware and passing req, res, and next
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     next(error); // Pass the error to the next middleware
   }
 };

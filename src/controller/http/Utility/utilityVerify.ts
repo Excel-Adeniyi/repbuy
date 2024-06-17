@@ -15,9 +15,9 @@ class UtilityVerifier{
                     Authorization: `Bearer ${cacheDb}`
                 }
             })
-            console.log('Checker', responseVerify.data)
+            //console.log('Checker', responseVerify.data)
         } catch (error: any) {
-            console.log(error.message)
+            //console.log(error.message)
         }
     }
 }

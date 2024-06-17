@@ -19,21 +19,21 @@ class VerifyPaymnents {
 
     async verifyPayment(req: Request, res: Response): Promise<void> {
         const { reference, userId, accessCode } = req.body
-        console.log(reference)
+        //console.log(reference)
         const data = {
             reference, userId, accessCode
         }
-        console.log("CHECKING THE VERIFIER",data)
+        //console.log("CHECKING THE VERIFIER",data)
         try {
             if (reference != undefined && reference != null) {
                 const url = "https://api.paystack.co/transaction/verify/"
 
                 const response: AxiosResponse = await axios.get(`${url}${reference}`);
                 const responseData = response.data
-                // console.log("VERIFIER",responseData)
+                // //console.log("VERIFIER",responseData)
                 if(responseData.message === "Verification successful"){
                     const updatePaymentSuccess: any = await this.model.UpdatePaymentTable(data)
-                    console.log("Update response", updatePaymentSuccess)
+                    //console.log("Update response", updatePaymentSuccess)
                     if(updatePaymentSuccess.affectedRows == 1) {
                         res.status(200).json({Success: true, message: responseData.data.status})
                     }else{
@@ -43,10 +43,10 @@ class VerifyPaymnents {
                 }else{
                     res.status(503).json({Success: false, message: responseData.data.message})
                 }
-                // console.log(responseData)
+                // //console.log(responseData)
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             if(axios.isAxiosError(error)){
                 const axiosError = error as AxiosError
 

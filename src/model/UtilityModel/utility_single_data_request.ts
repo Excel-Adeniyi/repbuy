@@ -15,7 +15,7 @@ class UtilitySingleDataRequest {
         return new Promise((resolve, reject ) => {
             this.pool.query(query, params, (error: QueryError | null, results : RowDataPacket[]) => {
                 if (error) {
-                    console.log(error)
+                    //console.log(error)
                     reject(error)
                 } else {
                     resolve(results)

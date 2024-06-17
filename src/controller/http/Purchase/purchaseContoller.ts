@@ -25,7 +25,7 @@ class HistoryClass {
       const data = {
         operatorId, amount, countryCode: recipientPhone.countryCode, number: recipientPhone.number, timeData, userId, purchase_type
       }
-      console.log({ operatorId, amount, recipientPhone, userId, order, provider })
+      //console.log({ operatorId, amount, recipientPhone, userId, order, provider })
       const modelResult: any = await this.model.Create_Current_Purchase_Model(data)
       if (modelResult.affectedRow === 1) {
         res.status(200).json({ Success: true, message: "Purchase data Initiated" })
@@ -34,7 +34,7 @@ class HistoryClass {
       }
 
     } catch (error) {
-      console.log(error)
+      //console.log(error)
       res.status(500).json("Internal Server Error")
     }
 

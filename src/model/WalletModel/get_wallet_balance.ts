@@ -17,7 +17,7 @@ class CurrentWalletBalanceModel{
         return new Promise((resolve, reject) => {
             this.pool.query(query, params, (error: QueryError | null, results: RowDataPacket[]) => {
                 if(error){
-                    console.log("ERROR IN CURRENT WALLET BALANCE MODEl", error)
+                    //console.log("ERROR IN CURRENT WALLET BALANCE MODEl", error)
                     reject(error)
                 }else {
                     resolve(results)
