@@ -24,9 +24,9 @@ async function GetBalance(req: Request, res: Response, next: NextFunction) {
 
       if (axiosError.response) {
         //console.log(
-          "Server response with a non-2xx status",
-          axiosError.response
-        );
+          // "Server response with a non-2xx status",
+        //   axiosError.response
+        // );
         res
           .status(axiosError.response.status)
           .json({ axiosError: "Server Error in generating Airtime" });

@@ -55,7 +55,7 @@ class GetAirtimeController {
             
 
         } catch (error: any) {
-            // //console.log(error)
+            console.log(error)
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError
 

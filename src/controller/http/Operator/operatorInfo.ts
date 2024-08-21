@@ -12,6 +12,7 @@ class OperatorClass {
         const axiosInstance = axios.create()
         axiosInstance.interceptors.request.use(function(config) {
             if (cachedD) {
+                console.log(cachedD)
                 config.headers['Authorization'] = `Bearer ${cachedD}`;
             }
             config.headers["Content-Type"] = 'application/json';
@@ -33,15 +34,15 @@ class OperatorClass {
     
                       const response: any = await  axiosInstance.get(`https://topups-sandbox.reloadly.com/operators/auto-detect/phone/${phone}/countries/${isoName}`
                 )
-                //console.log("SOMETHING")
+                console.log("SOMETHING")
                 const responseData = response.data
-                //console.log(response)
+                console.log(response)
                 res.json(responseData)
           
               
             }
         } catch (error: any) {
-            //console.log(error.message)
+            // console.log(error)
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError
     

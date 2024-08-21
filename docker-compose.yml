@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - 25060:3306
+    networks:
+      - nodenet
+  nodejs:
+    build: .
+    env_file:
+      - .env
+    volumes: # Fixed 'volumes'
+      - .:/usr/app
+      - /usr/app/node_modules
+      - sqlite-data:/usr/app
+    ports:
+      - 2110:2110
+    restart: always
+    networks:
+      - nodenet
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - nodejs
+    networks:
+      - nodenet
+volumes:
+  sqlite-data:
+    driver: local
+  mysql-data:
+    driver: local
+networks:
+  nodenet:
+    driver: bridge
