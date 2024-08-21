@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
-import 'package:shapmanpaypoint/services/operatorsService.dart';
+import 'package:shapmanpaypoint/services/operators_service.dart';
 
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 

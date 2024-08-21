@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/ISOData/iso_model.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/Iso/iso_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 // import 'package:get_storage/get_storage.dart';
 import 'package:shapmanpaypoint/controller/validator/airtime_validator.dart';
@@ -14,6 +14,7 @@ import 'package:shapmanpaypoint/widgets/amountPrompt/amount_prompt.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 // import 'package:shapmanpaypoint/utils/dialog/dialogShow.dart';
 
 class RechargeCard extends StatelessWidget {
@@ -151,46 +152,52 @@ class RechargeCard extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                    // margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5)),
-                        border: Border.all(
-                            width: 1.0, color: const Color(0xff0a2417))),
-                    height: 65,
-                    width: calculateContainerWidth(context),
-                    child: Obx(
-                      () => DropdownButton<String>(
-                        padding: const EdgeInsets.all(8.0),
-                        isExpanded: true,
-                        underline: const SizedBox.shrink(),
-                        value: isoController.selectedCountry.value,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        style: const TextStyle(
-                            // fontWeight: FontWeight.w500,
-                            fontFamily: 'Poppin',
-                            fontSize: 16,
-                            color: Color(0xff0a2417)),
-                        items: [
-                          const DropdownMenuItem<String>(
-                            value: "Select Country",
-                            child: Text("Select Country"),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    border:
+                        Border.all(width: 1.0, color: const Color(0xff0a2417)),
+                  ),
+                  height: 65,
+                  width: calculateContainerWidth(context),
+                  child: Obx(
+                    () => DropdownSearch<String>(
+                      // mode: Mode.MENU,
+                      popupProps: const PopupProps.menu(
+                        showSearchBox: true,
+                      ), // or Mode.BOTTOM_SHEET
+
+                      items: isoController.isoDetails
+                          .map<String>((Iso item) => item.name)
+                          .toList(),
+                      selectedItem: isoController.selectedCountry.value,
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(8.0),
+                        border: InputBorder.none,
+                      )),
+                      onChanged: (String? newValue) {
+                        final output = isoController.isoDetails
+                            .firstWhere((element) => newValue == element.name);
+                        // print(output.isoName);
+                        isoController.selectedCountry.value = output.name;
+                        isoController.isoName.value = output.isoName;
+                      },
+                      dropdownBuilder: (context, selectedItem) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            selectedItem ?? "Select Country",
+                            style: const TextStyle(
+                              fontFamily: 'Poppin',
+                              fontSize: 16,
+                              color: Color(0xff0a2417),
+                            ),
                           ),
-                          ...isoController.isoDetails
-                              .map<DropdownMenuItem<String>>((Iso item) {
-                            return DropdownMenuItem<String>(
-                              value: item.isoName ?? "Unknown",
-                              child: Text(item.name ?? "Unknown"),
-                            );
-                          }).toList(),
-                        ],
-                        onChanged: (String? newValue) {
-                          // Handle dropdown value change if needed
-                          isoController.selectedCountry.value =
-                              newValue as String;
-                        },
-                      ),
-                    )),
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 //######END ISONAME #######
                 const SizedBox(
                   height: 15,
@@ -362,7 +369,7 @@ class RechargeCard extends StatelessWidget {
                       Future.delayed(const Duration(milliseconds: 1000), () {
                         _ontapEffectController.isTapped.value = false;
                         _ontapEffectController.isBSopen.value = false;
-                        print("WORKING");
+                        // print("WORKING");
                         if (contactController.phonController.phoneController
                                 .text.isNotEmpty &&
                             imageSelector.amountCont.text.isNotEmpty &&

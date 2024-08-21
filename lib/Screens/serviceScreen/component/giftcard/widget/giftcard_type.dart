@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
@@ -19,33 +20,26 @@ class GiftCardType extends StatelessWidget {
       height: 65,
       width: double.infinity,
       child: Obx(
-        () => DropdownButton<String>(
-          padding: const EdgeInsets.all(8.0),
-          isExpanded: true,
-          underline: const SizedBox.shrink(),
-          value: giftcardController.giftcardValue.value,
-          icon: const Icon(Icons.keyboard_arrow_down),
-          style: const TextStyle(
-              fontWeight: FontWeight.w500, fontSize: 14, color: Colors.black),
-          items: [
-            const DropdownMenuItem<String>(
-              value: "0",
-              child: Text("Select A GiftCard"),
-            ),
-            ...giftcardController.giftcardList.entries
-                .map<DropdownMenuItem<String>>((entry) {
-              // Gcard item = entry.key;
-              return DropdownMenuItem<String>(
-                value: entry.key.toString(),
-                child: Text(entry.value),
-              );
-            }).toList(),
-          ],
+        () => DropdownSearch<String>(
+          popupProps: const PopupProps.menu(
+            showSearchBox: true,
+          ),
+          items: giftcardController.giftcardList.entries
+              .map((entry) => entry.value.toString())
+              .toList(),
           onChanged: (String? newValue) {
-            giftcardController.giftcardValue.value = newValue as String; 
+            final giftValue = giftcardController.giftcardList.entries
+                .firstWhere((value) => value.value == newValue);
+            print("GIFTVALUE $giftValue");
+            giftcardController.giftcardValue.value = giftValue.key.toString();
             if (giftcardController.giftcardValue.value.isNotEmpty) {
               giftbyId.giftcardidRequest();
             }
+          },
+          dropdownBuilder: (context, selectedItem) {
+            return Align(
+                alignment: Alignment.centerLeft,
+                child: Text(selectedItem ?? 'Select type'));
           },
         ),
       ),

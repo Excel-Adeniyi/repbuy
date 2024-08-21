@@ -20,7 +20,8 @@ class DataBundleController extends GetxController {
   final TextEditingController priceController = TextEditingController();
   final MasterController masterController = Get.find<MasterController>();
   final RxList<MapEntry<String, dynamic>> dropdownItems =
-      <MapEntry<String, dynamic>>[].obs;
+      <MapEntry<String, dynamic>>[
+  ].obs;
   final RxBool valueChanged = false.obs;
   @override
   void onInit() {
@@ -73,19 +74,17 @@ class DataBundleController extends GetxController {
   void findPriceValueCurrency() {
     final provider = selectedPName.value;
     final bundle = selectedFixedAmountDes.value;
-    print(bundle);
+    print('Check State $provider ');
     final currentProvider = selectPackkage.firstWhere(
       (data) => data.operatorId.toString() == provider,
     );
-    
-     // Handling the case where provider is not found
-    print(currentProvider);
 
+    // Handling the case where provider is not found
+    print('PROV $currentProvider');
 
     currencySelector.value =
         currentProvider.destinationCurrencySymbol as String;
 
-        
     final selectedValue = currentProvider.fixedAmountsDescriptions.entries
         .firstWhere((valuess) => valuess.key == bundle, orElse: () {
       return const MapEntry('', '');

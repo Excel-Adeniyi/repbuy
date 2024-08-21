@@ -1,8 +1,9 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 class BillerName extends StatelessWidget {
   const BillerName({super.key});
@@ -18,27 +19,36 @@ class BillerName extends StatelessWidget {
       height: 65,
       width: double.infinity,
       child: Obx(() {
-        return DropdownButton(
-            elevation: 0,
-            underline: const SizedBox(),
-            padding: const EdgeInsets.all(8.0),
-            isExpanded: true,
-            value: utilityController.utilityPackage.value,
-            icon: const Icon(Icons.keyboard_arrow_down),
-            items: [
-              const DropdownMenuItem(
-                  value: "Select Service", child: Text("Select Biller")),
-              ...utilityController.utilityPlan
-                  .map<DropdownMenuItem<String>>((item) => DropdownMenuItem(
-                      value: item.id.toString(), child: Text(item.name)))
-                  .toSet()
-                  .toList(),
-            ],
-            onChanged: (dynamic selectedvalue) {
-              print(utilityController.utilityPlan);
-              utilityController.handleSelectedPackage(selectedvalue);
-              utilityController.splicer();
-            });
+        return DropdownSearch(
+          popupProps: const PopupProps.menu(
+            showSearchBox: true,
+          ),
+
+          items: utilityController.utilityPlan
+              .map<String>((item) => item.name)
+              .toList(),
+          dropdownDecoratorProps: const DropDownDecoratorProps(
+              dropdownSearchDecoration: InputDecoration(
+            contentPadding: EdgeInsets.all(8.0),
+            border: InputBorder.none,
+          )),
+
+          onChanged: (dynamic selectedvalue) {
+            // print(utilityController.utilityPlan);
+            utilityController.utilityProvider.value = selectedvalue;
+            final selectedPackage = utilityController.utilityPlan
+                .firstWhere((data) => data.name == selectedvalue);
+            final contentVideo = selectedPackage.id.toString();
+            // print(contentVideo);
+            utilityController.handleSelectedPackage(contentVideo);
+            utilityController.splicer();
+          },
+          dropdownBuilder: (context, selectedItem) {
+            return Align(
+                alignment: Alignment.centerLeft,
+                child: Text(selectedItem ?? 'Select biller'));
+          },
+        );
       }),
     );
   }

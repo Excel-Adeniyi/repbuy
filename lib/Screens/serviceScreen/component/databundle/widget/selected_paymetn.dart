@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:shapmanpaypoint/controller/AdditionalDetailsController/balance_controller.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
@@ -16,6 +18,8 @@ class DataSelectPaymentMethod extends StatelessWidget {
     final ontapEffectController = Get.find<OnTapEffect>();
     final payVoid = PaymentCheckout();
     Size screenSize = MediaQuery.sizeOf(context);
+    final BalanceController balanceController = Get.put(BalanceController());
+    final NumberFormat numberFormat = NumberFormat('#,##0.00', 'en_us');
     return Obx(() {
       if (ontapEffectController.isBSopen.value == true) {
         Navigator.of(context).pop();
@@ -69,11 +73,13 @@ class DataSelectPaymentMethod extends StatelessWidget {
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700),
                             ),
-                            Obx(
-                              () => Row(children: [
-                                const Text(
-                                  "NGN 0.00",
-                                  style: TextStyle(
+                            Obx(() {
+                                        final balancee =
+                                    balanceController.numberformat();
+                              return Row(children: [
+                                 Text(
+                                  "NGN $balancee",
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Roboto",
                                       fontSize: 14,
@@ -96,8 +102,8 @@ class DataSelectPaymentMethod extends StatelessWidget {
                                         width: 0,
                                         height: 0,
                                       )
-                              ]),
-                            ),
+                              ]);
+                            }),
                           ],
                         )),
                   ),

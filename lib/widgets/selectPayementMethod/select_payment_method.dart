@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/PinValidation/pin_verification.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/services/otp_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
@@ -23,7 +21,7 @@ class SelectPaymentMethod extends StatelessWidget {
     Size screenSize = MediaQuery.sizeOf(context);
     return Obx(() {
       if (ontapEffectController.isBSopen.value == true) {
-        print("GOT HERE");
+        // print("GOT HERE");
         Navigator.of(context).pop();
         return const SizedBox.shrink();
       } else {
@@ -191,8 +189,8 @@ class SelectPaymentMethod extends StatelessWidget {
                               colors: ontapEffectController.isSelected.value
                                   ? isbuttongradient
                                   : buttongradient,
-                             begin: Alignment.bottomRight,
-                          end: Alignment.topCenter),
+                              begin: Alignment.bottomRight,
+                              end: Alignment.topCenter),
                           borderRadius: BorderRadius.circular(10)),
                       child: TextButton(
                         onPressed: () {
@@ -200,7 +198,7 @@ class SelectPaymentMethod extends StatelessWidget {
                           Future.delayed(const Duration(milliseconds: 1000),
                               () {
                             ontapEffectController.isSelected.value = false;
-                            print("WORKING");
+                            // print("WORKING");
                             if (ontapEffectController.isCard.value) {
                               payVoid.chargeCardPayment(context, title);
                             } else {

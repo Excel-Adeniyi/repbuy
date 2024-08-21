@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Animation/payment_animation_controller.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
+// import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
-import 'package:shapmanpaypoint/controller/timerController.dart';
+// import 'package:shapmanpaypoint/controller/timerController.dart';
 import 'package:shapmanpaypoint/services/Airtime/airtime_otp_service.dart';
 import 'package:shapmanpaypoint/services/otp_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_checkout.dart';
@@ -14,7 +14,7 @@ import '../../utils/colors/coloors.dart';
 
 class PinAuth extends StatelessWidget {
   final OTPController _otpController = Get.put(OTPController());
-  final TimerController _timercontroller = Get.put(TimerController());
+  // final TimerController _timercontroller = Get.put(TimerController());
   final TextEditingController pinController = TextEditingController();
   final animationController = Get.put(PaymentAnimation());
 
@@ -39,7 +39,7 @@ class PinAuth extends StatelessWidget {
     } else {
       containerWidth = 500.0;
     }
-    print('dgs' + title);
+    // print('dgs' + title);
     return GestureDetector(
       onTap: () {
         FocusNode().unfocus();

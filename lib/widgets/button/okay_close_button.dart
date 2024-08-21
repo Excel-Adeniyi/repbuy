@@ -4,7 +4,7 @@ import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/
 import 'package:shapmanpaypoint/controller/Clear/giftcard_clear_controller.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
-import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/Iso/iso_controller.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 class OkayClearerButton extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/route_manager.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
-import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
+import 'package:shapmanpaypoint/services/Airtime/airtime_topup_service.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_final_init_service.dart';
 import 'package:shapmanpaypoint/services/Electricbill/electricbill_final_init_service.dart';
 import 'package:shapmanpaypoint/services/Electricbill/electricbill_purchase_data_save.dart';

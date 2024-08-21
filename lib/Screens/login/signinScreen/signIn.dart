@@ -4,6 +4,7 @@ import 'package:shapmanpaypoint/Screens/login/signinScreen/login_button.dart';
 import 'package:shapmanpaypoint/controller/Auth/auth_int.dart';
 import 'package:shapmanpaypoint/controller/Auth/signin_controller.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
@@ -28,7 +29,10 @@ class SignIn extends StatelessWidget {
     return SafeArea(
       child: ProgressHUD(
         barrierColor: Colors.black45,
-        indicatorWidget:  SizedBox(width: 100, height: 100, child: FittedBox(child: Image.asset("lib/assets/NEXTELLAR1c.png"))),
+        indicatorWidget: SizedBox(
+            width: 100,
+            height: 100,
+            child: FittedBox(child: Image.asset("lib/assets/NEXTELLAR1c.png"))),
         child: GestureDetector(
           onTap: () {
             _textfocusnode.unfocus();
@@ -47,11 +51,7 @@ class SignIn extends StatelessWidget {
                         ShaderMask(
                           shaderCallback: (Rect bounds) {
                             return const LinearGradient(
-                                    colors: [
-                                  Color(0xfffcdc2a),
-                                  Color(0xff87a922),
-                                  Color(0xff0a2417),
-                                ],
+                                    colors: headerTextGradient,
                                     begin: Alignment.bottomRight,
                                     end: Alignment.topLeft)
                                 .createShader(bounds);

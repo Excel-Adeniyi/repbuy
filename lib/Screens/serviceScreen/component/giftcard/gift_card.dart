@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -104,7 +106,7 @@ class GiftCard extends StatelessWidget {
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enlargeCenterPage: true,
                       enlargeFactor: 0.3,
-                      scrollDirection: Axis.vertical,
+                      scrollDirection: Axis.horizontal,
                     ),
                     items: giftCardController.cardImages.map((i) {
                       return Builder(

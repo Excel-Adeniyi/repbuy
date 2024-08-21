@@ -27,7 +27,7 @@ class AirtimeTopupService {
     purchasecontroller.isLoading.value = true;
     purchasecontroller.dataRx.value = false;
     try {
-      print(purchasecontroller.isLoading.value);
+      // print(purchasecontroller.isLoading.value);
       final dataReq = {
         // "otp": otpController.pinController.value,
         "userId": userId,
@@ -39,7 +39,7 @@ class AirtimeTopupService {
           "number": airtimeCController.toModel().number
         }
       };
-      print(dataReq);
+      // print(dataReq);
       final response =
           await dio.post('/airtime/request', options: Options(), data: dataReq);
       // print("HIIH ${response}");
@@ -56,12 +56,12 @@ class AirtimeTopupService {
       } else {
         purchasecontroller.dataRx.value = false;
         // otpController.pinController.close();
-        print('UNABLE TO PRINT HELLOWORLD');
+        // print('UNABLE TO PRINT HELLOWORLD');
       }
-      print("SUCCESS SIDE");
+      // print("SUCCESS SIDE");
       return response;
     } catch (error) {
-      print('RUFUS');
+      // print('RUFUS');
       purchasecontroller.isLoading.value = true;
       purchasecontroller.dataRx.value = false;
       purchasecontroller.allowDisplay.value = true;

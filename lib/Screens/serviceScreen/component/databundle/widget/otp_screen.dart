@@ -5,9 +5,9 @@ import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
 import 'package:shapmanpaypoint/controller/timerController.dart';
 import 'package:shapmanpaypoint/services/DataBundle/data_final_init_service.dart';
-import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
-import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
-import 'package:shapmanpaypoint/services/otp_service.dart';
+// import 'package:shapmanpaypoint/services/DataBundle/data_otp_service.dart';
+// import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
+// import 'package:shapmanpaypoint/services/otp_service.dart';
 
 import 'package:shapmanpaypoint/widgets/amountPrompt/completed_payment.dart';
 // import '../../../components/dailbutton/customdailpad.dart';
@@ -92,7 +92,7 @@ class DataPinAuth extends StatelessWidget {
                                   obscuringCharacter: '*',
                                   obscureText: true,
                                   length: 4,
-                                  blinkDuration: Duration(seconds: 2),
+                                  blinkDuration: const Duration(seconds: 2),
                                   keyboardType: TextInputType.number,
                                   blinkWhenObscuring: true,
                                   validator: (String? value) {
@@ -136,7 +136,7 @@ class DataPinAuth extends StatelessWidget {
                               ? TextButton(
                                   onPressed: (() {
                                     _timercontroller.startTimer();
-                                    otpServices.dataotpReq();
+                                    // otpServices.dataotpReq();
                                   }),
                                   child: const Text(
                                     'Resend OTP',
