@@ -27,7 +27,7 @@ class RechargeController extends GetxController {
   void setSelectButtonValue(String value) async {
     if (value == 'Buy for Self') {
       final tokenAll = await stora.readSecureData('ResBody');
-      print(tokenAll);
+      // print(tokenAll);
       if (tokenAll != null && tokenAll.isNotEmpty) {
         try {
           // var sStrong = json.encoder(tokenAll);

@@ -20,17 +20,17 @@ class Electric extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = 'Electric Bills';
     Size screenSize = MediaQuery.sizeOf(context);
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenWidth = MediaQuery.of(context).size.width;
     FocusNode meterNumberFocus = FocusNode();
     FocusNode amountFocus = FocusNode();
-    double containerWidth;
-    if (screenWidth < 600) {
-      containerWidth = 300.0;
-    } else if (screenWidth < 1200) {
-      containerWidth = 400.0;
-    } else {
-      containerWidth = 500.0;
-    }
+    // double containerWidth;
+    // if (screenWidth < 600) {
+    //   containerWidth = 300.0;
+    // } else if (screenWidth < 1200) {
+    //   containerWidth = 400.0;
+    // } else {
+    //   containerWidth = 500.0;
+    // }
     return Scaffold(
       appBar: AppBar(),
       body: GestureDetector(
@@ -92,7 +92,7 @@ class Electric extends StatelessWidget {
       return GestureDetector(
         onTap: () {
           imageSelector.selectImage(image.value);
-          print(image.value);
+          // print(image.value);
         },
         child: GetBuilder<ElectricController>(
           builder: (controller) {

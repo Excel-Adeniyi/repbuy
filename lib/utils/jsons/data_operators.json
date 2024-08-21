@@ -1,6 +1,61 @@
 {
     "operators":[
         {
+            "id": 1,
+            "operatorId": 1,
+            "name": "Select Provider",
+            "bundle": false,
+            "data": true,
+            "pin": false,
+            "supportsLocalAmounts": true,
+            "supportsGeographicalRechargePlans": false,
+            "denominationType": "FIXED",
+            "senderCurrencyCode": "NGN",
+            "senderCurrencySymbol": "₦",
+            "destinationCurrencyCode": "NGN",
+            "destinationCurrencySymbol": "₦",
+            "commission": 0.0,
+            "internationalDiscount": 0.0,
+            "localDiscount": 0.0,
+            "mostPopularAmount": 70000.00,
+            "mostPopularLocalAmount": null,
+            "minAmount": null,
+            "maxAmount": null,
+            "localMinAmount": null,
+            "localMaxAmount": null,
+            "country": {
+                "isoName": "NG",
+                "name": "Nigeria"
+            },
+            "fx": {
+                "rate": 1,
+                "currencyCode": "NGN"
+            },
+            "logoUrls": [
+            ],
+            "fixedAmounts": [
+                0.00
+            ],
+            "fixedAmountsDescriptions": {
+               
+                "0.00": "empty"
+                
+            },
+            "localFixedAmounts": [],
+            "localFixedAmountsDescriptions": null,
+            "suggestedAmounts": [],
+            "suggestedAmountsMap": {},
+            "fees": {
+                "international": 0.0,
+                "local": 0.0,
+                "localPercentage": 0.0,
+                "internationalPercentage": 0.0
+            },
+            "geographicalRechargePlans": [],
+            "promotions": [],
+            "status": "ACTIVE"
+        },
+        {
             "id": 645,
             "operatorId": 645,
             "name": "9Mobile (Etisalat) Nigeria Data",

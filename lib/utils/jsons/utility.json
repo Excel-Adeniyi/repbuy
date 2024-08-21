@@ -1,5 +1,36 @@
 {
     "content": [
+          {
+            "id": 0,
+            "name": "Select biller",
+            "countryCode": "NG",
+            "countryName": "Nigeria",
+            "type": "",
+            "serviceType": "POSTPAID",
+            "localAmountSupported": true,
+            "localTransactionCurrencyCode": "NGN",
+            "minLocalTransactionAmount": 0.0,
+            "maxLocalTransactionAmount": 0.0,
+            "localTransactionFee": 112.50000,
+            "localTransactionFeeCurrencyCode": "NGN",
+            "localDiscountPercentage": 0.00000,
+            "internationalAmountSupported": true,
+            "internationalTransactionCurrencyCode": "NGN",
+            "minInternationalTransactionAmount": 1000.0,
+            "maxInternationalTransactionAmount": 300000.0,
+            "internationalTransactionFee": 0.00000,
+            "internationalTransactionFeeCurrencyCode": "NGN",
+            "localTransactionFeePercentage": 0.0,
+            "internationalTransactionFeePercentage": 0.0,
+            "internationalDiscountPercentage": 8.00000,
+            "fx": {
+                "rate": 1.0,
+                "currencyCode": "NGN"
+            },
+            "denominationType": "RANGE",
+            "localFixedAmounts": null,
+            "internationalFixedAmounts": null
+        },
         {
             "id": 1,
             "name": "Ikeja Electricity Postpaid",

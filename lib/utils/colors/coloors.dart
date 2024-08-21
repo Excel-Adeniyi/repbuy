@@ -48,3 +48,9 @@ const buttongradientInactive = [
   Color.fromARGB(73, 10, 36, 23),
   Color.fromARGB(78, 13, 71, 42),
 ];
+
+const headerTextGradient = [
+  Color(0xfffcdc2a),
+  Color(0xff87a922),
+  Color(0xff0a2417),
+];

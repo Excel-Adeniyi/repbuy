@@ -7,7 +7,7 @@ import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/widge
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/widget/user_number.dart';
 import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/Iso/iso_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/validator/airtime_validator.dart';
 import 'package:shapmanpaypoint/services/activateAuthenticators.dart';
@@ -16,6 +16,7 @@ import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
+// ignore: must_be_immutable
 class DataBundleScreen extends StatelessWidget {
   // final String title = Get.arguments;
   final RechargeController imageSelector = Get.put(RechargeController());
@@ -43,15 +44,14 @@ class DataBundleScreen extends StatelessWidget {
     final validatorAmount = phoneNumberContoller
         .validateAmountField(phoneNumberContoller.amountField.value);
     Size screenSize = MediaQuery.sizeOf(context);
-    double screenWidth = MediaQuery.of(context).size.width;
-    double containerWidth;
-    if (screenWidth < 600) {
-      containerWidth = 300.0;
-    } else if (screenWidth < 1200) {
-      containerWidth = 400.0;
-    } else {
-      containerWidth = 500.0;
-    }
+    // double containerWidth;
+    // if (screenWidth < 600) {
+    //   containerWidth = 300.0;
+    // } else if (screenWidth < 1200) {
+    //   containerWidth = 400.0;
+    // } else {
+    //   containerWidth = 500.0;
+    // }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

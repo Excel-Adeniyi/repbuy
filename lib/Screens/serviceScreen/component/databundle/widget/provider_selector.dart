@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 class ProviderSelector extends StatelessWidget {
   const ProviderSelector({super.key});
@@ -11,78 +12,92 @@ class ProviderSelector extends StatelessWidget {
         Get.find<DataBundleController>();
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(
-              width: 1.0, color: const Color(0xff0a2417)),
+          border: Border.all(width: 1.0, color: const Color(0xff0a2417)),
           borderRadius: const BorderRadius.all(Radius.circular(5))),
       height: 65,
       width: double.infinity,
       child: Obx(
-        () => DropdownButton<String>(
-          elevation: 0,
-          underline: const SizedBox(),
-          padding: const EdgeInsets.all(8.0),
-          isExpanded: true,
-          value: databundleController.selectedPName.value,
-          icon: const Icon(Icons.keyboard_arrow_down),
-          items: [
-            const DropdownMenuItem<String>(
-              value: "Select Provider",
-              child: Text("Select Provider"),
+        () => DropdownSearch<String>(
+            popupProps: const PopupProps.menu(
+              showSearchBox: true,
             ),
-            // Check if the list is not null
-            ...databundleController.selectPackkage
-                .map<DropdownMenuItem<String>>(
-                  (item) {
-                    return DropdownMenuItem<String>(
-                      value: item.operatorId.toString(),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Center(child: Text(item.name)),
-                          FadeInImage.assetNetwork(
-                            placeholder: 'lib/assets/logo.png',
-                            image: item.logoUrls[0],
-                            width: 50,
-                            height: 50,
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                )
-                .toSet()
+            items: databundleController.selectPackkage
+                .map<String>((item) => item.name)
                 .toList(),
-          ],
-          onChanged: (dynamic? newValue) {
-            databundleController.selectedPName.value = newValue as String;
-            databundleController.selectedFixedAmountDes.value = "00.0";
-            final selectedPackage =
-                databundleController.selectPackkage.firstWhere((data) {
-              if (data != null && data.operatorId != null) {
-                return data.operatorId.toString() ==
-                    databundleController.selectedPName.value;
-              } else {
-                null;
-                return false;
+            dropdownDecoratorProps: const DropDownDecoratorProps(
+                dropdownSearchDecoration: InputDecoration(
+              contentPadding: EdgeInsets.all(8.0),
+              border: InputBorder.none,
+            )),
+            onChanged: (dynamic newValue) {
+              databundleController.selectedPName.value = newValue as String;
+              // print(newValue);
+              databundleController.selectedFixedAmountDes.value = "00.0";
+              final selectedPackage =
+                  databundleController.selectPackkage.firstWhere((data) {
+                if (data.operatorId != 0) {
+                  return data.name.toString() ==
+                      databundleController.selectedPName.value;
+                } else {
+                  null;
+                  return false;
+                }
+              });
+
+              if (selectedPackage.name.isNotEmpty) {
+                // Update the selected country name
+                final String mutableProvider = selectedPackage.name;
+
+                databundleController.selectedPackageName.value =
+                    mutableProvider;
+                final mutableLogo = List<String>.from(selectedPackage.logoUrls);
+                databundleController.selectedLogoUrls.value = mutableLogo[0];
+
+                final mutableDb = Map<String, dynamic>.from(
+                    selectedPackage.fixedAmountsDescriptions);
+
+                databundleController.updateDropdownItems(mutableDb);
               }
-            });
+            },
 
-            if (selectedPackage != false) {
-              // Update the selected country name
-              final String mutableProvider = selectedPackage.name;
-              // print("CHECKER $mutableProvider");
-              databundleController.selectedPackageName.value = mutableProvider;
-              final mutableLogo = List<String>.from(selectedPackage.logoUrls);
-              databundleController.selectedLogoUrls.value = mutableLogo[0];
 
-              final mutableDb = Map<String, dynamic>.from(
-                  selectedPackage.fixedAmountsDescriptions);
-
-              databundleController.updateDropdownItems(mutableDb);
-            }
-          },
-        ),
+            dropdownBuilder: (context, String? selectedItem) {
+              final packName = selectedItem ?? "Select Provider";
+              if (databundleController.selectPackkage.isEmpty) {
+                return const Text(
+                    "Select provider"); // Show a loading text if data isn't ready
+              }
+              final selectedPackage =
+                  databundleController.selectPackkage.firstWhere(
+                (item) => item.name == packName,
+                // orElse: () => null,
+              );
+              // print('here $selectedItem');
+              if (selectedPackage.name.isEmpty) {
+                return const Text(
+                    "Select provider"); // Show default text if no package found
+              }
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (selectedPackage.logoUrls.isNotEmpty) ...[
+                      Image.network(
+                        selectedPackage.logoUrls[0],
+                        width: 50,
+                        height: 50,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
+                      ),
+                      const SizedBox(width: 1),
+                    ],
+                    Center(child: Text(selectedItem ?? "Select provider")),
+                  ],
+                ),
+              );
+            }),
       ),
     );
   }

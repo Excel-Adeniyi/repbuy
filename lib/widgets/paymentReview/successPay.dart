@@ -20,11 +20,13 @@ class SuccessPay extends StatelessWidget {
   final phonController = Get.put(RechargeController());
   final _loaderController = Get.put(LoaderController());
   final electricService = ElectricAuthService();
-  final UtilityController utilityController = Get.find<UtilityController>();
+
   final animationController = Get.put(PaymentAnimation());
 
   @override
   Widget build(BuildContext context) {
+    UtilityController utilityController = Get.find<UtilityController>();
+    print(utilityController.purchasePrice.value);
     Size screenSize = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Center(
@@ -239,7 +241,7 @@ class SuccessPay extends StatelessWidget {
                                       ? isbuttongradient
                                       : buttongradient,
                                   begin: Alignment.bottomRight,
-                                            end: Alignment.topCenter),
+                                  end: Alignment.topCenter),
                               borderRadius: BorderRadius.circular(10)),
                           child: TextButton(
                             onPressed: () {
@@ -293,7 +295,8 @@ class SuccessPay extends StatelessWidget {
                           width: calculateButtonWidth(context),
                           height: 50,
                           decoration: BoxDecoration(
-                              border: Border.all(color: const Color(0xff0a2417)),
+                              border:
+                                  Border.all(color: const Color(0xff0a2417)),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10))),
                           child: TextButton(
@@ -303,7 +306,7 @@ class SuccessPay extends StatelessWidget {
                             child: ShaderMask(
                               shaderCallback: (Rect bounds) {
                                 return const LinearGradient(
-                                        colors:buttongradient,
+                                        colors: buttongradient,
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight)
                                     .createShader(bounds);

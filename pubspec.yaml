@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.6.5
+  dropdown_search: ^5.0.6
   card_swiper: ^3.0.1
   get_storage:
   pin_code_fields: ^8.0.1

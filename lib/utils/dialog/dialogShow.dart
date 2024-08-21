@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
-import 'package:shapmanpaypoint/services/operatorsService.dart';
+import 'package:shapmanpaypoint/services/operators_service.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/amount_prompt.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 

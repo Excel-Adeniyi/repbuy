@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/databundle/widget/selected_paymetn.dart';
+import 'package:shapmanpaypoint/controller/AdditionalDetailsController/balance_controller.dart';
 import 'package:shapmanpaypoint/controller/Animation/curve_easin_controller.dart';
 import 'package:shapmanpaypoint/controller/Animation/shimmer_controller.dart';
 import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
@@ -20,17 +22,19 @@ class DataAmountPrompt extends StatelessWidget {
   final _curveInController = Get.put(CurveIn());
   final _ontapEffectController = Get.put(OnTapEffect());
   // final otpServices = DataOTPService();
+  final BalanceController balanceController = Get.put(BalanceController());
+  final NumberFormat numberFormat = NumberFormat('#,##0.00', 'en_us');
   final _shimmerController = Get.put(ShimmerEffect());
   @override
   Widget build(BuildContext context) {
     // AirtimeModel model = _dataDetails.toModel();
     Size screenSize = MediaQuery.sizeOf(context);
-  
     return SafeArea(
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Obx(() {
+            final balancee = balanceController.numberformat();
             if (_loaderController.isLoading.value == false) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,7 +64,7 @@ class DataAmountPrompt extends StatelessWidget {
                     builder: ((context, child) {
                       return AnimatedContainer(
                           duration: const Duration(seconds: 2),
-                          height: 300,
+                          height: 400,
                           width: screenSize.width * 0.9,
                           decoration: BoxDecoration(
                             borderRadius:
@@ -89,7 +93,6 @@ class DataAmountPrompt extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
-                                  
                                     fontWeight: FontWeight.w400),
                               ),
                               const Divider(),
@@ -98,7 +101,6 @@ class DataAmountPrompt extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
-                                  
                                     fontWeight: FontWeight.w400),
                               ),
                               Text(
@@ -107,7 +109,6 @@ class DataAmountPrompt extends StatelessWidget {
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
-                                  
                                     fontWeight: FontWeight.w400),
                               ),
                               const Text(
@@ -115,7 +116,6 @@ class DataAmountPrompt extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
-                                  
                                     fontWeight: FontWeight.w400),
                               ),
                               Text(
@@ -124,11 +124,7 @@ class DataAmountPrompt extends StatelessWidget {
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
-                              
                                     fontWeight: FontWeight.w400),
-                              ),
-                              const SizedBox(
-                                height: 4,
                               ),
                               const SizedBox(
                                 height: 4,
@@ -138,25 +134,28 @@ class DataAmountPrompt extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
-                                  
                                     fontWeight: FontWeight.w400),
                               ),
-                              Text(
-                                _databundleController.selectedFixedValues.value
-                                    .toString(),
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                 
-                                    fontWeight: FontWeight.w400),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  _databundleController
+                                      .selectedFixedValues.value
+                                      .toString(),
+                                  overflow: TextOverflow.clip,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
+                                ),
                               ),
-                              const SizedBox(height: 5),
+                              const SizedBox(height: 4),
                               const Text(
                                 'amount:',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
-                                    
                                     fontWeight: FontWeight.w400),
                               ),
                               Text(
@@ -164,7 +163,6 @@ class DataAmountPrompt extends StatelessWidget {
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
-                                  
                                     fontWeight: FontWeight.w400),
                               ),
                               const SizedBox(
@@ -177,29 +175,26 @@ class DataAmountPrompt extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   border: Border.all(color: Colors.white),
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(8)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8)),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Available Balance:',
                                       style: TextStyle(
                                           color: Colors.black,
-                                          
                                           fontStyle: FontStyle.italic,
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600),
                                     ),
                                     Text(
-                                      'NGN 0.00',
-                                      style: TextStyle(
-                                          color:
-                                              Color(0xff0a2417),
-                                          fontSize: 18,
-                                      
+                                      'NGN $balancee',
+                                      style: const TextStyle(
+                                          color: Color(0xff0a2417),
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w800),
                                     ),
                                   ],
@@ -238,8 +233,8 @@ class DataAmountPrompt extends StatelessWidget {
                                 colors: _ontapEffectController.isTapped.value
                                     ? isbuttongradient
                                     : buttongradient,
-                               begin: Alignment.bottomRight,
-                                            end: Alignment.topCenter),
+                                begin: Alignment.bottomRight,
+                                end: Alignment.topCenter),
                             borderRadius: BorderRadius.circular(10)),
                         child: TextButton(
                           onPressed: () {
@@ -248,14 +243,14 @@ class DataAmountPrompt extends StatelessWidget {
                                 () {
                               _ontapEffectController.isTapped.value = false;
                               _ontapEffectController.isBSopen.value = false;
-                            
+
                               showModalBottomSheet(
                                 context: context,
                                 builder: (BuildContext context) =>
                                     const DataSelectPaymentMethod(
                                         title: "Data Top Up"),
                               );
-      
+
                               // Get.to(PinAuth(title: title));
                             });
                           },
@@ -303,7 +298,7 @@ class DataAmountPrompt extends StatelessWidget {
                           child: ShaderMask(
                             shaderCallback: (Rect bounds) {
                               return const LinearGradient(
-                                      colors:buttongradient,
+                                      colors: buttongradient,
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight)
                                   .createShader(bounds);
@@ -323,7 +318,7 @@ class DataAmountPrompt extends StatelessWidget {
                 ],
               );
             } else {
-              return  Center(
+              return Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -332,11 +327,9 @@ class DataAmountPrompt extends StatelessWidget {
                       width: 200,
                       height: 200,
                       child: LoadingAnimationWidget.threeRotatingDots(
-                        color: const Color(0xff0a2417),
-                        size: 100
-                      ),
+                          color: const Color(0xff0a2417), size: 100),
                     ),
-                   const SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     const Text("Processing request ..."),

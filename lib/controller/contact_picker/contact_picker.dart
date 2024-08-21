@@ -7,6 +7,7 @@ import 'package:shapmanpaypoint/controller/rechargeController.dart';
 class ContactPickerController extends GetxController {
   // final TextEditingController phoneController = TextEditingController();
   final phonController = Get.put(RechargeController());
+  final searchContact = "".obs;
   final RxList<Contact> selectedContacts = <Contact>[].obs;
 
   Future<void> pickContacts() async {
@@ -26,17 +27,44 @@ class ContactPickerController extends GetxController {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: contacts
-                        .map(
-                          (contact) => ListTile(
-                            title: Text(contact.displayName ?? ''),
-                            onTap: () {
-                              Navigator.of(context).pop(contact);
-                            },
-                          ),
-                        )
-                        .toList(),
+                    children: [
+                      TextField(
+                          decoration: const InputDecoration(
+                              labelText: 'search contact'),
+                          onChanged: (String newValue) {
+                            searchContact.value = newValue;
+                          }),
+                      Obx(() {
+                        // print(searchContact.value);
+                        final finalcontact = searchContact.value.isNotEmpty
+                            ? contacts.where((contact) {
+                                final contactName =
+                                    contact.displayName?.toLowerCase() ?? '';
+
+                                return contactName
+                                    .contains(searchContact.value);
+                              }).toList()
+                            : contacts;
+                        if (finalcontact.isEmpty) {
+                          return const Center(
+                            child: Text('No contacts found'),
+                          );
+                        }
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: finalcontact
+                              .map(
+                                (contact) => ListTile(
+                                  title: Text(contact.displayName ?? ''),
+                                  onTap: () {
+                                    Navigator.of(context).pop(contact);
+                                  },
+                                ),
+                              )
+                              .toList(),
+                        );
+                      })
+                    ],
                   ),
                 ),
               ),

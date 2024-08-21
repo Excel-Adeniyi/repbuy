@@ -11,7 +11,7 @@ import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
-import 'package:shapmanpaypoint/services/Airtime/airtimeTopupService.dart';
+import 'package:shapmanpaypoint/services/Airtime/airtime_topup_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_service.dart';
 import 'package:shapmanpaypoint/services/paymentService/payment_verify.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
@@ -29,7 +29,7 @@ class PaymentCheckout {
   final stora = SecureStorage();
   final String publicKey = Env.publickey;
   final verifyPayment = PaymentVerify();
-  final _databundleController = Get.find<DataBundleController>();
+  final _databundleController = Get.put(DataBundleController());
   // final DataBundleController _databundleController = Get.find<DataBundleController>();
   Future<void> chargeCardPayment(BuildContext context, title) async {
     final SignUpController editcontroller =
@@ -45,9 +45,9 @@ class PaymentCheckout {
 
       Map<String, dynamic> decodedData = json.decode(userData);
       final userid = decodedData['id'];
-
-      final dataAmount =
-          double.parse(_databundleController.priceController.text);
+      // print(title);
+      final dataString = _databundleController.priceController.text ;
+      final dataAmount = dataString.isNotEmpty ? double.parse(dataString) : 0.00;
       Charge charge = Charge()
         ..email = editcontroller.email.text.isEmpty
             ? userInfo.email.value
@@ -60,7 +60,7 @@ class PaymentCheckout {
       // ignore: use_build_context_synchronously
       CheckoutResponse response = await plugin.checkout(context,
           charge: charge, method: CheckoutMethod.card, fullscreen: true);
-      
+
       if (response.status == true) {
         ontapEffectController.isBSopen.value = true;
         loaderController.isChecker.value = true;

@@ -55,19 +55,18 @@ class SignupScreen extends StatelessWidget {
                 () {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
                       ShaderMask(
                         shaderCallback: (Rect bounds) {
                           return const LinearGradient(
-                                  colors: [
-                                Color(0xFF5423bb),
-                                Color(0xFF8629b1),
-                                Color(0xFFa12cab),
-                              ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter)
+                                  colors: headerTextGradient,
+                                  begin: Alignment.bottomRight,
+                                  end: Alignment.topLeft)
                               .createShader(bounds);
                         },
                         child: const Text(
@@ -78,29 +77,32 @@ class SignupScreen extends StatelessWidget {
                               color: Colors.white),
                         ),
                       ),
-                      TextButton(
-                        style: ButtonStyle(
-                            shadowColor:
-                                MaterialStateProperty.all(Colors.black54),
-                            elevation: MaterialStateProperty.all(8),
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            fixedSize: MaterialStateProperty.all(
-                                const Size(200.0, 10.0))),
-                        onPressed: () => {},
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'lib/assets/googlelogo.png',
-                              width: 40,
-                            ),
-                            const Text(
-                              'Sign in with Google',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
+                      SizedBox(
+                        width: containerWidth,
+                        child: TextButton(
+                          style: ButtonStyle(
+                              shadowColor:
+                                  MaterialStateProperty.all(Colors.black54),
+                              elevation: MaterialStateProperty.all(8),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              fixedSize: MaterialStateProperty.all(
+                                  const Size(200.0, 10.0))),
+                          onPressed: () => {},
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'lib/assets/googlelogo.png',
+                                width: 40,
+                              ),
+                              const Text(
+                                'Sign in with Google',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       const Row(
@@ -118,7 +120,7 @@ class SignupScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       SizedBox(
                         width: containerWidth,
-                        height: 75,
+                        // height: 75,
                         child: TextField(
                           controller: editController.firstname,
                           focusNode: _firstnamefocus,
@@ -127,16 +129,18 @@ class SignupScreen extends StatelessWidget {
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                               focusedErrorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105))),
+                                  borderSide:
+                                      BorderSide(color: Color(0xfffcdc2a))),
                               errorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105))),
-                              errorText:
-                                  editController.firstnameValidator.value ==
-                                          true
-                                      ? "First name should not be empty"
-                                      : "",
+                                  borderSide:
+                                      BorderSide(color: Color(0xfffcdc2a))),
+                              error: editController.firstnameValidator.value ==
+                                      true
+                                  ? const Text(
+                                      "First name should not be empty",
+                                      style: TextStyle(color: Colors.red),
+                                    )
+                                  : const SizedBox.shrink(),
                               label: const Text(
                                 'First name',
                                 style: TextStyle(
@@ -144,9 +148,9 @@ class SignupScreen extends StatelessWidget {
                               ),
                               hintText: 'enter your last first name',
                               border: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105)),
-                                  gapPadding: 40)),
+                                borderSide:
+                                    BorderSide(color: Color(0xfffcdc2a)),
+                              )),
                           onChanged: (newValue) {
                             if (newValue.isEmpty) {
                               editController.firstnameValidator.value = true;
@@ -161,7 +165,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 75,
+                        // height: 75,
                         child: TextField(
                           controller: editController.lastname,
                           focusNode: _secondnamefocus,
@@ -170,19 +174,21 @@ class SignupScreen extends StatelessWidget {
                               color: Colors.black54, fontSize: 14),
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105)),
-                                gapPadding: 40),
+                              borderSide: BorderSide(color: Color(0xfffcdc2a)),
+                            ),
                             focusedErrorBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105))),
+                                borderSide:
+                                    BorderSide(color: Color(0xfffcdc2a))),
                             errorBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105))),
-                            errorText:
+                                borderSide:
+                                    BorderSide(color: Color(0xfffcdc2a))),
+                            error:
                                 editController.lastnameValidator.value == true
-                                    ? "Last name should not be empty"
-                                    : "",
+                                    ? const Text(
+                                        "Last name should not be empty",
+                                        style: TextStyle(color: Colors.red),
+                                      )
+                                    : const SizedBox.shrink(),
                             label: const Text(
                               'Last name',
                               style: TextStyle(
@@ -204,7 +210,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 75,
+                        // height: 75,
                         child: TextField(
                           controller: editController.email,
                           focusNode: _emailfocus,
@@ -213,19 +219,21 @@ class SignupScreen extends StatelessWidget {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105)),
-                                gapPadding: 40),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 16, 59, 15)),
+                            ),
                             focusedErrorBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105))),
+                                    color: Color.fromARGB(255, 16, 59, 15))),
                             errorBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105))),
-                            errorText:
-                                editController.emailValidator.value == true
-                                    ? "Email must be valid"
-                                    : "",
+                                borderSide:
+                                    BorderSide(color: Color(0xfffcdc2a))),
+                            error: editController.emailValidator.value == true
+                                ? const Text(
+                                    "Email must be valid",
+                                    style: TextStyle(color: Colors.red),
+                                  )
+                                : const SizedBox.shrink(),
                             label: const Text(
                               'Email',
                               style: TextStyle(
@@ -236,17 +244,17 @@ class SignupScreen extends StatelessWidget {
                           onChanged: (newValue) {
                             if (newValue.isNotEmpty) {
                               final value = isEmail(newValue);
-                              print(value);
+                              // print(value);
                               if (value == true) {
                                 editController.emailValidator.value = false;
-                                print(newValue);
+                                // print(newValue);
                               } else {
                                 editController.emailValidator.value = true;
-                                print("BBB");
+                                // print("BBB");
                               }
                             } else {
                               editController.emailValidator.value = true;
-                              print("rubbish");
+                              // print("rubbish");
                             }
                           },
                         ),
@@ -256,31 +264,39 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 50,
+                        height: 60,
                         child: Container(
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: const Color.fromARGB(255, 73, 22, 105),
-                                  width: 0.9),
+                                  color: const Color(0xfffcdc2a), width: 0.9),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(3))),
-                          child: DropdownButton(
-                            underline: Container(),
-                            value: controller.selectedOption.value,
-                            items: options.map((String option) {
-                              return DropdownMenuItem<String>(
-                                value: option,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                                  child: Text(option),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              controller.selectedOption.value = newValue!;
-                              editController.country.value = newValue;
-                            },
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: DropdownButton(
+                              // isExpanded: true,
+                              isDense: true,
+                              underline: Container(),
+                              value: controller.selectedOption.value,
+                              items: options.map((String option) {
+                                return DropdownMenuItem<String>(
+                                  value: option,
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                    child: Text(
+                                      option,
+                                      style: const TextStyle(
+                                          color: Colors.black54),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                controller.selectedOption.value = newValue!;
+                                editController.country.value = newValue;
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -289,7 +305,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 75,
+                        // height: 75,
                         child: TextField(
                           controller: editController.phone,
                           focusNode: _phonefocus,
@@ -301,19 +317,21 @@ class SignupScreen extends StatelessWidget {
                               color: Colors.black54, fontSize: 14),
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105)),
-                                gapPadding: 40),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 16, 59, 15)),
+                            ),
                             focusedErrorBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105))),
+                                    color: Color.fromARGB(255, 16, 59, 15))),
                             errorBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 73, 22, 105))),
-                            errorText:
-                                editController.phoneValidator.value == true
-                                    ? "Phone should not be empty"
-                                    : "",
+                                borderSide:
+                                    BorderSide(color: Color(0xfffcdc2a))),
+                            error: editController.phoneValidator.value == true
+                                ? const Text(
+                                    "Phone should not be empty",
+                                    style: TextStyle(color: Colors.red),
+                                  )
+                                : const SizedBox.shrink(),
                             label: const Text(
                               'Phone number',
                               style: TextStyle(
@@ -341,7 +359,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 75,
+                        // height: 75,
                         child: TextField(
                           obscureText: _obscurer.isVisible.value,
                           controller: editController.password,
@@ -349,19 +367,22 @@ class SignupScreen extends StatelessWidget {
                           style: const TextStyle(fontSize: 13),
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105)),
-                                  gapPadding: 40),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 16, 59, 15)),
+                              ),
                               focusedErrorBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105))),
+                                      color: Color.fromARGB(255, 16, 59, 15))),
                               errorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105))),
-                              errorText:
+                                  borderSide:
+                                      BorderSide(color: Color(0xfffcdc2a))),
+                              error:
                                   editController.passwordValidator.value == true
-                                      ? "Password should not be empty"
-                                      : "",
+                                      ? const Text(
+                                          "Password should not be empty",
+                                          style: TextStyle(color: Colors.red),
+                                        )
+                                      : const SizedBox.shrink(),
                               label: const Text(
                                 'Enter Password',
                                 style: TextStyle(
@@ -392,7 +413,7 @@ class SignupScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         width: containerWidth,
-                        height: 75,
+                        // height: 75,
                         child: TextField(
                           controller: editController.confirmpassword,
                           obscureText: _obscurer.isCVisible.value,
@@ -400,15 +421,15 @@ class SignupScreen extends StatelessWidget {
                           style: const TextStyle(fontSize: 13),
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105)),
-                                  gapPadding: 40),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 16, 59, 15)),
+                              ),
                               focusedErrorBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105))),
+                                      color: Color.fromARGB(255, 16, 59, 15))),
                               errorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 73, 22, 105))),
+                                  borderSide:
+                                      BorderSide(color: Color(0xfffcdc2a))),
                               errorText: editController
                                           .confirmpasswordValidator.value ==
                                       true
@@ -479,18 +500,21 @@ class SignupScreen extends StatelessWidget {
                                             TextSpan(
                                                 text: ' Next paypoint',
                                                 style: TextStyle(
-                                                    color: Color(0xFF5423BB))),
+                                                    color: Color.fromARGB(
+                                                        255, 16, 59, 15))),
                                             TextSpan(
                                                 text: ' Terms & Conditions ',
                                                 style: TextStyle(
-                                                    color: Color(0xFF5423BB))),
+                                                    color: Color.fromARGB(
+                                                        255, 16, 59, 15))),
                                             TextSpan(
                                               text: ' And Allow',
                                             ),
                                             TextSpan(
                                                 text: ' Next paypoint',
                                                 style: TextStyle(
-                                                    color: Color(0xFF5423BB))),
+                                                    color: Color.fromARGB(
+                                                        255, 16, 59, 15))),
                                             TextSpan(
                                               text: ' to',
                                             ),
@@ -514,17 +538,17 @@ class SignupScreen extends StatelessWidget {
                           children: [
                             Container(
                               width: containerWidth,
-                              height: 35,
+                              height: 50,
                               decoration: const BoxDecoration(
                                   boxShadow: [BoxShadow(color: Colors.black45)],
                                   gradient: LinearGradient(
                                       colors: buttongradient,
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter),
+                                      begin: Alignment.bottomRight,
+                                      end: Alignment.topCenter),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(12))),
                               child: TextButton(
-                                  style: ButtonStyle(),
+                                  style: const ButtonStyle(),
                                   onPressed: () => {signupService.signinAuth()},
                                   child: editController.isLoading.value == false
                                       ? const Text(
@@ -541,7 +565,7 @@ class SignupScreen extends StatelessWidget {
                                 visible: editController.isVisible.value,
                                 child: Container(
                                   width: containerWidth,
-                                  height: 35,
+                                  height: 50,
                                   color: Colors.white.withOpacity(0.5),
                                 ))
                           ],
@@ -554,16 +578,17 @@ class SignupScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Already have an acoount?',
                             style: TextStyle(
-                                fontSize: 12, color: Color(0xFF5423BB)),
+                              fontSize: 12,
+                            ),
                           ),
                           TextButton(
                               onPressed: () {
                                 Get.to(SignIn());
                               },
-                              child: Text('Sign In'))
+                              child: const Text('Sign In'))
                         ],
                       )
                     ],

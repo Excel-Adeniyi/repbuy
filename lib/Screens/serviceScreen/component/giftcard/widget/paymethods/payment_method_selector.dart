@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/PinValidation/pin_verification.dart';
+import 'package:shapmanpaypoint/controller/AdditionalDetailsController/balance_controller.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
+// import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/Electricbill/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-
 
 class GiftCardPaymentMethod extends StatelessWidget {
   final String title;
@@ -16,12 +17,14 @@ class GiftCardPaymentMethod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ontapEffectController = Get.find<OnTapEffect>();
-    final loaderController = Get.put(LoaderController());
+    final BalanceController balanceController = Get.put(BalanceController());
+    final NumberFormat numberFormat = NumberFormat('#,##0.00', 'en_us');
+    // final loaderController = Get.put(LoaderController());
     final payVoid = UPaymentCheckout();
     Size screenSize = MediaQuery.sizeOf(context);
     return Obx(() {
       if (ontapEffectController.isBSopen.value == true) {
-        print("GOT HERE");
+        // print("GOT HERE");
         Navigator.of(context).pop();
         return const SizedBox.shrink();
       } else {
@@ -73,11 +76,12 @@ class GiftCardPaymentMethod extends StatelessWidget {
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700),
                             ),
-                            Obx(
-                              () => Row(children: [
-                                const Text(
-                                  "NGN 0.00",
-                                  style: TextStyle(
+                            Obx(() {
+                              final balancee = balanceController.numberformat();
+                              return Row(children: [
+                                Text(
+                                  "NGN $balancee",
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontFamily: "Roboto",
                                       fontSize: 14,
@@ -100,8 +104,8 @@ class GiftCardPaymentMethod extends StatelessWidget {
                                         width: 0,
                                         height: 0,
                                       )
-                              ]),
-                            ),
+                              ]);
+                            }),
                           ],
                         )),
                   ),
@@ -205,7 +209,7 @@ class GiftCardPaymentMethod extends StatelessWidget {
                             }
                           });
                         },
-                        child: ontapEffectController.isSelected.value == true 
+                        child: ontapEffectController.isSelected.value == true
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )

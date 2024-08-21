@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:shapmanpaypoint/controller/AdditionalDetailsController/balance_controller.dart';
 import 'package:shapmanpaypoint/controller/Animation/shimmer_controller.dart';
 
 import '../../controller/passwordtoggle.dart';
@@ -9,6 +11,8 @@ class TopBalance extends StatelessWidget {
   // const TopBalance({super.key});
   final BalanceObscure _controller = Get.find<BalanceObscure>();
   final _shimmerController = Get.put(ShimmerEffect());
+  final BalanceController balanceController = Get.put(BalanceController());
+  final NumberFormat numberFormat = NumberFormat('#,##0.00', 'en_us');
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -37,16 +41,19 @@ class TopBalance extends StatelessWidget {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
-                          child: Obx(() => Text(
-                                _controller.hideText == false
-                                    ? "******"
-                                    : 'NGN 10,000',
-                                style: const TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              )),
+                          child: Obx(() {
+                            final balancee = balanceController.numberformat();
+                            return Text(
+                              _controller.hideText.isFalse
+                                  ? "******"
+                                  : 'NGN $balancee',
+                              style: const TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            );
+                          }),
                         ),
                       ),
                       TextButton(

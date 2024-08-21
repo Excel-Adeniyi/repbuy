@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 
-import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/Iso/iso_controller.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/contact_picker/contact_picker.dart';
 import 'package:shapmanpaypoint/controller/rechargeController.dart';
@@ -28,21 +28,21 @@ class FetchOperatorService {
     try {
       final dataReq = {
         "phone": contactController.phonController.phoneController.text,
-        "isoName": isoController.selectedCountry.value
+        "isoName": isoController.isoName.value
       };
-      print(dataReq);
+      // print(dataReq);
       _loaderController.isLoading.value = true;
       final response =
           await dio.post('/operator', options: Options(), data: dataReq);
-      print(response);
+      // print(response);
       // print("HELLO ${response.data['success']}");r
       // final List<dynamic> resData = [];
 
       if (response.data != null) {
         // print("HI");
-        print(response.data['operatorId']);
-        print(response.data['name']);
-        print(rechargeText.amountCont.text);
+        // print(response.data['operatorId']);
+        // print(response.data['name']);
+        // print(rechargeText.amountCont.text);
         _loaderController.isLoading.value = false;
         _airtimeCController.operatorId.value =
             response.data['operatorId'].toString();
@@ -51,15 +51,15 @@ class FetchOperatorService {
         _airtimeCController.network.value = response.data['name'];
         _airtimeCController.amount.value = rechargeText.amountCont.text;
         _airtimeCController.number.value = rechargeText.phoneController.text;
-        print(_airtimeCController.operatorId.value);
+        // print(_airtimeCController.operatorId.value);
         // await stora.writeSecureData("X-csrf", response.data['message']);
       } else {
-        print('NAN');
+        // print('NAN');
         _loaderController.isLoading.value = true;
       }
       return response;
     } catch (error) {
-      print("ANA");
+      // print("ANA $error");
       _loaderController.isLoading.value = true;
       rethrow;
     } finally {

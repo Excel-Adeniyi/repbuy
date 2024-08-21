@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
-import 'package:shapmanpaypoint/controller/Iso/isoController.dart';
+import 'package:shapmanpaypoint/controller/Iso/iso_controller.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 
 class GiftCardService {

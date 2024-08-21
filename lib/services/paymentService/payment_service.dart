@@ -20,7 +20,7 @@ class PaymentService {
   final AirtimeCController airtimeCController = Get.find<AirtimeCController>();
   final SecureStorage stora = SecureStorage();
   final UserInfoController _userInfo = Get.find<UserInfoController>();
-    final _databundleController = Get.find<DataBundleController>();
+  final _databundleController = Get.put(DataBundleController());
   Future<String> paymentInit() async {
     final SignUpController editcontroller =
         masterController.signupIsActive.value == true
@@ -33,7 +33,9 @@ class PaymentService {
         "email": editcontroller.email.text.isEmpty
             ? _userInfo.email.value
             : editcontroller.email.text,
-        "amount": airtimeCController.amount.value != ""  ? airtimeCController.amount.value : _databundleController.priceController.text,
+        "amount": airtimeCController.amount.value != ""
+            ? airtimeCController.amount.value
+            : _databundleController.priceController.text,
         "userId": userDecode['id']
       };
 

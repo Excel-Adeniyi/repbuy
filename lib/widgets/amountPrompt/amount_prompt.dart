@@ -71,7 +71,7 @@ class AmountPrompt extends StatelessWidget {
                 ),
               );
             } else {
-              if (_loaderController.isLoading == false) {
+              if (_loaderController.isLoading.isFalse) {
                 return AnimatedBuilder(
                   animation: _curveInController.controller,
                   builder: ((context, child) {
@@ -107,7 +107,8 @@ class AmountPrompt extends StatelessWidget {
                                   MediaQuery.of(context).size.height *
                                       (1 - _curveInController.animation.value)),
                               child: AnimatedBuilder(
-                                animation: _shimmerController.animationController,
+                                animation:
+                                    _shimmerController.animationController,
                                 builder: ((context, child) {
                                   return Container(
                                     padding:
@@ -122,12 +123,14 @@ class AmountPrompt extends StatelessWidget {
                                           begin: Alignment(
                                               -1 -
                                                   _shimmerController
-                                                      .animationController.value,
+                                                      .animationController
+                                                      .value,
                                               0),
                                           end: Alignment(
                                               1 +
                                                   _shimmerController
-                                                      .animationController.value,
+                                                      .animationController
+                                                      .value,
                                               0)),
                                     ),
                                     child: Column(
@@ -192,10 +195,7 @@ class AmountPrompt extends StatelessWidget {
                                               fontWeight: FontWeight.w400),
                                         ),
                                         Text(
-                                          "NGN" +
-                                              " " +
-                                              _airtimeCController.amount.value
-                                                  .toString(),
+                                          'NGN ${_airtimeCController.amount.value.toString()}',
                                           style: const TextStyle(
                                               color: Colors.white,
                                               fontFamily: "Roboto",
@@ -213,8 +213,9 @@ class AmountPrompt extends StatelessWidget {
                                             color: Colors.white,
                                             border:
                                                 Border.all(color: Colors.white),
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(8)),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(8)),
                                           ),
                                           child: const Row(
                                             mainAxisAlignment:
@@ -227,7 +228,8 @@ class AmountPrompt extends StatelessWidget {
                                                     fontFamily: 'Roboto',
                                                     fontStyle: FontStyle.italic,
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
                                               Text(
                                                 'NGN 0.00',
@@ -235,7 +237,8 @@ class AmountPrompt extends StatelessWidget {
                                                     color: Color(0xff0a2417),
                                                     fontSize: 18,
                                                     fontFamily: 'Roboto',
-                                                    fontWeight: FontWeight.w800),
+                                                    fontWeight:
+                                                        FontWeight.w800),
                                               ),
                                             ],
                                           ),
@@ -251,17 +254,20 @@ class AmountPrompt extends StatelessWidget {
                             ),
                             Obx(
                               () => Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   AnimatedContainer(
-                                    duration: const Duration(milliseconds: 1000),
+                                    duration:
+                                        const Duration(milliseconds: 1000),
                                     // margin: const EdgeInsets.fromLTRB(0, 16, 0, 16),
                                     height: 50,
                                     width: calculateButtonWidth(context),
                                     decoration: BoxDecoration(
                                         boxShadow: const [
                                           BoxShadow(
-                                            color: Colors.black45, // Shadow color
+                                            color:
+                                                Colors.black45, // Shadow color
                                             blurRadius: 5.0, // Blur radius
                                             offset: Offset(0, 2),
                                           )
@@ -277,7 +283,8 @@ class AmountPrompt extends StatelessWidget {
                                                 : buttongradient,
                                             begin: Alignment.bottomRight,
                                             end: Alignment.topCenter),
-                                        borderRadius: BorderRadius.circular(10)),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     child: TextButton(
                                       onPressed: () {
                                         _ontapEffectController.isTapped.value =
@@ -285,17 +292,18 @@ class AmountPrompt extends StatelessWidget {
                                         Future.delayed(
                                             const Duration(milliseconds: 1000),
                                             () {
-                                          _ontapEffectController.isTapped.value =
-                                              false;
-                                          _ontapEffectController.isBSopen.value =
-                                              false;
-                                          print("WORKING");
+                                          _ontapEffectController
+                                              .isTapped.value = false;
+                                          _ontapEffectController
+                                              .isBSopen.value = false;
+                                          // print("WORKING");
                                           showModalBottomSheet(
                                             context: context,
                                             builder: (BuildContext context) =>
-                                                SelectPaymentMethod(title: title),
+                                                SelectPaymentMethod(
+                                                    title: title),
                                           );
-      
+
                                           // Get.to(PinAuth(title: title));
                                         });
                                       },
@@ -307,13 +315,15 @@ class AmountPrompt extends StatelessWidget {
                                             )
                                           : const Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   'Continue',
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 14),
                                                 ),
                                                 SizedBox(
@@ -331,7 +341,8 @@ class AmountPrompt extends StatelessWidget {
                                     height: 15,
                                   ),
                                   AnimatedContainer(
-                                    duration: const Duration(milliseconds: 1000),
+                                    duration:
+                                        const Duration(milliseconds: 1000),
                                     width: calculateButtonWidth(context),
                                     height: 50,
                                     decoration: BoxDecoration(
@@ -341,7 +352,7 @@ class AmountPrompt extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10))),
                                     child: TextButton(
-                                     clipBehavior: Clip.antiAlias,
+                                      clipBehavior: Clip.antiAlias,
                                       onPressed: () {
                                         Get.toNamed('/dashboard');
                                       },
@@ -394,7 +405,6 @@ class AmountPrompt extends StatelessWidget {
                 );
               }
             }
-            ;
           }),
         ),
       ),
