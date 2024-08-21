@@ -44,9 +44,9 @@ async function GetAuthTopUP(req: Request, res: Response) {
       const axiosError = error as AxiosError;
       if (axiosError.response) {
         //console.log(
-          "Server responded with non-2xx status:",
-          axiosError.response
-        );
+        //   "Server responded with non-2xx status:",
+        //   axiosError.response
+        // );
         if (res) res
           .status(500)
           .json({ axiosError: "Server error" });

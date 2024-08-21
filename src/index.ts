@@ -8,6 +8,7 @@ import http from 'http'
 
 import WebSocketClass from './webSocket/websocket';
 import { startInterval } from './controller/ws/handleUtilityController';
+import helmet from 'helmet';
 
 const PORT = 2110
 const app: Express = express();
@@ -16,13 +17,14 @@ let server: any = http.createServer(app)
 const websocket = new WebSocketClass(server)
 
 app.use(cors())
+app.use(helmet())
 app.use(cookiePaser());
 app.use(SessionData)
 
 startInterval(websocket)
-// //console.log("HI")
+// console.log("HI")
 app.use(express.json())
 
 app.use('/', router)
-server.listen(PORT, () => { //console.log(`App Listening on ${PORT}`) })
+server.listen(PORT, () => { console.log(`App Listening on ${PORT}`) })
 
