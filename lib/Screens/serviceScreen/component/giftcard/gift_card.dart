@@ -16,7 +16,7 @@ import 'package:shapmanpaypoint/widgets/button/newbutton.dart';
 class GiftCard extends StatelessWidget {
   final GiftCardController giftCardController = Get.put(GiftCardController());
   var unescape = HtmlUnescape();
-  GiftCard({Key? key}) : super(key: key);
+  GiftCard({super.key});
 
   @override
   Widget build(BuildContext context) {

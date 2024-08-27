@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/services/SignupService/otp_service.dart';
-import 'package:shapmanpaypoint/widgets/otpScreen/otp.dart';
 import 'package:shapmanpaypoint/utils/responsiveness/responsiveness.dart';
 
 import '../../../utils/colors/coloors.dart';
@@ -15,7 +13,7 @@ class CompletionScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Center(
             child: SingleChildScrollView(
           child: Column(
@@ -47,7 +45,7 @@ class CompletionScreen extends StatelessWidget {
                   'Copy Your account has been created successfully',
                   style: TextStyle(fontSize: 12),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
                 Align(

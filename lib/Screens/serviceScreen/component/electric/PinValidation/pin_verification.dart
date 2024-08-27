@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Animation/payment_animation_controller.dart';
 import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
-import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
 import 'package:shapmanpaypoint/controller/timerController.dart';
-import 'package:shapmanpaypoint/services/Airtime/airtime_otp_service.dart';
 import 'package:shapmanpaypoint/services/Electricbill/electric_verify_pin.dart';
-import 'package:shapmanpaypoint/services/otp_service.dart';
-import 'package:shapmanpaypoint/services/paymentService/payment_checkout.dart';
 import 'package:shapmanpaypoint/widgets/PinWidget/pin_widget.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
@@ -26,7 +22,7 @@ class UPinAuth extends StatelessWidget {
   final verifyOtpService = UVerifyPurchase();
   final _ontapEffectController = Get.put(OnTapEffect());
   // final _loaderController = Get.find<LoaderController>();
-  UPinAuth({Key? key, required this.title}) : super(key: key);
+  UPinAuth({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +36,7 @@ class UPinAuth extends StatelessWidget {
     } else {
       containerWidth = 500.0;
     }
-    print('dgs' + title);
+    print('dgs$title');
     return GestureDetector(
       onTap: () {
         FocusNode().unfocus();

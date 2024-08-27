@@ -28,7 +28,7 @@ class RechargeController extends GetxController {
     if (value == 'Buy for Self') {
       final tokenAll = await stora.readSecureData('ResBody');
       // print(tokenAll);
-      if (tokenAll != null && tokenAll.isNotEmpty) {
+      if (tokenAll.isNotEmpty) {
         try {
           // var sStrong = json.encoder(tokenAll);
           Map<String, dynamic> decodedJson = json.decode(tokenAll);

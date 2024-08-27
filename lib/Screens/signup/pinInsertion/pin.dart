@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:shapmanpaypoint/controller/Auth/pincode_controller.dart';
 import '../../../widgets/dailbutton/customdailpad.dart';
 import '../../../utils/colors/coloors.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class PinScreen extends StatelessWidget {
   var pagecondition = (Get.previousRoute == '/otp');
   final PinCodeController _pincode = Get.put(PinCodeController());
   final TextEditingController pincontroller = TextEditingController();
+
+  PinScreen({super.key});
   @override
   Widget build(BuildContext context) {
     const title = 'Security PIN';

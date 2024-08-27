@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Auth/useravatar_controller.dart';
 import 'package:shapmanpaypoint/services/SignupService/useravatar_service.dart';
-import 'package:shapmanpaypoint/utils/width.dart';
 
 import '../../../utils/colors/coloors.dart';
 

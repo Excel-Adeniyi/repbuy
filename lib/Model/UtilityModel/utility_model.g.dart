@@ -8,7 +8,7 @@ part of 'utility_model.dart';
 
 _$UtilityModelImpl _$$UtilityModelImplFromJson(Map<String, dynamic> json) =>
     _$UtilityModelImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       countryCode: json['countryCode'] as String,
       serviceType: json['serviceType'] as String,

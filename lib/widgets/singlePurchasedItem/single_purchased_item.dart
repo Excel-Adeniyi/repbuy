@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/ShareController/share_controller.dart';
 import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
-import 'package:shapmanpaypoint/utils/width.dart';
 
 class SinglePurchasedItemPage extends StatelessWidget {
   const SinglePurchasedItemPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final GlobalKey _shareglobalKey = GlobalKey();
+    final GlobalKey shareglobalKey = GlobalKey();
     dynamic transaction = Get.arguments;
     UtilityController utilityController = Get.put(UtilityController());
     ShareController shareController = Get.put(ShareController());
@@ -24,7 +23,7 @@ class SinglePurchasedItemPage extends StatelessWidget {
             child: Column(
               children: [
                 RepaintBoundary(
-                  key: _shareglobalKey,
+                  key: shareglobalKey,
                   child: FittedBox(
                     child: Container(
                       color: Colors.white60,
@@ -96,7 +95,7 @@ class SinglePurchasedItemPage extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    shareController.captureandImage(_shareglobalKey);
+                    shareController.captureandImage(shareglobalKey);
                   },
                   child: const Text("Share"),
                 )

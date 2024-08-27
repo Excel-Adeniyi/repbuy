@@ -24,14 +24,13 @@ class CompletedAmount extends StatelessWidget {
 // final databundle
   final _contactPickerController = Get.find<ContactPickerController>();
   CompletedAmount({
-    Key? key,
+    super.key,
     required this.title,
   })  : purchase = title == 'Data Top up'
             ? 'Data'
             : title == "Electric Bill"
                 ? "Utility Bill"
-                : 'Airtime',
-        super(key: key);
+                : 'Airtime';
 
   @override
   Widget build(BuildContext context) {

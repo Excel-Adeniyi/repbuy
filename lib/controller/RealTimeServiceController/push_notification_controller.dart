@@ -1,12 +1,8 @@
-import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/services/RealTimeConnection/fcm_token.dart';
-import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 class NotificationController extends GetxController {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

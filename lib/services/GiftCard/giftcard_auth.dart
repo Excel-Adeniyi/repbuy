@@ -12,7 +12,7 @@ class GiftCardAuth {
     try {
       final response = await dio.post("/authGiftCard");
       return response;
-    } on DioException catch (error) {
+    } on DioException {
       rethrow;
     }
   }

@@ -1,12 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/controller/Clear/clear_controller.dart';
 import 'package:shapmanpaypoint/controller/GiftCard/gift_card_controller.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
-import 'package:shapmanpaypoint/controller/utility_controller/utility_controller.dart';
 import 'package:shapmanpaypoint/utils/Loader/loader.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/widgets/amountPrompt/saveBeneficiary.dart';
@@ -24,8 +21,8 @@ class GiftCardCompletedAmount extends StatelessWidget {
 // final databundle
   // final _contactPickerController = Get.find<ContactPickerController>();
   GiftCardCompletedAmount({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

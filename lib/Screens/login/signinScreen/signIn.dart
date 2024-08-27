@@ -22,6 +22,8 @@ class SignIn extends StatelessWidget {
   // final TextEditingController phone_number = TextEditingController();
   final TextEditingController _passWord = TextEditingController();
 
+  SignIn({super.key});
+
   // signIn service
 
   @override

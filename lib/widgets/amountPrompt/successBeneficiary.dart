@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/widgets/tabbar/tabbar.dart';
 
 import '../../utils/colors/coloors.dart';
 import '../../utils/width.dart';
@@ -13,7 +12,7 @@ class SuccessBeneficiary extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,28 +34,28 @@ class SuccessBeneficiary extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               Image.asset(
                 'lib/assets/happy-face.png',
                 width: 150,
               ),
-              Text(
+              const Text(
                 'Beneficiary has be added',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     color: Colors.black38),
               ),
-              Text(
+              const Text(
                 'Successfully',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     color: Colors.black38),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               Container(

@@ -3,10 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/Completed/utility_status.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/completed/giftcard_completed.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
-import 'package:shapmanpaypoint/services/Electricbill/electricbill_final_init_service.dart';
 import 'package:shapmanpaypoint/services/GiftCard/giftcard_final_init_service.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
@@ -28,7 +26,7 @@ class GiftCardVerifyPurchase {
     final decodedToken = await stora.readSecureData('ResBody');
     Map<String, dynamic> userDecode = json.decode(decodedToken);
     final userId = userDecode['id'];
-    print('checking title' + ' ' + title);
+    print('checking title' ' ' + title);
     try {
       final payload = {
         "user_pin": otpController.pinController.value,
@@ -43,7 +41,7 @@ class GiftCardVerifyPurchase {
       }
       print(response);
       return response;
-    } on DioException catch (error) {
+    } on DioException {
       rethrow;
     }
   }

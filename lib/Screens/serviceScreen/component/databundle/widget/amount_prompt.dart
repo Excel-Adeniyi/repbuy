@@ -14,7 +14,7 @@ import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
 
 class DataAmountPrompt extends StatelessWidget {
-  DataAmountPrompt({Key? key}) : super(key: key);
+  DataAmountPrompt({super.key});
   // final _dataDetails = Get.find<AirtimeCController>();
   final _databundleController = Get.find<DataBundleController>();
   final _phoneNumberController = Get.find<ContactPickerController>();

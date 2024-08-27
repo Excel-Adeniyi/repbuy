@@ -25,16 +25,14 @@ class GoogleService {
       final String email = googleSignInAccount!.email;
       final String name = googleSignInAccount.displayName ?? "";
 
-      if (email != null) {
-        final userData = {email, name};
-        print(userData);
-        final response =
-            await dio.post('/googleSignUp', options: Options(), data: userData);
-        Get.toNamed('/dashboard');
-        print(response);
-        return response;
-      }
-      throw Exception('Email is null');
+      final userData = {email, name};
+      print(userData);
+      final response =
+          await dio.post('/googleSignUp', options: Options(), data: userData);
+      Get.toNamed('/dashboard');
+      print(response);
+      return response;
+          throw Exception('Email is null');
     } catch (error) {
       print(error);
       rethrow;

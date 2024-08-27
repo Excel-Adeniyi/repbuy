@@ -9,8 +9,7 @@ import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 class GiftCardSelectPaymentMethod extends StatelessWidget {
   final String title;
 
-  const GiftCardSelectPaymentMethod({Key? key, required this.title})
-      : super(key: key);
+  const GiftCardSelectPaymentMethod({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +45,10 @@ class GiftCardSelectPaymentMethod extends StatelessWidget {
                     child: TextButton(
                         style: ButtonStyle(
                             padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                WidgetStateProperty.all<EdgeInsetsGeometry>(
                                     const EdgeInsets.fromLTRB(16, 2, 16, 2)),
                             shape:
-                                const MaterialStatePropertyAll<OutlinedBorder>(
+                                const WidgetStatePropertyAll<OutlinedBorder>(
                                     RoundedRectangleBorder(
                                         side: BorderSide.none,
                                         borderRadius: BorderRadius.zero))),
@@ -113,10 +112,10 @@ class GiftCardSelectPaymentMethod extends StatelessWidget {
                     child: TextButton(
                         style: ButtonStyle(
                             padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                WidgetStateProperty.all<EdgeInsetsGeometry>(
                                     const EdgeInsets.fromLTRB(16, 2, 16, 2)),
                             shape:
-                                const MaterialStatePropertyAll<OutlinedBorder>(
+                                const WidgetStatePropertyAll<OutlinedBorder>(
                                     RoundedRectangleBorder(
                                         side: BorderSide.none,
                                         borderRadius: BorderRadius.zero))),

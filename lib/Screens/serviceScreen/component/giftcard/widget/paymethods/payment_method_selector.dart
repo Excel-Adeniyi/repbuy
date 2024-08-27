@@ -11,8 +11,7 @@ import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 class GiftCardPaymentMethod extends StatelessWidget {
   final String title;
 
-  const GiftCardPaymentMethod({Key? key, required this.title})
-      : super(key: key);
+  const GiftCardPaymentMethod({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +50,10 @@ class GiftCardPaymentMethod extends StatelessWidget {
                     child: TextButton(
                         style: ButtonStyle(
                             padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                WidgetStateProperty.all<EdgeInsetsGeometry>(
                                     const EdgeInsets.fromLTRB(16, 2, 16, 2)),
                             shape:
-                                const MaterialStatePropertyAll<OutlinedBorder>(
+                                const WidgetStatePropertyAll<OutlinedBorder>(
                                     RoundedRectangleBorder(
                                         side: BorderSide.none,
                                         borderRadius: BorderRadius.zero))),
@@ -119,10 +118,10 @@ class GiftCardPaymentMethod extends StatelessWidget {
                     child: TextButton(
                         style: ButtonStyle(
                             padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                WidgetStateProperty.all<EdgeInsetsGeometry>(
                                     const EdgeInsets.fromLTRB(16, 2, 16, 2)),
                             shape:
-                                const MaterialStatePropertyAll<OutlinedBorder>(
+                                const WidgetStatePropertyAll<OutlinedBorder>(
                                     RoundedRectangleBorder(
                                         side: BorderSide.none,
                                         borderRadius: BorderRadius.zero))),

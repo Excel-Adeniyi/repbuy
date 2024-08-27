@@ -11,7 +11,6 @@ import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
-import 'package:shapmanpaypoint/services/Electricbill/paymentService/payment_verify.dart';
 import 'package:shapmanpaypoint/services/GiftCard/paymentService/payment_service.dart';
 import 'package:shapmanpaypoint/services/GiftCard/paymentService/payment_verify.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';

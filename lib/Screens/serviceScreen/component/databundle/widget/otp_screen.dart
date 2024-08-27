@@ -19,7 +19,7 @@ class DataPinAuth extends StatelessWidget {
   // final otpServices = DataOTPService();
   final dataService = DataTopUpService();
   final _loaderController = LoaderController();
-  DataPinAuth({Key? key}) : super(key: key);
+  DataPinAuth({super.key});
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

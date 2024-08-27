@@ -31,8 +31,7 @@ class SignUpService {
       final response =
           await dio.post('/create', options: Options(), data: dataReq);
       print(response);
-      if (response != null &&
-          response.statusCode == 200 &&
+      if (response.statusCode == 200 &&
           response.data["success"] == true) {
         Get.snackbar("Success", response.data["message"].toString(),
             backgroundColor: Colors.purple,

@@ -13,6 +13,8 @@ class ConfirmPinScreen extends StatelessWidget {
   final userPin = PincodeService();
   final SignUpController editcontroller = Get.find<SignUpController>();
   final TextEditingController confirmpincontroller = TextEditingController();
+
+  ConfirmPinScreen({super.key});
   @override
   Widget build(BuildContext context) {
     const title = 'Security PIN';
@@ -94,7 +96,7 @@ class ConfirmPinScreen extends StatelessWidget {
                             obscureText: true,
                             length: 4,
                             onChanged: (newValue) {
-                              if (newValue != null && newValue.length == 4) {
+                              if (newValue.length == 4) {
                                 _pincode.updateControllers(newValue);
                                 print(" ENDC ${confirmpincontroller.text}");
                               }

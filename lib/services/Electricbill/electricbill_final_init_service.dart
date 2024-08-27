@@ -52,7 +52,7 @@ class UtilityService {
 
       final response =
           await dio.post('/utility/payment', options: Options(), data: dataReq);
-      print("HIIH ${response}");
+      print("HIIH $response");
       otpController.pinController.value = '';
       const value = '';
       final pid = response.data['message']['id'];

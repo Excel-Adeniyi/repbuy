@@ -30,7 +30,7 @@ class BillerAmount extends StatelessWidget {
                 borderSide:
                     BorderSide(color: Color(0xff0a2417))),
             labelText: 'Enter Amount',
-            focusColor: Color(0xff0a2417),
+            focusColor: const Color(0xff0a2417),
             error: utilityController.showError(),
             border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xff0a2417))),

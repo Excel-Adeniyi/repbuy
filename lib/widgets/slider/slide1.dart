@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Animation/onboarding_animation_controller.dart';
+import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
-import '../../controller/onboardingcontroller.dart';
 
 class Slide1 extends StatelessWidget {
   const Slide1({super.key});
@@ -15,7 +15,7 @@ class Slide1 extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Image.asset(
-          'lib/assets/playstore.png',
+          'lib/assets/NEXTELLAR1a.png',
           width: 250,
         ),
       ),
@@ -39,16 +39,9 @@ class Slide2 extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             stops: controller.animation.value > 0.5
-                ? [controller.animation.value, 0.9, 0.95, 0.97, 0.98, 1.0]
-                : [0.5, 0.1, 0.05, 0.1, 0.3, 1.0 - controller.animation.value],
-            colors: const [
-              Color(0xFF5423bb),
-              Color(0xFF5423bb),
-              Color(0xFF5423bb),
-              Color(0xFF5423bb),
-              Color(0xFF8629b1),
-              Color.fromARGB(255, 255, 4, 180),
-            ],
+                ? [controller.animation.value, 0.9, 0.95, 0.97]
+                : [0.5, 0.1, 0.05, - controller.animation.value],
+            colors: backgroundgradient,
             begin: Alignment.topLeft,
             end: Alignment.bottomCenter,
           ),
@@ -106,16 +99,11 @@ class Slide3 extends StatelessWidget {
           stops: controller.animation.value > 0.5
               ? [0.9 - controller.animation.value, 0.2, 0.9]
               : [0.9, 0.2, 0.5 - controller.animation.value],
-          colors: const [
-            Color.fromARGB(255, 255, 4, 180),
-            Color.fromARGB(255, 255, 4, 180),
-            // Color(0xFF8629b1),
-            Color(0xFF5423bb)
-          ], // Specify your gradient colors here
+          colors: bgggradient,// Specify your gradient colors here
           begin: Alignment.topLeft,
           end: Alignment.bottomCenter,
           tileMode: TileMode.clamp, // Set the tile mode
-          transform: GradientRotation(0.0),
+          transform: const GradientRotation(0.0),
         )),
         child: Center(
             child: Column(

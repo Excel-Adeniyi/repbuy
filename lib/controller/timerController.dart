@@ -15,14 +15,14 @@ class TimerController extends GetxController {
     super.onInit();
     startTimer();
     signupOtp.otpsignup();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.defaultDialog(
         title: "Notification",
         content: const Text(
           "Kindly check your mail for OTP",
           style: TextStyle(color: Colors.black),
         ),
-        cancel: Icon(Icons.cancel),
+        cancel: const Icon(Icons.cancel),
         onCancel: Get.back,
       );
     });
@@ -36,7 +36,7 @@ class TimerController extends GetxController {
       seconds.value = 10;
       timerActive.value = true;
 
-      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         if (seconds.value > 0) {
           seconds.value--;
         } else if (minutes.value > 0) {

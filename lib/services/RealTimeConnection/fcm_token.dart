@@ -16,6 +16,7 @@ class FCMTokenSender {
   Future<Response<dynamic>> tokenToBackend(String token) async {
       print(token);
     final decodedResponse = await stora.readSecureData("ResBody");
+    print('STAT $decodedResponse');
     Map<String, dynamic> userDecode = json.decode(decodedResponse);
     final userid = userDecode['id'];
     try {

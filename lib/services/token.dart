@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:shapmanpaypoint/assets/envied/env.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
-import 'package:shapmanpaypoint/utils/extractor/extract_session.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 
 class CsrfService {

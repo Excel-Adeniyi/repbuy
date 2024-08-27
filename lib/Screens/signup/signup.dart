@@ -24,6 +24,8 @@ class SignupScreen extends StatelessWidget {
   final SignUpController editController = Get.find<SignUpController>();
   final signupService = SignUpService();
   List<String> options = country_list;
+
+  SignupScreen({super.key});
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -82,11 +84,11 @@ class SignupScreen extends StatelessWidget {
                         child: TextButton(
                           style: ButtonStyle(
                               shadowColor:
-                                  MaterialStateProperty.all(Colors.black54),
-                              elevation: MaterialStateProperty.all(8),
+                                  WidgetStateProperty.all(Colors.black54),
+                              elevation: WidgetStateProperty.all(8),
                               backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                              fixedSize: MaterialStateProperty.all(
+                                  WidgetStateProperty.all(Colors.white),
+                              fixedSize: WidgetStateProperty.all(
                                   const Size(200.0, 10.0))),
                           onPressed: () => {},
                           child: Row(

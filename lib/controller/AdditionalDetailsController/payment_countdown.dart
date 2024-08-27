@@ -43,7 +43,6 @@ class PaymentCountDownTimer extends GetxController {
     if (_timer != null) {
       _timer!.cancel();
     }
-    ;
   }
 
   @override

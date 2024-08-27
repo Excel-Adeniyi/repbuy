@@ -13,6 +13,8 @@ class TopBalance extends StatelessWidget {
   final _shimmerController = Get.put(ShimmerEffect());
   final BalanceController balanceController = Get.put(BalanceController());
   final NumberFormat numberFormat = NumberFormat('#,##0.00', 'en_us');
+
+  TopBalance({super.key});
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(

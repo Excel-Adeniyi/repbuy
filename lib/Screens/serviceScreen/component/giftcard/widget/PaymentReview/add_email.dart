@@ -112,7 +112,7 @@ class EmailAddress extends StatelessWidget {
                                         "${item.isoName} ${item.callingCodes}"),
                                   ),
                                 );
-                              }).toList(),
+                              }),
                             ],
                             onChanged: (dynamic newValue) {
                               // Handle dropdown value change if needed

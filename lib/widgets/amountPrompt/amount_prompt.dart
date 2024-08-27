@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
@@ -16,7 +15,7 @@ import 'package:shapmanpaypoint/widgets/selectPayementMethod/select_payment_meth
 
 class AmountPrompt extends StatelessWidget {
   final String title;
-  AmountPrompt({Key? key, required this.title}) : super(key: key);
+  AmountPrompt({super.key, required this.title});
   final _airtimeCController = Get.find<AirtimeCController>();
   // final _phoneNumberController = Get.find<ContactPickerController>();
   final _loaderController = Get.find<LoaderController>();

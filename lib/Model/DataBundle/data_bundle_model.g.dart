@@ -8,7 +8,7 @@ part of 'data_bundle_model.dart';
 
 _$DatapackageImpl _$$DatapackageImplFromJson(Map<String, dynamic> json) =>
     _$DatapackageImpl(
-      operatorId: json['operatorId'] as int,
+      operatorId: (json['operatorId'] as num).toInt(),
       name: json['name'] as String,
       destinationCurrencySymbol: json['destinationCurrencySymbol'] as String?,
       country: json['country'] as Map<String, dynamic>,

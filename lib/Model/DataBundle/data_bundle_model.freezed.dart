@@ -29,8 +29,12 @@ mixin _$Datapackage {
   Map<String, String> get fixedAmountsDescriptions =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this Datapackage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Datapackage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DatapackageCopyWith<Datapackage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$DatapackageCopyWithImpl<$Res, $Val extends Datapackage>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Datapackage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,6 +137,8 @@ class __$$DatapackageImplCopyWithImpl<$Res>
       _$DatapackageImpl _value, $Res Function(_$DatapackageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Datapackage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -257,7 +265,7 @@ class _$DatapackageImpl implements _Datapackage {
                 other._fixedAmountsDescriptions, _fixedAmountsDescriptions));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -269,7 +277,9 @@ class _$DatapackageImpl implements _Datapackage {
       const DeepCollectionEquality().hash(_logoUrls),
       const DeepCollectionEquality().hash(_fixedAmountsDescriptions));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Datapackage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DatapackageImplCopyWith<_$DatapackageImpl> get copyWith =>
@@ -311,8 +321,11 @@ abstract class _Datapackage implements Datapackage {
   List<String> get logoUrls;
   @override
   Map<String, String> get fixedAmountsDescriptions;
+
+  /// Create a copy of Datapackage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DatapackageImplCopyWith<_$DatapackageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

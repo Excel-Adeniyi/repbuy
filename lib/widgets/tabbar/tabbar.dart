@@ -2,11 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/dashboard/Tabs/Dashboardtab/dashboard_tab.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
-import '../../controller/tabcontroller.dart';
 
 class Dashboard extends StatelessWidget {
   // final TabIndexController _controller = Get.put(TabIndexController());

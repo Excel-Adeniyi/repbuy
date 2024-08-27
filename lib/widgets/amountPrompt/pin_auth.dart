@@ -25,7 +25,7 @@ class PinAuth extends StatelessWidget {
   final verifyOtpService = VerifyPurchase();
   final _ontapEffectController = Get.put(OnTapEffect());
   // final _loaderController = Get.find<LoaderController>();
-  PinAuth({Key? key, required this.title}) : super(key: key);
+  PinAuth({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

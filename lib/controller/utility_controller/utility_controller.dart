@@ -58,21 +58,16 @@ class UtilityController extends GetxController {
   void handleSelectedPackage(String value) {
     utilityPackage.value = value;
     utilityPlan.firstWhere((data) {
-      if (data != null && data.id != null) {
-        utilityServiceType.value = data.serviceType;
-        minITA.value = data.minInternationalTransactionAmount;
-        maxITA.value = data.maxInternationalTransactionAmount;
-        utilityName.value = data.name;
-        utilityId.value = data.id;
-        countryCode.value = data.countryCode;
-        valuers.text = maxITA.toString();
-        update();
-        return data.id.toString() == utilityPackage.value;
-      } else {
-        null;
-        return false;
-      }
-    });
+      utilityServiceType.value = data.serviceType;
+      minITA.value = data.minInternationalTransactionAmount;
+      maxITA.value = data.maxInternationalTransactionAmount;
+      utilityName.value = data.name;
+      utilityId.value = data.id;
+      countryCode.value = data.countryCode;
+      valuers.text = maxITA.toString();
+      update();
+      return data.id.toString() == utilityPackage.value;
+        });
   }
 
   void amountValidator(String value) {
@@ -141,7 +136,7 @@ class UtilityController extends GetxController {
     final summation = billeramount + commission.value + vat.value;
     final sumString = summation.toString();
     final paystackAmount = sumString;
-    print("CHECKPAY" + paystackAmount);
+    print("CHECKPAY$paystackAmount");
     utilitySum.value = sumString;
     final double paystactDouble = double.parse(paystackAmount);
     final paystackRounded = paystactDouble;

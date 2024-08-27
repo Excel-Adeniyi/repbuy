@@ -8,7 +8,7 @@ import '../../utils/width.dart';
 
 class BeneciarySave extends StatelessWidget {
   final String title;
-  BeneciarySave({Key? key, required this.title}) : super(key: key);
+  const BeneciarySave({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class BeneciarySave extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(width: 30),
+                const SizedBox(width: 30),
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
                     return const LinearGradient(colors: [
@@ -93,7 +93,7 @@ class BeneciarySave extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16)),
               child: TextButton(
                 onPressed: () {
-                  Get.to(SuccessBeneficiary());
+                  Get.to(const SuccessBeneficiary());
                 },
                 child: const Text(
                   'Save Beneficiary',
