@@ -10,8 +10,8 @@ abstract class Env {
   static const String publickey = _Env.publickey;
   @EnviedField(varName: "baseurl_dev")
   static const String baseurl = _Env.baseurl;
-  @EnviedField(varName: "baseurl_stage")
-  static const String baseurlstage = _Env.baseurlstage;
+  // @EnviedField(varName: "baseurl_stage")
+  // static const String baseurlstage = _Env.baseurlstage;
   @EnviedField(varName: "csp_key")
   static const String cspkey = _Env.cspkey;
   @EnviedField(varName: "jws_key")

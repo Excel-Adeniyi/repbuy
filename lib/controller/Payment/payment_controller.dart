@@ -5,7 +5,7 @@ import 'package:flutter_paystack/flutter_paystack.dart';
 class PaymentController extends GetxController {
   final String publicKey = Env.publickey;
   PaystackPlugin plugin = PaystackPlugin();
-  bool _sdkInitialized = false; // Flag to indicate SDK initialization status
+  final bool _sdkInitialized = false; // Flag to indicate SDK initialization status
 
   bool get sdkInitialized => _sdkInitialized;
   @override

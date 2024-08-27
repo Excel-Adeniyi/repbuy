@@ -28,7 +28,7 @@ class DataBundleScreen extends StatelessWidget {
   final PhoneController phoneNumberContoller = Get.put(PhoneController());
   final _ontapEffectController = Get.put(OnTapEffect());
   final airtimeAuth = AirtimeAuth();
-  DataBundleScreen({Key? key}) : super(key: key);
+  DataBundleScreen({super.key});
   var items = [
     'Item 1',
     'Item 2',

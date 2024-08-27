@@ -27,7 +27,7 @@ class UVerifyPurchase {
     final decodedToken = await stora.readSecureData('ResBody');
     Map<String, dynamic> userDecode = json.decode(decodedToken);
     final userId = userDecode['id'];
-    print('checking title' + ' ' + title);
+    print('checking title' ' ' + title);
     try {
       final payload = {
         "user_pin": otpController.pinController.value,
@@ -43,7 +43,7 @@ class UVerifyPurchase {
       }
       print(response);
       return response;
-    } on DioException catch (error) {
+    } on DioException {
       rethrow;
     }
   }

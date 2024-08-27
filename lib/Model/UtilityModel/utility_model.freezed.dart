@@ -29,8 +29,12 @@ mixin _$UtilityModel {
   double get maxInternationalTransactionAmount =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this UtilityModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UtilityModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UtilityModelCopyWith<UtilityModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$UtilityModelCopyWithImpl<$Res, $Val extends UtilityModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UtilityModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -126,6 +132,8 @@ class __$$UtilityModelImplCopyWithImpl<$Res>
       _$UtilityModelImpl _value, $Res Function(_$UtilityModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UtilityModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -220,7 +228,7 @@ class _$UtilityModelImpl implements _UtilityModel {
                     maxInternationalTransactionAmount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -231,7 +239,9 @@ class _$UtilityModelImpl implements _UtilityModel {
       minInternationalTransactionAmount,
       maxInternationalTransactionAmount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UtilityModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UtilityModelImplCopyWith<_$UtilityModelImpl> get copyWith =>
@@ -270,8 +280,11 @@ abstract class _UtilityModel implements UtilityModel {
   double get minInternationalTransactionAmount;
   @override
   double get maxInternationalTransactionAmount;
+
+  /// Create a copy of UtilityModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UtilityModelImplCopyWith<_$UtilityModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

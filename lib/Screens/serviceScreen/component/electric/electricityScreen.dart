@@ -14,7 +14,7 @@ class Electric extends StatelessWidget {
   final ElectricController imageSelector = Get.put(ElectricController());
   final UtilityController utilityController = Get.put(UtilityController());
 
-  Electric({Key? key}) : super(key: key);
+  Electric({super.key});
 
   @override
   Widget build(BuildContext context) {

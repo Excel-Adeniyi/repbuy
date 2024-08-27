@@ -42,7 +42,7 @@ class UtilityDataSave {
       }
       final int newtransId = utilityController.ntransactionId.value;
       return newtransId;
-    } on DioException catch (error) {
+    } on DioException {
       rethrow;
     }
   }

@@ -10,8 +10,7 @@ import '../../Header/header.dart';
 class DashboardTab extends StatelessWidget {
   final double containerWidth;
 
-  const DashboardTab({Key? key, required this.containerWidth})
-      : super(key: key);
+  const DashboardTab({super.key, required this.containerWidth});
 
   @override
   Widget build(BuildContext context) {

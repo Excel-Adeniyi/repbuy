@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
-import 'package:shapmanpaypoint/Model/AirtimeTopModel/airtime_Topup.dart';
 import 'package:shapmanpaypoint/controller/AirtimeTopUp/airtimeController.dart';
 import 'package:shapmanpaypoint/controller/DataBundle/data_bundle.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
@@ -48,7 +47,7 @@ class DataTopUpService {
 
       final response =
           await dio.post('/data/request', options: Options(), data: dataReq);
-      print("HIIH ${response}");
+      print("HIIH $response");
       otpController.pinController.value = '';
       const value = '';
       otpController.checkOTP(value);

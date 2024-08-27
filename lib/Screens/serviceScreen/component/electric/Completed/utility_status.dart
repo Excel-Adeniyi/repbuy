@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Clear/clear_controller.dart';
 import 'package:shapmanpaypoint/controller/Purchase_successful/purchase_controller.dart';
@@ -22,14 +21,13 @@ class UCompletedAmount extends StatelessWidget {
 // final databundle
   // final _contactPickerController = Get.find<ContactPickerController>();
   UCompletedAmount({
-    Key? key,
+    super.key,
     required this.title,
   })  : purchase = title == 'Data Top up'
             ? 'Data'
             : title == "Electric Bill"
                 ? "Utility Bill"
-                : 'Airtime',
-        super(key: key);
+                : 'Airtime';
   final ShareController shareController = Get.put(ShareController());
   final GlobalKey globalKey = GlobalKey();
   @override

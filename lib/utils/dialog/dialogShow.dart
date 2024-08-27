@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
-import 'package:shapmanpaypoint/services/operators_service.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/amount_prompt.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
 import '../colors/coloors.dart';
@@ -10,11 +8,11 @@ import '../colors/coloors.dart';
 class Customup extends StatelessWidget {
   final String title; // Define the title parameter
 
-  const Customup({Key? key, required this.title}) : super(key: key);
+  const Customup({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    final LoaderController _loaderController = Get.put(LoaderController());
+    final LoaderController loaderController = Get.put(LoaderController());
 
     return Scaffold(
       body: Container(
@@ -89,7 +87,7 @@ class Customup extends StatelessWidget {
                         end: Alignment.bottomCenter),
                     borderRadius: BorderRadius.circular(16)),
                 child: Obx(
-                  () => _loaderController.isLoading.value
+                  () => loaderController.isLoading.value
                       ? const SizedBox(
                           height: 10,
                           width: 10,

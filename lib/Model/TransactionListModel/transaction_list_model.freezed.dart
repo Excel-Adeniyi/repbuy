@@ -29,8 +29,12 @@ mixin _$TransactionListModel {
   String get purchase_type => throw _privateConstructorUsedError;
   String get updated_at => throw _privateConstructorUsedError;
 
+  /// Serializes this TransactionListModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TransactionListModelCopyWith<TransactionListModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -63,6 +67,8 @@ class _$TransactionListModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -139,6 +145,8 @@ class __$$TransactionListModelImplCopyWithImpl<$Res>
       $Res Function(_$TransactionListModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -246,12 +254,14 @@ class _$TransactionListModelImpl implements _TransactionListModel {
                 other.updated_at == updated_at));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, amount, ntransactionId,
       operatorId, countryCode, success, status, purchase_type, updated_at);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TransactionListModelImplCopyWith<_$TransactionListModelImpl>
@@ -297,8 +307,11 @@ abstract class _TransactionListModel implements TransactionListModel {
   String get purchase_type;
   @override
   String get updated_at;
+
+  /// Create a copy of TransactionListModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TransactionListModelImplCopyWith<_$TransactionListModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -313,8 +326,12 @@ mixin _$TransactionsListReponse {
   dynamic get successs => throw _privateConstructorUsedError;
   List<TransactionListModel> get message => throw _privateConstructorUsedError;
 
+  /// Serializes this TransactionsListReponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TransactionsListReponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TransactionsListReponseCopyWith<TransactionsListReponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -339,6 +356,8 @@ class _$TransactionsListReponseCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TransactionsListReponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -380,6 +399,8 @@ class __$$TransactionsListReponseImplCopyWithImpl<$Res>
       $Res Function(_$TransactionsListReponseImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TransactionsListReponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -434,14 +455,16 @@ class _$TransactionsListReponseImpl implements _TransactionsListReponse {
             const DeepCollectionEquality().equals(other._message, _message));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(successs),
       const DeepCollectionEquality().hash(_message));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TransactionsListReponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TransactionsListReponseImplCopyWith<_$TransactionsListReponseImpl>
@@ -469,8 +492,11 @@ abstract class _TransactionsListReponse implements TransactionsListReponse {
   dynamic get successs;
   @override
   List<TransactionListModel> get message;
+
+  /// Create a copy of TransactionsListReponse
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TransactionsListReponseImplCopyWith<_$TransactionsListReponseImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

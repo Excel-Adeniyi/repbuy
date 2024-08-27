@@ -10,14 +10,13 @@ class BuildTab extends StatelessWidget {
   final VoidCallback
       onClick; // Each BuildTab widget should have its own FocusNode
 
-  BuildTab(
-      {Key? key,
+  const BuildTab(
+      {super.key,
       required this.index,
       required this.imageAsset,
       required this.title,
       required this.focuss,
-      required this.onClick})
-      : super(key: key);
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {

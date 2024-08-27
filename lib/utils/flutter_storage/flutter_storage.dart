@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorage {
-  final FlutterSecureStorage _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   Future<Map<String, String>> readAll() async {
     var map = <String, String>{};
@@ -70,6 +70,6 @@ class SecureStorage {
   // }
 
   AndroidOptions _getAndroidOptions() {
-    return AndroidOptions(encryptedSharedPreferences: true);
+    return const AndroidOptions(encryptedSharedPreferences: true);
   }
 }

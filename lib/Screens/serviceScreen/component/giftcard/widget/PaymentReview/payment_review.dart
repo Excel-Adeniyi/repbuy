@@ -318,7 +318,7 @@ class PaymentReviewGiftCard extends StatelessWidget {
 
 class GradientStyle extends StatelessWidget {
   final String data;
-  const GradientStyle({Key? key, required this.data}) : super(key: key);
+  const GradientStyle({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

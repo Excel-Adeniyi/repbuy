@@ -13,7 +13,7 @@ _$TransactionListModelImpl _$$TransactionListModelImplFromJson(
       ntransactionId: json['ntransactionId'] as String,
       operatorId: json['operatorId'] as String,
       countryCode: json['countryCode'] as String,
-      success: json['success'] as int,
+      success: (json['success'] as num).toInt(),
       status: json['status'] as String,
       purchase_type: json['purchase_type'] as String,
       updated_at: json['updated_at'] as String,

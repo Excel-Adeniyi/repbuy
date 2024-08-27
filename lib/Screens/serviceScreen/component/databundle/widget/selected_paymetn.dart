@@ -10,8 +10,7 @@ import 'package:shapmanpaypoint/widgets/amountPrompt/pin_auth.dart';
 class DataSelectPaymentMethod extends StatelessWidget {
   final String title;
 
-  const DataSelectPaymentMethod({Key? key, required this.title})
-      : super(key: key);
+  const DataSelectPaymentMethod({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +47,10 @@ class DataSelectPaymentMethod extends StatelessWidget {
                     child: TextButton(
                         style: ButtonStyle(
                             padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                WidgetStateProperty.all<EdgeInsetsGeometry>(
                                     const EdgeInsets.fromLTRB(16, 2, 16, 2)),
                             shape:
-                                const MaterialStatePropertyAll<OutlinedBorder>(
+                                const WidgetStatePropertyAll<OutlinedBorder>(
                                     RoundedRectangleBorder(
                                         side: BorderSide.none,
                                         borderRadius: BorderRadius.zero))),
@@ -117,10 +116,10 @@ class DataSelectPaymentMethod extends StatelessWidget {
                     child: TextButton(
                         style: ButtonStyle(
                             padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                WidgetStateProperty.all<EdgeInsetsGeometry>(
                                     const EdgeInsets.fromLTRB(16, 2, 16, 2)),
                             shape:
-                                const MaterialStatePropertyAll<OutlinedBorder>(
+                                const WidgetStatePropertyAll<OutlinedBorder>(
                                     RoundedRectangleBorder(
                                         side: BorderSide.none,
                                         borderRadius: BorderRadius.zero))),

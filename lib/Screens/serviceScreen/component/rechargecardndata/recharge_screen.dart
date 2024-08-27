@@ -28,7 +28,7 @@ class RechargeCard extends StatelessWidget {
   // final LoaderController _loaderController = Get.put(LoaderController());
   final _ontapEffectController = Get.put(OnTapEffect());
   final airtimeAuth = AirtimeAuth();
-  RechargeCard({Key? key}) : super(key: key);
+  RechargeCard({super.key});
   var items = [
     'Item 1',
     'Item 2',

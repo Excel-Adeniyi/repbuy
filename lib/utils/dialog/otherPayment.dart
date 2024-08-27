@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/widgets/amountPrompt/amount_prompt.dart';
 import 'package:shapmanpaypoint/widgets/paymentReview/successPay.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
@@ -10,8 +9,7 @@ import '../paymentList/paylistclass.dart';
 class Otherpayment extends StatelessWidget {
   final String title; // Define the title parameter
   final PaymentList paymentList;
-  const Otherpayment({Key? key, required this.title, required this.paymentList})
-      : super(key: key);
+  const Otherpayment({super.key, required this.title, required this.paymentList});
 
   @override
   Widget build(BuildContext context) {

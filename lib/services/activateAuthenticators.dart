@@ -8,8 +8,8 @@ import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 class AirtimeAuth {
   static BaseOptions options = BaseOptions(
     baseUrl: Constants.base_url,
-    connectTimeout: Duration(minutes: 3),
-    receiveTimeout: Duration(minutes: 3),
+    connectTimeout: const Duration(minutes: 3),
+    receiveTimeout: const Duration(minutes: 3),
   );
   final Dio dio = Dio(options);
   final loaderController = Get.put(LoaderController());

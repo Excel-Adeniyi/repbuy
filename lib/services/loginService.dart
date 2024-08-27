@@ -17,6 +17,7 @@ class SigninService {
     connectTimeout: const Duration(minutes: 3),
     receiveTimeout: const Duration(minutes: 3),
   );
+
   final Dio dio = Dio(options);
 
   final SecureStorage stora = SecureStorage();
@@ -24,11 +25,13 @@ class SigninService {
   // final _jwtsonPlugin = Jwtson();
   final _userController = Get.put(UserInfoController());
   Future<List<dynamic>> userLogin(User user) async {
+    print('OPETION ${options.baseUrl}');
     try {
       signincontroller.isLoading.value = true;
 
       final token = await stora.readSecureData('X-csrf');
       // final tokenAll = await stora.readAll();
+      print(user);
       final cookie = await stora.readSecureData('sid');
       _userController.password.value = user.password;
       final dataS = {
@@ -36,14 +39,14 @@ class SigninService {
         'password': user.password,
         'x_csrf': token
       };
-      // print(dataS);R
+      print(dataS);
       dio.interceptors.add(InterceptorsWrapper(onRequest:
           (RequestOptions options, RequestInterceptorHandler handler) {
         options.headers.addAll({'cookie': cookie});
         return handler.next(options);
       }));
       final response =
-          await dio.post('/login', options: Options(), data: dataS);
+          await dio.post('/login', data: dataS);
       print(response);
       final List<dynamic> resData = [];
       if (response.data[0].containsKey('success') &&
@@ -106,6 +109,7 @@ class SigninService {
       // signincontroller.isLoggedIn.value = false;
       return resData;
     } on DioException catch (error) {
+      print(error);
       if (error.response != null && error.response?.statusCode != 200) {
         Get.snackbar(
           "Error", error.response!.data['message'].toString(),

@@ -22,7 +22,9 @@ mixin _$AirtimeModel {
   String get network => throw _privateConstructorUsedError;
   String get number => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AirtimeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AirtimeModelCopyWith<AirtimeModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$AirtimeModelCopyWithImpl<$Res, $Val extends AirtimeModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AirtimeModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +113,8 @@ class __$$AirtimeModelImplCopyWithImpl<$Res>
       _$AirtimeModelImpl _value, $Res Function(_$AirtimeModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AirtimeModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -187,7 +193,9 @@ class _$AirtimeModelImpl implements _AirtimeModel {
   int get hashCode => Object.hash(
       runtimeType, operatorId, amount, countryCode, network, number);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AirtimeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AirtimeModelImplCopyWith<_$AirtimeModelImpl> get copyWith =>
@@ -212,8 +220,11 @@ abstract class _AirtimeModel implements AirtimeModel {
   String get network;
   @override
   String get number;
+
+  /// Create a copy of AirtimeModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AirtimeModelImplCopyWith<_$AirtimeModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

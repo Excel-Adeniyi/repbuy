@@ -8,11 +8,10 @@ class GradientButton extends StatelessWidget {
   final String assetName;
   final String pageRoute;
   const GradientButton(
-      {Key? key,
+      {super.key,
       required this.imagedata,
       required this.assetName,
-      required this.pageRoute})
-      : super(key: key);
+      required this.pageRoute});
 
   @override
   Widget build(BuildContext context) {

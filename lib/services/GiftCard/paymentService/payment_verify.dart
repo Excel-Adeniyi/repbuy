@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/route_manager.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/electric/Completed/utility_status.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/widget/completed/giftcard_completed.dart';
 import 'package:shapmanpaypoint/controller/Loader/loader_controller.dart';
 import 'package:shapmanpaypoint/services/GiftCard/giftcard_final_init_service.dart';

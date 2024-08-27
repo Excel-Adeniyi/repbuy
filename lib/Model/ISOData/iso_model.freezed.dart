@@ -29,8 +29,12 @@ mixin _$Iso {
   String get flag => throw _privateConstructorUsedError;
   List<String> get callingCodes => throw _privateConstructorUsedError;
 
+  /// Serializes this Iso to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Iso
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $IsoCopyWith<Iso> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -59,6 +63,8 @@ class _$IsoCopyWithImpl<$Res, $Val extends Iso> implements $IsoCopyWith<$Res> {
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Iso
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,6 +137,8 @@ class __$$IsoImplCopyWithImpl<$Res> extends _$IsoCopyWithImpl<$Res, _$IsoImpl>
   __$$IsoImplCopyWithImpl(_$IsoImpl _value, $Res Function(_$IsoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Iso
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -244,7 +252,7 @@ class _$IsoImpl implements _Iso {
                 .equals(other._callingCodes, _callingCodes));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -257,7 +265,9 @@ class _$IsoImpl implements _Iso {
       flag,
       const DeepCollectionEquality().hash(_callingCodes));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Iso
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$IsoImplCopyWith<_$IsoImpl> get copyWith =>
@@ -300,8 +310,11 @@ abstract class _Iso implements Iso {
   String get flag;
   @override
   List<String> get callingCodes;
+
+  /// Create a copy of Iso
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IsoImplCopyWith<_$IsoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

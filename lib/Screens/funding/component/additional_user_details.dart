@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/AdditionalDetailsController/additional_detail_controller.dart';
 import 'package:shapmanpaypoint/controller/currency/currencyController.dart';
-import 'package:shapmanpaypoint/services/AdditionalDetails/payment_checkout.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 import 'package:shapmanpaypoint/utils/width.dart';
@@ -95,7 +94,7 @@ class BankTransfer extends StatelessWidget {
                                             item.value,
                                             overflow: TextOverflow.fade,
                                           ));
-                                    }).toList(),
+                                    }),
                                   ],
                                   onChanged: (String? value) {
                                     if (value!.isNotEmpty) {

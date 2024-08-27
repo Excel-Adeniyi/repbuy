@@ -14,7 +14,7 @@ class UserImage extends GetxController {
 
   Future<void> userprofileimage() async {
     final image = await stora.readSecureData("ResBody");
-    if (image != null && image.isNotEmpty) {
+    if (image.isNotEmpty) {
       try {
         // var sStrong = json.encoder(tokenAll);
         Map<String, dynamic> decodedJson = json.decode(image);

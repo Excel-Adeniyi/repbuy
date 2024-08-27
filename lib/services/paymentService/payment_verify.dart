@@ -41,7 +41,7 @@ class PaymentVerify {
         Get.to(CompletedAmount(title: title));
       }
       return response;
-    } on DioException catch (error) {
+    } on DioException {
       loaderController.isVerifyFailed.value = true;
 
       rethrow;

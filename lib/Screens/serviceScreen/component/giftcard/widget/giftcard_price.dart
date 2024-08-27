@@ -38,7 +38,7 @@ class GiftCardPrice extends StatelessWidget {
                 child: Text(
                     '${giftcardController.senderCurrencyCode.value} ${entry.value.toString()}'),
               );
-            }).toList(),
+            }),
           ],
           onChanged: (String? newValue) {
             // Handle dropdown value change if needed
@@ -56,7 +56,7 @@ class GiftCardPrice extends StatelessWidget {
                         ? entry.value.toDouble()
                         : entry.value;
                 return entrydouble == valuedouble;
-              }, orElse: () => null!).value;
+              }).value;
               if (priceKey != null) {
                 giftcardController.giftcardQuantity.value = "0";
                 giftcardController.giftCardPriceValue.value =

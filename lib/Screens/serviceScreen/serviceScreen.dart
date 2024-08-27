@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/gift_card.dart';
 import 'package:shapmanpaypoint/services/GiftCard/giftcard_auth.dart';

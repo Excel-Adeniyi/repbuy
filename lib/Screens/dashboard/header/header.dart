@@ -20,6 +20,8 @@ class DashboardHeader extends StatelessWidget {
   final _useravatar = Get.put(UserImage());
   final BalanceController balanceController = Get.put(BalanceController());
   final NumberFormat numberFormat = NumberFormat('#,##0.00', 'en_us');
+
+  DashboardHeader({super.key});
   @override
   Widget build(BuildContext context) {
     return PopScope(

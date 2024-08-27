@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/widgets/otpScreen/otp.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
 class ForgetPassword extends StatelessWidget {
   // const ForgetPassword({super.key});
   final _textFocus = FocusNode();
+
+  ForgetPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class ForgetPassword extends StatelessWidget {
                 ),
                 const Text("Don't worry it happens. Please enter the"),
                 const Text('email address associated with this account'),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 SizedBox(
@@ -60,13 +61,13 @@ class ForgetPassword extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 80,
                 ),
                 Container(
                   width: 300,
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                           colors: buttongradient,
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter),

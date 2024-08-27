@@ -6,7 +6,6 @@ import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/controller/Payment/payment_controller.dart';
 import 'package:shapmanpaypoint/controller/otp/otp_controller.dart';
 import 'package:shapmanpaypoint/controller/timerController.dart';
-import 'package:shapmanpaypoint/services/Electricbill/electric_verify_pin.dart';
 import 'package:shapmanpaypoint/services/GiftCard/giftcard_verify_pin.dart';
 import 'package:shapmanpaypoint/widgets/PinWidget/pin_widget.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
@@ -21,7 +20,7 @@ class GiftCardPinAuth extends StatelessWidget {
   final String title;
   final verifyPin = GiftCardVerifyPurchase();
   final _ontapEffectController = Get.put(OnTapEffect());
-  GiftCardPinAuth({Key? key, required this.title}) : super(key: key);
+  GiftCardPinAuth({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

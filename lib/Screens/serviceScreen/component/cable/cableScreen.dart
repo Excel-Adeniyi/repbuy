@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:shapmanpaypoint/utils/paymentList/paylistclass.dart';
 import 'package:shapmanpaypoint/widgets/balanceTopup/balanceTop.dart';
 import 'package:shapmanpaypoint/controller/electricController.dart';
 
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
-import 'package:shapmanpaypoint/utils/dialog/dialogShow.dart';
 
 import '../../../../utils/dialog/otherPayment.dart';
 
 class CableScreen extends StatelessWidget {
   final ElectricController imageSelector = Get.put(ElectricController());
-  CableScreen({Key? key}) : super(key: key);
+  CableScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +102,7 @@ class CableScreen extends StatelessWidget {
                   ],
                 ),
                 if (imageSelector.images.length > 4)
-                  Container(
+                  SizedBox(
                     height: 70, // Set a fixed height for the list view
                     child: ListView(
                       scrollDirection: Axis.horizontal,
@@ -124,7 +122,7 @@ class CableScreen extends StatelessWidget {
                                 child: RadioListTile(
                                   title: Text(
                                     value,
-                                    style: TextStyle(fontSize: 13),
+                                    style: const TextStyle(fontSize: 13),
                                   ),
                                   value: value,
                                   groupValue: controller.selectedButton.value,
@@ -138,7 +136,7 @@ class CableScreen extends StatelessWidget {
                           ))
                       .toList(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 const SizedBox(

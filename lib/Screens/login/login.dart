@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/services/GoogleService/google_signin.dart';
-import 'package:shapmanpaypoint/services/token.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -60,8 +59,8 @@ class LoginScreen extends StatelessWidget {
                           child: TextButton(
                             style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                                fixedSize: MaterialStateProperty.all(Size(
+                                    WidgetStateProperty.all(Colors.white),
+                                fixedSize: WidgetStateProperty.all(Size(
                                     calculateContainerWidth(context), 10.0))),
                             onPressed: () => {Get.toNamed('/signin')},
                             child: const Row(
@@ -87,8 +86,8 @@ class LoginScreen extends StatelessWidget {
                           child: TextButton(
                             style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                                fixedSize: MaterialStateProperty.all(Size(
+                                    WidgetStateProperty.all(Colors.white),
+                                fixedSize: WidgetStateProperty.all(Size(
                                     calculateContainerWidth(context), 10.0))),
                             onPressed: () => {googleSign.googleAuth()},
                             child: Row(

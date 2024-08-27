@@ -10,9 +10,9 @@ import 'package:share_plus/share_plus.dart';
 class ShareController extends GetxController {
  
 
-  Future<void> captureandImage(GlobalKey _shareglobalKey) async {
+  Future<void> captureandImage(GlobalKey shareglobalKey) async {
     try {
-      RenderRepaintBoundary? boundary = _shareglobalKey.currentContext
+      RenderRepaintBoundary? boundary = shareglobalKey.currentContext
           ?.findRenderObject() as RenderRepaintBoundary?;
 
       if (boundary != null) {
@@ -26,7 +26,7 @@ class ShareController extends GetxController {
           final imagePath = '${directory.path}/screenshot.png';
           final imageFile = File(imagePath)..writeAsBytesSync(pngBytes);
 
-          await Share.shareFiles([imageFile.path],
+          await Share.shareXFiles([XFile(imageFile.path)],
               subject: "download app on playstore",
               text: 'Perform seemless transactions on NEXTELLAR');
         }

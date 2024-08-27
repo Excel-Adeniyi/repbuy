@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:shapmanpaypoint/Screens/signup/pinInsertion/pin.dart';
 import 'package:shapmanpaypoint/controller/Auth/logintimer_controller.dart';
 import 'package:shapmanpaypoint/controller/Auth/signup_controller.dart';
-import 'package:shapmanpaypoint/services/SignupService/otp_service.dart';
 import 'package:shapmanpaypoint/services/loginauth/otp_login.dart';
-import '../../controller/timerController.dart';
 import '../../utils/colors/coloors.dart';
 
 class LoginOtpScreen extends StatelessWidget {
@@ -16,6 +13,8 @@ class LoginOtpScreen extends StatelessWidget {
 
   final editcontroller = Get.put(SignUpController());
   final loginOTP = LoginOTP();
+
+  LoginOtpScreen({super.key});
   @override
   Widget build(BuildContext context) {
     final title = pagecondition ? 'Enter OTP' : 'OTP Verification';

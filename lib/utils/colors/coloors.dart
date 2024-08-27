@@ -14,6 +14,13 @@ const bggradient = [
   Color.fromARGB(206, 10, 36, 23),
   // Color.fromARGB(255, 13, 71, 42),
 ];
+const bgggradient = [
+  // Color(0xfff7f6bb)
+  Color.fromARGB(206, 10, 36, 23),
+   Color.fromARGB(211, 135, 169, 34),
+   Color(0xfffcdc2a),
+  // Color.fromARGB(255, 13, 71, 42),
+];
 const textgradient = [
   // Color(0xfff7f6bb),
   Color.fromARGB(255, 29, 28, 28),
@@ -40,6 +47,13 @@ const isbuttongradient = [
   Color(0xff87a922),
   Color(0xff87a922),
   Color(0xff0a2417),
+];
+const backgroundgradient = [
+  Color(0xfff7f6bb),
+  Color(0xfffcdc2a),
+  Color(0xff87a922),
+  Color(0xff0a2417),
+  // Color.fromARGB(255, 7, 24, 16),
 ];
 const buttongradientInactive = [
   Color.fromARGB(76, 247, 246, 187),

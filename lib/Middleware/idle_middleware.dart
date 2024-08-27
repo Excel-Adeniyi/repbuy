@@ -28,7 +28,7 @@ class IdleMiddleware extends GetMiddleware {
   }
 
   void resetIdleTimer() {
-    _idleTimer?.cancel();
+    _idleTimer.cancel();
     startIdleTimer();
   }
 }
