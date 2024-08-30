@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/Auth/signinModel.dart';
 import 'package:shapmanpaypoint/controller/Auth/signin_controller.dart';
@@ -6,7 +7,6 @@ import 'package:shapmanpaypoint/controller/Effects/on_tap.dart';
 import 'package:shapmanpaypoint/services/loginService.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/responsiveness/buttonWidth.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 class LoginButton extends StatelessWidget {
   final String userData;
@@ -57,7 +57,13 @@ class LoginButton extends StatelessWidget {
                     ontapEffectController.isTapped.value = false;
                     // print("WORKING");
                     // verifyOtpService.verifyOTP(title);
-                    final user = User(userdata: userData, password: passWord);
+                    final user = User(
+                        userdata: userData.isNotEmpty && userData != '0'
+                            ? userData
+                            : signincontroller.userInfo.value,
+                        password: passWord.isNotEmpty
+                            ? passWord
+                            : signincontroller.password.value);
                     signservice.userLogin(user);
                     final progress = ProgressHUD.of(context);
 

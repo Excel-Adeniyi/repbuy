@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/profile/PersonalInformation/personal_information.dart';
+import 'package:shapmanpaypoint/Screens/profile/Settings/settings.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_avatar.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
+
 import '../../utils/colors/coloors.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -108,154 +111,178 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  children: [
-                    Image.asset(
-                      'lib/assets/edit.png',
-                      width: 40,
-                      color: const Color(0xff0a2417).withOpacity(0.9),
-                      colorBlendMode: BlendMode.modulate,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Personal Information',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          Text('Edit your information')
-                        ],
+                TextButton(
+                  onPressed: () {
+                    Get.to(const PersonalInformation());
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'lib/assets/edit.png',
+                        width: 40,
+                        color: const Color(0xff0a2417).withOpacity(0.9),
+                        colorBlendMode: BlendMode.modulate,
                       ),
-                    )
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Personal Information',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text('Edit your information')
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 const Divider(),
-                Row(
-                  children: [
-                    Image.asset(
-                      'lib/assets/setting.png',
-                      width: 40,
-                      color: const Color(0xff0a2417).withOpacity(0.9),
-                      colorBlendMode: BlendMode.modulate,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Settings',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          Text('Account, notification')
-                        ],
+                TextButton(
+                  onPressed: () {
+                    Get.to(const SettingsPage());
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'lib/assets/setting.png',
+                        width: 40,
+                        color: const Color(0xff0a2417).withOpacity(0.9),
+                        colorBlendMode: BlendMode.modulate,
                       ),
-                    )
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Settings',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text('Account, notification')
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 const Divider(),
-                Row(
-                  children: [
-                    Image.asset(
-                      'lib/assets/collaboration.png',
-                      width: 40,
-                      color: const Color(0xff0a2417).withOpacity(0.9),
-                      colorBlendMode: BlendMode.modulate,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'My Referral',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          Text('Referrals, Commission')
-                        ],
+                TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'lib/assets/collaboration.png',
+                        width: 40,
+                        color: const Color(0xff0a2417).withOpacity(0.9),
+                        colorBlendMode: BlendMode.modulate,
                       ),
-                    )
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'My Referral',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text('Referrals, Commission')
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 const Divider(),
-                Row(
-                  children: [
-                    Image.asset(
-                      'lib/assets/headphone.png',
-                      width: 40,
-                      color: const Color(0xff0a2417).withOpacity(0.9),
-                      colorBlendMode: BlendMode.modulate,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Help & Support',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          Text('Help, privacy & security, legal')
-                        ],
+                TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'lib/assets/headphone.png',
+                        width: 40,
+                        color: const Color(0xff0a2417).withOpacity(0.9),
+                        colorBlendMode: BlendMode.modulate,
                       ),
-                    )
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Help & Support',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text('Help, privacy & security, legal')
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 const Divider(),
-                Row(
-                  children: [
-                    Image.asset(
-                      'lib/assets/notice.png',
-                      width: 40,
-                      color: const Color(0xff0a2417).withOpacity(0.9),
-                      colorBlendMode: BlendMode.modulate,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Legal',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          Text('Help or contact Next Paypoint')
-                        ],
+                TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'lib/assets/notice.png',
+                        width: 40,
+                        color: const Color(0xff0a2417).withOpacity(0.9),
+                        colorBlendMode: BlendMode.modulate,
                       ),
-                    )
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Legal',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text('Help or contact Next Paypoint')
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 const Divider(),
-                Row(
-                  children: [
-                    Image.asset(
-                      'lib/assets/logout.png',
-                      width: 40,
-                      color: const Color(0xff0a2417).withOpacity(0.9),
-                      colorBlendMode: BlendMode.modulate,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Signout',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          Text('Sign out of your account')
-                        ],
+                TextButton(
+                  onPressed: () {
+                    Get.offAllNamed('signin');
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'lib/assets/logout.png',
+                        width: 40,
+                        color: const Color(0xff0a2417).withOpacity(0.9),
+                        colorBlendMode: BlendMode.modulate,
                       ),
-                    )
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Signout',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text('Sign out of your account')
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

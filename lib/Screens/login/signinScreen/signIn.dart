@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/login/signinScreen/login_button.dart';
 import 'package:shapmanpaypoint/controller/Auth/auth_int.dart';
@@ -6,7 +7,6 @@ import 'package:shapmanpaypoint/controller/Auth/signin_controller.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 class SignIn extends StatelessWidget {
   // const SignIn({super.key});
@@ -82,6 +82,9 @@ class SignIn extends StatelessWidget {
                                     borderSide:
                                         BorderSide(color: Color(0xfffcdc2a))),
                                 labelText: 'Enter Email/Phone number'),
+                            onChanged: (String newValue) {
+                              signincontroller.userInfo.value = newValue;
+                            },
                           ),
                         ),
                         const SizedBox(
@@ -113,6 +116,9 @@ class SignIn extends StatelessWidget {
                                           : Icons.visibility,
                                       size: 16,
                                     ))),
+                            onChanged: (String passwordVale) {
+                              signincontroller.password.value = passwordVale;
+                            },
                           ),
                         ),
                         SizedBox(

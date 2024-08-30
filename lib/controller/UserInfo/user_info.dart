@@ -4,6 +4,7 @@ class UserInfoController extends GetxController {
   RxString first_name = ''.obs;
   RxString last_name = ''.obs;
   RxString email = ''.obs;
+  RxString phone = ''.obs;
   RxString password = ''.obs;
   RxInt exp = 0.obs;
 }
