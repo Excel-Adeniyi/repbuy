@@ -45,8 +45,7 @@ class SigninService {
         options.headers.addAll({'cookie': cookie});
         return handler.next(options);
       }));
-      final response =
-          await dio.post('/login', data: dataS);
+      final response = await dio.post('/login', data: dataS);
       print(response);
       final List<dynamic> resData = [];
       if (response.data[0].containsKey('success') &&
@@ -65,6 +64,7 @@ class SigninService {
         _userController.first_name.value = jwt.payload["first_name"];
         _userController.last_name.value = jwt.payload["last_mame"];
         _userController.email.value = jwt.payload["email"];
+        _userController.phone.value = jwt.payload["phone_number"];
         _userController.exp.value = jwt.payload["exp"];
 
         if (jwt.payload != null) {
