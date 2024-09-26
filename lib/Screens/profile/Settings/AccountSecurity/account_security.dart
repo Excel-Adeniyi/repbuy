@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shapmanpaypoint/Screens/profile/Settings/AccountSecurity/ResetPassword/reset_password.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
 class AccountSecurity extends StatelessWidget {
@@ -34,7 +36,9 @@ class AccountSecurity extends StatelessWidget {
                   height: 50,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(const ResetPassword());
+                  },
                   child: Row(
                     children: [
                       Image.asset(
@@ -51,7 +55,7 @@ class AccountSecurity extends StatelessWidget {
                             Text(
                               'Reset Password',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                                  fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             Text(
                               'Update your password',
@@ -63,7 +67,7 @@ class AccountSecurity extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 TextButton(
                   onPressed: () {},
                   child: const Row(
@@ -73,7 +77,7 @@ class AccountSecurity extends StatelessWidget {
                         color: Colors.black,
                         size: 40,
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +85,7 @@ class AccountSecurity extends StatelessWidget {
                             Text(
                               'Reset Account PIN',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                                  fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             Text(
                               'Update your security PIN',
@@ -93,7 +97,7 @@ class AccountSecurity extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 TextButton(
                   onPressed: () {},
                   child: const Row(
@@ -109,7 +113,7 @@ class AccountSecurity extends StatelessWidget {
                       //   color: const Color(0xff0a2417).withOpacity(0.9),
                       //   colorBlendMode: BlendMode.modulate,
                       // ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +121,7 @@ class AccountSecurity extends StatelessWidget {
                             Text(
                               'Biometrics',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                                  fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             Text(
                               'Change biometrics',

@@ -23,7 +23,7 @@ class IdleMiddleware extends GetMiddleware {
     print("CHECKER STARTER");
     _idleTimer =
         Timer(const Duration(milliseconds: idleDurationMilliseconds), () {
-      Get.toNamed('/signin');
+      Get.offNamed('/signin');
     });
   }
 

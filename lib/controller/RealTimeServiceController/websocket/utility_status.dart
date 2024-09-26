@@ -13,7 +13,7 @@ class UtilityStatusSocket extends GetxController {
   // RxString userId = ''.obs;
   RxString message = ''.obs;
   final WebSocketChannel channel =
-      IOWebSocketChannel.connect('ws://172.23.104.230:2110');
+      IOWebSocketChannel.connect('ws://145.239.184.93');
   final SecureStorage stora = SecureStorage();
   final TransactionList translist = TransactionList();
   final translistController = Get.put(TransactionListController());
@@ -72,7 +72,7 @@ class UtilityStatusSocket extends GetxController {
         idMSG + index,
         'New Message',
         messages['purchase_type'] != null
-            ?  "${messages['purchase_type']} payment of ${messages['amount']} was success 👍"
+            ? "${messages['purchase_type']} payment of ${messages['amount']} was success 👍"
             : "You have a new message ❗ ",
         platformChannelSpecifics,
         payload: messages['type'] = 'item x',

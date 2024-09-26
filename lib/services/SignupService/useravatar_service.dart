@@ -65,7 +65,7 @@ class UploadAvatarService {
           print("HIU");
           final jwtPayload = jsonEncode(jwt.payload);
           await stora.writeSecureData('ResBody', jwtPayload);
-          Get.toNamed('/dashboard');
+          Get.offNamed('/signin');
         }
       }
 

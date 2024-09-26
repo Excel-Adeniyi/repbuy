@@ -47,7 +47,7 @@ dependencies:
   intl: ^0.17.0
   dio: ^5.4.1
   flutter_secure_storage: ^9.2.2
-  contacts_service: ^0.6.3
+  contacts_service:
   dart_jsonwebtoken: ^2.13.0
   google_sign_in: ^6.2.1
   firebase_core: ^3.3.0

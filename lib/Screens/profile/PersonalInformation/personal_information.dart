@@ -18,11 +18,11 @@ class PersonalInformation extends StatelessWidget {
     TextEditingController names = TextEditingController();
     TextEditingController phone = TextEditingController();
     TextEditingController email = TextEditingController();
-    final _userDetails = Get.find<UserInfoController>();
+    final userDetails = Get.find<UserInfoController>();
     names.text =
-        '${_userDetails.first_name.value} ${_userDetails.last_name.value}';
-    phone.text = _userDetails.phone.value;
-    email.text = _userDetails.email.value;
+        '${userDetails.first_name.value} ${userDetails.last_name.value}';
+    phone.text = userDetails.phone.value;
+    email.text = userDetails.email.value;
     final ontapEffectController = Get.put(OnTapEffect());
     return Scaffold(
       body: Obx(
@@ -72,7 +72,7 @@ class PersonalInformation extends StatelessWidget {
                             controller: names,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Names',
+                              labelText: 'Firstname, Lastname',
                             ),
                             onChanged: (String name) {},
                           )
