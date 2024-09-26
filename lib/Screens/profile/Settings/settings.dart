@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/profile/Settings/AccountSecurity/account_security.dart';
 import 'package:shapmanpaypoint/Screens/profile/Settings/Deactivate/deactivate_delete_account.dart';
+import 'package:shapmanpaypoint/Screens/profile/Settings/Notification/notification.dart';
 import 'package:shapmanpaypoint/utils/width.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -56,7 +57,7 @@ class SettingsPage extends StatelessWidget {
                             Text(
                               'Account Security',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                                  fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             Text(
                               'Reset Password, Biometrics',
@@ -68,9 +69,11 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(const NotificationScreen());
+                  },
                   child: const Row(
                     children: [
                       Icon(
@@ -78,7 +81,7 @@ class SettingsPage extends StatelessWidget {
                         color: Colors.black,
                         size: 40,
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +89,7 @@ class SettingsPage extends StatelessWidget {
                             Text(
                               'Notification',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                                  fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             Text(
                               'Push, Email Notification',
@@ -98,7 +101,7 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 TextButton(
                   onPressed: () {
                     Get.to(const DeactivateDeleteAccount());
@@ -110,13 +113,7 @@ class SettingsPage extends StatelessWidget {
                         color: Colors.black,
                         size: 40,
                       ),
-                      // Image.asset(
-                      //   'lib/assets/edit.png',
-                      //   width: 40,
-                      //   color: const Color(0xff0a2417).withOpacity(0.9),
-                      //   colorBlendMode: BlendMode.modulate,
-                      // ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +121,7 @@ class SettingsPage extends StatelessWidget {
                             Text(
                               'Deactivate/Delete Account',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                                  fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             Text(
                               'Account Deactivation, Account Deletion',

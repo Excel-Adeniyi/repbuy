@@ -65,10 +65,10 @@ class SignUpOTP {
       };
       editcontroller.isLoading.value = true;
       final response =
-          await dio.post("/otpverify", options: Options(), data: payload);
+          await dio.post("/otp/verify", options: Options(), data: payload);
       final responseData = response.data;
       print(responseData);
-      if (responseData['success'] == true) {
+      if (responseData['Success'] == true) {
         Get.snackbar(
           "Success", response.data['message'].toString(),
           backgroundColor: Colors.purple,

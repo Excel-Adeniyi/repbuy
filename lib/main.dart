@@ -5,8 +5,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shapmanpaypoint/Middleware/auth_middleware.dart';
-import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
 import 'package:shapmanpaypoint/controller/RealTimeServiceController/push_notification_controller.dart';
+import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
 import 'package:shapmanpaypoint/routes/routes.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
     Get.put(AuthMiddleWare());
     return SafeArea(
       child: GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'NEXTTELLAR',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: "Poppin",
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
           //
           // This works for code too, not just values: Most code changes can be
           // tested with just a hot reload.
-      
+
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 12, 24, 10),
               background: Colors.white),

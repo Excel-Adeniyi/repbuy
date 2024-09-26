@@ -1,20 +1,33 @@
 plugins {
-    id 'com.google.gms.google-services' version '4.4.1' apply false // Add this line
+    id 'com.google.gms.google-services' version '4.3.15' apply false
 }
+
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
 }
-rootProject.buildDir = '../build'
-subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
+
+configurations.configureEach {
+    resolutionStrategy {
+        force 'androidx.core:core-ktx:1.6.0'
+    }
 }
+// Set custom build directory for the root project
+rootProject.ext.customBuildDir = file('../build')
+
 subprojects {
-    project.evaluationDependsOn(':app')
+    // Configure the build directory for each subproject
+    buildDir = "${rootProject.ext.customBuildDir}/${project.name}"
 }
 
+// Ensure that the ':app' module is evaluated before other subprojects
+subprojects {
+    evaluationDependsOn(':app')
+}
+
+// Register a clean task to delete the custom build directory
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+    delete rootProject.ext.customBuildDir
 }
