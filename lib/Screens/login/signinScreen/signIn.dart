@@ -143,7 +143,7 @@ class SignIn extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              "New to Next Paypoint?",
+                              "New to REPBUY?",
                               style: TextStyle(
                                   color: Color.fromARGB(255, 12, 24, 10)),
                             ),

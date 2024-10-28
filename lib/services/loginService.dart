@@ -60,7 +60,7 @@ class SigninService {
         final jwt = JWT.verify(stringDecode, SecretKey(jws));
         print(jwt.payload);
         print(jwt.payload["first_name"]);
-        print(jwt.payload["last_mame"]);
+        print(jwt.payload["verified"]);
         _userController.first_name.value = jwt.payload["first_name"];
         _userController.last_name.value = jwt.payload["last_mame"];
         _userController.email.value = jwt.payload["email"];

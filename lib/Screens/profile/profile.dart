@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text('Next Paypoint profile gives you the freedom to'),
+                const Text('REPBUY profile gives you the freedom to'),
                 const Text('manage your account information.'),
                 const SizedBox(
                   height: 10,
@@ -247,7 +247,7 @@ class ProfileScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
-                            Text('Help or contact Next Paypoint')
+                            Text('Help or contact REPBUY')
                           ],
                         ),
                       )

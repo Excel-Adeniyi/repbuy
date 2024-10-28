@@ -21,7 +21,7 @@ class SignUpController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxBool isCreated = false.obs;
   final TextEditingController pincontroller = TextEditingController();
-  final masterController = Get.find<MasterController>();
+  final masterController = Get.put(MasterController());
   void onChangedValue() {
     masterController.signupIsActive.value = true;
     print(terms.value);

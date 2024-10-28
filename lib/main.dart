@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
     Get.put(AuthMiddleWare());
     return SafeArea(
       child: GetMaterialApp(
-        title: 'NEXTTELLAR',
+        title: 'REPBUY',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: "Poppin",

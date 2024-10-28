@@ -55,7 +55,7 @@ class PersonalInformation extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      'Nexttellar gives you the freedom to manage your account information',
+                      'REPBUY gives you the freedom to manage your account information',
                       overflow: TextOverflow.clip,
                     ),
                     const SizedBox(

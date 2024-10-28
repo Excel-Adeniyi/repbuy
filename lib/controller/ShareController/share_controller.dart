@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -8,8 +9,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ShareController extends GetxController {
- 
-
   Future<void> captureandImage(GlobalKey shareglobalKey) async {
     try {
       RenderRepaintBoundary? boundary = shareglobalKey.currentContext
@@ -28,12 +27,11 @@ class ShareController extends GetxController {
 
           await Share.shareXFiles([XFile(imageFile.path)],
               subject: "download app on playstore",
-              text: 'Perform seemless transactions on NEXTELLAR');
+              text: 'Perform seemless transactions on REPBUY');
         }
       }
     } catch (error) {
       print('Error capturing screen: $error');
     }
   }
-
 }
