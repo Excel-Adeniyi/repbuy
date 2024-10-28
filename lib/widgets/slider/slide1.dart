@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:shapmanpaypoint/controller/Animation/onboarding_animation_controller.dart';
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 
-
 class Slide1 extends StatelessWidget {
   const Slide1({super.key});
 
@@ -40,7 +39,7 @@ class Slide2 extends StatelessWidget {
           gradient: LinearGradient(
             stops: controller.animation.value > 0.5
                 ? [controller.animation.value, 0.9, 0.95, 0.97]
-                : [0.5, 0.1, 0.05, - controller.animation.value],
+                : [0.5, 0.1, 0.05, -controller.animation.value],
             colors: backgroundgradient,
             begin: Alignment.topLeft,
             end: Alignment.bottomCenter,
@@ -69,7 +68,7 @@ class Slide2 extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
-                  'Pay all your bills at once, without leaving your home with Next PayPoint comprehensive range of services',
+                  'Pay all your bills at once, without leaving your home with REPBUY comprehensive range of services',
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -99,7 +98,7 @@ class Slide3 extends StatelessWidget {
           stops: controller.animation.value > 0.5
               ? [0.9 - controller.animation.value, 0.2, 0.9]
               : [0.9, 0.2, 0.5 - controller.animation.value],
-          colors: bgggradient,// Specify your gradient colors here
+          colors: bgggradient, // Specify your gradient colors here
           begin: Alignment.topLeft,
           end: Alignment.bottomCenter,
           tileMode: TileMode.clamp, // Set the tile mode

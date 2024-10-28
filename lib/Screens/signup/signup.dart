@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Screens/login/signinScreen/signIn.dart';
-import 'package:shapmanpaypoint/services/SignupService/signup_service.dart';
-import 'package:string_validator/string_validator.dart';
 import 'package:shapmanpaypoint/controller/Auth/signup_controller.dart';
 import 'package:shapmanpaypoint/controller/dropdownController.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
+import 'package:shapmanpaypoint/services/SignupService/signup_service.dart';
 import 'package:shapmanpaypoint/utils/countries/countries.dart';
 import 'package:shapmanpaypoint/utils/responsiveness/responsiveness.dart';
+import 'package:string_validator/string_validator.dart';
 
 import '../../utils/colors/coloors.dart';
 
@@ -500,7 +500,7 @@ class SignupScreen extends StatelessWidget {
                                                 text:
                                                     'By submitting this form you accept'),
                                             TextSpan(
-                                                text: ' Next paypoint',
+                                                text: ' REPBUY',
                                                 style: TextStyle(
                                                     color: Color.fromARGB(
                                                         255, 16, 59, 15))),
@@ -513,7 +513,7 @@ class SignupScreen extends StatelessWidget {
                                               text: ' And Allow',
                                             ),
                                             TextSpan(
-                                                text: ' Next paypoint',
+                                                text: 'REPBUY',
                                                 style: TextStyle(
                                                     color: Color.fromARGB(
                                                         255, 16, 59, 15))),

@@ -35,7 +35,7 @@ class ResetPassword extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     const Text(
-                      'Nexttellar profile gives you the freedom to manage your account information',
+                      'REPBUY profile gives you the freedom to manage your account information',
                       overflow: TextOverflow.clip,
                     ),
                     const SizedBox(
