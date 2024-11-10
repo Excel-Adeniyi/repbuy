@@ -9,10 +9,10 @@ A new Flutter project.
 
 
 Includes:
-# Getx 
-# flutter_Paystack
-# websocket
-# freezes and others
-# api integration from backend
+## Getx 
+## flutter_Paystack
+## websocket
+## freezes and others
+## api integration from backend
 
 configure other credentials yourself
