@@ -34,7 +34,7 @@ class SignIn extends StatelessWidget {
         indicatorWidget: SizedBox(
             width: 100,
             height: 100,
-            child: FittedBox(child: Image.asset("lib/assets/NEXTELLAR1c.png"))),
+            child: FittedBox(child: Image.asset("lib/assets/3.png"))),
         child: GestureDetector(
           onTap: () {
             _textfocusnode.unfocus();

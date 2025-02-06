@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +26,7 @@ class GiftCardController extends GetxController {
   final RxString recipientCountryCode = "".obs;
   final phoneNumberValidated = false.obs;
   final emailValidated = false.obs;
+  RxBool giftCardListLoading = false.obs;
   final countryCodeValidated = false.obs;
   RxString ntransactionId = "".obs;
 
@@ -58,30 +60,33 @@ class GiftCardController extends GetxController {
     return false;
   }
 
-  // print(giftCardController.currentSttep(0));
+  //GENERATE Image for giftcard carousel
   Future<void> loadImages() async {
     try {
       String jsonString =
           await rootBundle.loadString('lib/utils/jsons/images.json');
-      // print(jsonString);
       Map<String, dynamic> jsonList = json.decode(jsonString);
       List imagesList = (jsonList["images"] as List<dynamic>).toList();
       cardImages.assignAll(imagesList);
-      // print(countryList);
     } catch (e) {
       print('Error loading countries: $e');
     }
   }
 
+  //GET current card for a particular country
   void giftCardLister(Map<dynamic, String> responsed) {
     giftcardList.clear();
     giftcardValue.value = '0';
+
     if (responsed.values != giftcardList.values) {
       giftcardList.addAll(responsed);
       update();
+      Future.delayed(
+          Duration(seconds: 3), () => {giftCardListLoading.value = false});
     }
   }
 
+  //THIS PROVIDES LIST OF UNIQUE GIFTCARD DETAILS
   void uniqueGiftCard(dynamic responseData) {
     productName.value = '';
     productId.value = 0;
@@ -113,6 +118,7 @@ class GiftCardController extends GetxController {
     }
   }
 
+  // THIS IS USE FOR GIFT CARD QUANTITY DECREMENT
   void decrementQuantity() {
     var quantityInt = int.parse(giftcardQuantity.value);
     if (quantityInt > 0) {
@@ -124,6 +130,7 @@ class GiftCardController extends GetxController {
     }
   }
 
+  // THIS IS USE FOR GIFT CARD QUANTITY INCREMENT
   void incrementQuantity() {
     var quantityInt = int.parse(giftcardQuantity.value);
     print(quantityInt);
@@ -148,6 +155,7 @@ class GiftCardController extends GetxController {
     }
   }
 
+  //Calculate current price of giftcard multiplied by quantity selected
   void calculateTotalPrice() {
     var unitPrice = num.parse(giftCardPriceValue.value);
     var quantity = num.parse(giftcardQuantity.value);
@@ -162,6 +170,7 @@ class GiftCardController extends GetxController {
     }
   }
 
+  //DOES COMMISSION CONVERSION TO STRING AND ADD PLATFORM CHARGES
   void commissionCalculator() {
     if (totalPrices.value.isNotEmpty) {
       var totalPriceNum = num.parse(totalPrices.value);
@@ -173,6 +182,7 @@ class GiftCardController extends GetxController {
     }
   }
 
+  //DOES THE ADDITION OF TOTAL COMMISSION + INITIAL PRICE
   void totalPrice() {
     if (commissionPrice.value.isNotEmpty && initialPrice.value.isNotEmpty) {
       var commissionNum = num.parse(giftcardCommission.value);
@@ -185,6 +195,7 @@ class GiftCardController extends GetxController {
     }
   }
 
+  //VALIDATES PHONE NUMBER
   void phoneValidator(String newValue) {
     phoneNumberValidated.value = false;
     if (!newValue.isPhoneNumber && newValue.length < 9) {
@@ -195,6 +206,7 @@ class GiftCardController extends GetxController {
     phoneNumberValidated.value = true;
   }
 
+  //VALIDATES EMAIL
   void emailValidator(String newValue) {
     emailValidated.value = false;
     if (newValue.isEmail && newValue.isNotEmpty) {
@@ -204,6 +216,7 @@ class GiftCardController extends GetxController {
     }
   }
 
+  //VALIDATES COUNTRY CODE
   void countryCodeValidator(String newValue) {
     countryCodeValidated.value = false;
     if (!newValue.isAlphabetOnly && newValue.length > 3 && newValue.isEmpty) {
