@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shapmanpaypoint/Screens/serviceScreen/component/giftcard/gift_card.dart';
+import 'package:shapmanpaypoint/Screens/Dashboard/Header/header.dart';
+import 'package:shapmanpaypoint/controller/Jsonloader_controller/jsonloader_controller.dart';
 import 'package:shapmanpaypoint/controller/RealTimeServiceController/websocket/utility_status.dart';
 import 'package:shapmanpaypoint/controller/TransactionList/transaction_list_and_balance_controller.dart';
-import 'package:shapmanpaypoint/controller/tabcontroller.dart';
 import 'package:shapmanpaypoint/services/GiftCard/giftcard_auth.dart';
-import '../../Header/header.dart';
+
+import '../../../../controller/tabcontroller.dart';
 
 class DashboardTab extends StatelessWidget {
   final double containerWidth;
@@ -14,244 +15,84 @@ class DashboardTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TabbController control = Get.put(TabbController());
+    final tabbController = Get.put(TabbController());
+    final buttonsController = Get.put(ScreenButtonsController());
+    print('DATA VALUES ${buttonsController.data}');
     Get.put(UtilityStatusSocket());
-
-    final TransactionListController transactionController =
-        Get.put(TransactionListController());
+    final transactionController = Get.find<TransactionListController>();
     final authService = GiftCardAuth();
+
     return SafeArea(
       child: RefreshIndicator(
         onRefresh: transactionController.fetchTransactionList,
-        child: Column(
-          children: [
-            DashboardHeader(),
-            Column(
+        child: Obx(
+          () => SingleChildScrollView(
+            child: Column(
               children: [
+                DashboardHeader(),
                 SizedBox(
-                  width: containerWidth,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                          width: 130,
-                          padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 0.6, color: const Color(0xff0a2417)),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: TextButton(
-                            onPressed: () {
-                              Get.toNamed('recharge',
-                                  arguments: 'Airtime Top up');
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Airtime',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.black),
-                                ),
-                                Image.asset(
-                                  'lib/assets/calling.png',
-                                  width: 40,
-                                  color:
-                                      const Color(0xff0a2417).withOpacity(0.9),
-                                  colorBlendMode: BlendMode.modulate,
-                                )
-                              ],
-                            ),
-                          )),
-                      Container(
-                        width: 130,
-                        padding: const EdgeInsets.all(1),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 0.6, color: const Color(0xff0a2417)),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: TextButton(
-                          onPressed: () {
-                            Get.toNamed('data');
-                          },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Data Plan',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
-                              ),
-                              Image.asset(
-                                'lib/assets/signal.png',
-                                width: 40,
-                                color: const Color(0xff0a2417).withOpacity(0.9),
-                                colorBlendMode: BlendMode.modulate,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: containerWidth,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                          width: 130,
-                          padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 0.6, color: const Color(0xff0a2417)),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: TextButton(
-                            onPressed: () {
-                              Get.toNamed('/utility');
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Electricity',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.black),
-                                ),
-                                Image.asset(
-                                  'lib/assets/electricity.png',
-                                  width: 40,
-                                  color:
-                                      const Color(0xff0a2417).withOpacity(0.9),
-                                  colorBlendMode: BlendMode.modulate,
-                                )
-                              ],
-                            ),
-                          )),
-                      Container(
-                        width: 130,
-                        padding: const EdgeInsets.all(1),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 0.6, color: const Color(0xff0a2417)),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: TextButton(
-                          onPressed: () {
-                            Get.to(GiftCard());
-                            authService.auth();
-                          },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Gift Card',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
-                              ),
-                              Image.asset(
-                                'lib/assets/gift-card.png',
-                                width: 40,
-                                color: const Color(0xff0a2417).withOpacity(0.9),
-                                colorBlendMode: BlendMode.modulate,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: containerWidth,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                          width: 130,
-                          padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 0.6, color: const Color(0xff0a2417)),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Cable Tv',
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.black),
-                                ),
-                                Image.asset(
-                                  'lib/assets/tv-box.png',
-                                  width: 40,
-                                  color:
-                                      const Color(0xff0a2417).withOpacity(0.9),
-                                  colorBlendMode: BlendMode.modulate,
-                                )
-                              ],
-                            ),
-                          )),
-                      Container(
-                        width: 130,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  child: GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 1.6),
+                    itemCount: buttonsController.data.length,
+                    itemBuilder: (context, index) {
+                      final item = buttonsController.data[index];
+                      print('PRINT ITEM $item');
+                      return Container(
                         padding: const EdgeInsets.all(1),
                         decoration: BoxDecoration(
                           border: Border.all(
-                              width: 0.6, color: const Color(0xff0a2417)),
+                            width: 0.6,
+                            color: const Color(0xff0a2417),
+                          ),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: TextButton(
                           onPressed: () {
-                            control.selectedTab.value = 1;
+                            if (item['name'] == 'Gift Card') {
+                              print('GIFTCARD');
+                              authService.auth();
+                            }
+                            Get.toNamed(item['page_route'],
+                                arguments: item['argument']);
                           },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const Text(
-                                'More',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Color.fromARGB(255, 0, 0, 0)),
+                              Text(
+                                item['name'],
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.black),
+                                textAlign: TextAlign.center,
                               ),
                               Image.asset(
-                                'lib/assets/menu.png',
-                                width: 40,
+                                item['image_url'],
+                                width: 20,
+                                height: 20,
                                 color: const Color(0xff0a2417).withOpacity(0.9),
                                 colorBlendMode: BlendMode.modulate,
-                              )
+                              ),
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 SizedBox(
                   width: containerWidth,
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Text('Recent Activities'),
-                      Expanded(child: Divider())
+                      const Text('Recent Activities',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      const Expanded(child: Divider()),
                     ],
                   ),
                 ),
@@ -264,80 +105,73 @@ class DashboardTab extends StatelessWidget {
                       child: const Card(
                         elevation: 8.0,
                         child: Center(
-                            child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.cloud,
-                                color: Colors.black54,
-                              ),
-                              Text("No recent activity has be done."),
-                            ],
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.cloud, color: Colors.black54),
+                                SizedBox(height: 8),
+                                Text("No recent activity has been done."),
+                              ],
+                            ),
                           ),
-                        )),
-                      ),
-                    );
-                  } else {
-                    return SizedBox(
-                      height: 200,
-                      width: containerWidth,
-                      child: ListView.separated(
-                        itemCount: 10,
-                        itemBuilder: (BuildContext context, index) {
-                          final transaction = transactions[index];
-                          final dateTime =
-                              DateTime.parse(transaction.updated_at).toLocal();
-                          final localTime = dateTime.toString();
-                          return ListTile(
-                            title: Text(transaction.purchase_type,
-                                style: const TextStyle(
-                                    color: Colors.black54, fontSize: 12)),
-                            subtitle: Text(
-                              localTime,
-                              style: const TextStyle(
-                                  color: Colors.black54, fontSize: 12),
-                            ),
-                            trailing: Text(
-                              transaction.amount,
-                              style: TextStyle(
-                                  color: transaction.success == 0 &&
-                                          transaction.purchase_type !=
-                                              "successful" &&
-                                          transaction.purchase_type !=
-                                              "Electric"
-                                      ? Colors.red
-                                      : transaction.success == 0 &&
-                                              transaction.purchase_type !=
-                                                  "successful" &&
-                                              transaction.purchase_type ==
-                                                  "Electric"
-                                          ? Colors.yellow[700]
-                                          : transaction.success == 1 &&
-                                                  transaction.status ==
-                                                      "successful"
-                                              ? Colors.green[700]
-                                              : Colors.red),
-                            ),
-                            onTap: () {
-                              if (transaction.purchase_type == "Electric") {
-                                Get.toNamed('/singlePurchase',
-                                    arguments: transaction);
-                              }
-                            },
-                          );
-                        },
-                        separatorBuilder: (context, index) => const Divider(),
+                        ),
                       ),
                     );
                   }
+
+                  return SizedBox(
+                    height: 200,
+                    width: containerWidth,
+                    child: ListView.separated(
+                      itemCount: transactions.length,
+                      itemBuilder: (context, index) {
+                        final transaction = transactions[index];
+                        final dateTime =
+                            DateTime.parse(transaction.updated_at).toLocal();
+                        final localTime = dateTime.toString();
+                        final amountColor = (transaction.success == 0 &&
+                                transaction.purchase_type != "successful")
+                            ? (transaction.purchase_type == "Electric"
+                                ? Colors.yellow[700]
+                                : Colors.red)
+                            : (transaction.success == 1 &&
+                                    transaction.status == "successful"
+                                ? Colors.green[700]
+                                : Colors.red);
+
+                        return ListTile(
+                          title: Text(
+                            transaction.purchase_type,
+                            style: const TextStyle(
+                                color: Colors.black54, fontSize: 12),
+                          ),
+                          subtitle: Text(
+                            localTime,
+                            style: const TextStyle(
+                                color: Colors.black54, fontSize: 12),
+                          ),
+                          trailing: Text(
+                            transaction.amount,
+                            style: TextStyle(color: amountColor),
+                          ),
+                          onTap: () {
+                            if (transaction.purchase_type == "Electric") {
+                              Get.toNamed('/singlePurchase',
+                                  arguments: transaction);
+                            }
+                          },
+                        );
+                      },
+                      separatorBuilder: (context, index) => const Divider(),
+                    ),
+                  );
                 }),
-                const SizedBox(
-                  height: 10,
-                )
+                const SizedBox(height: 10),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

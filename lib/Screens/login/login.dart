@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset(
-                    'lib/assets/NEXTELLAR1a.png',
+                    'lib/assets/3.png',
                     width: 200,
                     height: 100,
                   ),

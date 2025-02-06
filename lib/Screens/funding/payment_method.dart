@@ -56,7 +56,7 @@ class PaymentMethod extends StatelessWidget {
                       ),
                     ),
                     Image.asset(
-                      'lib/assets/NEXTELLAR1c.png',
+                      'lib/assets/3.png',
                       width: 60,
                       height: 60,
                     ),

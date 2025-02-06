@@ -11,8 +11,7 @@ class GiftCardQuantity extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(5)),
-          border: Border.all(
-              width: 1.0, color: const Color(0xff0a2417))),
+          border: Border.all(width: 1.0, color: const Color(0xff0a2417))),
       height: 65,
       width: double.infinity,
       child: Obx(() {
@@ -24,7 +23,6 @@ class GiftCardQuantity extends StatelessWidget {
           keyboardType: TextInputType.number,
           style: const TextStyle(),
           readOnly: true,
-          
           textAlign: TextAlign.center,
           decoration: InputDecoration(
             prefixIcon: IconButton(
@@ -37,7 +35,6 @@ class GiftCardQuantity extends StatelessWidget {
                 icon: const Icon(Icons.remove)),
             suffixIcon: IconButton(
                 onPressed: () {
-                  
                   giftCardController.incrementQuantity();
                   giftCardController.calculateTotalPrice();
                   giftCardController.commissionCalculator();
@@ -49,12 +46,10 @@ class GiftCardQuantity extends StatelessWidget {
             ),
             labelStyle: const TextStyle(color: Colors.black45),
             errorBorder: const OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Color(0xfffcdc2a))),
-            labelText: 'Quantity',
+                borderSide: BorderSide(color: Color(0xfffcdc2a))),
+
             // error: utilityController.showError(),
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff0a2417))),
+            border: const OutlineInputBorder(borderSide: BorderSide.none),
           ),
           onChanged: (dynamic amountValue) {
             // utilityController.amountValidator(amountValue);

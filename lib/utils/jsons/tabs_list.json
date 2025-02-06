@@ -1,0 +1,39 @@
+[
+  {
+    "name": "Gift Card",
+    "image_url": "lib/assets/gift-card.png",
+    "page_route": "giftcard",
+    "argument": ""
+  },
+  {
+    "name": "Airtime",
+    "image_url": "lib/assets/calling.png",
+    "page_route": "recharge",
+    "argument": "Airtime Top up"
+  },
+  {
+  "name": "Data Plan",
+  "image_url": "lib/assets/signal.png",
+  "page_route": "data",
+  "argument": ""
+},
+  {
+  "name": "Electricity",
+  "image_url": "lib/assets/electricity.png",
+  "page_route": "utility",
+  "argument": ""
+},
+
+  {
+    "name": "Cable",
+    "image_url": "lib/assets/tv-box.png",
+    "page_route": "recharge",
+    "argument": "Airtime Top up"
+  },
+  {
+    "name": "More",
+    "image_url": "lib/assets/menu.png",
+    "page_route": "",
+    "argument": ""
+  }
+]

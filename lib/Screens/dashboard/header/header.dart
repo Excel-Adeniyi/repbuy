@@ -8,7 +8,6 @@ import 'package:shapmanpaypoint/controller/UserInfo/user_avatar.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/controller/master_controller/master_controller.dart';
 import 'package:shapmanpaypoint/controller/passwordtoggle.dart';
-
 import 'package:shapmanpaypoint/utils/colors/coloors.dart';
 // import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 
@@ -65,10 +64,11 @@ class DashboardHeader extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Image.asset(
-                    'lib/assets/NEXTELLAR1c.png',
-                    width: 60,
-                    height: 60,
+                  Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(100)),
+                    child:
+                        Image.asset('lib/assets/3.png', width: 60, height: 60),
                   ),
                 ],
               ),

@@ -14,7 +14,7 @@ class Slide1 extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Image.asset(
-          'lib/assets/NEXTELLAR1a.png',
+          'lib/assets/3.png',
           width: 250,
         ),
       ),
