@@ -123,20 +123,21 @@ class GiftCardPrice extends StatelessWidget {
               child: TextButton(
                 onPressed: (() => {
                       giftcardController.currentStep.value =
-                          giftcardController.currentStep.value + 1
+                          giftcardController.currentStep.value - 1
                     }),
                 child: Container(
                   // width: double.infinity,
                   height: 45.0,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(18.0)),
-                    gradient: LinearGradient(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0x9E838383)),
+                    borderRadius: const BorderRadius.all(Radius.circular(18.0)),
+                    gradient: const LinearGradient(
                       colors: [
-                        Color(0xfff7f6bb),
-                        Color(0xfffcdc2a),
-                        Color(0xff87a922),
-                        Color(0xff0a2417),
-                        Color.fromARGB(255, 13, 71, 42),
+                        Color(0xfffbfbfb),
+                        Color(0xfffbfbfb),
+                        Color(0xffbab8b8),
+                        Color(0xff858484),
+                        Color.fromARGB(255, 67, 69, 68),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -146,46 +147,86 @@ class GiftCardPrice extends StatelessWidget {
                   child: const Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'Next',
-                      style: TextStyle(color: Colors.white),
+                      'Back',
+                      style: TextStyle(color: Colors.black),
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ),
               ),
             ),
-            Flexible(
-              child: TextButton(
-                onPressed: (() => {
-                      giftcardController.currentStep.value =
-                          giftcardController.currentStep.value + 1
-                    }),
-                child: Container(
-                  // width: double.infinity,
-                  height: 45.0,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(18.0)),
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xfff7f6bb),
-                        Color(0xfffcdc2a),
-                        Color(0xff87a922),
-                        Color(0xff0a2417),
-                        Color.fromARGB(255, 13, 71, 42),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      transform: GradientRotation(120),
+            Obx(
+              () => Flexible(
+                child: Stack(
+                  children: [
+                    TextButton(
+                      onPressed: (() => {
+                            giftcardController.currentStep.value =
+                                giftcardController.currentStep.value + 1
+                          }),
+                      child: Container(
+                        // width: double.infinity,
+                        height: 45.0,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xfff7f6bb),
+                              Color(0xfffcdc2a),
+                              Color(0xff87a922),
+                              Color(0xff0a2417),
+                              Color.fromARGB(255, 13, 71, 42),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            transform: GradientRotation(120),
+                          ),
+                        ),
+                        child: const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Next',
+                            style: TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  child: const Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Prev',
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                    giftcardController.giftcardPriceKey.value == '0.00' ||
+                            giftcardController.giftcardQuantity.value == '0'
+                        ? TextButton(
+                            onPressed: (() => {}),
+                            child: Container(
+                              // width: double.infinity,
+                              height: 45.0,
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(18.0)),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0x6fededed),
+                                    Color(0x5ef3f2ed),
+                                    Color(0x71ebece8),
+                                    Color(0xff0a2417),
+                                    Color.fromARGB(105, 225, 228, 227),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  transform: GradientRotation(120),
+                                ),
+                              ),
+                              child: const Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Next',
+                                  style: TextStyle(color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox.shrink(),
+                  ],
                 ),
               ),
             ),

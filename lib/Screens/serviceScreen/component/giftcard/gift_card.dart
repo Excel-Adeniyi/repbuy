@@ -60,6 +60,41 @@ class GiftCard extends StatelessWidget {
               ),
               Text(normalString),
               const SizedBox(height: 10),
+              TextButton(
+                onPressed: (() => {
+                      giftCardController.currentStep.value =
+                          giftCardController.currentStep.value - 1
+                    }),
+                child: Container(
+                  // width: double.infinity,
+                  height: 45.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0x9E838383)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xfffbfbfb),
+                        Color(0xfffbfbfb),
+                        Color(0xffbab8b8),
+                        Color(0xff858484),
+                        Color.fromARGB(255, 67, 69, 68),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      transform: GradientRotation(120),
+                    ),
+                  ),
+                  child: const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Back',
+                      style: TextStyle(color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
               const UniversalButton(
                 route: "/giftcardpaymentreview",
                 buttonText: "Continue",
