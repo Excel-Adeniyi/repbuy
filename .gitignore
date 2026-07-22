@@ -1,4 +1,5 @@
 node_modules
 dist
-session.db
-xtoken.db.env
+.env
+*.db
+*firebase-adminsdk*.json
