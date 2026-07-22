@@ -44,3 +44,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Generated Envied secrets — never commit
+lib/assets/envied/env.g.dart
