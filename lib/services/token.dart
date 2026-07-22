@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:shapmanpaypoint/assets/envied/env.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
 import 'package:shapmanpaypoint/utils/flutter_storage/flutter_storage.dart';
 
@@ -11,14 +10,11 @@ class CsrfService {
   );
   final Dio dio = Dio(options);
   final SecureStorage stora = SecureStorage();
-  final csptoken = Env.cspkey;
   Future<Response<dynamic>> get() async {
 // Obtain shared preferences.
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
-      print("TOKEN: $csptoken");
-      final payload = {'csptoken': csptoken};
-      final response = await dio.post('/ctoken', data: payload);
+      final response = await dio.post('/ctoken', data: {});
       // print(options);
       // print("HELLO ${response.data['success']}");
       // final List<dynamic> resData = [];

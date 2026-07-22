@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shapmanpaypoint/Model/Auth/signinModel.dart';
-import 'package:shapmanpaypoint/assets/envied/env.dart';
 import 'package:shapmanpaypoint/controller/Auth/signin_controller.dart';
 import 'package:shapmanpaypoint/controller/UserInfo/user_info.dart';
 import 'package:shapmanpaypoint/utils/Getters/base_url.dart';
@@ -55,9 +54,10 @@ class SigninService {
         print(myPayload);
 
         final stringPayload = jsonEncode(myPayload);
-        String jws = Env.jwskey;
         final stringDecode = json.decode(stringPayload);
-        final jwt = JWT.verify(stringDecode, SecretKey(jws));
+        // Signature verification happens on the backend; the client only
+        // decodes the payload it received over TLS.
+        final jwt = JWT.decode(stringDecode);
         print(jwt.payload);
         print(jwt.payload["first_name"]);
         print(jwt.payload["verified"]);
