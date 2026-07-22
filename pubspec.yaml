@@ -109,8 +109,6 @@ flutter:
     - lib/utils/jsons/utility.json
     - lib/utils/jsons/images.json
     - lib/utils/jsons/bank_list.json
-    - lib/assets/env/.env.dev
-    - lib/assets/env/.env.prod
     - lib/utils/jsons/tabs_list.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
