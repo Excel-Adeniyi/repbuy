@@ -1,4 +1,4 @@
 node_modules
 dist
 session.db
-xtoken.db
+xtoken.db.env
