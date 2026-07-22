@@ -2,6 +2,8 @@
 
 A fintech platform for paying bills and buying digital products. Users can fund a wallet and purchase airtime, data bundles, electricity tokens, and gift cards, with real-time transaction updates.
 
+> **⚠️ Portfolio project:** REPBUY runs against Paystack and Reloadly **sandbox/test environments** and must not be used for real financial transactions.
+
 The repository holds both halves of the product on separate branches:
 
 | Branch | What it contains |
@@ -74,15 +76,14 @@ flutter pub get
 
 #### 2. Configure environment variables
 
-The app reads secrets at build time via [Envied](https://pub.dev/packages/envied) from `lib/assets/env/.env.dev` (and `.env.prod`). Create the file with:
+The app reads build-time config via [Envied](https://pub.dev/packages/envied) from `lib/assets/env/.env.dev`. Create the file with:
 
 ```env
-secret_key=...      # Paystack secret key
-public_key=...      # Paystack public key
+public_key=...      # Paystack public key (test mode)
 baseurl_dev=...     # Backend API base URL
-csp_key=...
-jws_key=...         # JWT signing key
 ```
+
+> **Note:** the generated `Env` class currently also declares `secret_key`, `csp_key`, and `jws_key` fields, so code generation needs placeholder values for them. Real secrets (the Paystack secret key, the JWT signing key) belong on the **backend only** — never put live values in a client env file. Removing these fields from the client entirely is planned.
 
 #### 3. Run code generation
 
